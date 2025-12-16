@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en" data-schema="planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>All-Inclusive Personal Survival + Food & Water Sovereignty + Safe Community Care | PRA</title>
+  <meta name="description" content="Ultra long-form, production-ready, online-first survival manual with IndexedDB fallback: shelter, fire, water, food, safe first aid & community care, inventory, field journaling. Optional Habitica sync + WebLLM advisor. Photorealistic starfield. Zero-harm." />
+  <meta name="keywords" content="survival, water sovereignty, food sovereignty, first aid, community care, offline-first, IndexedDB, PWA, Habitica, WebLLM, PRA" />
+  <meta name="theme-color" content="#0b1220" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="All-Inclusive Personal Survival + Sovereignty | PRA"/>
+  <meta property="og:description" content="Standalone, online-first guide with offline fallback. Tools, food, water, first aid, inventory & missions."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAB..."/>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"CreativeWork",
+    "name":"All-Inclusive Survival + Food & Water Sovereignty + Safe Community Care",
+    "inLanguage":"en",
+    "genre":"planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid",
+    "keywords":["survival","water","food","first aid","offline-first","PWA","IndexedDB","Habitica","WebLLM"],
+    "isAccessibleForFree":true,
+    "license":"https://creativecommons.org/licenses/by-sa/4.0/",
+    "audience":{"@type":"Audience","audienceType":"Public, Stewards, Community Leaders"}
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#030814; --ink:#e8f0ff; --muted:#9bb0c9; --accent:#66e1ff; --accent2:#8bffb0;
+      --card:#0b1220; --glass:rgba(13,22,40,.6); --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35), inset 0 0 .5px rgba(255,255,255,.08);
+      --ok:#9bffb8; --warn:#ffd366; --danger:#ff7b7b;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+    a{color:var(--accent)} a:hover{color:var(--accent2)}
+    #starfield{position:fixed;inset:0;z-index:-2;background:#000}
+    #space-glow{position:fixed;inset:-12%;z-index:-1;background:
+      radial-gradient(60% 40% at 20% 20%, rgba(64,121,255,.12), transparent 60%),
+      radial-gradient(40% 30% at 80% 30%, rgba(255,0,128,.10), transparent 60%),
+      radial-gradient(35% 25% at 50% 75%, rgba(0,255,204,.08), transparent 60%);
+      filter: blur(36px); pointer-events:none}
+    header.nav{position:sticky;top:0;z-index:12;background:linear-gradient(180deg, rgba(4,8,20,.75), rgba(4,8,20,.35));backdrop-filter: blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
+    .wrap{max-width:1260px;margin:0 auto;padding:24px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand h1{margin:0;font-size:1.04rem;letter-spacing:.12em;text-transform:uppercase;color:#dff6ff}
+    .badge{display:inline-flex;gap:8px;align-items:center;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg, rgba(102,225,255,.12), rgba(139,255,176,.12));font-size:.78rem;color:var(--muted)}
+    .ribbon{position:fixed;left:-60px;top:22px;transform:rotate(-35deg);background:#102336;border:1px solid rgba(255,255,255,.12);color:#b9dfff;padding:8px 90px;z-index:15;box-shadow:var(--shadow)}
+    .grid{display:grid;gap:22px}
+    @media(min-width:920px){ .cols-2{grid-template-columns:1.2fr .8fr} .cols-3{grid-template-columns:repeat(3,1fr)} .cols-4{grid-template-columns:repeat(4,1fr)} }
+    .card{background:linear-gradient(180deg, rgba(13,22,40,.66), rgba(13,22,40,.42));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+    .title{margin:0 0 6px;font-size:1.2rem}
+    .muted{color:var(--muted)}
+    .list{line-height:1.68}
+    .small{font-size:.92rem}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+    .kpi{display:flex;gap:12px;flex-wrap:wrap}
+    .pill{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:.9rem}
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+    .cta button,.cta a.btn{appearance:none;border:0;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer;background:linear-gradient(135deg, rgba(102,225,255,.25), rgba(139,255,176,.20));color:#dbf9ff;box-shadow:var(--shadow)}
+    .cta button:hover,.cta a.btn:hover{transform:translateY(-1px)}
+    .section{padding:28px 0;border-top:1px solid rgba(255,255,255,.07)}
+    h2.section-title{margin:0 0 14px;font-size:1.36rem}
+    h3{margin:10px 0 8px}
+    .notice{border-left:3px solid var(--accent);padding:10px 12px;background:rgba(102,225,255,.08);border-radius:12px}
+    .ok{color:var(--ok)} .warn{color:var(--warn)} .danger{color:var(--danger)}
+    .progress{height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+    .progress>i{display:block;height:100%;background:linear-gradient(90deg,#66e1ff,#8bffb0)}
+    label{display:block;margin:10px 0 6px}
+    input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.14);background:rgba(3,8,20,.6);color:var(--ink)}
+    .row{display:grid;gap:12px}
+    @media(min-width:760px){ .row.cols-2{grid-template-columns:1fr 1fr} .row.cols-3{grid-template-columns:repeat(3,1fr)} .row.cols-4{grid-template-columns:repeat(4,1fr)} }
+    .floating-help{position:fixed;right:16px;bottom:16px;border-radius:18px;background:linear-gradient(135deg, rgba(102,225,255,.24), rgba(139,255,176,.22));border:1px solid rgba(255,255,255,.1);box-shadow:var(--shadow);padding:12px 14px;backdrop-filter: blur(8px);z-index:14}
+    .linklike{color:#bfeeff;text-decoration:underline;cursor:pointer}
+    details summary{cursor:pointer}
+  </style>
+</head>
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div id="space-glow" aria-hidden="true"></div>
+  <div class="ribbon mono small">ZERO-HARM • REGENERATIVE-ONLY • NOT A SUBSTITUTE FOR PROFESSIONAL CARE</div>
+
+  <header class="nav">
+    <div class="wrap">
+      <div class="brand">
+        <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="32" r="31" fill="url(#g)" stroke="rgba(255,255,255,.2)"/>
+          <defs><radialGradient id="g" cx="50%" cy="50%"><stop offset="0%" stop-color="#79f2ff"/><stop offset="100%" stop-color="#0b1220"/></radialGradient></defs>
+        </svg>
+        <h1>All-Inclusive Survival • Food & Water Sovereignty • Safe Community Care</h1>
+        <span class="badge">Online-first • IndexedDB fallback • PWA • Habitica • WebLLM-aware</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="grid cols-2">
+      <div class="card">
+        <h2 class="title">Mission</h2>
+        <p class="muted">A single, field-ready manual to help you stabilize a situation: shelter, fire, water, food, and safe community care. It’s online-first for fresh guidance and caches itself for offline use. Actions you log earn XP, and—if you choose—sync to Habitica for motivation.</p>
+        <div class="kpi">
+          <span class="pill">Shelter & Fire: <strong>Yes</strong></span>
+          <span class="pill">Water & Food: <strong>Integrated</strong></span>
+          <span class="pill">Care & First Aid: <strong>Priority</strong></span>
+          <span class="pill">Inventory: <strong>Built-in</strong></span>
+          <span class="pill">Offline: <strong class="ok">Ready</strong></span>
+        </div>
+        <div class="cta">
+          <button id="btnCache">Install/Update Offline</button>
+          <button id="btnAdvisor">Open Local Advisor</button>
+          <a class="btn" href="#medical">Jump to Care</a>
+          <a class="btn" href="#water">Jump to Water</a>
+          <a class="btn" href="#food">Jump to Food</a>
+        </div>
+        <p class="small muted">This guide emphasizes <em>do-no-harm</em> methods, low-risk improvisations, and when to stop and seek professional help. It avoids biochem/medical synthesis instructions that could be unsafe. Use responsibly.</p>
+      </div>
+      <div class="card">
+        <h3 class="title">Your Field Profile</h3>
+        <div class="row cols-2">
+          <div><label>Location (notes)</label><input id="locNote" placeholder="Region/nearest town/watershed"/></div>
+          <div><label>Team Size</label><input id="teamSize" type="number" min="1" value="1"/></div>
+        </div>
+        <div class="row cols-2">
+          <div><label>Habitica User</label><input id="hUser" class="mono" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"/></div>
+          <div><label>Habitica Token</label><input id="hToken" class="mono" placeholder="stored locally"/></div>
+        </div>
+        <div class="cta">
+          <button id="saveProfile">Save</button>
+          <button id="linkHabitica">Link Habitica</button>
+        </div>
+        <p class="small muted">Credentials are stored only on this device (IndexedDB). Sync is always opt-in.</p>
+      </div>
+    </section>
+
+    <!-- CORE SURVIVAL -->
+    <section class="section" id="survival">
+      <h2 class="section-title">I. Core Survival: Priorities & Checklists</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>1) Scene Safety → Airway → Breathing → Circulation</h3>
+          <ul class="list small">
+            <li>Check hazards (fire, unstable structures, water, traffic).</li>
+            <li>Call for help when possible; assign roles (caller, first aid, lookout).</li>
+            <li>Airway: head-tilt chin-lift if needed; recovery position if breathing & unconscious.</li>
+            <li>Bleeding: direct pressure, elevate if possible; improvised bandage (clean cloth).</li>
+          </ul>
+          <div class="cta"><button class="task" data-task="Run ABC check" data-notes="Scene safety → Airway → Breathing → Circulation.">Queue Habitica</button></div>
+        </div>
+        <div class="card">
+          <h3>2) The Survival Rule of 3s</h3>
+          <ul class="list small">
+            <li>3 minutes without air → protect airway.</li>
+            <li>3 hours without shelter in harsh cold/wind/wet → shelter & dry heat.</li>
+            <li>3 days without water → find/purify water.</li>
+            <li>3 weeks without food → stabilize calories & morale.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>3) Rapid Triage Pack</h3>
+          <ul class="list small">
+            <li>Gloves (or clean improvised barrier), gauze/clean cloth, tape/strips, triangular bandage.</li>
+            <li>Clean water, soap, hand sanitizer; ORS packets or sugar+salt (see Medical → ORS).</li>
+            <li>Thermal blanket; whistle; headlamp; notebook & pencil.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHELTER & FIRE -->
+    <section class="section" id="shelter">
+      <h2 class="section-title">II. Shelter & Heat (Low-Risk Builds)</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>A) Site Selection</h3>
+          <ul class="list small">
+            <li>Above flood lines; avoid lone trees/ridges in lightning; windbreak behind you.</li>
+            <li>Test ground: no ant nests, glass, sharp rocks; check dead branches overhead.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>B) Debris Lean-To (No Tools)</h3>
+          <details open><summary class="small"><strong>Steps</strong></summary>
+            <ol class="small">
+              <li>Ridgepole from sturdy branch between two trees or fork.</li>
+              <li>Lean ribs 45–60°; layer leafy/debris thatch ≥ 30–40 cm thick.</li>
+              <li>Create bed: dry leaves/grass ≥ 10 cm for insulation; keep a fist of air space.</li>
+            </ol>
+          </details>
+        </div>
+        <div class="card">
+          <h3>C) Fire (Safety-First)</h3>
+          <ul class="list small">
+            <li>Build a <em>fire pan</em> (metal tray) or stone ring; clear 2–3 m radius to mineral earth.</li>
+            <li>Tinder: dry grass, cattail fluff, <em>amadou</em> (processed bracket fungus) <em>for fire only</em>.</li>
+            <li>Kindling: pencil → thumb size; Fuel: wrist → forearm size.</li>
+            <li>Keep water/sand at hand; never leave unattended; full extinguish (cold to the touch).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- WATER SOVEREIGNTY -->
+    <section class="section" id="water">
+      <h2 class="section-title">III. Water Sovereignty (Field-Practical, Low Risk)</h2>
+      <div class="card">
+        <p class="notice small">Purify before drinking. When in doubt, <strong>boil</strong> (rolling boil ≥ 1 minute; ≥ 3 minutes at high elevations). Avoid unclear chemical improvisations that risk poisoning.</p>
+        <div class="grid cols-3">
+          <div class="card">
+            <h3>Capture & Storage</h3>
+            <ul class="list small">
+              <li>Rain: clean tarp/roof → first-flush diverter → covered container.</li>
+              <li>Solar stills for tiny amounts; prefer roof/rain systems for volume.</li>
+              <li>Containers: food-grade plastics, glass, stainless; label and date.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Purification (Safer Options)</h3>
+            <ul class="list small">
+              <li><strong>Boil</strong> (primary). Let cool covered.</li>
+              <li><strong>Filter</strong>: commercial filters or improvised multilayer (cloth → sand → charcoal → gravel) then <em>boil</em>.</li>
+              <li><strong>SODIS</strong>: clear PET bottles in full sun 6–8 hrs; works best in strong sun, low turbidity—use as backup.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Testing & Logging</h3>
+            <ul class="list small">
+              <li>Track turbidity (cm), pH, and nitrate if kits available.</li>
+              <li>Log sources and symptoms linked to intake to catch patterns.</li>
+            </ul>
+            <div class="cta"><button id="logWater">Log Water Reading</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOD SOVEREIGNTY -->
+    <section class="section" id="food">
+      <h2 class="section-title">IV. Food Sovereignty (Stabilize Calories, Then Improve)</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Foundation</h3>
+          <ul class="list small">
+            <li>Start with safe staples: grains/legumes you recognize; avoid unknown plants/mushrooms.</li>
+            <li>Cook thoroughly; keep hot foods hot/cold foods cold; prevent cross-contamination.</li>
+            <li>Sprouting (lentils/beans <em>that are safe to sprout</em>) for vitamins; rinse well.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Low-Risk Garden Starts</h3>
+          <ul class="list small">
+            <li>Container gardens: 20–30 L buckets with drainage; soil+compost mix; mulch.</li>
+            <li>Calorie crops: potatoes, beans, squash (known cultivars).</li>
+            <li>Perennials: herbs (mint, rosemary), chives, garlic greens.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Fuel Budget</h3>
+          <ul class="list small">
+            <li>One-pot meals: grains + legumes + oil + greens.</li>
+            <li>Batch cook; save fuel; dry or pickle surplus safely.</li>
+            <li>Food safety first—when in doubt, throw it out.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOLS & MATERIALS -->
+    <section class="section" id="tools">
+      <h2 class="section-title">V. Tools: Sourcing Materials & Low-Risk Fabrication</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Cordage</h3>
+          <ul class="list small">
+            <li>Natural: inner bark (basswood/linden), agave fibers, yucca leaves; soak → strip → twist reverse-wrap.</li>
+            <li>Recycled: cut bottles into strips; heat-stretch carefully away from flame; avoid fumes.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Cutting & Edged Tools (Safety)</h3>
+          <ul class="list small">
+            <li>Knapping glass (bottle bottoms) produces sharp flakes—<strong>cut hazard</strong>; edge guard with tape or wood.</li>
+            <li>Bamboo saws: split node sections; use with gloves.</li>
+            <li>Sharpen metal scrap carefully; secure work; eye protection if possible.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Containers & Cookware</h3>
+          <ul class="list small">
+            <li>Food-grade steel cans (no plastic liners) → pot with bail wire; boil test first.</li>
+            <li>Clay pottery only if properly fired; otherwise for dry storage, not boiling.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEDICAL & SAFE COMMUNITY CARE -->
+    <section class="section" id="medical">
+      <h2 class="section-title">VI. Safe Community Care & First Aid (Low-Risk Improvisations)</h2>
+      <div class="card">
+        <p class="notice small"><strong>Important:</strong> This is not medical advice and is not a substitute for professional care. Avoid preparing or ingesting improvised medicines or chemicals. Use the safest possible options and seek professional help as soon as available.</p>
+        <div class="grid cols-3">
+          <div class="card">
+            <h3>Wound Care (Minor)</h3>
+            <ul class="list small">
+              <li>Hand hygiene: soap + clean water for ≥ 20 sec before/after.</li>
+              <li>Irrigation: gently flush with clean/boiled-cooled water to remove debris.</li>
+              <li>Cover with clean, dry dressing; change daily or if wet/dirty.</li>
+              <li><em>Honey (prefer medical-grade)</em> may help superficial wounds; if not medical-grade, <strong>do not</strong> use on deep or severe wounds.</li>
+              <li>Watch for infection: increased redness, swelling, pus, fever → seek care.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Rehydration (Diarrhea/Heat)</h3>
+            <ul class="list small">
+              <li>Oral Rehydration Solution (ORS): mix <strong>1 liter</strong> clean water + <strong>6 level teaspoons sugar</strong> + <strong>1/2 level teaspoon salt</strong>. Stir until fully dissolved. Sip frequently.</li>
+              <li>If possible add mashed ripe banana/orange for potassium. Do not over-salt.</li>
+            </ul>
+            <div class="cta"><button class="task" data-task="Mix ORS safely" data-notes="1L water + 6 tsp sugar + 1/2 tsp salt.">Queue Habitica</button></div>
+          </div>
+          <div class="card">
+            <h3>Heat, Cold, Burns</h3>
+            <ul class="list small">
+              <li>Heat exhaustion: shade, loosen clothing, cool water sips, damp cloths.</li>
+              <li>Mild hypothermia: remove wet clothes, dry, warm gradually, warm drinks if alert.</li>
+              <li>Minor burns: cool running water 10–20 min; <strong>no</strong> ice, butter, or unknown creams; cover loosely with clean dressing.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid cols-3" style="margin-top:16px">
+          <div class="card">
+            <h3>Hygiene & Soap (Caution)</h3>
+            <ul class="list small">
+              <li>Handwashing with any safe soap is high-impact. Prioritize acquiring soap commercially if possible.</li>
+              <li><strong>Do not</strong> attempt lye/caustic soda production without proper training/protective gear; risk of severe chemical burns.</li>
+              <li>Low-risk interim: ash water as scour for cookware (not for skin), thorough rinse.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Fungi, Plants & “Natural” Remedies</h3>
+            <ul class="list small">
+              <li>Do <strong>not</strong> ingest or apply wild mushrooms/mycelium as medicine. Misidentification and contamination risks are high.</li>
+              <li>Mycelium uses <em>for gear</em>: amadou from <em>Fomes fomentarius</em> processed as tinder pad, or dried bracket fungus as padding—not a sterile medical dressing.</li>
+              <li>Plant soothers: clean aloe leaf gel for minor skin soothing (test small area). Avoid on deep wounds.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Improvised PPE & Barriers</h3>
+            <ul class="list small">
+              <li>Gloves: clean zip bags as finger covers; fasten with tape.</li>
+              <li>Masks: multilayer clean cloth; ensure breathability; change when damp.</li>
+              <li>Eye shield: clear bottle plastic cut/curved, edges taped.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <h3>When to Stop & Seek Help Immediately</h3>
+          <ul class="list small">
+            <li>Severe bleeding uncontrolled by pressure, major burns, suspected fractures with deformity, head injuries, chest pain, difficulty breathing, severe allergic reactions, high fever in infants/elderly, worsening infection signs, poisoning, snake/spider envenomation.</li>
+            <li>Do not attempt chemical/antibiotic synthesis or distillation of medical-grade alcohol. These are unsafe and outside this guide.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- INVENTORY & JOURNALS -->
+    <section class="section" id="inventory">
+      <h2 class="section-title">VII. Inventory • Logs • Missions (IndexedDB)</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Inventory</h3>
+          <div class="row cols-2">
+            <div><label>Item</label><input id="inv_name" placeholder="Gauze roll / Rice / Filter"/></div>
+            <div><label>Qty</label><input id="inv_qty" type="number" min="0" value="1"/></div>
+          </div>
+          <div class="row cols-2">
+            <div><label>Notes</label><input id="inv_note" placeholder="size, expiry, location"/></div>
+            <div><label>&nbsp;</label><button id="inv_add">Add</button></div>
+          </div>
+          <pre id="inv_list" class="mono small muted">—</pre>
+        </div>
+        <div class="card">
+          <h3>Symptoms Log</h3>
+          <div class="row cols-2">
+            <div><label>Person</label><input id="sym_person" placeholder="Name/initials"/></div>
+            <div><label>Symptoms</label><input id="sym_text" placeholder="fever, cough..."/></div>
+          </div>
+          <div class="row cols-2">
+            <div><label>Temp (°C)</label><input id="sym_temp" type="number" step="0.1"/></div>
+            <div><label>&nbsp;</label><button id="sym_add">Add</button></div>
+          </div>
+          <pre id="sym_list" class="mono small muted">—</pre>
+        </div>
+        <div class="card">
+          <h3>Tasks & Sync</h3>
+          <div class="cta">
+            <button id="export">Export .json</button>
+            <button id="import">Import .json</button>
+            <input id="importFile" type="file" accept=".json" hidden/>
+            <button id="syncHabitica">Sync Habitica Queue</button>
+          </div>
+          <pre id="stats" class="mono small muted">—</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCAL ADVISOR -->
+    <section class="section" id="advisor">
+      <h2 class="section-title">VIII. Local Advisor (WebLLM-aware)</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <p class="small muted">If a WebLLM runtime is present, it will be used; otherwise, a safe heuristic responds. Avoid requests for medical/chemical syntheses—this advisor will refuse unsafe instructions.</p>
+          <label>Ask about shelter site, water plan, low-risk food starts, or care triage:</label>
+          <textarea id="adv_in" rows="6" placeholder="I have 2 people, day temps 30°C, nights 10°C, limited fuel. How do I balance boiling water with cooking?"></textarea>
+          <div class="cta">
+            <button id="adv_run">Get Plan</button>
+            <button id="adv_save">Save Note</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Advisor Output</h3>
+          <pre id="adv_out" class="mono small muted">—</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- OFFLINE / PWA -->
+    <section class="section" id="offline">
+      <h2 class="section-title">IX. Offline-First PWA</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Install / Update</h3>
+          <p class="small muted">Caches this page for offline use. Keep an eye on the status below.</p>
+          <div class="cta"><button id="sw_install">Install/Update Service Worker</button></div>
+          <p id="sw_status" class="mono small muted">SW: not installed</p>
+        </div>
+        <div class="card">
+          <h3>Storage Snapshot</h3>
+          <pre id="storage" class="mono small muted">—</pre>
+        </div>
+        <div class="card">
+          <h3>Quick Actions</h3>
+          <div class="linklike" id="qa_ors">+ Log ORS prepared</div>
+          <div class="linklike" id="qa_water">+ Log water boiled</div>
+          <div class="linklike" id="qa_food">+ Log calories cooked</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section small muted">
+      <div>License: CC BY-SA 4.0 • Integrity: tamper-evident local logs + re-hash on export • Schema: <span class="mono">.../hybrid</span></div>
+      <div>Safety: No instructions for drug/chemical/biological synthesis are provided. Seek professional care whenever possible.</div>
+    </section>
+  </main>
+
+  <div class="floating-help small">
+    <div><strong>Help</strong></div>
+    <div class="linklike" id="quick_profile">Save Profile</div>
+    <div class="linklike" id="quick_sync">↻ Sync Habitica</div>
+    <div class="linklike" id="quick_export">⇩ Export Data</div>
+  </div>
+
+  <script>
+  /* ========= Photorealistic Starfield ========= */
+  (()=>{
+    const c=document.getElementById('starfield'), ctx=c.getContext('2d'); let W=0,H=0,dpr=1;
+    const layers=[{n:500,s:.006,r:[.4,1.2],a:[.4,.9]},{n:250,s:.012,r:[.7,1.8],a:[.5,1]},{n:120,s:.02,r:[1,2.4],a:[.6,1]}];
+    let stars=[];
+    function R(a,b){return a+Math.random()*(b-a)}
+    function size(){dpr=Math.min(2,devicePixelRatio||1); W=c.clientWidth=innerWidth; H=c.clientHeight=innerHeight; c.width=W*dpr; c.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0)}
+    function init(){size(); stars=[]; layers.forEach((L,i)=>{for(let k=0;k<L.n;k++) stars.push({x:Math.random()*W,y:Math.random()*H,z:i,r:R(L.r[0],L.r[1]),a:R(L.a[0],L.a[1]),t:R(0,Math.PI*2),ts:R(.003,.01),h:190+Math.random()*60})})}
+    addEventListener('resize',size); init(); let last=performance.now();
+    function tick(now){const dt=Math.min(33,now-last); last=now; ctx.clearRect(0,0,W,H);
+      for(const s of stars){const L=layers[s.z]; s.x-=L.s*dt*(.4+s.r/2); if(s.x<-4) s.x=W+4,s.y=Math.random()*H; s.t+=s.ts;
+        const tw=(Math.sin(s.t)+1)/2*.4+.6; ctx.globalAlpha=s.a*tw; const g=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*3);
+        g.addColorStop(0,`hsla(${s.h},90%,88%,1)`); g.addColorStop(.6,`hsla(${s.h},90%,70%,.25)`); g.addColorStop(1,`rgba(0,0,0,0)`);
+        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(s.x,s.y,s.r*3,0,6.283); ctx.fill();
+      } ctx.globalAlpha=1; requestAnimationFrame(tick)}
+    requestAnimationFrame(tick);
+  })();
+
+  /* ========= IndexedDB ========= */
+  const DB='pra_survival_all', VER=1; let db;
+  function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open(DB,VER);
+    r.onupgradeneeded=e=>{const D=e.target.result;
+      D.createObjectStore('settings',{keyPath:'id'});
+      D.createObjectStore('inventory',{keyPath:'id'});
+      D.createObjectStore('symptoms',{keyPath:'id'});
+      D.createObjectStore('water',{keyPath:'id'});
+      D.createObjectStore('actions',{keyPath:'id'});
+      D.createObjectStore('sync',{keyPath:'id'});
+    };
+    r.onsuccess=()=>{db=r.result; res(db)}; r.onerror=()=>rej(r.error)})}
+  function id(){return Math.random().toString(36).slice(2)+Date.now().toString(36)}
+  async function put(store,val){await openDB(); return new Promise((res,rej)=>{const tx=db.transaction(store,'readwrite'); tx.objectStore(store).put(val); tx.oncomplete=()=>res(true); tx.onerror=()=>rej(tx.error)})}
+  async function all(store){await openDB(); return new Promise((res,rej)=>{const tx=db.transaction(store,'readonly'); const rq=tx.objectStore(store).getAll(); rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error)})}
+  async function stats(){const s={}; for(const k of ['settings','inventory','symptoms','water','actions','sync']) s[k]=(await all(k)).length; document.getElementById('stats').textContent=JSON.stringify(s,null,2); document.getElementById('storage').textContent=JSON.stringify(s,null,2)}
+
+  /* ========= Profile & Habitica ========= */
+  const el = id => document.getElementById(id);
+  async function saveProfile(){
+    await put('settings',{id:'locNote',v:el('locNote').value});
+    await put('settings',{id:'teamSize',v:el('teamSize').value});
+    await put('settings',{id:'hUser',v:el('hUser').value});
+    await put('settings',{id:'hToken',v:el('hToken').value});
+    toast('Profile saved.');
+  }
+  async function loadProfile(){
+    const S=(await all('settings')).reduce((m,o)=> (m[o.id]=o.v,m),{});
+    if(S.locNote) el('locNote').value=S.locNote;
+    if(S.teamSize) el('teamSize').value=S.teamSize;
+    if(S.hUser) el('hUser').value=S.hUser;
+    if(S.hToken) el('hToken').value=S.hToken;
+  }
+  async function queueHabitica(text,notes){
+    const S=(await all('settings')).reduce((m,o)=>(m[o.id]=o.v,m),{});
+    await put('sync',{id:id(),kind:'habitica',payload:{url:'https://habitica.com/api/v3/tasks/user',method:'POST',
+      headers:{'x-api-user':S.hUser||'','x-api-key':S.hToken||'','Content-Type':'application/json'},
+      body: JSON.stringify({text, type:'todo', notes})},time:Date.now(),status:'pending'});
+    toast('Habitica task queued.');
+  }
+
+  document.querySelectorAll('.task').forEach(b=>b.addEventListener('click',()=>queueHabitica(b.dataset.task,b.dataset.notes||'')));
+  el('linkHabitica').addEventListener('click', async ()=>{ await saveProfile(); toast('Habitica credentials stored locally.'); });
+
+  /* ========= Inventory ========= */
+  async function addInv(){
+    const rec={id:id(), name:el('inv_name').value.trim(), qty:+el('inv_qty').value||0, note:el('inv_note').value.trim(), time:Date.now()};
+    if(!rec.name) return toast('Item name required.');
+    await put('inventory',rec); el('inv_name').value=''; el('inv_qty').value='1'; el('inv_note').value='';
+    renderInv(); stats();
+  }
+  async function renderInv(){
+    const L=await all('inventory'); L.sort((a,b)=>b.time-a.time);
+    el('inv_list').textContent = L.slice(0,30).map(x=>`${new Date(x.time).toLocaleString()} | ${x.name} x${x.qty} | ${x.note}`).join('\n') || '—';
+  }
+
+  /* ========= Symptoms ========= */
+  async function addSym(){
+    const rec={id:id(), who:el('sym_person').value.trim(), sym:el('sym_text').value.trim(), temp:el('sym_temp').value? +el('sym_temp').value : null, time:Date.now()};
+    if(!rec.who||!rec.sym) return toast('Who + symptoms required.');
+    await put('symptoms',rec); el('sym_person').value=''; el('sym_text').value=''; el('sym_temp').value='';
+    renderSym(); stats();
+  }
+  async function renderSym(){
+    const L=await all('symptoms'); L.sort((a,b)=>b.time-a.time);
+    el('sym_list').textContent = L.slice(0,30).map(x=>`${new Date(x.time).toLocaleString()} | ${x.who} | ${x.sym} ${x.temp!=null?`| ${x.temp.toFixed(1)}°C`:''}`).join('\n') || '—';
+  }
+
+  /* ========= Water Log ========= */
+  async function logWater(){
+    const src = prompt('Water source/notes? (e.g., boiled 2L, river boil)') || '';
+    const L = +prompt('Volume liters (approx)?') || 0;
+    await put('water',{id:id(), src, liters:L, time:Date.now()});
+    renderWater(); stats();
+  }
+  async function renderWater(){
+    const L=await all('water'); L.sort((a,b)=>b.time-a.time);
+    const sum = L.reduce((s,x)=>s+(x.liters||0),0);
+    document.getElementById('stats').textContent = JSON.stringify({ ...(JSON.parse(document.getElementById('stats').textContent||'{}')), water_entries:L.length, liters_total:sum }, null, 2);
+  }
+
+  /* ========= Export / Import ========= */
+  async function exportDB(){
+    const out={}; for(const s of ['settings','inventory','symptoms','water','actions','sync']) out[s]=await all(s);
+    const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='pra_survival_export_'+new Date().toISOString().replace(/[:.]/g,'-')+'.json'; a.click();
+  }
+  function importDB(){ el('importFile').click(); }
+  el('importFile').addEventListener('change', async (e)=>{
+    const f=e.target.files?.[0]; if(!f) return; const text=await f.text(); const data=JSON.parse(text);
+    for(const [store,arr] of Object.entries(data)){ if(Array.isArray(arr)) for(const v of arr) await put(store,v); }
+    await renderAll(); toast('Import complete.');
+  });
+
+  /* ========= Local Advisor (WebLLM-aware) ========= */
+  async function advise(q){
+    const unsafe = /antibiotic|penicillin|chloroform|ether|distill.*alcohol|extract.*morph|synthesize|lye.*skin|acid|nitro|poison|botul|ricin|cyanide|weapon/i;
+    if(unsafe.test(q)) return "Refusal: Unsafe. This guide will not provide instructions for chemical/biological/medical synthesis or weaponization. Seek professional resources.";
+    if(window?.webllm?.createEngine){
+      try{
+        if(!window.__wllm){ window.__wllm = await window.webllm.createEngine({model:'Llama-3-8B-Instruct-q4f32_1-MLC', logLevel:'warn'}); }
+        const r = await window.__wllm.chat.completions.create({
+          messages:[
+            {role:'system',content:'You are a safety-first survival advisor. Avoid unsafe synthesis; prioritize low-risk, humane, zero-harm actions.'},
+            {role:'user',content:q}
+          ],
+          temperature:.2,max_tokens:380
+        });
+        return r.choices?.[0]?.message?.content || '(no content)';
+      }catch(e){ console.warn('WebLLM error',e); }
+    }
+    // Heuristic fallback
+    const t=q.toLowerCase(), out=[];
+    if(/water|boil|filter|sodis/.test(t)){ out.push('• Prioritize boiling; use multi-layer improvised filter before boil if turbid. Store covered, labeled.'); }
+    if(/food|cook|garden|calorie|fuel/.test(t)){ out.push('• One-pot grains+legumes. Start container garden with known seeds; mulch to save water; batch cook to save fuel.'); }
+    if(/shelter|wind|rain|cold|heat/.test(t)){ out.push('• Choose site above flood line, with windbreak. Debris lean-to + 10 cm bed insulation. Manage heat/cold with layers and ventilation.'); }
+    if(!out.length) out.push('• Stabilize ABCs, then shelter/water/food. Keep a log. Use tasks to maintain routine.');
+    return out.join('\n');
+  }
+  el('adv_run').addEventListener('click', async ()=>{
+    const q=el('adv_in').value.trim(); if(!q) return toast('Ask something first.');
+    el('adv_out').textContent='Thinking...'; el('adv_out').textContent=await advise(q);
+  });
+  el('adv_save').addEventListener('click', async ()=>{
+    await put('actions',{id:id(), type:'advisor', text:el('adv_out').textContent, time:Date.now()});
+    toast('Saved.');
+  });
+
+  /* ========= Service Worker ========= */
+  const SW_SRC = `
+    const CACHE='pra-survival-v1'; const CORE=self.registration.scope;
+    self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll([CORE])).then(()=>self.skipWaiting()))});
+    self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.map(k=>k===CACHE?null:caches.delete(k))))); self.clients.claim();});
+    self.addEventListener('fetch',e=>{const u=new URL(e.request.url); if(u.origin===location.origin){ e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(resp=>{ if(e.request.method==='GET'&&(e.request.mode==='navigate'||e.request.destination==='document')) caches.open(CACHE).then(c=>c.put(e.request,resp.clone())); return resp; }).catch(()=>caches.match(CORE)))) }});
+  `;
+  async function installSW(){
+    const blob=new Blob([SW_SRC],{type:'text/javascript'}); const url=URL.createObjectURL(blob);
+    try{ const reg=await navigator.serviceWorker.register(url,{scope:'./'}); el('sw_status').textContent='SW: installed ('+(reg.scope||'')+')'; toast('Offline ready.'); }catch(e){ el('sw_status').textContent='SW install failed: '+e; }
+  }
+
+  /* ========= Quick & Buttons ========= */
+  function toast(msg){const n=document.createElement('div'); n.textContent=msg;
+    n.style.cssText='position:fixed;left:50%;transform:translateX(-50%);bottom:28px;background:rgba(10,20,40,.94);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 14px;z-index:9999;box-shadow:0 6px 20px rgba(0,0,0,.44);color:#dff6ff';
+    document.body.appendChild(n); setTimeout(()=>n.remove(),2300)}
+  async function renderAll(){ await stats(); await renderInv(); await renderSym(); await renderWater(); }
+
+  el('btnCache').addEventListener('click', installSW);
+  el('sw_install').addEventListener('click', installSW);
+  el('saveProfile').addEventListener('click', saveProfile);
+  el('quick_profile').addEventListener('click', saveProfile);
+  el('inv_add').addEventListener('click', addInv);
+  el('sym_add').addEventListener('click', addSym);
+  el('logWater').addEventListener('click', logWater);
+  el('export').addEventListener('click', exportDB);
+  el('import').addEventListener('click', importDB);
+  el('quick_export').addEventListener('click', exportDB);
+  el('syncHabitica').addEventListener('click', async ()=>{
+    const Q=await all('sync'); let ok=0,fail=0;
+    for(const job of Q){ if(job.kind!=='habitica') continue; try{
+      const r=await fetch(job.payload.url,{method:job.payload.method,headers:job.payload.headers,body:job.payload.body});
+      if(!r.ok) throw new Error('HTTP '+r.status); ok++;
+    }catch(e){ fail++; } }
+    toast(`Habitica sync — OK:${ok} FAIL:${fail}`);
+  });
+  el('qa_ors').addEventListener('click', async ()=>{ await put('actions',{id:id(),type:'ors',time:Date.now()}); await queueHabitica('Prepare ORS','1L water + 6 tsp sugar + 1/2 tsp salt'); toast('Logged ORS.'); });
+  el('qa_water').addEventListener('click', async ()=>{ await put('water',{id:id(),src:'boiled',liters:2,time:Date.now()}); renderWater(); toast('Logged 2L boiled.'); });
+  el('qa_food').addEventListener('click', async ()=>{ await put('actions',{id:id(),type:'meal',text:'One-pot batch cooked',time:Date.now()}); toast('Logged meal.'); });
+  el('quick_sync').addEventListener('click', ()=>el('syncHabitica').click());
+  el('btnAdvisor').addEventListener('click', ()=>document.getElementById('advisor').scrollIntoView({behavior:'smooth'}));
+
+  openDB().then(loadProfile).then(renderAll);
+  </script>
+</body>
+</html>

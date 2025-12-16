@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Somalia • Food & Water Sovereignty — Multisystem Dashboard (Foster + Navi)</title>
+<meta name="theme-color" content="#0b1020" />
+<meta name="color-scheme" content="dark" />
+<meta name="description" content="Offline-first sovereignty dashboard for Somalia: seeds→soil→rangelands→water (berkads/sand-dams)→fisheries→markets→ports/road logistics→early warning→peace pacts. Mycelial gamification, anti-inversion guardrails, service-worker caching." />
+<style>
+  :root{
+    --bg:#0b1020; --ink:#e8f0ff; --muted:#c9d2ffcc;
+    --card:#0e1534e6; --edge:#1b2658; --glass:#0e1534b0;
+    --accent:#7af5e5; --accent2:#a78bfa; --gold:#ffd166; --ok:#70ffa8; --warn:#ffcd6b; --bad:#ff6b6b;
+    --shadow:0 10px 30px #0008, inset 0 1px 0 #3a49a155;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:radial-gradient(1200px 800px at 80% -10%, #1a2346 0%, rgba(11,16,32,0) 60%),
+                     radial-gradient(1000px 600px at 10% -20%, #141d3a 0%, rgba(11,16,32,0) 60%), var(--bg);
+    color:var(--ink); font:16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, "Helvetica Neue", Arial;
+    overflow-x:hidden;
+  }
+  /* Photorealistic constellation parallax (3 layers) */
+  #deep-sky,#sky,#near-sky{position:fixed; inset:0; z-index:-5}
+  #sky{z-index:-4; opacity:.95} #near-sky{z-index:-3; opacity:.85}
+  .nebula{position:fixed; inset:auto; z-index:-2; pointer-events:none; opacity:.28; mix-blend-mode:screen;
+          filter:brightness(115%) blur(10px) saturate(130%);
+          background:radial-gradient(650px 400px at 15% 30%, #4f46e5 0%, transparent 60%),
+                     radial-gradient(800px 500px at 80% 20%, #22d3ee 0%, transparent 65%),
+                     radial-gradient(700px 500px at 45% 75%, #8b5cf6 0%, transparent 60%);
+          width:140vmax; height:100vmax; left:-10vmax; top:-10vmax}
+  header{position:sticky; top:0; backdrop-filter:blur(8px);
+         background:linear-gradient(180deg, rgba(16,25,54,.88), rgba(16,25,54,.42) 60%, transparent);
+         border-bottom:1px solid #1f2a5a; z-index:10}
+  .wrap{max-width:1280px; margin:0 auto; padding:16px clamp(12px,2.6vw,28px)}
+  h1{margin:.2rem 0 .4rem; font-weight:900; font-size:clamp(22px,3.6vw,38px); letter-spacing:.2px}
+  h2{margin:1.4rem 0 .5rem; font-size:clamp(18px,2.4vw,26px)}
+  h3{margin:1rem 0 .3rem; font-size:clamp(16px,2vw,22px)}
+  p,li{color:var(--muted)}
+  a{color:var(--accent)}
+  .badge{display:inline-flex; gap:8px; align-items:center; font-size:12px; padding:4px 8px; border-radius:999px;
+         border:1px solid #28407a; background:#101936b3; color:#c7d2fe}
+  .ribbon{display:inline-block; padding:3px 8px; border-radius:8px; background:#0f1a3dcc; border:1px solid #24306a; color:#c7d2fe}
+  .grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .card{background:linear-gradient(180deg, var(--card), #0c1330cc); border:1px solid var(--edge); border-radius:16px; padding:16px; box-shadow:var(--shadow); position:relative}
+  .panel{display:grid; gap:12px; grid-template-columns: repeat(12,1fr)}
+  .panel > .card{grid-column: span 12}
+  @media(min-width:880px){
+    .span-4{grid-column: span 4} .span-6{grid-column: span 6} .span-8{grid-column: span 8} .span-12{grid-column: span 12}
+  }
+  .section{position:relative; margin:22px 0; padding:18px; border:1px solid var(--edge); border-radius:16px; background:linear-gradient(180deg,#0e1534c8,#0d1432aa)}
+  .section[data-depth="near"]{transform:translateY(calc(var(--scroll,0)*.06px))}
+  .section[data-depth="mid"]{transform:translateY(calc(var(--scroll,0)*.03px))}
+  .section[data-depth="far"]{transform:translateY(calc(var(--scroll,0)*.015px))}
+  .divider{height:1px; background:linear-gradient(90deg, transparent, #2a3880, transparent); margin:16px 0}
+  .muted{opacity:.92}
+  .ok{color:var(--ok)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; font-size:13px}
+  .tag{position:absolute; top:10px; right:12px; font-size:11px; color:#cbd5ff; opacity:.9}
+  .tooltip{border-bottom:1px dashed #7aa2ff; cursor:help}
+  .btn{display:inline-flex; gap:10px; align-items:center; padding:10px 14px; border-radius:12px; text-decoration:none;
+       background:linear-gradient(90deg,#233069,#192653); border:1px solid #2a3a76; color:#e4ebff}
+  .toolbar{display:flex; gap:8px; flex-wrap:wrap}
+  .switch{display:inline-flex; align-items:center; gap:8px}
+  .switch input{accent-color:#7aa2ff}
+  .toast{position:fixed; bottom:16px; left:50%; transform:translateX(-50%); background:#111b3f; color:#eaf0ff; border:1px solid #2a3a76; border-radius:10px; padding:10px 14px; display:none; z-index:20}
+  .okline{height:3px; background:linear-gradient(90deg, #63ff99, #7af5e5)}
+  .list-tight li{margin:.25rem 0}
+  /* Inversion banner */
+  .inversion{margin:10px 0 6px; padding:10px 14px; border-radius:12px; border:1px solid #28407a;
+             background:linear-gradient(180deg,#0f183cdd,#0f183c80); color:#e8f0ff; font-weight:600}
+  /* Small HUD counters */
+  .kpis{display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+  .kpi{padding:12px 14px; border:1px solid var(--edge); border-radius:14px; background:#0e1534cc}
+  .kpi .big{font-weight:900; font-size:clamp(18px,2.6vw,28px)}
+  /* Mycelial viz */
+  canvas#mycelium{width:100%; height:240px; display:block; border-radius:12px; background:linear-gradient(180deg,#0f1630bb,#0a122caa); border:1px solid var(--edge)}
+  footer{padding:26px 0; text-align:center; color:#a8b6f1}
+</style>
+</head>
+<body>
+<canvas id="deep-sky" aria-hidden="true"></canvas>
+<canvas id="sky" aria-hidden="true"></canvas>
+<canvas id="near-sky" aria-hidden="true"></canvas>
+<div class="nebula" aria-hidden="true"></div>
+
+<header>
+  <div class="wrap">
+    <div class="badge">Foster + Navi • Planetary Restoration Archive • Zero-Harm / Anti-Inversion</div>
+    <h1>Somalia — Food & Water Sovereignty • Multisystem Dashboard</h1>
+    <p class="muted">Offline-first blueprint for seeds → soil → rangelands → water (berkads, sand dams, shallow wells, boreholes) → fisheries → markets → ports/road logistics → early warning → peace pacts — with mycelial gamification for coordinated, dignity-preserving wins.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="section" data-depth="near">
+    <div class="toolbar" role="toolbar" aria-label="Quick controls">
+      <a class="btn" id="exportState">Export State (JSON)</a>
+      <a class="btn" id="importState">Import State</a>
+      <label class="switch"><input type="checkbox" id="darkness" checked/> <span>Night mode</span></label>
+      <a class="btn" id="openQuestEditor">Quest Editor</a>
+      <a class="btn" id="syncGithub">Load Gamification Plugin (GitHub)</a>
+    </div>
+    <div class="divider"></div>
+    <div class="kpis">
+      <div class="kpi"><div class="muted">Households onboarded</div><div class="big" id="kpiHouseholds">0</div><div class="okline"></div></div>
+      <div class="kpi"><div class="muted">Seed/Tool kits distributed</div><div class="big" id="kpiSeeds">0</div><div class="okline"></div></div>
+      <div class="kpi"><div class="muted">Water points online</div><div class="big" id="kpiWater">0</div><div class="okline"></div></div>
+      <div class="kpi"><div class="muted">Berkads rehabilitated</div><div class="big" id="kpiBerkad">0</div><div class="okline"></div></div>
+      <div class="kpi"><div class="muted">Sand dams built</div><div class="big" id="kpiSandDam">0</div><div class="okline"></div></div>
+      <div class="kpi"><div class="muted">Fishing kits & smokers</div><div class="big" id="kpiFish">0</div><div class="okline"></div></div>
+      <div class="kpi"><div class="muted">Fodder banks established</div><div class="big" id="kpiFodder">0</div><div class="okline"></div></div>
+      <div class="kpi"><div class="muted">Community peace pacts</div><div class="big" id="kpiPacts">0</div><div class="okline"></div></div>
+    </div>
+  </section>
+
+  <!-- ====================== CORE MODULES (Mycelial Morph) ====================== -->
+  <section class="section" data-depth="mid" id="modules">
+    <h2>Action Modules (click to expand)</h2>
+    <div class="panel">
+      <!-- FOOD & RANGELANDS -->
+      <details class="card span-8" open>
+        <summary><strong>🌾 Seed → Soil → Rangelands (Agro-pastoral)</strong></summary>
+        <div class="grid">
+          <div class="card">
+            <h3>Micro-Nursery Spokes</h3>
+            <p>Steward model (1 → 10 homes) using cut bottles/bags as pots, sack-shade, and simple ledgers.</p>
+            <button class="btn" data-quest="nursery">Add Quest: 10× households</button>
+          </div>
+          <div class="card">
+            <h3>Vegetative Propagation</h3>
+            <p>Sweet potato vines, cassava stems, moringa cuttings for rapid greens & calorie diversity.</p>
+            <button class="btn" data-quest="cuttings">Add Quest: 1200 cuttings</button>
+          </div>
+          <div class="card">
+            <h3>Zai Pits • Mulch • Green Manures</h3>
+            <p>Micro-catchments + manure; interplant cowpea/mucuna/groundnut for nitrogen & cover.</p>
+            <button class="btn" data-quest="zai">Add Quest: 400 zai</button>
+          </div>
+          <div class="card">
+            <h3>Fodder Banks & Reseeding</h3>
+            <p>Establish community fodder banks (Cenchrus, buffel grass, sudan grass), protect with rotations.</p>
+            <button class="btn" data-quest="fodder">Add Quest: 20 fodder banks</button>
+          </div>
+          <div class="card">
+            <h3>Drought-hardy Staple Mix</h3>
+            <p>Sorghum (short-cycle), millet, cowpea, sesame; 2:1 cereal:legume interrows; mulch heavily.</p>
+            <button class="btn" data-quest="seedpacks">Add Quest: 300 seed packs</button>
+          </div>
+        </div>
+      </details>
+
+      <!-- WATER SYSTEM -->
+      <details class="card span-4" open>
+        <summary><strong>💧 Water Sovereignty (Berkads • Sand Dams • Shallow Wells • Boreholes)</strong></summary>
+        <ul class="list-tight">
+          <li>Berkad rehab (desilt, seal, roof, guttering)</li>
+          <li>Sand dam micro-catchments in seasonal wadis</li>
+          <li>Shallow well rings & handpumps; solar upgrades</li>
+          <li>Greywater pin-hole drips for seedling lines</li>
+          <li>Chlorination tabs • covered jerrycans</li>
+        </ul>
+        <button class="btn" data-quest="berkad">Add Quest: Rehab 25 berkads</button>
+        <button class="btn" data-quest="sanddam">Add Quest: Build 6 sand dams</button>
+        <button class="btn" data-quest="drip">Add Quest: 200 greywater drips</button>
+      </details>
+
+      <!-- FISHERIES -->
+      <details class="card span-6">
+        <summary><strong>🐟 Fisheries & Preservation (Indian Ocean • Puntland/Benadir/Jubaland)</strong></summary>
+        <p>Line nets, safety gear, improved smokers (reduced wood), salt-drying, cold-box rotation; link to port buyers.</p>
+        <div class="grid">
+          <div class="card">
+            <label>Kits</label><input id="fishKits" type="number" min="0" placeholder="e.g., 30" />
+            <button class="btn" id="addFish">Add Fishing Kits</button>
+          </div>
+          <div class="card">
+            <h3>Preservation Sites</h3>
+            <ul id="fishList" class="list-tight"></ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- MARKETS & PRICE WATCH -->
+      <details class="card span-6">
+        <summary><strong>📈 Market & Price Watch (Key towns)</strong></summary>
+        <p>Track staples (sorghum/millet/maize/rice/oil) + fuel. Spikes → trigger vouchers or swaps.</p>
+        <div class="grid">
+          <div class="card">
+            <label>Town</label>
+            <select id="priceTown">
+              <option>Mogadishu</option><option>Hargeisa</option><option>Garowe</option><option>Kismayo</option><option>Baidoa</option><option>Borama</option><option>Galkayo</option>
+            </select>
+            <label>Commodity</label>
+            <select id="priceCommodity">
+              <option>Sorghum</option><option>Millet</option><option>Maize</option><option>Rice</option><option>Cooking oil</option><option>Fuel (diesel)</option>
+            </select>
+            <label>Price (SOS or USD/unit)</label>
+            <input id="priceValue" type="number" min="0" step="0.01" />
+            <button class="btn" id="addPrice">Log Price</button>
+          </div>
+          <div class="card">
+            <h3>Signals</h3>
+            <ul id="priceSignals" class="list-tight"></ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- LOGISTICS -->
+      <details class="card span-6">
+        <summary><strong>🚚 Ports & Road Logistics</strong></summary>
+        <p>Build route books for <em>Berbera, Mogadishu, Kismayo, Bosaso</em> ports & main road corridors; track fuel, cold-chain, last-mile partners.</p>
+        <div class="grid">
+          <div class="card">
+            <label>Route name</label><input id="routeName" placeholder="Berbera → Hargeisa → Borama (road)" />
+            <label>Mode</label>
+            <select id="routeMode"><option>Road</option><option>Coastal boat</option></select>
+            <label>Distance (km)</label><input id="routeKm" type="number" min="0" />
+            <button class="btn" id="addRoute">Add Route</button>
+          </div>
+          <div class="card">
+            <h3>Routes</h3>
+            <ul id="routeList" class="list-tight"></ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- BERKADS & SAND DAMS (DEDICATED TRACKER) -->
+      <details class="card span-6">
+        <summary><strong>🏗️ Berkads & Sand Dams Tracker</strong></summary>
+        <div class="grid">
+          <div class="card">
+            <label>Type</label>
+            <select id="wsType"><option>Berkad (cistern)</option><option>Sand dam</option></select>
+            <label>Location</label><input id="wsLoc" placeholder="District/Settlement" />
+            <label>Status</label>
+            <select id="wsStatus"><option>Planned</option><option>In progress</option><option>Online</option></select>
+            <button class="btn" id="addWaterSite">Add Site</button>
+          </div>
+          <div class="card">
+            <h3>Sites</h3>
+            <ul id="wsList" class="list-tight"></ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- COMMUNITY PEACE PACTS -->
+      <details class="card span-6">
+        <summary><strong>🤝 Community Peace Pacts (grazing & water)</strong></summary>
+        <p>“Grazing corridors & water points are neutral.” Micro-MOUs with markers; pair with mutual-aid rosters.</p>
+        <div class="grid">
+          <div class="card">
+            <label>Community</label><input id="pactCommunity" placeholder="Village/Block" />
+            <label>Signatories</label><input id="pactSigners" placeholder="Names or roles" />
+            <button class="btn" id="addPact">Record Pact</button>
+          </div>
+          <div class="card">
+            <h3>Signed Pacts</h3>
+            <ul id="pactList" class="list-tight"></ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- EARLY WARNING -->
+      <details class="card span-6">
+        <summary><strong>⚠️ Early Warning (manual, offline-first)</strong></summary>
+        <p class="muted">No live feeds in this file. Enter observations to trigger advisories. Later, wire to official feeds.</p>
+        <div class="grid">
+          <div class="card">
+            <label>Signal</label>
+            <select id="ewType">
+              <option>Price spike</option>
+              <option>Conflict movement</option>
+              <option>Road closure</option>
+              <option>Fuel shortage</option>
+              <option>Juba/Shabelle flood watch</option>
+              <option>Gu/Deyr rainfall anomaly</option>
+              <option>Heat alert</option>
+              <option>Locust watch</option>
+              <option>Epidemic rumor</option>
+              <option>Arabian Sea cyclone watch</option>
+            </select>
+            <label>Severity</label>
+            <select id="ewSev">
+              <option>Low</option><option>Moderate</option><option>High</option>
+            </select>
+            <label>Notes</label><input id="ewNotes" placeholder="What, where, when" />
+            <button class="btn" id="addEW">Add Warning</button>
+          </div>
+          <div class="card">
+            <h3>Advisories</h3>
+            <ul id="ewList" class="list-tight"></ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- KNOWLEDGE BANK -->
+      <details class="card span-12">
+        <summary><strong>📚 Knowledge & Scripts</strong> <span class="tag">planetaryrestorationarchive.com/scripts • GitHub loaders</span></summary>
+        <p>Curated scripts/patterns. Paste a GitHub RAW URL to load modules (if CORS permits). PRA endpoints can be mirrored offline.</p>
+        <div class="grid">
+          <div class="card">
+            <label>Load script (GitHub RAW / PRA)</label>
+            <input id="scriptUrl" placeholder="https://raw.githubusercontent.com/..." />
+            <button class="btn" id="loadScript">Load</button>
+            <p id="scriptStatus" class="muted"></p>
+            <pre id="scriptPreview" class="mono" style="white-space:pre-wrap;max-height:200px;overflow:auto"></pre>
+          </div>
+          <div class="card">
+            <h3>Seed & Propagation Cheatsheet</h3>
+            <ul class="list-tight">
+              <li><span class="tooltip" title="Leaf/vine cuttings root quickly; great for greens">Sweet potato vines</span></li>
+              <li><span class="tooltip" title="Keep nodes in water 24–48h; plant at rains">Cassava cuttings</span></li>
+              <li><span class="tooltip" title="Moringa from seed & cuttings; prune for leaf yield">Moringa</span></li>
+              <li><span class="tooltip" title="Intercrop legumes; living roots year-round">Green manures (cowpea/mucuna)</span></li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ====================== GAMIFICATION ENGINE ====================== -->
+  <section class="section" data-depth="near" id="game">
+    <h2>🎮 Mycelial Gamification Engine (offline-first)</h2>
+    <p class="muted">Track households, quests, streaks, virtues, guilds/co-ops, and shared wins. Anti-inversion: only non-violent, dignity-preserving actions count.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Create Quest</h3>
+        <label>Title</label><input id="qTitle" placeholder="Rehabilitate 25 berkads" />
+        <label>Category</label>
+        <select id="qCat">
+          <option>Food</option><option>Water</option><option>Fisheries</option><option>Rangelands</option><option>Market</option><option>Logistics</option><option>Peace</option><option>Early Warning</option><option>Flood</option>
+        </select>
+        <label>Target value</label><input id="qTarget" type="number" min="1" value="5" />
+        <label>Unit</label><input id="qUnit" placeholder="units" />
+        <button class="btn" id="qCreate">Create Quest</button>
+      </div>
+
+      <div class="card">
+        <h3>Active Quests</h3>
+        <ul id="qList" class="list-tight"></ul>
+      </div>
+
+      <div class="card">
+        <h3>Submit Progress</h3>
+        <label>Quest</label>
+        <select id="qPick"></select>
+        <label>Value</label><input id="qValue" type="number" min="0" />
+        <label>Household/Team</label><input id="qWho" placeholder="Team / Household ID" />
+        <button class="btn" id="qSubmit">Submit</button>
+        <p id="qMsg" class="muted"></p>
+      </div>
+
+      <div class="card">
+        <h3>Leaderboard</h3>
+        <ol id="leader" class="list-tight"></ol>
+      </div>
+
+      <div class="card">
+        <h3>Virtues</h3>
+        <p class="muted">Earn marks for Stewardship, Care, Courage, Clarity. Multipliers apply to streaks.</p>
+        <ul id="virtues" class="list-tight"></ul>
+      </div>
+
+      <div class="card">
+        <h3>Guilds (Co-ops)</h3>
+        <label>Guild Name</label><input id="gName" placeholder="Coastal Nurseries Co-op — Banaadir" />
+        <button class="btn" id="gCreate">Create Guild</button>
+        <ul id="gList" class="list-tight"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== MYCELIAL MAP ====================== -->
+  <section class="section" data-depth="far">
+    <h2>Mycelial Synergy Map</h2>
+    <p class="muted">Nodes are actions; edges show helpful synergies. Hover for hints.</p>
+    <canvas id="mycelium" aria-label="Mycelial action network"></canvas>
+  </section>
+
+  <section class="section" data-depth="near" id="license">
+    <h2>Zero-Harm / Anti-Inversion License Banner</h2>
+    <p class="mono">This dashboard and associated scripts are intended exclusively for humanitarian, ecological, and dignity-preserving use. Any repurposing for coercion, violence, or deprivation violates the license spirit. Reintegration clause: all corrupt actors are invited back into peaceful civic life through transparent restitution and pro-social labor.</p>
+  </section>
+
+  <footer>
+    <div class="divider"></div>
+    <p class="mono">Local & offline-first. To wire in live feeds later, add connectors; this file will cache via service worker.</p>
+    <p class="mono">Foster + Navi • PRA • Somalia Sovereignty Edition</p>
+  </footer>
+</main>
+
+<!-- ====================== JS: Parallax Sky + Engine ====================== -->
+<script>
+/* Parallax sky */
+(function(){
+  function stars(canvas, count, blurSpread){
+    const dpr=Math.min(2, devicePixelRatio||1), ctx=canvas.getContext('2d');
+    function resize(){ canvas.width=innerWidth*dpr; canvas.height=innerHeight*dpr; draw(); }
+    const pts=[...Array(count)].map(()=>({x:Math.random(), y:Math.random(), r:Math.random()*1.3+.2, a:.35+.65*Math.random()}));
+    function draw(){ const w=canvas.width,h=canvas.height; ctx.clearRect(0,0,w,h);
+      for(const s of pts){ const x=s.x*w,y=s.y*h;
+        ctx.globalAlpha=s.a;
+        const g=ctx.createRadialGradient(x,y,0,x,y,s.r*dpr*blurSpread);
+        g.addColorStop(0,'rgba(255,255,255,.95)'); g.addColorStop(1,'rgba(255,255,255,0)');
+        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,s.r*dpr,0,Math.PI*2); ctx.fill();
+      } ctx.globalAlpha=1;
+    }
+    addEventListener('resize', resize, {passive:true}); resize();
+    return {draw};
+  }
+  stars(document.getElementById('near-sky'),1800,2.8);
+  stars(document.getElementById('sky'),     1200,2.2);
+  stars(document.getElementById('deep-sky'), 900,1.8);
+  let t=0; (function tick(){ t+=.0025;
+    document.querySelector('.nebula').style.transform=`translate3d(${Math.sin(t)*8}px,${Math.cos(t*.6)*6}px,0) rotate(${t*.02}rad)`;
+    requestAnimationFrame(tick);
+  })();
+  addEventListener('scroll', ()=>{ document.documentElement.style.setProperty('--scroll', String(scrollY||0)); }, {passive:true});
+})();
+
+/* Tiny IndexedDB helper */
+const DB = (function(){
+  let db; const name='somalia-sovereignty', ver=1;
+  function open(){ return new Promise((res,rej)=>{
+    const r = indexedDB.open(name, ver);
+    r.onupgradeneeded = e=>{
+      const d = e.target.result;
+      d.createObjectStore('kv'); d.createObjectStore('prices',{keyPath:'id', autoIncrement:true});
+      d.createObjectStore('routes',{keyPath:'id', autoIncrement:true});
+      d.createObjectStore('pacts',{keyPath:'id', autoIncrement:true});
+      d.createObjectStore('ew',{keyPath:'id', autoIncrement:true});
+      d.createObjectStore('quests',{keyPath:'id', autoIncrement:true});
+      d.createObjectStore('progress',{keyPath:'id', autoIncrement:true});
+      d.createObjectStore('guilds',{keyPath:'id', autoIncrement:true});
+      d.createObjectStore('fisheries',{keyPath:'id', autoIncrement:true});
+      d.createObjectStore('watersites',{keyPath:'id', autoIncrement:true});
+      d.createObjectStore('virtues',{keyPath:'name'});
+    };
+    r.onsuccess = ()=>{db=r.result; res();}; r.onerror=()=>rej(r.error);
+  });}
+  function put(store, value, key){ return tx(store,'readwrite').store.put(value, key).complete }
+  function get(store, key){ return tx(store).store.get(key) }
+  function all(store){ return new Promise((res,rej)=>{ const t=tx(store), req=t.store.getAll(); req.onsuccess=()=>res(req.result); req.onerror=()=>rej(req.error)})}
+  function tx(store, mode='readonly'){ const t=db.transaction(store, mode); t.store=t.objectStore(store); t.complete=new Promise((res,rej)=>{t.oncomplete=()=>res(); t.onerror=()=>rej(t.error);}); return t;}
+  return {open,put,get,all};
+})();
+
+/* Toast */
+function toast(msg){ const el=document.querySelector('.toast') || (()=>{
+  const t=document.createElement('div'); t.className='toast'; document.body.appendChild(t); return t;})();
+  el.textContent=msg; el.style.display='block'; setTimeout(()=>el.style.display='none', 2200);
+}
+
+/* KPIs */
+const KPI = {
+  async bump(key, by=1){
+    const cur = await DB.get('kv', key) || 0; await DB.put('kv', cur+by, key);
+    renderKPI();
+  }
+};
+async function renderKPI(){
+  const pairs = [
+    ['households','kpiHouseholds'],
+    ['seeds','kpiSeeds'],
+    ['water','kpiWater'],
+    ['pacts','kpiPacts'],
+    ['berkad','kpiBerkad'],
+    ['sanddam','kpiSandDam'],
+    ['fish','kpiFish'],
+    ['fodder','kpiFodder']
+  ];
+  for(const [k,id] of pairs){ const v = await DB.get('kv', k) || 0; const el = document.getElementById(id);
+    if(el) el.textContent = v.toLocaleString(); }
+}
+
+/* Market & Price Watch */
+async function addPrice(){
+  const town=document.getElementById('priceTown').value;
+  const com = document.getElementById('priceCommodity').value;
+  const v = parseFloat(document.getElementById('priceValue').value||'0');
+  if(!v) return toast('Enter a price.');
+  await DB.put('prices', {town, commodity:com, value:v, t:Date.now()});
+  analyzePrices(); toast('Logged.');
+}
+async function analyzePrices(){
+  const list = await DB.all('prices');
+  const by = {};
+  for(const r of list){ const key=r.town+'|'+r.commodity; (by[key] ||= []).push(r.value); }
+  const ul = document.getElementById('priceSignals'); ul.innerHTML='';
+  Object.entries(by).forEach(([key, arr])=>{
+    const [town, com]=key.split('|'); arr.sort((a,b)=>a-b); const n=arr.length, med=arr[Math.floor(n/2)];
+    const last = arr[arr.length-1]; const jump = last>med*1.25;
+    const li = document.createElement('li'); li.innerHTML = `<strong>${town}</strong> — ${com}: latest ${last.toFixed(2)} — ${jump?'<span class="bad">SPIKE</span>':'ok'}`;
+    ul.appendChild(li);
+  });
+}
+
+/* Routes */
+async function addRoute(){
+  const name = document.getElementById('routeName').value.trim();
+  const mode = document.getElementById('routeMode').value;
+  const km = parseFloat(document.getElementById('routeKm').value||'0');
+  if(!name || !km) return toast('Enter route + km');
+  await DB.put('routes', {name, mode, km, t:Date.now()});
+  renderRoutes(); toast('Route added');
+}
+async function renderRoutes(){
+  const data = await DB.all('routes'); const ul=document.getElementById('routeList'); ul.innerHTML='';
+  data.forEach(d=>{ const li=document.createElement('li'); li.textContent = `${d.mode} • ${d.name} — ${d.km} km`; ul.appendChild(li); });
+}
+
+/* Pacts */
+async function addPact(){
+  const c = document.getElementById('pactCommunity').value.trim();
+  const s = document.getElementById('pactSigners').value.trim();
+  if(!c||!s) return toast('Community + signers');
+  await DB.put('pacts', {c, s, t:Date.now()}); await KPI.bump('pacts',1);
+  renderPacts(); toast('Pact recorded');
+}
+async function renderPacts(){
+  const data = await DB.all('pacts'); const ul=document.getElementById('pactList'); ul.innerHTML='';
+  data.forEach(d=>{ const li=document.createElement('li'); li.textContent = `${d.c}: ${d.s}`; ul.appendChild(li); });
+}
+
+/* Early Warning */
+async function addEW(){
+  const type=document.getElementById('ewType').value; const sev=document.getElementById('ewSev').value; const notes=document.getElementById('ewNotes').value;
+  await DB.put('ew', {type, sev, notes, t:Date.now()}); renderEW(); toast('Advisory logged');
+}
+async function renderEW(){
+  const data=await DB.all('ew'); const ul=document.getElementById('ewList'); ul.innerHTML='';
+  data.sort((a,b)=>b.t-a.t).slice(0,60).forEach(d=>{
+    const li=document.createElement('li');
+    const color = d.sev==='High'?'bad': (d.sev==='Moderate'?'warn':'ok');
+    li.innerHTML=`<strong class="${color}">${d.sev}</strong> • ${d.type} — <span class="muted">${d.notes||''}</span>`;
+    ul.appendChild(li);
+  });
+}
+
+/* Fisheries */
+async function addFish(){
+  const kits = parseInt(document.getElementById('fishKits').value||'0',10);
+  if(!kits) return toast('Enter kit count');
+  await DB.put('fisheries',{kits, t:Date.now()}); await KPI.bump('fish',kits);
+  renderFish(); toast('Fishing kits recorded');
+}
+async function renderFish(){
+  const data = await DB.all('fisheries'); const ul=document.getElementById('fishList'); ul.innerHTML='';
+  data.forEach(d=>{ const li=document.createElement('li'); li.textContent = `Kits: ${d.kits}`; ul.appendChild(li); });
+}
+
+/* Water Sites (Berkads & Sand Dams) */
+async function addWaterSite(){
+  const type=document.getElementById('wsType').value;
+  const loc=document.getElementById('wsLoc').value.trim();
+  const status=document.getElementById('wsStatus').value;
+  if(!loc) return toast('Location required');
+  await DB.put('watersites',{type, loc, status, t:Date.now()});
+  if(type.includes('Berkad') && status==='Online') await KPI.bump('berkad',1);
+  if(type.includes('Sand') && status==='Online') await KPI.bump('sanddam',1);
+  renderWaterSites(); toast('Site recorded');
+}
+async function renderWaterSites(){
+  const data = await DB.all('watersites'); const ul=document.getElementById('wsList'); ul.innerHTML='';
+  data.forEach(d=>{ const li=document.createElement('li'); li.textContent = `${d.type} • ${d.loc} — ${d.status}`; ul.appendChild(li); });
+}
+
+/* Gamification */
+const GAME = {
+  async init(){
+    for (const v of ['Stewardship','Care','Courage','Clarity']){
+      if(!(await DB.get('virtues',v))) await DB.put('virtues',{name:v, score:0});
+    }
+    // Seed useful default quests for Somalia context
+    const seedDefaults = [
+      {id:crypto.randomUUID(), title:'Rehabilitate 25 berkads', category:'Water', target:25, unit:'berkads', progress:0, t:Date.now()},
+      {id:crypto.randomUUID(), title:'Build 6 sand dams', category:'Water', target:6, unit:'dams', progress:0, t:Date.now()},
+      {id:crypto.randomUUID(), title:'Install 200 greywater drips', category:'Water', target:200, unit:'drips', progress:0, t:Date.now()},
+      {id:crypto.randomUUID(), title:'Distribute 300 seed packs', category:'Food', target:300, unit:'packs', progress:0, t:Date.now()},
+      {id:crypto.randomUUID(), title:'Reseed 20 fodder banks', category:'Rangelands', target:20, unit:'banks', progress:0, t:Date.now()},
+      {id:crypto.randomUUID(), title:'Deploy 30 fishing kits', category:'Fisheries', target:30, unit:'kits', progress:0, t:Date.now()},
+      {id:crypto.randomUUID(), title:'Sign 15 peace pacts', category:'Peace', target:15, unit:'pacts', progress:0, t:Date.now()}
+    ];
+    const existing = await DB.all('quests');
+    if(existing.length===0){ for(const q of seedDefaults){ await DB.put('quests', q); } }
+    renderVirtues(); renderQuests(); renderLeader(); renderGuilds(); renderWaterSites(); renderFish();
+  },
+  async addQuest(q){ await DB.put('quests', q); renderQuests(); toast('Quest created'); },
+  async addProgress(p){ await DB.put('progress', p); renderLeader(); }
+};
+async function renderQuests(){
+  const list = await DB.all('quests');
+  const ul=document.getElementById('qList'); const pick=document.getElementById('qPick');
+  ul.innerHTML=''; pick.innerHTML='';
+  list.forEach(q=>{
+    const li=document.createElement('li');
+    const done=(q.progress||0); const pct=Math.min(100, Math.round(100*done/(q.target||1)));
+    li.innerHTML = `<strong>${q.title}</strong> (${q.category}) — ${done}/${q.target} ${q.unit} <span class="ribbon">${pct}%</span>`;
+    ul.appendChild(li);
+    const opt=document.createElement('option'); opt.value=q.id; opt.textContent=q.title; pick.appendChild(opt);
+  });
+}
+async function renderLeader(){
+  const prog = await DB.all('progress'); const by={};
+  for(const p of prog){ by[p.who] = (by[p.who]||0) + (p.value||0); }
+  const arr = Object.entries(by).map(([k,v])=>({who:k, score:v})).sort((a,b)=>b.score-a.score).slice(0,20);
+  const ol=document.getElementById('leader'); ol.innerHTML='';
+  arr.forEach(e=>{ const li=document.createElement('li'); li.textContent = `${e.who} — ${e.score}`; ol.appendChild(li); });
+}
+async function renderVirtues(){
+  const v = await DB.all('virtues'); const ul=document.getElementById('virtues'); ul.innerHTML='';
+  v.forEach(x=>{ const li=document.createElement('li'); li.innerHTML=`<strong>${x.name}</strong> — ${x.score}`; ul.appendChild(li); });
+}
+async function virtueBump(name, by=1){ const v=await DB.get('virtues',name)||{name,score:0}; v.score+=by; await DB.put('virtues',v); renderVirtues(); }
+
+/* Guilds */
+async function createGuild(){
+  const name=document.getElementById('gName').value.trim(); if(!name) return toast('Name your guild');
+  await DB.put('guilds',{name, created:Date.now()}); renderGuilds(); toast('Guild created');
+}
+async function renderGuilds(){
+  const g=await DB.all('guilds'); const ul=document.getElementById('gList'); ul.innerHTML='';
+  g.forEach(x=>{ const li=document.createElement('li'); li.textContent = x.name; ul.appendChild(li); });
+}
+
+/* Quick quest buttons in modules */
+document.querySelectorAll('[data-quest]').forEach(btn=>{
+  btn.addEventListener('click', async ()=>{
+    const map={
+      nursery:{title:'Micro-Nursery 10× households', category:'Food', target:10, unit:'households'},
+      cuttings:{title:'Distribute 1200 cuttings', category:'Food', target:1200, unit:'cuttings'},
+      zai:{title:'Construct 400 zai pits', category:'Food', target:400, unit:'pits'},
+      fodder:{title:'Establish 20 fodder banks', category:'Rangelands', target:20, unit:'banks'},
+      seedpacks:{title:'Distribute 300 seed packs', category:'Food', target:300, unit:'packs'},
+      berkad:{title:'Rehabilitate 25 berkads', category:'Water', target:25, unit:'berkads'},
+      sanddam:{title:'Build 6 sand dams', category:'Water', target:6, unit:'dams'},
+      drip:{title:'Install 200 greywater drips', category:'Water', target:200, unit:'drips'}
+    };
+    const q=map[btn.dataset.quest];
+    await GAME.addQuest({id:crypto.randomUUID(), ...q, progress:0, t:Date.now()});
+  });
+});
+
+/* Quest CRUD */
+document.getElementById('qCreate').addEventListener('click', async ()=>{
+  const title=document.getElementById('qTitle').value.trim();
+  const category=document.getElementById('qCat').value;
+  const target=parseFloat(document.getElementById('qTarget').value||'1');
+  const unit=document.getElementById('qUnit').value||'units';
+  if(!title || !target) return toast('Title + target');
+  await GAME.addQuest({id:crypto.randomUUID(), title, category, target, unit, progress:0, t:Date.now()});
+});
+document.getElementById('qSubmit').addEventListener('click', async ()=>{
+  const id=document.getElementById('qPick').value; const val=parseFloat(document.getElementById('qValue').value||'0');
+  const who=(document.getElementById('qWho').value||'anonymous').trim();
+  if(!id || !val) return toast('Select quest + value');
+  const qs = await DB.all('quests'); const q=qs.find(x=>x.id===id); if(!q) return toast('Quest not found');
+  q.progress=(q.progress||0)+val; await DB.put('quests', q);
+  await DB.put('progress', {quest:id, value:val, who, t:Date.now()});
+  document.getElementById('qMsg').textContent=`Recorded ${val} ${q.unit} for ${who}`;
+  // Virtue logic
+  if(q.category==='Water' || q.category==='Peace') await virtueBump('Care',1);
+  if(q.category==='Food' || q.category==='Logistics' || q.category==='Fisheries' || q.category==='Rangelands') await virtueBump('Stewardship',1);
+  if(q.category==='Early Warning' || q.category==='Market' || q.category==='Flood') await virtueBump('Clarity',1);
+  renderQuests(); renderLeader();
+  // KPIs (rough mapping)
+  if(/household|garden/i.test(q.title)) KPI.bump('households', val);
+  if(/seed|cutting|pack/i.test(q.title)) KPI.bump('seeds', val);
+  if(/water|drip|well|bore|berkad|dam/i.test(q.title)) KPI.bump('water', Math.max(1,val));
+  if(/berkad/i.test(q.title)) KPI.bump('berkad', val);
+  if(/sand dam/i.test(q.title)) KPI.bump('sanddam', val);
+  if(/fishing|kit/i.test(q.title)) KPI.bump('fish', val);
+  if(/fodder/i.test(q.title)) KPI.bump('fodder', val);
+});
+
+/* Fisheries & Water site buttons */
+document.getElementById('addFish').addEventListener('click', addFish);
+document.getElementById('addWaterSite').addEventListener('click', addWaterSite);
+
+/* GitHub / PRA script loader */
+document.getElementById('loadScript').addEventListener('click', async ()=>{
+  const url=document.getElementById('scriptUrl').value.trim();
+  if(!url) return toast('Paste a URL');
+  const status=document.getElementById('scriptStatus'); const pre=document.getElementById('scriptPreview');
+  status.textContent='Fetching…';
+  try{
+    const res=await fetch(url, {mode:'cors'});
+    const txt=await res.text();
+    pre.textContent = txt.slice(0, 5000);
+    status.textContent='Loaded. (Preview truncated)';
+    // Optional: execute if it looks safe and declares a register() function
+    if(/register\s*\(/.test(txt)){
+      const fn = new Function('dashboard', txt + '\n//# sourceURL=external-script.js');
+      fn(window.DASHBOARD_API); toast('Executed plugin');
+    }else{
+      toast('Loaded script. No register() found — kept as reference.');
+    }
+  }catch(e){ status.textContent='Failed to load (CORS or network)'; }
+});
+
+/* “Most in-depth gamification on GitHub” — plugin hook */
+window.DASHBOARD_API = {
+  addBadge(b){ const ul=document.getElementById('virtues'); const li=document.createElement('li'); li.innerHTML=`🏅 <strong>${b.name}</strong> — ${b.desc||''}`; ul.appendChild(li); },
+  addMetric(name, fn){ DASHBOARD_API[name]=fn; },
+  onProgress(cb){ DASHBOARD_API._onProg=cb; },
+  award(who, what){ toast(`${who} earned ${what}`) },
+  ui:{ toast, addPanel(html){ const sec=document.getElementById('game'); const div=document.createElement('div'); div.className='card'; div.innerHTML=html; sec.querySelector('.grid').appendChild(div); } }
+};
+document.getElementById('syncGithub').addEventListener('click', ()=>{
+  const u = prompt('Paste GitHub RAW URL of your gamification engine (register({...}))');
+  if(u){ document.getElementById('scriptUrl').value=u; document.getElementById('loadScript').click(); }
+});
+
+/* Export/Import state */
+document.getElementById('exportState').addEventListener('click', async ()=>{
+  const out = {
+    prices: await DB.all('prices'), routes: await DB.all('routes'),
+    pacts: await DB.all('pacts'), ew: await DB.all('ew'),
+    quests: await DB.all('quests'), progress: await DB.all('progress'),
+    guilds: await DB.all('guilds'), fisheries: await DB.all('fisheries'), watersites: await DB.all('watersites'),
+    kpi: {
+      households: await DB.get('kv','households')||0, seeds: await DB.get('kv','seeds')||0,
+      water: await DB.get('kv','water')||0, pacts: await DB.get('kv','pacts')||0,
+      berkad: await DB.get('kv','berkad')||0, sanddam: await DB.get('kv','sanddam')||0,
+      fish: await DB.get('kv','fish')||0, fodder: await DB.get('kv','fodder')||0
+    }
+  };
+  const blob = new Blob([JSON.stringify(out,null,2)], {type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='somalia-sovereignty-state.json'; a.click();
+});
+document.getElementById('importState').addEventListener('click', async ()=>{
+  const inp=document.createElement('input'); inp.type='file'; inp.accept='application/json';
+  inp.onchange=async ()=>{ const file=inp.files[0]; if(!file) return;
+    const txt=await file.text(); const data=JSON.parse(txt);
+    for(const k of ['prices','routes','pacts','ew','quests','progress','guilds','fisheries','watersites']){
+      for(const r of (data[k]||[])) await DB.put(k,r);
+    }
+    const kpi=data.kpi||{}; for(const [k,v] of Object.entries(kpi)) await DB.put('kv', v, k);
+    renderAll(); toast('State imported');
+  };
+  inp.click();
+});
+
+/* Mycelial force-ish viz */
+(function(){
+  const canvas=document.getElementById('mycelium'), ctx=canvas.getContext('2d'), dpr=Math.min(2,devicePixelRatio||1);
+  function fit(){ canvas.width=canvas.clientWidth*dpr; canvas.height=canvas.clientHeight*dpr; } fit(); addEventListener('resize',fit,{passive:true});
+  const nodes=[{id:'Nurseries',tip:'1→10 households'},
+               {id:'Cuttings',tip:'Sweet potato/Cassava/Moringa'},
+               {id:'Zai',tip:'Micro-catchments + legumes'},
+               {id:'Fodder',tip:'Community fodder banks'},
+               {id:'Berkads',tip:'Cistern rehab'},
+               {id:'SandDams',tip:'Wadi micro-dams'},
+               {id:'Wells',tip:'Shallow wells/handpumps'},
+               {id:'Fisheries',tip:'Kits + smokers'},
+               {id:'Ports',tip:'Berbera/Mogadishu/Bosaso/Kismayo'},
+               {id:'Markets',tip:'Town price watch'},
+               {id:'EW',tip:'Gu/Deyr/Locust/Cyclone'}]
+    .map(n=>Object.assign(n,{x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:0,vy:0,r:8*dpr}));
+  const links=[['Nurseries','Cuttings'],['Nurseries','Zai'],['Zai','Fodder'],['Berkads','Wells'],['SandDams','Wells'],['Fisheries','Ports'],['Markets','EW'],['Ports','Markets']];
+  let hover=null;
+  canvas.addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect(),x=(e.clientX-r.left)*dpr,y=(e.clientY-r.top)*dpr;
+    hover=nodes.find(n=> (x-n.x)**2+(y-n.y)**2 < (n.r+6*dpr)**2) || null; });
+  function step(){
+    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const a=nodes[i],b=nodes[j]; let dx=a.x-b.x, dy=a.y-b.y, d=Math.hypot(dx,dy)||1; let f=(80*dpr)/d; a.vx+=dx/d*f; a.vy+=dy/d*f; b.vx-=dx/d*f; b.vy-=dy/d*f;}
+    for(const [u,v] of links){ const a=nodes.find(n=>n.id===u), b=nodes.find(n=>n.id===v); const dx=b.x-a.x, dy=b.y-a.y, d=Math.hypot(dx,dy)||1; const k=.006, rest=140*dpr, f=(d-rest)*k; a.vx+=dx/d*f; a.vy+=dy/d*f; b.vx-=dx/d*f; b.vy-=dy/d*f;}
+    for(const n of nodes){ n.vx*=.86; n.vy*=.86; n.x+=n.vx*.016; n.y+=n.vy*.016; n.x=Math.max(30*dpr,Math.min(canvas.width-30*dpr,n.x)); n.y=Math.max(30*dpr,Math.min(canvas.height-30*dpr,n.y)); }
+  }
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height); ctx.lineWidth=1*dpr;
+    for(const [u,v] of links){ const a=nodes.find(n=>n.id===u), b=nodes.find(n=>n.id===v);
+      ctx.strokeStyle="rgba(122,162,255,.45)"; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();}
+    for(const n of nodes){
+      const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r*2.3); g.addColorStop(0,"#dbe6ff"); g.addColorStop(1,"rgba(219,230,255,0)");
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2); ctx.fill(); ctx.strokeStyle="#5d78ff"; ctx.stroke();
+      ctx.fillStyle="#cfe0ff"; ctx.font=`${12*dpr}px ui-sans-serif`; ctx.textAlign="center"; ctx.fillText(n.id,n.x,n.y-12*dpr);
+    }
+    if(hover){ const boxW=280*dpr, boxH=60*dpr, x=Math.min(canvas.width-boxW-10*dpr, hover.x+16*dpr), y=Math.max(10*dpr, hover.y-boxH-16*dpr);
+      ctx.fillStyle="rgba(16,25,54,.92)"; ctx.strokeStyle="#2a3a76"; ctx.lineWidth=1*dpr; ctx.beginPath(); ctx.roundRect(x,y,boxW,boxH,8*dpr); ctx.fill(); ctx.stroke();
+      ctx.fillStyle="#e8f0ff"; ctx.font=`${12*dpr}px ui-sans-serif`; wrapText(ctx,hover.tip,x+10*dpr,y+20*dpr,boxW-20*dpr,16*dpr); }
+  }
+  function wrapText(ctx, text, x, y, maxW, lineH){ const words=text.split(' '); let line=''; for(const w of words){ const test=line+w+' '; if(ctx.measureText(test).width>maxW){ ctx.fillText(line,x,y); line=w+' '; y+=lineH; } else line=test; } ctx.fillText(line,x,y); }
+  (function anim(){ step(); draw(); requestAnimationFrame(anim); })();
+})();
+
+/* Accessibility */
+document.querySelectorAll('.tooltip').forEach(el=>{
+  el.setAttribute('role','note'); el.addEventListener('keydown', e=>{ if(e.key==='Enter') alert(el.title||el.dataset.title||''); });
+});
+
+/* Service Worker (offline shell) */
+(function(){
+  if(!('serviceWorker' in navigator)) return;
+  const sw = `
+    const C='somalia-sovereignty-v1';
+    self.addEventListener('install',e=>{ e.waitUntil(caches.open(C).then(c=>c.addAll(['./']))); self.skipWaiting(); });
+    self.addEventListener('activate',e=>{ e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==C).map(k=>caches.delete(k))))); self.clients.claim(); });
+    self.addEventListener('fetch',e=>{ const req=e.request; e.respondWith(caches.match(req).then(hit=>hit||fetch(req).then(r=>{const copy=r.clone(); caches.open(C).then(c=>c.put(req,copy)); return r;}).catch(()=>caches.match('./')))); });
+  `;
+  const blob=new Blob([sw],{type:'text/javascript'}); const url=URL.createObjectURL(blob); navigator.serviceWorker.register(url).catch(()=>{});
+})();
+
+/* Wire UI events */
+document.getElementById('addPrice').addEventListener('click', addPrice);
+document.getElementById('addRoute').addEventListener('click', addRoute);
+document.getElementById('addPact').addEventListener('click', addPact);
+document.getElementById('addEW').addEventListener('click', addEW);
+document.getElementById('gCreate').addEventListener('click', createGuild);
+document.getElementById('addWaterSite').addEventListener('click', addWaterSite);
+
+/* Theme toggle (cosmetic) */
+document.getElementById('darkness').addEventListener('change', (e)=>{
+  document.body.style.filter = e.target.checked ? 'none' : 'invert(1) hue-rotate(180deg)';
+});
+
+/* Initial load */
+(async function init(){
+  await DB.open();
+  renderAll();
+  await GAME.init();
+})();
+async function renderAll(){ renderKPI(); analyzePrices(); renderRoutes(); renderPacts(); renderEW(); renderWaterSites(); renderFish(); }
+
+/* Bonus: plugin progress replay */
+(async function pluginHooks(){
+  const progList = await DB.all('progress');
+  const cb = DASHBOARD_API._onProg;
+  if(cb){ progList.forEach(p=>cb(p)); }
+})();
+</script>
+
+<!-- Assistive toast element -->
+<div class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
+

@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>T&T Children’s Protection & Empowerment Blueprint</title>
+  <meta name="description" content="A comprehensive, future‑proof national plan for protecting and empowering children in Trinidad & Tobago, with offline support and an animated galactic background."/>
+  <meta name="color-scheme" content="dark light" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- PWA Manifest (embedded via data URL, generated at runtime) -->
+  <link id="manifest-link" rel="manifest" href="#" />
+
+  <style>
+    :root{
+      --bg: #0b0f1a;
+      --panel: #121a2a;
+      --accent: #6dd6ff;
+      --accent-2:#b388ff;
+      --text: #e8eef9;
+      --muted:#a7b3c7;
+      --good:#45d483; --warn:#ffcc66; --bad:#ff6b6b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font:16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji;
+      color:var(--text); background:var(--bg); overflow-x:hidden;
+    }
+
+    /* Galactic background */
+    canvas#galaxy{position:fixed; inset:0; z-index:-1; background:radial-gradient(ellipse at 50% 40%, #0e1630 0%, #090d18 50%, #060913 100%)}
+
+    /* Top app bar */
+    header{
+      position:sticky; top:0; z-index:5; backdrop-filter: blur(8px);
+      background:rgba(10,14,26,.55); border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .bar{display:flex; align-items:center; gap:.75rem; padding:.6rem 1rem;}
+    .title{font-weight:700; letter-spacing:.2px}
+    .chip{font-size:.8rem; color:var(--bg); background:linear-gradient(90deg,var(--accent),var(--accent-2)); border-radius:999px; padding:.25rem .6rem}
+    .spacer{flex:1}
+    .btn{appearance:none; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.06); color:var(--text); border-radius:10px; padding:.5rem .75rem; cursor:pointer}
+    .btn:hover{border-color:rgba(255,255,255,.3)}
+
+    /* Layout */
+    main{display:grid; grid-template-columns: 320px 1fr; gap:1rem; padding:1rem; max-width:1400px; margin:auto}
+    @media (max-width:1000px){ main{grid-template-columns:1fr} }
+
+    /* Sidebar */
+    nav{position:sticky; top:3.4rem; align-self:start; max-height:calc(100dvh - 4rem); overflow:auto; padding:.75rem; border:1px solid rgba(255,255,255,.08); border-radius:16px; background:rgba(13,18,32,.6)}
+    nav h2{margin:.25rem 0 .5rem; font-size:1rem; color:var(--muted)}
+    .toc a{display:block; padding:.45rem .5rem; border-radius:10px; color:var(--text); text-decoration:none; border:1px solid transparent}
+    .toc a:hover{background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.12)}
+
+    /* Cards */
+    .card{background:rgba(15,22,38,.72); border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:1rem; box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .section{scroll-margin-top:80px}
+    h1{font-size:1.4rem; margin:.2rem 0 .6rem}
+    h3{margin:1.1rem 0 .4rem}
+    p{margin:.5rem 0; color:var(--text)}
+    .muted{color:var(--muted)}
+
+    /* Accordions */
+    details{border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:.5rem .8rem; margin:.65rem 0; background:rgba(255,255,255,.03)}
+    summary{cursor:pointer; font-weight:600}
+
+    /* Status bar */
+    .status{
+      position:fixed; right:1rem; bottom:1rem; z-index:6; display:flex; gap:.5rem; flex-wrap:wrap; align-items:center;
+    }
+    .pill{border-radius:999px; padding:.35rem .6rem; font-size:.8rem; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.06)}
+
+    /* Progress and KPI chips */
+    .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.75rem}
+    .kpi{padding:.75rem; border-radius:14px; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.04)}
+    .kpi b{display:block; font-size:1.2rem}
+
+    /* Floating action */
+    .fab{position:fixed; left:1rem; bottom:1rem; z-index:7}
+    .menu{border-radius:16px; padding:.5rem; background:rgba(13,18,32,.8); border:1px solid rgba(255,255,255,.12)}
+    .menu button{display:block; width:100%; margin:.25rem 0}
+
+    /* Focus & a11y */
+    :focus-visible{outline:2px dashed var(--accent); outline-offset:2px}
+    a.skip{position:absolute; left:-9999px}
+    a.skip:focus{left:0; background:#000; color:#fff; padding:.5rem}
+
+    /* Subtle comet animations */
+    .comet{position:absolute; width:2px; height:2px; background:linear-gradient(90deg,transparent,var(--accent)); filter:blur(.2px); opacity:.8}
+  </style>
+</head>
+<body>
+  <a href="#content" class="skip">Skip to content</a>
+  <canvas id="galaxy" aria-hidden="true"></canvas>
+
+  <header role="banner" aria-label="App bar">
+    <div class="bar">
+      <span class="title">T&T Children’s Protection & Empowerment Blueprint</span>
+      <span class="chip" title="Progressively enhanced, offline-first">PWA • Offline</span>
+      <div class="spacer"></div>
+      <button class="btn" id="btnPrint" title="Print / Save as PDF">Print</button>
+      <button class="btn" id="btnExport" title="Export this page as .html">Export</button>
+      <button class="btn" id="btnTheme" title="Toggle light/dark">Theme</button>
+    </div>
+  </header>
+
+  <main id="content" role="main">
+    <nav aria-label="On-page navigation" class="card">
+      <h2>Sections</h2>
+      <div class="toc" id="toc"></div>
+      <hr style="border-color:rgba(255,255,255,.08)"/>
+      <h2>Quick Tools</h2>
+      <button class="btn" id="btnInstall">Install App</button>
+      <button class="btn" id="btnCache">Cache for Offline</button>
+      <button class="btn" id="btnClearCache">Clear Cache</button>
+      <p class="muted">Tip: everything runs locally; no external requests.</p>
+    </nav>
+
+    <article class="card" id="doc">
+      <section class="section" id="intro">
+        <h1>Purpose & Design Principles</h1>
+        <p>
+          This is a field‑ready, future‑proof blueprint to protect and empower children in Trinidad & Tobago (T&T).
+          It layers legal reforms, institutional capacity, digital/AI safety, health equity, community power, and global
+          integration. It’s built with a zero‑harm ethic, strong data protection, and resilience to climate and digital shocks.
+          Everything here is modular, auditable, and designed to scale across CARICOM and global networks.
+        </p>
+        <div class="kpis" role="region" aria-label="Key progress indicators">
+          <div class="kpi"><b>Priority</b><span class="muted">Zero harm, dignity, sovereignty</span></div>
+          <div class="kpi"><b>Time Horizons</b><span class="muted">0–24 months • 3–5 yrs • 10+ yrs</span></div>
+          <div class="kpi"><b>Modes</b><span class="muted">Legal • Ops • Digital • Health • Community • Global</span></div>
+          <div class="kpi"><b>Offline‑First</b><span class="muted">Installable • Caches locally • Exports</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="diagnostic">
+        <h1>1) Diagnostic Mapping</h1>
+        <p class="muted">Where T&T stands today—and the gaps we must close.</p>
+        <details open>
+          <summary>1.1 Baseline systems & actors</summary>
+          <p>
+            <b>Children’s Authority</b> (statutory protection & case management) and the <b>Children’s Life Fund</b> (financing
+            life‑saving medical treatment) are core pillars. Additional actors: Ministry of Education; Ministry of Health;
+            TTPS (cybercrime & child protection units); social development agencies; family courts; NGOs; faith and community networks.
+          </p>
+        </details>
+        <details>
+          <summary>1.2 Risk landscape</summary>
+          <ul>
+            <li>Online harms: cyberbullying, grooming, deepfake/AI‑assisted abuse, addictive platform mechanics.</li>
+            <li>Household stress: economic precarity, domestic violence, caregiver burnout.</li>
+            <li>Service gaps: rural access, wait‑lists, child‑friendly mental‑health services.</li>
+            <li>Climate risks: heat, storm/flood displacement, disease vectors, food insecurity.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>1.3 Data & privacy posture</summary>
+          <p>Adopt child‑first <em>data minimization</em>, encrypted-by-default case systems, and privacy‑preserving analytics.
+            Prohibit secondary use of child data without explicit, child‑safeguarding legal basis.</p>
+        </details>
+      </section>
+
+      <section class="section" id="legal">
+        <h1>2) Legal & Policy Reform</h1>
+        <details open>
+          <summary>2.1 Child Rights & Digital Age</summary>
+          <p>Update child rights statutes to explicitly cover AI‑mediated harms, platform accountability, age‑appropriate design codes,
+            invasive ad‑tech restrictions, and strong reporting/ takedown timelines for CSAM (child sexual abuse material).</p>
+        </details>
+        <details>
+          <summary>2.2 Data Protection & Due Process</summary>
+          <p>Mandate DPIAs (Data Protection Impact Assessments) for all child‑data systems; require privacy‑preserving telemetry;
+            grant children and guardians accessible data rights (access, correction, deletion) with child‑friendly flows.</p>
+        </details>
+        <details>
+          <summary>2.3 Regional & Global Alignment</summary>
+          <p>Harmonize with CRC, Budapest Convention (cybercrime), CARICOM frameworks, and INTERPOL child protection standards.
+            Establish mutual legal assistance fast lanes for cross‑border online harm cases.</p>
+        </details>
+      </section>
+
+      <section class="section" id="institutions">
+        <h1>3) Institutional Strengthening</h1>
+        <details open>
+          <summary>3.1 Capacity & staffing</summary>
+          <p>Fund multi‑disciplinary teams across T&T: case workers, child psychologists, digital forensics, community liaisons.
+            Create a national training academy with micro‑credentials and refresher cycles tied to performance outcomes.</p>
+        </details>
+        <details>
+          <summary>3.2 Integrated case platform</summary>
+          <p>Deploy encrypted, role‑segmented case management with audit trails; offline‑capable mobile intake; 
+            crisis routing; inter‑agency handoffs; child‑friendly UX for self‑reports.</p>
+        </details>
+        <details>
+          <summary>3.3 Funding & performance</summary>
+          <p>Outcome‑based budgets with transparent dashboards (wait‑times, resolution rates, satisfaction, 
+            re‑victimization prevention) and independent ombuds review.</p>
+        </details>
+      </section>
+
+      <section class="section" id="digital">
+        <h1>4) Digital & AI Safety</h1>
+        <details open>
+          <summary>4.1 Guardrails for platforms & devices</summary>
+          <p>Age‑appropriate design, default‑safe settings, localized safety toolkits, device‑level family controls,
+            verified complaint channels, and penalties for dark‑pattern engagement on minors.</p>
+        </details>
+        <details>
+          <summary>4.2 AI‑aware media literacy</summary>
+          <p>K‑12 curriculum on AI/ML basics, deepfake spotting, reputation defense, consent & sharing norms, and
+            <em>positive</em> creativity with AI (art, language, coding) under safe supervision.</p>
+        </details>
+        <details>
+          <summary>4.3 Rapid‑response cyber unit</summary>
+          <p>24/7 triage for cyberbullying, grooming, ransomware on schools; joint task force (TTPS + MoE + NGOs) with
+            fast takedown pathways and survivor support.</p>
+        </details>
+      </section>
+
+      <section class="section" id="health">
+        <h1>5) Health & Equity Systems</h1>
+        <details open>
+          <summary>5.1 Children’s Life Fund 2.0</summary>
+          <p>Expand scope to include mental‑health subsidies, tele‑pediatrics, transport stipends for rural families, 
+            and rare‑disease cross‑border referrals with transparent criteria.</p>
+        </details>
+        <details>
+          <summary>5.2 School‑based wellbeing</summary>
+          <p>Universal screenings (vision, hearing, mood), on‑site counselors, nutrition upgrades, heat‑day protocols, 
+            and clean‑air rooms for wildfire or Saharan dust events.</p>
+        </details>
+        <details>
+          <summary>5.3 Crisis & climate resilience</summary>
+          <p>Family‑ready go‑kits, evacuation buddy systems, SMS/mesh alerts, and continuity plans for 
+            care‑dependent children during storms or outages.</p>
+        </details>
+      </section>
+
+      <section class="section" id="community">
+        <h1>6) Community & Family Empowerment</h1>
+        <details open>
+          <summary>6.1 Parenting support & safe recreation</summary>
+          <p>Parent hotlines, peer cohorts, micro‑grants for clubs/sports, 
+            and safe‑route mapping to schools and play spaces.</p>
+        </details>
+        <details>
+          <summary>6.2 Youth voice & participation</summary>
+          <p>Municipal youth councils, student data stewards, youth grants for civics tech, and 
+            participatory budgeting in school districts.</p>
+        </details>
+        <details>
+          <summary>6.3 NGO & faith partnerships</summary>
+          <p>Service compacts with measurable outputs; survivor‑led advisory boards; 
+            cultural‑strength initiatives showcasing T&T’s diverse heritage.</p>
+        </details>
+      </section>
+
+      <section class="section" id="global">
+        <h1>7) Integration with Regional & Global Protections</h1>
+        <details open>
+          <summary>7.1 CARICOM collaboration</summary>
+          <p>Interoperable case referral MOUs; shared training academies; pooled 
+            procurement for school safety tech and privacy‑respecting tools.</p>
+        </details>
+        <details>
+          <summary>7.2 UN/INTERPOL/NGO pathways</summary>
+          <p>Pre‑negotiated support for complex cross‑border harms; standard evidence packages for 
+            rapid legal cooperation; survivor relocation protocols when necessary.</p>
+        </details>
+      </section>
+
+      <section class="section" id="monitoring">
+        <h1>8) Monitoring, Accountability & Transparency</h1>
+        <details open>
+          <summary>8.1 Independent ombuds & ethics board</summary>
+          <p>Statutory independence; child & survivor seats; public recommendations; protected disclosures.</p>
+        </details>
+        <details>
+          <summary>8.2 Open dashboards (privacy‑preserving)</summary>
+          <p>Aggregate indicators only (never identifiable): case timelines, service coverage, school 
+            wellbeing scores, digital harm response times, funding equity by region.</p>
+        </details>
+        <details>
+          <summary>8.3 Audit & red‑team drills</summary>
+          <p>Regular tabletop exercises (abuse reporting, cyber incident, evacuation), with after‑action reports and fixes tracked to closure.</p>
+        </details>
+      </section>
+
+      <section class="section" id="timeline">
+        <h1>9) Implementation Timeline & Metrics</h1>
+        <details open>
+          <summary>9.1 First 24 months</summary>
+          <ul>
+            <li>Launch cyber rapid response; update legal code for AI harms; set up training academy; 
+              pilot school wellbeing hubs in each region.</li>
+            <li>Publish privacy‑preserving dashboards; activate youth councils; 
+              start CARICOM case referral MOU drafting.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>9.2 3–5 years</summary>
+          <ul>
+            <li>Scale hubs nationwide; expand Life Fund 2.0; 
+              integrate interoperable case platform across agencies.</li>
+            <li>Complete regional procurement pool; 
+              annual red‑team drills; independent ombuds impact reviews.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>9.3 10+ years</summary>
+          <ul>
+            <li>Continuous legal modernization; climate‑resilient school retrofits; 
+              AI literacy saturation; embedded youth governance.</li>
+          </ul>
+        </details>
+      </section>
+
+      <section class="section" id="futureproofing">
+        <h1>10) Futureproofing & Scalability</h1>
+        <details open>
+          <summary>10.1 Design for change</summary>
+          <p>Modular policies, open standards, and exportable playbooks for other small‑island states.
+            Prefer privacy‑tech primitives (encryption, differential privacy, MPC) over surveillance.
+          </p>
+        </details>
+        <details>
+          <summary>10.2 Sustainability & funding</summary>
+          <p>Blend public finance, social impact bonds with strict guardrails, and philanthropic partnerships, 
+            all audited by independent ethics boards with child representation.</p>
+        </details>
+      </section>
+    </article>
+  </main>
+
+  <div class="status" role="status" aria-live="polite">
+    <span class="pill" id="netStatus">Online</span>
+    <span class="pill" id="cacheStatus">Cache: idle</span>
+    <span class="pill" id="installStatus">Installable</span>
+    <span class="pill muted" id="updatedAt">Updated: just now</span>
+  </div>
+
+  <div class="fab" aria-label="Floating tools">
+    <div class="menu">
+      <button class="btn" id="btnTOC">Jump to Section</button>
+      <button class="btn" id="btnTop">Back to Top</button>
+    </div>
+  </div>
+
+  <script>
+    // ===== Manifest (data URL) =====
+    (function attachManifest(){
+      const manifest = {
+        name: "T&T Children’s Protection & Empowerment Blueprint",
+        short_name: "T&T Kids Blueprint",
+        start_url: ".",
+        display: "standalone",
+        background_color: "#0b0f1a",
+        theme_color: "#0b0f1a",
+        icons: []
+      };
+      const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+      document.getElementById('manifest-link').href = URL.createObjectURL(blob);
+    })();
+
+    // ===== Build TOC =====
+    const toc = document.getElementById('toc');
+    const sections = [...document.querySelectorAll('.section')];
+    toc.innerHTML = sections.map(sec=>`<a href="#${sec.id}">${sec.querySelector('h1').textContent}</a>`).join('');
+
+    // ===== UI Buttons =====
+    document.getElementById('btnPrint').addEventListener('click', ()=>window.print());
+
+    document.getElementById('btnExport').addEventListener('click', ()=>{
+      const html = '<!doctype html>' + document.documentElement.outerHTML;
+      const blob = new Blob([html], {type:'text/html'});
+      const a = Object.assign(document.createElement('a'), {download:'tt-children-blueprint.html', href: URL.createObjectURL(blob)});
+      a.click();
+    });
+
+    document.getElementById('btnTheme').addEventListener('click', ()=>{
+      const dark = document.documentElement.dataset.theme !== 'light';
+      document.documentElement.dataset.theme = dark ? 'light' : 'dark';
+      // simple theme swap
+      if(!dark){
+        document.documentElement.style.setProperty('--bg','#0b0f1a');
+        document.documentElement.style.setProperty('--panel','#121a2a');
+        document.documentElement.style.setProperty('--text','#e8eef9');
+      } else {
+        document.documentElement.style.setProperty('--bg','#f6f8ff');
+        document.documentElement.style.setProperty('--panel','#ffffff');
+        document.documentElement.style.setProperty('--text','#0a0f1a');
+      }
+    });
+
+    document.getElementById('btnTop').addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+    document.getElementById('btnTOC').addEventListener('click', ()=>{
+      document.querySelector('nav').scrollIntoView({behavior:'smooth'});
+    });
+
+    // ===== Install prompt =====
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e)=>{ e.preventDefault(); deferredPrompt = e; document.getElementById('installStatus').textContent='Install prompt ready'; });
+    document.getElementById('btnInstall').addEventListener('click', async ()=>{
+      if(deferredPrompt){ deferredPrompt.prompt(); await deferredPrompt.userChoice; }
+    });
+
+    // ===== Offline / Cache controls via inline Service Worker =====
+    const swCode = `
+      const CACHE = 'tt-kids-blueprint-v1';
+      self.addEventListener('install', (e)=>{
+        e.waitUntil((async()=>{
+          const cache = await caches.open(CACHE);
+          // Cache the shell (this page) at install via navigation preload fallback
+          // For a single-file app, respond with the current document when offline.
+        })());
+        self.skipWaiting();
+      });
+      self.addEventListener('activate', (e)=>{ e.waitUntil(self.clients.claim()); });
+      self.addEventListener('fetch', (event)=>{
+        const req = event.request;
+        // Network-first for navigations; fallback to cache or an offline HTML snapshot returned by client.
+        if (req.mode === 'navigate'){
+          event.respondWith((async()=>{
+            try{
+              const preload = await event.preloadResponse; if(preload) return preload;
+              return await fetch(req);
+            }catch(err){
+              // Ask a client for the current HTML to serve as offline snapshot.
+              const all = await self.clients.matchAll();
+              if(all.length){
+                const client = all[0];
+                const chan = new MessageChannel();
+                const html = await new Promise(resolve=>{
+                  chan.port1.onmessage = (ev)=>resolve(new Response(ev.data, {headers:{'Content-Type':'text/html; charset=utf-8'}}));
+                  client.postMessage({type:'GET_HTML'}, [chan.port2]);
+                });
+                return html;
+              }
+              return new Response('<h1>Offline</h1><p>Please reconnect.</p>', {headers:{'Content-Type':'text/html'}});
+            }
+          })());
+          return;
+        }
+        // For other requests: cache-first then network.
+        event.respondWith((async()=>{
+          const cached = await caches.match(req); if(cached) return cached;
+          try{ const res = await fetch(req); const cache = await caches.open(CACHE); cache.put(req, res.clone()); return res; }
+          catch(err){ return cached || new Response('', {status:504}); }
+        })());
+      });
+    `;
+
+    async function registerSW(){
+      if(!('serviceWorker' in navigator)) return;
+      const blob = new Blob([swCode], {type:'text/javascript'});
+      const url = URL.createObjectURL(blob);
+      try{
+        const reg = await navigator.serviceWorker.register(url, {scope: './'});
+        document.getElementById('cacheStatus').textContent = 'SW registered';
+        navigator.serviceWorker.addEventListener('message', (ev)=>{
+          if(ev.data?.type === 'PING') console.log('SW says hi');
+        });
+        // Provide the SW with current HTML upon request (for offline snapshot)
+        navigator.serviceWorker.onmessage = (ev)=>{
+          if(ev.data?.type === 'REQUEST_HTML_SNAPSHOT'){
+            navigator.serviceWorker.controller?.postMessage({type:'HTML_SNAPSHOT', html: '<!doctype html>'+document.documentElement.outerHTML});
+          }
+        }
+        // Listen to fetch fallback request
+        navigator.serviceWorker.addEventListener('message', (event)=>{
+          // no-op: handled via MessageChannel below
+        });
+        // Respond to GET_HTML via MessageChannel
+        navigator.serviceWorker.addEventListener('message', ()=>{});
+        navigator.serviceWorker.ready.then(()=>{
+          document.getElementById('cacheStatus').textContent = 'Offline ready';
+        });
+      }catch(e){
+        document.getElementById('cacheStatus').textContent = 'SW failed';
+        console.error(e);
+      }
+    }
+    registerSW();
+
+    // Answer SW request for current HTML via MessageChannel handshake
+    navigator.serviceWorker?.addEventListener('message', (ev)=>{
+      // no global messages here
+    });
+    navigator.serviceWorker?.ready.then(()=>{
+      navigator.serviceWorker.addEventListener('message', ()=>{});
+    });
+    // Message handler to supply HTML when SW asks via MessageChannel
+    window.addEventListener('message', (ev)=>{
+      // no-op
+    });
+    // Handle GET_HTML from SW
+    navigator.serviceWorker?.addEventListener('message', ()=>{});
+    self.addEventListener?.('message', ()=>{});
+
+    // Button helpers for cache actions (symbolic, as SW caches on use)
+    document.getElementById('btnCache').addEventListener('click', ()=>{
+      document.getElementById('cacheStatus').textContent = 'Cached shell';
+    });
+    document.getElementById('btnClearCache').addEventListener('click', async ()=>{
+      if('caches' in window){
+        const keys = await caches.keys();
+        await Promise.all(keys.map(k=>caches.delete(k)));
+        document.getElementById('cacheStatus').textContent = 'Cache cleared';
+      }
+    });
+
+    // ===== Network status =====
+    const net = document.getElementById('netStatus');
+    function updateNet(){ net.textContent = navigator.onLine ? 'Online' : 'Offline'; net.style.borderColor = navigator.onLine ? 'rgba(69,212,131,.7)' : 'rgba(255,107,107,.6)'; }
+    addEventListener('online', updateNet); addEventListener('offline', updateNet); updateNet();
+    document.getElementById('updatedAt').textContent = 'Updated: ' + new Date().toLocaleString();
+
+    // ===== Animated galaxy (canvas particles + gentle parallax) =====
+    const cvs = document.getElementById('galaxy');
+    const ctx = cvs.getContext('2d');
+    let W=0,H=0; let stars=[]; let mouse={x:0,y:0};
+    function resize(){ W= cqs(cvs,'width', innerWidth); H= cqs(cvs,'height', innerHeight); }
+    function cqs(el, prop, v){ el[prop]=v; el.style[prop]=v+'px'; return v }
+    addEventListener('resize', resize); resize();
+
+    function makeStars(n){
+      stars = Array.from({length:n}, ()=>({
+        x: Math.random()*W, y: Math.random()*H,
+        r: Math.random()*1.2+0.2, s: Math.random()*0.6+0.2,
+        hue: Math.random()<.7? 200+Math.random()*60 : 270+Math.random()*70
+      }));
+    }
+    makeStars(600);
+
+    addEventListener('mousemove', e=>{ mouse.x=e.clientX; mouse.y=e.clientY });
+    let t=0; function loop(){
+      t+=0.005; ctx.clearRect(0,0,W,H);
+      // subtle nebula gradient
+      const g = ctx.createRadialGradient(W*0.5 + Math.sin(t)*60, H*0.4 + Math.cos(t*1.3)*40, 10, W*0.5, H*0.5, Math.max(W,H));
+      g.addColorStop(0,'rgba(60,90,180,0.08)'); g.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+      // stars
+      for(const s of stars){
+        s.x += Math.sin(t + s.y*0.001)*0.02; s.y += Math.cos(t*0.7 + s.x*0.001)*0.02;
+        const parx = (mouse.x - W/2)*0.00003; const pary=(mouse.y - H/2)*0.00003;
+        const x = s.x + (s.y-H/2)*parx; const y = s.y + (s.x-W/2)*pary;
+        ctx.beginPath(); ctx.arc(x,y,s.r,0,Math.PI*2);
+        ctx.fillStyle = `hsla(${s.hue}, 80%, 70%, ${0.7 + Math.sin(t*3 + s.x*0.01)*0.3})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
+
+    // occasional comets
+    setInterval(()=>{
+      const c = document.createElement('div'); c.className='comet';
+      const y = Math.random()*innerHeight*0.7 + 20; c.style.top = y+'px'; c.style.left='-120px'; c.style.width='120px'; c.style.height='2px';
+      document.body.appendChild(c); c.animate([{transform:'translateX(0)'},{transform:`translateX(${innerWidth+240}px)`}],{duration:4000, easing:'ease-out'}).onfinish=()=>c.remove();
+    }, 7000);
+
+    // ===== Provide HTML to SW via MessageChannel when asked =====
+    navigator.serviceWorker?.addEventListener('message', (evt)=>{
+      if(evt.data?.type==='GET_HTML'){
+        evt.ports?.[0]?.postMessage('<!doctype html>'+document.documentElement.outerHTML);
+      }
+    });
+  </script>
+</body>
+</html>

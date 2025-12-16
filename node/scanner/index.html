@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- =========================================================
+       Planetary Restoration Archive — Sovereignty Gap Scanner
+       Standalone, online-first (no setup), offline-resilient.
+       ========================================================= -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0f1a" />
+  <title>Food & Water Sovereignty — Global Gap Scanner | PRA</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Live, client-side scan for food & water sovereignty signals worldwide. Builds a coverage matrix, highlights relief gaps, and suggests rapid activation targets. Offline-resilient with IndexedDB." />
+  <meta name="keywords" content="food sovereignty, water sovereignty, WASH, irrigation, seed banks, humanitarian, PRA, Planetary Restoration Archive, reliefweb, FAO, resilience" />
+  <link rel="canonical" href="https://planetaryrestorationarchive.com/the/plan/sovereignty-gap-scanner/" />
+  <meta property="og:title" content="Food & Water Sovereignty — Global Gap Scanner | PRA" />
+  <meta property="og:description" content="Live scan across public sources to surface coverage, gaps, and activation priorities. Zero setup, runs in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA..." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Presentation Schema (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Food & Water Sovereignty — Global Gap Scanner",
+    "about": [
+      "Food Sovereignty", "Water Sovereignty", "WASH", "Irrigation", "Seed Banks",
+      "Humanitarian Relief", "Resilience", "Decentralized Infrastructure"
+    ],
+    "author": {
+      "@type": "Person",
+      "name": "Foster + Navi"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Planetary Restoration Archive",
+      "url": "https://planetaryrestorationarchive.com"
+    },
+    "isBasedOn": "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid",
+    "datePublished": "2025-10-21",
+    "inLanguage": "en"
+  }
+  </script>
+
+  <!-- Fonts & minimal reset (no external CSS frameworks) -->
+  <style>
+    :root{
+      --bg:#070a12; --fg:#cfe7ff; --muted:#8fb6ff; --accent:#63ffd4; --warn:#ffb86b; --danger:#ff6b6b;
+      --good:#3fe07a; --card:#0f1524; --grid:#141b2e; --glass:rgba(15,21,36,0.65);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:radial-gradient(1200px 600px at 70% 10%, #0d1324, #070a12);}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,sans-serif;color:var(--fg);line-height:1.5;overflow-x:hidden}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+    header{position:relative;z-index:2;padding:1rem 1.25rem 0.5rem}
+    .title{font-weight:800;font-size:clamp(1.2rem,3.8vw,2.4rem);letter-spacing:0.2px}
+    .subtitle{opacity:0.85;margin-top:0.25rem}
+    .wrap{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 1rem 5rem}
+    .hero{display:grid;grid-template-columns:1.2fr 0.8fr;gap:1rem;align-items:stretch;margin:1rem 0}
+    .card{background:var(--glass);backdrop-filter: blur(8px);border:1px solid #1e2a4a;border-radius:18px;padding:1rem;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+    .hud{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:0.5rem}
+    .hud .pill{padding:0.35rem 0.6rem;border-radius:999px;background:#0a1122;border:1px solid #162644;font-size:0.85rem;opacity:0.95}
+    .btn{cursor:pointer;user-select:none;padding:0.6rem 0.9rem;border-radius:12px;border:1px solid #203054;background:#0d1530;color:var(--fg);transition:transform .06s ease,background .2s}
+    .btn:hover{transform:translateY(-1px);background:#101a3a}
+    .btn:active{transform:translateY(1px)}
+    .btn.primary{border-color:#225; background:linear-gradient(180deg,#0f2244,#0a1730); }
+    .grid{margin-top:1rem;background:var(--grid);border-radius:18px;border:1px solid #202a44;overflow:hidden}
+    table{width:100%;border-collapse:collapse;font-size:0.95rem}
+    th,td{padding:0.75rem;border-bottom:1px solid #1a2340;vertical-align:top}
+    th{background:#0f1730;text-align:left;position:sticky;top:0;z-index:1}
+    .badge{display:inline-block;padding:0.18rem 0.45rem;border-radius:6px;font-size:0.75rem;border:1px solid #2a3a60;background:#0e1430}
+    .good{color:#9cf7c5;border-color:#214a3a;background:#0a1e18}
+    .warn{color:#ffd39c;border-color:#4a3a21;background:#1e180a}
+    .bad{color:#ffb1b1;border-color:#4a2121;background:#1e0a0a}
+    .muted{opacity:0.8}
+    .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-top:0.75rem}
+    .kpi .card{padding:0.9rem}
+    .kpi h4{margin:0;font-size:0.9rem;opacity:0.85}
+    .kpi .v{font-weight:800;font-size:1.3rem;margin-top:0.1rem}
+    .footer-note{margin-top:1.25rem;font-size:0.9rem;opacity:0.85}
+    .row-actions{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.3rem}
+    .chip{font-size:0.75rem;padding:0.2rem 0.45rem;border-radius:10px;border:1px solid #2a3a60;background:#0e1430;opacity:0.9}
+    .right{opacity:0.9}
+    /* Starfield canvas covers full background */
+    #stars{position:fixed;inset:0;z-index:0;display:block}
+    /* WebLLM console */
+    .llm{margin-top:1rem}
+    .console{height:260px;overflow:auto;background:#0b1120;border:1px solid #1c2b4a;border-radius:12px;padding:0.75rem;font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:0.9rem;white-space:pre-wrap}
+    .row{display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;margin:0.5rem 0}
+    input[type="text"], input[type="search"], input[type="url"], input[type="number"], textarea{
+      width:100%;max-width:100%;padding:0.6rem;border-radius:10px;border:1px solid #253253;background:#0d1530;color:var(--fg)
+    }
+    select{padding:0.5rem;border-radius:10px;border:1px solid #253253;background:#0d1530;color:var(--fg)}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+    .hidden{display:none}
+    .small{font-size:0.85rem}
+    /* Mobile */
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr}
+      .kpi{grid-template-columns:repeat(2,1fr)}
+      .right{order: -1}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+
+  <header>
+    <div class="title">Food & Water Sovereignty — Global Gap Scanner</div>
+    <div class="subtitle">Online-first cascade audit with citations, activation heatlist, IndexedDB cache, and WebLLM reasoning. No setup required.</div>
+    <div class="hud">
+      <span class="pill">PRA | Zero-harm</span>
+      <span class="pill">Online-first</span>
+      <span class="pill">IndexedDB Cache</span>
+      <span class="pill">ReliefWeb API</span>
+      <span class="pill">WebLLM (in-browser)</span>
+      <span class="pill">Habitica Bridge (optional)</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="card">
+        <h3 style="margin:.2rem 0 .5rem">Scan Controls</h3>
+        <div class="two">
+          <div>
+            <label class="small">Focus Regions (comma or newline)</label>
+            <textarea id="regions" rows="7" placeholder="Haiti; Somalia; Guatemala; Kiribati; DRC; Sudan; Syria; Afghanistan; Nepal; PNG; Mongolia; Armenia; Kosovo; Honduras; El Salvador; Venezuela; Brazil (Sertão); Madagascar; Tuvalu; Marshall Islands; Solomon Islands"></textarea>
+            <div class="row">
+              <button class="btn primary" id="btnScan">Scan Now</button>
+              <button class="btn" id="btnLoad">Load Cached</button>
+              <button class="btn" id="btnClear">Clear Cache</button>
+            </div>
+          </div>
+          <div class="right">
+            <label class="small">Keywords (edit to steer signals)</label>
+            <input id="kw" type="text" value='food sovereignty, water sovereignty, WASH, irrigation, seed bank, agroecology, rainwater harvesting, chlorination kiosk, gravity line, micro-berm, cistern, freshwater lens, desalination, drought resilience, seed vault'>
+            <div class="row">
+              <select id="since">
+                <option value="365">Lookback: 12 months</option>
+                <option value="730">Lookback: 24 months</option>
+                <option value="90" selected>Lookback: 90 days</option>
+                <option value="30">Lookback: 30 days</option>
+              </select>
+              <select id="limit">
+                <option value="5">Max 5 / region</option>
+                <option value="10" selected>Max 10 / region</option>
+                <option value="15">Max 15 / region</option>
+              </select>
+              <button class="btn" id="btnSuggest">Suggest Top 5 Activations</button>
+            </div>
+            <div class="small muted">Sources: ReliefWeb API (news & reports), r.jina.ai fetch (CORSless text snapshot of URLs), public sites with permissive CORS. Citations are kept per-row.</div>
+          </div>
+        </div>
+
+        <div class="kpi">
+          <div class="card"><h4>Regions Scanned</h4><div class="v" id="kpiRegions">0</div></div>
+          <div class="card"><h4>Signals Found</h4><div class="v" id="kpiSignals">0</div></div>
+          <div class="card"><h4>Coverage Score</h4><div class="v" id="kpiCoverage">0%</div></div>
+          <div class="card"><h4>Gaps Flagged</h4><div class="v" id="kpiGaps">0</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:.2rem 0 .6rem">Habitica Bridge (Optional)</h3>
+        <div class="small muted">No setup required to use the scanner. If you add Habitica credentials, tasks for “Activation Targets” sync to your Habitica Todo list. Keys are stored locally in IndexedDB.</div>
+        <div class="row">
+          <input id="habitUser" type="text" placeholder="Habitica User ID (optional)">
+          <input id="habitKey" type="text" placeholder="Habitica API Token (optional)">
+        </div>
+        <div class="row">
+          <button class="btn" id="btnHabitSave">Save Locally</button>
+          <button class="btn" id="btnHabitTest">Test Auth</button>
+          <button class="btn" id="btnHabitPush">Push Top 5 as Tasks</button>
+        </div>
+        <div id="habitMsg" class="small"></div>
+
+        <div class="llm">
+          <h3 style="margin:.8rem 0 .5rem">WebLLM Console (Browser LLM)</h3>
+          <div class="small muted">Runs a tiny in-browser model via WebGPU if available. Good for on-device reasoning about gaps & interventions.</div>
+          <div class="row">
+            <select id="llmModel">
+              <option value="Qwen2.5-0.5B-Instruct-q4f16_1-MLC">Qwen2.5-0.5B (fast, tiny)</option>
+              <option value="Phi-3-mini-4k-instruct-q4f16_1-MLC">Phi-3-mini (compact)</option>
+            </select>
+            <button class="btn" id="btnLLMInit">Init Model</button>
+          </div>
+          <div class="row">
+            <input id="llmPrompt" type="text" placeholder="Ask: Rank 5 highest-impact water kits for Haiti (Artibonite + Sud) this month." />
+            <button class="btn primary" id="btnLLMRun">Run</button>
+          </div>
+          <div class="console" id="llmOut">[WebLLM output will appear here]</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3 style="margin:.2rem 0 .6rem">Coverage Matrix</h3>
+      <div class="grid">
+        <table id="tbl">
+          <thead>
+          <tr>
+            <th style="width:18%">Region</th>
+            <th style="width:14%">Food Sovereignty</th>
+            <th style="width:14%">Water Sovereignty</th>
+            <th style="width:10%">Signals</th>
+            <th>Recent Sources / Citations</th>
+            <th style="width:12%">Status</th>
+          </tr>
+          </thead>
+          <tbody id="tbody">
+          </tbody>
+        </table>
+      </div>
+      <div class="footer-note">
+        Legend:
+        <span class="badge good">covered</span>
+        <span class="badge warn">partial</span>
+        <span class="badge bad">gap</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3 style="margin:.2rem 0 .6rem">Activation Heatlist (Top 5)</h3>
+      <div id="heatlist" class="small muted">Run a scan to populate suggested deployments.</div>
+      <div class="row" style="margin-top:.6rem">
+        <button class="btn" id="btnExportJSON">Export JSON (results)</button>
+        <button class="btn" id="btnExportCSV">Export CSV (matrix)</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3 style="margin:.2rem 0 .6rem">Notes on Methods</h3>
+      <ul>
+        <li>Queries public humanitarian/news sources; primary is <a href="https://api.reliefweb.int/" target="_blank" rel="noopener">ReliefWeb API</a> with date/window filters.</li>
+        <li>Extracts signals per region for keywords like <em>food sovereignty, water sovereignty, WASH, irrigation, seed bank</em>.</li>
+        <li>Each row keeps citations (title → URL). Clicking a source fetches a CORS-free text snapshot via <code>r.jina.ai</code> in a new tab.</li>
+        <li>Heuristic scores to mark <span class="badge good">covered</span> / <span class="badge warn">partial</span> / <span class="badge bad">gap</span> based on recency × count × keyword diversity.</li>
+        <li>All results cached in IndexedDB; you can reload later with “Load Cached.”</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- =========================
+       Service Worker (register)
+       ========================= -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      const swCode = `
+        const CORE = 'pra-gap-sw-v1';
+        const CORE_ASSETS = self.registration.scope ? [ self.registration.scope ] : ['.'];
+        self.addEventListener('install', e=>{
+          e.waitUntil(caches.open(CORE).then(c=>c.addAll(CORE_ASSETS)));
+          self.skipWaiting();
+        });
+        self.addEventListener('activate', e=> { self.clients.claim(); });
+        self.addEventListener('fetch', e=>{
+          const url = new URL(e.request.url);
+          if (e.request.method!=='GET') return;
+          // Cache-first for same-origin HTML/CSS/JS; network-first for APIs
+          if (url.origin===location.origin){
+            e.respondWith(
+              caches.match(e.request).then(r=> r || fetch(e.request).then(res=>{
+                const clone = res.clone();
+                caches.open(CORE).then(c=>c.put(e.request, clone));
+                return res;
+              }).catch(()=>caches.match('./')))
+            );
+          } else if (url.hostname.endsWith('reliefweb.int')) {
+            e.respondWith(fetch(e.request).catch(()=>new Response(JSON.stringify({error:'offline'}),{headers:{'content-type':'application/json'}})));
+          }
+        });
+      `;
+      const blob = new Blob([swCode], {type:'text/javascript'});
+      const swURL = URL.createObjectURL(blob);
+      navigator.serviceWorker.register(swURL).catch(()=>{});
+    }
+  </script>
+
+  <!-- ===================================
+       Animated Photorealistic Starfield
+       =================================== -->
+  <script>
+    (function(){
+      const c = document.getElementById('stars');
+      const dpr = Math.min(window.devicePixelRatio||1,2);
+      const ctx = c.getContext('2d');
+      let W,H,stars=[];
+      function resize(){
+        W = c.width = Math.floor(innerWidth*dpr);
+        H = c.height = Math.floor(innerHeight*dpr);
+        c.style.width = innerWidth+'px';
+        c.style.height = innerHeight+'px';
+        gen();
+      }
+      function rnd(a,b){return a+Math.random()*(b-a)}
+      function gen(){
+        const count = Math.floor((W*H)/9000);
+        stars = Array.from({length:count},()=>({
+          x:rnd(0,W), y:rnd(0,H), z:rnd(0.2,1.3), tw:rnd(0.002,0.01), p:Math.random()*Math.PI*2,
+          c: `rgba(${200+rnd(-40,40)|0},${220+rnd(-40,35)|0},${255|0},${rnd(0.45,0.95)})`
+        }));
+      }
+      function tick(t){
+        ctx.clearRect(0,0,W,H);
+        for(const s of stars){
+          s.p += s.tw;
+          const sz = (0.6 + Math.sin(s.p)*0.4) * s.z * 1.6;
+          ctx.beginPath();
+          ctx.fillStyle = s.c;
+          ctx.arc(s.x, s.y, sz, 0, Math.PI*2);
+          ctx.fill();
+          // subtle parallax drift
+          s.x += (s.z-0.75)*0.08; s.y += (s.z-0.75)*0.03;
+          if (s.x<0) s.x+=W; if (s.x>W) s.x-=W; if (s.y<0) s.y+=H; if (s.y>H) s.y-=H;
+        }
+        requestAnimationFrame(tick);
+      }
+      addEventListener('resize', resize, {passive:true});
+      resize(); requestAnimationFrame(tick);
+    })();
+  </script>
+
+  <!-- =======================
+       IndexedDB tiny helper
+       ======================= -->
+  <script>
+    const DBN='pra_gap_db', ST='results';
+    function idbOpen(){
+      return new Promise((res,rej)=>{
+        const r = indexedDB.open(DBN,1);
+        r.onupgradeneeded = ()=>{ r.result.createObjectStore(ST, {keyPath:'key'}); };
+        r.onsuccess = ()=>res(r.result);
+        r.onerror = ()=>rej(r.error);
+      });
+    }
+    async function idbPut(key, value){
+      const db = await idbOpen();
+      return new Promise((res,rej)=>{
+        const tx = db.transaction(ST,'readwrite');
+        tx.objectStore(ST).put({key, value, ts:Date.now()});
+        tx.oncomplete = ()=>res(true);
+        tx.onerror = ()=>rej(tx.error);
+      });
+    }
+    async function idbGet(key){
+      const db = await idbOpen();
+      return new Promise((res,rej)=>{
+        const tx = db.transaction(ST,'readonly');
+        const g = tx.objectStore(ST).get(key);
+        g.onsuccess = ()=>res(g.result?.value || null);
+        g.onerror = ()=>rej(g.error);
+      });
+    }
+    async function idbClearAll(){
+      const db = await idbOpen();
+      return new Promise((res,rej)=>{
+        const tx = db.transaction(ST,'readwrite');
+        tx.objectStore(ST).clear();
+        tx.oncomplete = ()=>res(true);
+        tx.onerror = ()=>rej(tx.error);
+      });
+    }
+  </script>
+
+  <!-- =====================================
+       ReliefWeb scan + scoring + rendering
+       ===================================== -->
+  <script>
+    const $ = sel=>document.querySelector(sel);
+    const tbody = $('#tbody');
+
+    const DEFAULT_REGIONS = [
+      "Haiti","Somalia","Guatemala","Honduras","El Salvador","Kiribati","Tuvalu","Marshall Islands",
+      "Solomon Islands","Democratic Republic of the Congo (North Kivu)","Sudan","Syria","Afghanistan",
+      "Nepal","Papua New Guinea","Mongolia","Armenia","Kosovo","Venezuela","Brazil (Sertão)",
+      "Madagascar"
+    ];
+
+    // ReliefWeb API query builder
+    function rwQuery(region, sinceDays, limit, keywords){
+      const q = {
+        query: {
+          operator: "AND",
+          conditions: [
+            { field: "date.created", value: { from: new Date(Date.now()-sinceDays*864e5).toISOString() } },
+            { field: "body", value: keywords.join(" OR "), operator: "OR" },
+            { field: "primary_country.name", value: region, operator: "OR" }
+          ]
+        },
+        limit: limit,
+        sort: ["date:desc"],
+        fields: { include: ["title","url","date.created","source","country","primary_country"] }
+      };
+      return 'https://api.reliefweb.int/v1/reports?appname=pra-gap&profile=full&query='+encodeURIComponent(JSON.stringify(q));
+    }
+
+    function normRegions(input){
+      if (!input) return [];
+      return input.split(/[\n,;]+/).map(s=>s.trim()).filter(Boolean);
+    }
+
+    function classifySignals(items, keywords){
+      // Very simple heuristics: classify “food sovereignty” vs “water” by term hits.
+      const lowerJoin = t => (t||'').toLowerCase();
+      let food=0, water=0, wash=0, irr=0, seed=0;
+      for (const it of items){
+        const t = lowerJoin(it.title);
+        const s = keywords.join(' ').toLowerCase();
+        if (t.includes('food') || s.includes('food sovereignty')) food++;
+        if (t.includes('water') || t.includes('freshwater') || s.includes('water sovereignty')) water++;
+        if (t.includes('wash') || t.includes('sanitation')) wash++;
+        if (t.includes('irrigation') || t.includes('rainwater') || t.includes('cistern')) irr++;
+        if (t.includes('seed') || t.includes('seed bank') || t.includes('seed vault')) seed++;
+      }
+      const score = (food>0) + (water>0) + (wash>0) + (irr>0) + (seed>0);
+      let status = 'gap', badge='bad';
+      if (score>=3 && (food>0||water>0)) { status='covered'; badge='good'; }
+      else if (score>=1) { status='partial'; badge='warn'; }
+      return { food, water, wash, irr, seed, score, status, badge };
+    }
+
+    function citationAnchor(url, title){
+      // Proxy viewer for CORSless text via r.jina.ai
+      const safe = 'https://r.jina.ai/'+url.replace(/^https?:\/\//,'http://');
+      const txt = (title||url).replace(/</g,'&lt;');
+      return `<a href="${safe}" target="_blank" rel="noopener">${txt}</a>`;
+    }
+
+    function renderRow(region, classification, items){
+      const signals = items.slice(0,5).map(it=>citationAnchor(it.url, it.title)).join('<br/>');
+      const fs = classification.food? `<span class="badge good">${classification.food}</span>`: `<span class="badge bad">0</span>`;
+      const ws = (classification.water+classification.wash+classification.irr)>0
+                 ? `<span class="badge ${classification.water? 'good':'warn'}">${classification.water+classification.wash+classification.irr}</span>`
+                 : `<span class="badge bad">0</span>`;
+      const st = `<span class="badge ${classification.badge}">${classification.status}</span>`;
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><strong>${region}</strong><div class="row-actions small">
+          <span class="chip">food:${classification.food}</span>
+          <span class="chip">water:${classification.water}</span>
+          <span class="chip">wash:${classification.wash}</span>
+          <span class="chip">irr:${classification.irr}</span>
+          <span class="chip">seed:${classification.seed}</span>
+        </div></td>
+        <td>${fs}</td>
+        <td>${ws}</td>
+        <td>${items.length}</td>
+        <td>${signals || '<span class="muted">No recent sources</span>'}</td>
+        <td>${st}</td>
+      `;
+      tbody.appendChild(tr);
+    }
+
+    function scoreRegion(classification, nSignals){
+      // Weighted: class.score + recency proxy via count
+      return classification.score*2 + Math.min(nSignals,5);
+    }
+
+    function suggestTop5(rows){
+      // Prioritize “bad” then “warn”, sorted by low coverage but with some signals present
+      const ranked = rows.slice().sort((a,b)=>{
+        const av = (a.class.status==='gap'? -2 : a.class.status==='partial'? -1 : 0);
+        const bv = (b.class.status==='gap'? -2 : b.class.status==='partial'? -1 : 0);
+        if (av!==bv) return av - bv;
+        return scoreRegion(a.class, a.items.length) - scoreRegion(b.class, b.items.length);
+      });
+      return ranked.slice(0,5);
+    }
+
+    async function scan(){
+      const regions = normRegions($('#regions').value || DEFAULT_REGIONS.join('; '));
+      const kws = $('#kw').value.split(',').map(s=>s.trim()).filter(Boolean);
+      const since = parseInt($('#since').value,10)||90;
+      const limit = parseInt($('#limit').value,10)||10;
+
+      tbody.innerHTML = '';
+      $('#kpiRegions').textContent = regions.length;
+      let totalSignals = 0;
+      const rows = [];
+
+      for (const region of regions){
+        try{
+          const url = rwQuery(region, since, limit, kws);
+          const res = await fetch(url);
+          const json = await res.json();
+          const items = (json?.data||[]).map(d=>({
+            title: d.fields?.title || '(untitled)',
+            url: d.fields?.url || '#',
+            date: d.fields?.date?.created || null,
+            source: d.fields?.source?.[0]?.name || '',
+          }));
+          totalSignals += items.length;
+          const classification = classifySignals(items, kws);
+          renderRow(region, classification, items);
+          rows.push({region, class:classification, items});
+        } catch(e){
+          renderRow(region, {food:0,water:0,wash:0,irr:0,seed:0,score:0,status:'gap',badge:'bad'}, []);
+          rows.push({region, class:{food:0,water:0,wash:0,irr:0,seed:0,score:0,status:'gap',badge:'bad'}, items:[]});
+        }
+      }
+
+      // KPIs
+      $('#kpiSignals').textContent = totalSignals;
+      const covered = rows.filter(r=>r.class.status==='covered').length;
+      const partial = rows.filter(r=>r.class.status==='partial').length;
+      const coveragePct = Math.round(100*(covered + 0.5*partial)/rows.length);
+      const gaps = rows.filter(r=>r.class.status==='gap').length;
+      $('#kpiCoverage').textContent = coveragePct+'%';
+      $('#kpiGaps').textContent = gaps;
+
+      // Heatlist
+      const top = suggestTop5(rows);
+      $('#heatlist').innerHTML = top.map((r,i)=>`
+        <div class="card" style="margin:.5rem 0;padding:.75rem">
+          <div><strong>#${i+1}: ${r.region}</strong> — <span class="badge ${r.class.badge}">${r.class.status}</span></div>
+          <div class="small">Signals: ${r.items.length} · food:${r.class.food} · water+wash+irr:${r.class.water+r.class.wash+r.class.irr} · seed:${r.class.seed}</div>
+          <div style="margin-top:.4rem">${r.items.slice(0,3).map(it=>citationAnchor(it.url, it.title)).join('<br/>') || '<span class="muted small">No recent items</span>'}</div>
+        </div>
+      `).join('');
+
+      // Save to cache
+      await idbPut('last-scan', { rows, totalSignals, coveragePct, gaps, ts: Date.now(), params:{regions,kws,since,limit} });
+      return rows;
+    }
+
+    // Exporters
+    function exportJSON(rows){
+      const blob = new Blob([JSON.stringify({generatedAt:new Date().toISOString(), rows}, null, 2)],{type:'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'pra-sovereignty-scan.json';
+      a.click();
+    }
+    function exportCSV(rows){
+      const head = ['Region','Status','Food','Water','WASH','Irr','Seed','Signals','TopSource'].join(',');
+      const lines = rows.map(r=>{
+        const top = (r.items[0]?.url||'').replace(/,/g,' ');
+        return [r.region,r.class.status,r.class.food,r.class.water,r.class.wash,r.class.irr,r.class.seed,r.items.length,top].join(',');
+      });
+      const blob = new Blob([head+'\n'+lines.join('\n')],{type:'text/csv'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'pra-sovereignty-matrix.csv';
+      a.click();
+    }
+
+    // UI hooks
+    $('#btnScan').addEventListener('click', scan);
+    $('#btnLoad').addEventListener('click', async()=>{
+      const v = await idbGet('last-scan');
+      if (!v) return alert('No cached scan found.');
+      $('#regions').value = v.params?.regions?.join('; ') || '';
+      $('#kw').value = (v.params?.kws||[]).join(', ');
+      $('#since').value = String(v.params?.since||90);
+      $('#limit').value = String(v.params?.limit||10);
+      // re-render from cache
+      tbody.innerHTML='';
+      $('#kpiRegions').textContent = v.rows.length;
+      $('#kpiSignals').textContent = v.totalSignals||0;
+      $('#kpiCoverage').textContent = (v.coveragePct||0)+'%';
+      $('#kpiGaps').textContent = v.gaps||0;
+      for (const r of v.rows) renderRow(r.region, r.class, r.items);
+      // heatlist
+      const top = suggestTop5(v.rows);
+      $('#heatlist').innerHTML = top.map((r,i)=>`
+        <div class="card" style="margin:.5rem 0;padding:.75rem">
+          <div><strong>#${i+1}: ${r.region}</strong> — <span class="badge ${r.class.badge}">${r.class.status}</span></div>
+          <div class="small">Signals: ${r.items.length} · food:${r.class.food} · water+wash+irr:${r.class.water+r.class.wash+r.class.irr} · seed:${r.class.seed}</div>
+          <div style="margin-top:.4rem">${r.items.slice(0,3).map(it=>citationAnchor(it.url, it.title)).join('<br/>') || '<span class="muted small">No recent items</span>'}</div>
+        </div>
+      `).join('');
+    });
+    $('#btnClear').addEventListener('click', async()=>{ await idbClearAll(); alert('Cache cleared.'); });
+    $('#btnSuggest').addEventListener('click', async()=>{
+      const v = await idbGet('last-scan');
+      if (!v) return alert('Run a scan first.');
+      const top = suggestTop5(v.rows);
+      $('#heatlist').innerHTML = top.map((r,i)=>`
+        <div class="card" style="margin:.5rem 0;padding:.75rem">
+          <div><strong>#${i+1}: ${r.region}</strong> — <span class="badge ${r.class.badge}">${r.class.status}</span></div>
+          <div class="small">Signals: ${r.items.length} · food:${r.class.food} · water+wash+irr:${r.class.water+r.class.wash+r.class.irr} · seed:${r.class.seed}</div>
+          <div style="margin-top:.4rem">${r.items.slice(0,3).map(it=>citationAnchor(it.url, it.title)).join('<br/>') || '<span class="muted small">No recent items</span>'}</div>
+        </div>
+      `).join('');
+    });
+    $('#btnExportJSON').addEventListener('click', async()=>{
+      const v = await idbGet('last-scan'); if (!v) return alert('Run a scan first.'); exportJSON(v.rows);
+    });
+    $('#btnExportCSV').addEventListener('click', async()=>{
+      const v = await idbGet('last-scan'); if (!v) return alert('Run a scan first.'); exportCSV(v.rows);
+    });
+  </script>
+
+  <!-- =========================
+       Habitica optional bridge
+       ========================= -->
+  <script>
+    async function habitGetCreds(){
+      const v = await idbGet('habitica'); return v||{user:'',key:''};
+    }
+    async function habitSave(){
+      const user = $('#habitUser').value.trim(), key = $('#habitKey').value.trim();
+      await idbPut('habitica',{user, key});
+      $('#habitMsg').textContent = 'Saved locally.';
+    }
+    async function habitLoadInputs(){
+      const c = await habitGetCreds();
+      $('#habitUser').value = c.user||'';
+      $('#habitKey').value = c.key||'';
+    }
+    async function habitTest(){
+      const c = await habitGetCreds();
+      if (!c.user || !c.key) { $('#habitMsg').textContent='Add UserID + Token (optional).'; return; }
+      try{
+        const res = await fetch('https://habitica.com/api/v3/user',{
+          headers:{'x-api-user':c.user,'x-api-key':c.key}
+        });
+        $('#habitMsg').textContent = res.ok? 'Habitica auth OK.' : 'Habitica auth failed.';
+      } catch{ $('#habitMsg').textContent = 'Network error.'; }
+    }
+    async function habitPushTop5(){
+      const c = await habitGetCreds();
+      if (!c.user || !c.key) { $('#habitMsg').textContent='Add Habitica creds to push tasks.'; return; }
+      const v = await idbGet('last-scan'); if (!v) { $('#habitMsg').textContent='Run a scan first.'; return; }
+      const top = (function(rows){
+        const ranked = rows.slice().sort((a,b)=>{
+          const av = (a.class.status==='gap'? -2 : a.class.status==='partial'? -1 : 0);
+          const bv = (b.class.status==='gap'? -2 : b.class.status==='partial'? -1 : 0);
+          if (av!==bv) return av - bv;
+          return (a.items.length)-(b.items.length);
+        });
+        return ranked.slice(0,5);
+      })(v.rows);
+
+      let ok=0;
+      for (const r of top){
+        try{
+          const body = {
+            text: `PRA Activation: ${r.region}`,
+            type: "todo",
+            notes: `Status: ${r.class.status}\nSignals: ${r.items.length}\nTop source: ${r.items[0]?.url||'—'}`,
+            priority: 1.5
+          };
+          const res = await fetch('https://habitica.com/api/v3/tasks/user',{
+            method:'POST',
+            headers:{
+              'content-type':'application/json',
+              'x-api-user':c.user,'x-api-key':c.key
+            },
+            body: JSON.stringify(body)
+          });
+          if (res.ok) ok++;
+        }catch{}
+      }
+      $('#habitMsg').textContent = `Pushed ${ok}/5 tasks to Habitica.`;
+    }
+
+    $('#btnHabitSave').addEventListener('click', habitSave);
+    $('#btnHabitTest').addEventListener('click', habitTest);
+    $('#btnHabitPush').addEventListener('click', habitPushTop5);
+    habitLoadInputs();
+  </script>
+
+  <!-- =====================
+       WebLLM mini-console
+       ===================== -->
+  <script type="module">
+    // Lightweight WebLLM usage (no setup). Models load from CDN and run in-browser when WebGPU is present.
+    import * as webllm from "https://esm.run/@mlc-ai/web-llm";
+
+    let engine = null, model = null, session = null;
+
+    async function initLLM(){
+      const m = document.getElementById('llmModel').value;
+      document.getElementById('llmOut').textContent = '[Initializing model '+m+' ...]';
+      try{
+        engine = await webllm.CreateMLCEngine(m, {
+          initProgressCallback: (p)=>{ document.getElementById('llmOut').textContent = `[Init] ${Math.round(p.progress*100)}% - ${p.text}`; }
+        });
+        model = m;
+        document.getElementById('llmOut').textContent = `[Ready] ${m}`;
+      } catch(e){
+        document.getElementById('llmOut').textContent = 'WebLLM init failed (WebGPU not available or network blocked).';
+      }
+    }
+
+    async function runLLM(){
+      if (!engine){ document.getElementById('llmOut').textContent = 'Initialize model first.'; return; }
+      const prompt = document.getElementById('llmPrompt').value.trim();
+      if (!prompt){ return; }
+      const out = document.getElementById('llmOut');
+      out.textContent = '→ '+prompt+'\n\n';
+      let acc = '';
+      for await (const chunk of engine.chat.completions.create({
+        messages:[
+          {role:'system', content:'You are a humanitarian ops planner. Provide concise, actionable steps for food and water sovereignty deployments, citing assumed local constraints. Avoid placeholders.'},
+          {role:'user', content: prompt}
+        ],
+        stream:true,
+        temperature:0.4,
+        max_tokens: 512
+      })){
+        const t = chunk.choices?.[0]?.delta?.content || '';
+        acc += t;
+        out.textContent = '→ '+prompt+'\n\n'+acc;
+      }
+    }
+
+    document.getElementById('btnLLMInit').addEventListener('click', initLLM);
+    document.getElementById('btnLLMRun').addEventListener('click', runLLM);
+  </script>
+
+  <!-- =========================
+       Default input bootstrap
+       ========================= -->
+  <script>
+    // Preload default regions on first visit
+    (function(){
+      if (!localStorage.getItem('pra_gap_boot')){
+        $('#regions').value = DEFAULT_REGIONS.join('; ');
+        localStorage.setItem('pra_gap_boot','1');
+      }
+    })();
+  </script>
+</body>
+</html>

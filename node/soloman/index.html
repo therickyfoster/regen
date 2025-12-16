@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Solomon Islands Youth • Climate Justice & Survival Plan</title>
+  <meta name="description" content="A fully comprehensive, youth-led climate justice + survival blueprint for the Solomon Islands. Offline-capable, mobile-first, accessible, and printable."/>
+  <meta name="color-scheme" content="dark light" />
+
+  <!-- PWA Manifest (inlined via a data URL at runtime; see script below) -->
+  <link rel="manifest" id="manifest-link" href="#" />
+
+  <!-- Basic security posture for single-file demo -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob: data:; img-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self' 'unsafe-inline' blob:; connect-src 'self' data:; frame-ancestors 'none'; base-uri 'none'">
+
+  <!-- Icons -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Ccircle cx='128' cy='128' r='120' fill='%2309f'/%3E%3Cpath d='M128 30a98 98 0 1 0 0 196a98 98 0 0 0 0-196Zm0 14a84 84 0 1 1 0 168a84 84 0 0 1 0-168Z' fill='white' opacity='.7'/%3E%3C/svg%3E" />
+
+  <style>
+    :root{
+      --bg:#0a0f1a; --fg:#e6f0ff; --muted:#9fb3c8; --accent:#5dd6ff; --accent2:#a0ffcf;
+      --surface:#111828; --surface-2:#0d1424; --focus:#ffd166; --good:#2bb673; --warn:#ffb703; --bad:#ef476f;
+      --max:1100px; --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, 'Helvetica Neue', Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+      color:var(--fg); background:var(--bg); overflow-x:hidden;
+    }
+    a{color:var(--accent)} a:focus{outline:2px dashed var(--focus); outline-offset:3px}
+    .skip-link{position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden}
+    .skip-link:focus{position:fixed; left:1rem; top:1rem; width:auto; height:auto; padding:.5rem .75rem; background:#000; color:#fff; border-radius:.5rem; z-index:9999}
+
+    /* Galactic animated background */
+    canvas#stars{position:fixed; inset:0; width:100vw; height:100vh; z-index:-2; display:block}
+    .parallax{position:fixed; inset:0; background: radial-gradient(1200px 600px at 10% 10%, rgba(160,255,207,.08), transparent), radial-gradient(1000px 800px at 80% 20%, rgba(93,214,255,.06), transparent), radial-gradient(900px 900px at 30% 80%, rgba(255,214,102,.05), transparent); filter: blur(0.5px); z-index:-1}
+
+    header.hero{
+      min-height: 60svh; display:grid; place-items:center; text-align:center; padding:6rem 1rem 3rem;
+    }
+    .hero .card{max-width:var(--max); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); box-shadow:var(--shadow); padding:2rem; backdrop-filter: blur(6px)}
+    .kicker{letter-spacing:.2em; text-transform:uppercase; color:var(--accent2); font-weight:600}
+    h1{font-size: clamp(2rem, 4vw + 1rem, 3.4rem); margin:.5rem 0 1rem; line-height:1.05}
+    .subtitle{color:var(--muted); font-size:1.1rem}
+
+    nav.sticky{position:sticky; top:0; background:rgba(10,15,26,.65); backdrop-filter: blur(8px); z-index:20; border-bottom:1px solid rgba(255,255,255,.08)}
+    nav .wrap{max-width:var(--max); margin:0 auto; display:flex; gap:.75rem; flex-wrap:wrap; align-items:center; padding:.6rem 1rem}
+    nav button{background:#ffffff12; color:var(--fg); border:1px solid #ffffff24; border-radius:999px; padding:.5rem .9rem; cursor:pointer}
+    nav button:hover{background:#ffffff22}
+
+    main{max-width:var(--max); margin:0 auto; padding:2rem 1rem 6rem; display:grid; gap:1rem}
+
+    section.block{background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow)}
+    .block header{display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1rem 1.2rem; cursor:pointer}
+    .block h2{margin:0; font-size:1.35rem}
+    .block .hint{color:var(--muted); font-size:.95rem}
+    .content{padding:0 1.2rem 1rem; display:none}
+    .block[aria-expanded="true"] .content{display:block}
+
+    .grid{display:grid; gap:1rem}
+    @media (min-width: 800px){ .grid.cols-2{grid-template-columns:1fr 1fr} }
+
+    .pill{display:inline-flex; align-items:center; gap:.4rem; padding:.25rem .6rem; border-radius:999px; background:#ffffff14; border:1px solid #ffffff24; font-size:.85rem}
+    .tag{display:inline-block; padding:.15rem .5rem; border:1px solid #ffffff24; background:#ffffff10; border-radius:6px; font-size:.78rem; color:var(--muted)}
+
+    .kbd{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:.85rem; padding:.2rem .4rem; border:1px solid #ffffff2a; background:#00000050; border-radius:6px}
+
+    details.toolbox{border:1px dashed #ffffff2d; padding:1rem; border-radius:12px; background:#ffffff06}
+    details.toolbox summary{cursor:pointer; font-weight:700}
+
+    .timeline{display:grid; gap:.6rem}
+    .timeline .row{display:grid; gap:.6rem; padding:1rem; background:#ffffff08; border:1px solid #ffffff12; border-radius:12px}
+    .timeline .row h3{margin:0}
+
+    .metric-grid{display:grid; gap:.6rem}
+    @media (min-width:760px){.metric-grid{grid-template-columns:repeat(3, 1fr)}}
+    .metric{padding:1rem; border:1px solid #ffffff14; background:#ffffff08; border-radius:12px}
+    .metric b{font-size:1.5rem}
+
+    footer{max-width:var(--max); margin:0 auto; padding:2rem 1rem 5rem; color:var(--muted); text-align:center}
+    .tiny{font-size:.8rem}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="parallax" aria-hidden="true"></div>
+
+  <header class="hero" role="banner">
+    <div class="card" role="document">
+      <div class="kicker">Pacific Youth • Solomon Islands</div>
+      <h1>Climate Justice & Survival Plan</h1>
+      <p class="subtitle">A youth-led, sovereignty-first blueprint blending ancestral ocean memory with science-based adaptation. Offline-first, printable, and ready to deploy in villages, schools, churches, and councils.</p>
+      <p class="tiny" aria-live="polite">Tip: Press <span class="kbd">/</span> to open command palette • Use the sticky nav to jump around • Works offline after first load.</p>
+    </div>
+  </header>
+
+  <nav class="sticky" aria-label="Section navigation">
+    <div class="wrap" id="navWrap">
+      <button data-jump="#context">Context</button>
+      <button data-jump="#education">Education & Skills</button>
+      <button data-jump="#economy">Economic Pathways</button>
+      <button data-jump="#voice">Political Voice</button>
+      <button data-jump="#resilience">Resilience & Survival</button>
+      <button data-jump="#culture">Cultural Continuity</button>
+      <button data-jump="#partnerships">Global Partnerships</button>
+      <button data-jump="#tech">Tech & Media</button>
+      <button data-jump="#me">Monitoring</button>
+      <button data-jump="#toolkits">Toolkits</button>
+    </div>
+  </nav>
+
+  <main id="main" tabindex="-1">
+    <!-- CONTEXT -->
+    <section id="context" class="block" aria-expanded="true">
+      <header role="button" aria-controls="context-body" aria-expanded="true"><h2>Context • Frontline Island Vulnerability</h2><span class="hint">Sea-level rise • Cyclones • Small-island economies • Food + energy security</span></header>
+      <div id="context-body" class="content">
+        <p><strong>Narrative:</strong> The youth of the Solomon Islands are tide-keepers at the edge of the world. Ancestral wayfinding meets a changed ocean. The task is to hold culture while adapting with precision: climate literacy, reef healing, storm-safe housing, and dignified livelihoods that do not require leaving home.</p>
+        <p><strong>Scientific signal:</strong> Rising seas, stronger cyclones, marine heatwaves, and saltwater intrusion threaten agriculture, water, and coastal villages. Adaptive strategies include <em>mangrove restoration, ridge-to-reef watershed management, cyclone-resilient building codes, decentralized renewable energy,</em> and <em>food sovereignty</em> models suited to atolls and high islands.</p>
+        <ul>
+          <li class="tag">Zero-harm • Youth safety first</li>
+          <li class="tag">Sovereignty • Community-led decisions</li>
+          <li class="tag">Continuity • Culture as infrastructure</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- EDUCATION & SKILLS -->
+    <section id="education" class="block" aria-expanded="false">
+      <header role="button" aria-controls="education-body" aria-expanded="false"><h2>Education & Skills</h2><span class="hint">Climate literacy • Ocean stewardship • Renewable energy • Blue/green jobs</span></header>
+      <div id="education-body" class="content">
+        <div class="grid cols-2">
+          <div>
+            <h3>Curriculum tracks</h3>
+            <ul>
+              <li><b>Climate Basics:</b> local projections, cyclone science, king tides, salt intrusion, heat stress.</li>
+              <li><b>Ocean Stewardship:</b> coral gardening, crown-of-thorns control, mangrove nurseries, sustainable fisheries.</li>
+              <li><b>Energy & Water:</b> solar microgrids, pico-hydro where feasible, rainwater harvesting, desalination basics.</li>
+              <li><b>Blue/Green Jobs:</b> seaweed farming, sustainable aquaculture, eco-construction, GIS mapping, boat electrification.</li>
+              <li><b>Civic Literacy:</b> rights, representation, consultation protocols, FPIC (free, prior, informed consent).</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Delivery modes</h3>
+            <ul>
+              <li><b>School modules</b> aligned to secondary and TVET; printable lesson packs for low-connectivity schools.</li>
+              <li><b>Community labs</b> at churches and market houses; hands-on micro-grants for capstone projects.</li>
+              <li><b>Apprenticeships</b> with local fishers, builders, rangers; elders as faculty for TEK (Traditional Ecological Knowledge).</li>
+              <li><b>Mobile kits</b> (offline tablets, solar chargers); bilingual resources (Pijin/English) with audio versions.</li>
+            </ul>
+          </div>
+        </div>
+        <details class="toolbox"><summary>Downloadable: 12-week Climate Literacy Syllabus (editable)</summary>
+          <button class="pill" data-download="syllabus">Download .docx</button>
+          <button class="pill" data-download="syllabus-pdf">Download .pdf</button>
+        </details>
+      </div>
+    </section>
+
+    <!-- ECONOMY -->
+    <section id="economy" class="block" aria-expanded="false">
+      <header role="button" aria-controls="economy-body" aria-expanded="false"><h2>Economic Pathways</h2><span class="hint">Micro-enterprise • Sustainable fisheries • Eco-tourism • Cultural industries • Diaspora</span></header>
+      <div id="economy-body" class="content">
+        <div class="grid cols-2">
+          <div>
+            <h3>Venture lanes (youth-friendly)</h3>
+            <ul>
+              <li><b>Seaweed & Sea Cucumber:</b> climate-resilient mariculture with transparent co-ops and export standards.</li>
+              <li><b>Fish Processing Micro-hubs:</b> solar ice, cold-chain carts, women-led value-add (smoking, packaging).</li>
+              <li><b>Eco-stays & Guides:</b> reef-safe tourism bundles; diaspora referral programs; cyclone-season pivots.</li>
+              <li><b>Culture Studios:</b> carving, music, dance, weaving; digital storefronts; IP & fair trade certifications.</li>
+              <li><b>Repair & Retrofit:</b> solar repair, boat electrification, water filters, phone/mesh network upkeep.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Finance & safeguards</h3>
+            <ul>
+              <li><b>Micro-grants & ROSCAs:</b> village-level rotating savings with youth/women seats.</li>
+              <li><b>Diaspora bridges:</b> trust-based remittance matching; transparent dashboards.</li>
+              <li><b>Market charters:</b> anti-harassment clauses, safe vendor routes, grievance desks.</li>
+              <li><b>Anti-extraction guardrails:</b> contracts with FPIC, fair pricing floors, community benefit agreements.</li>
+            </ul>
+          </div>
+        </div>
+        <details class="toolbox"><summary>Templates: P&amp;L, vendor contract, community benefit agreement</summary>
+          <div class="grid">
+            <button class="pill" data-download="tpl-pl">P&amp;L (.xlsx)</button>
+            <button class="pill" data-download="tpl-vendor">Vendor Contract (.docx)</button>
+            <button class="pill" data-download="tpl-cba">Community Benefit Agreement (.docx)</button>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- POLITICAL VOICE -->
+    <section id="voice" class="block" aria-expanded="false">
+      <header role="button" aria-controls="voice-body" aria-expanded="false"><h2>Political Voice</h2><span class="hint">Youth councils • Regional & UNFCCC representation • Safe advocacy</span></header>
+      <div id="voice-body" class="content">
+        <div class="grid cols-2">
+          <div>
+            <h3>Structures</h3>
+            <ul>
+              <li><b>Youth Climate Councils:</b> elected seats per ward; quotas for girls and persons with disabilities.</li>
+              <li><b>Delegation pipeline:</b> training → briefs → representation at MSG/PIFS/UNFCCC.</li>
+              <li><b>Community consultation:</b> village forums with FPIC-aligned minutes and public logs.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Safety & legitimacy</h3>
+            <ul>
+              <li><b>Nonviolence training</b>; de-escalation; safe protest routes; legal aid cards.</li>
+              <li><b>Anti-tokenization protocol:</b> youth co-signing on all press/partnerships.</li>
+              <li><b>Media brief kits</b> with ocean-first narratives and data visuals; code of conduct.</li>
+            </ul>
+          </div>
+        </div>
+        <details class="toolbox"><summary>Downloads: Youth council bylaws + advocacy brief bundle</summary>
+          <button class="pill" data-download="bylaws">Council Bylaws (.docx)</button>
+          <button class="pill" data-download="briefs">Advocacy Briefs (.zip)</button>
+        </details>
+      </div>
+    </section>
+
+    <!-- RESILIENCE & SURVIVAL -->
+    <section id="resilience" class="block" aria-expanded="false">
+      <header role="button" aria-controls="resilience-body" aria-expanded="false"><h2>Resilience & Survival</h2><span class="hint">Food sovereignty • Mangroves & reefs • Climate-proof housing • Relocation frameworks</span></header>
+      <div id="resilience-body" class="content">
+        <div class="grid cols-2">
+          <div>
+            <h3>Nature-first defenses</h3>
+            <ul>
+              <li><b>Mangrove belts:</b> nurseries, community planting calendars, legal protection zones.</li>
+              <li><b>Reef repair:</b> coral gardening, rubble stabilization, heat-resilient strains, no-anchoring zones.</li>
+              <li><b>Watershed care:</b> ridge-to-reef restoration; no-burn buffers; spring protection.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Homes, food, water</h3>
+            <ul>
+              <li><b>Storm-safe homes:</b> raised floors, tie-downs, cross-bracing; local materials with cyclone standards.</li>
+              <li><b>Food sovereignty:</b> breadfruit, cassava, swamp taro, agroforestry guilds; salt-tolerant varieties.</li>
+              <li><b>Water security:</b> communal rain tanks, ceramic filters, emergency desal micro-kits.</li>
+            </ul>
+          </div>
+        </div>
+        <details class="toolbox"><summary>Relocation & dignity</summary>
+          <p>Last-resort community relocation respects graves, sacred sites, and fishing grounds. Framework includes FPIC, compensation, cultural mapping, and diaspora hosting plans.</p>
+          <button class="pill" data-download="relocation">Community Relocation Framework (.pdf)</button>
+        </details>
+      </div>
+    </section>
+
+    <!-- CULTURE -->
+    <section id="culture" class="block" aria-expanded="false">
+      <header role="button" aria-controls="culture-body" aria-expanded="false"><h2>Cultural Continuity</h2><span class="hint">Language • Music • Rituals • Traditional Knowledge</span></header>
+      <div id="culture-body" class="content">
+        <p>Culture is infrastructure. Youth guardians record songs and stories (with consent), host inter-island exchanges, and design festivals aligned to planting and migration cycles. IP charters ensure benefits flow back to communities.</p>
+        <details class="toolbox"><summary>Toolkit: Cultural IP & consent pack</summary>
+          <button class="pill" data-download="cultural-ip">Download (.docx)</button>
+        </details>
+      </div>
+    </section>
+
+    <!-- PARTNERSHIPS -->
+    <section id="partnerships" class="block" aria-expanded="false">
+      <header role="button" aria-controls="partnerships-body" aria-expanded="false"><h2>Global Partnerships</h2><span class="hint">Finance • Reparations • South–South solidarity • Digital advocacy</span></header>
+      <div id="partnerships-body" class="content">
+        <div class="grid cols-2">
+          <div>
+            <h3>Finance lanes</h3>
+            <ul>
+              <li><b>Loss & Damage access:</b> rapid brief templates; village project registry; fiduciary partners.</li>
+              <li><b>Blue bonds & micro-CSRs:</b> small corporate offsets tied to transparent reef outcomes.</li>
+              <li><b>Diaspora crowdfunding:</b> remittance-matched mangrove and school kits.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Allies & networks</h3>
+            <ul>
+              <li><b>South–South exchanges:</b> Kiribati, Tuvalu, Fiji, Vanuatu youth labs; shared playbooks.</li>
+              <li><b>Research pairs:</b> universities for reef heat tolerance, cyclone engineering, freshwater lenses.</li>
+              <li><b>Digital campaigns:</b> youth storytellers; code-of-care; mental health guardrails.</li>
+            </ul>
+          </div>
+        </div>
+        <details class="toolbox"><summary>Partner MOU + grant pipeline sheets</summary>
+          <button class="pill" data-download="mou">MOU Template (.docx)</button>
+          <button class="pill" data-download="grant-pipeline">Grant Pipeline (.xlsx)</button>
+        </details>
+      </div>
+    </section>
+
+    <!-- TECH & MEDIA -->
+    <section id="tech" class="block" aria-expanded="false">
+      <header role="button" aria-controls="tech-body" aria-expanded="false"><h2>Tech & Media</h2><span class="hint">Offline-first platforms • Secure comms • Storytelling • Gamified awareness</span></header>
+      <div id="tech-body" class="content">
+        <div class="grid cols-2">
+          <div>
+            <h3>Design principles</h3>
+            <ul>
+              <li><b>Offline-first:</b> content packs sync via SD cards/mesh; audio-first for low literacy.</li>
+              <li><b>Privacy:</b> minimal data; opt-in only; trauma-aware moderation; no tracking in schools.</li>
+              <li><b>Open formats:</b> printable PDFs, subtitles, radio scripts, teacher notes.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Features</h3>
+            <ul>
+              <li><b>Story studio:</b> record elders; export to radio; caption in Pijin/English.</li>
+              <li><b>Quest engine:</b> mangrove quests, water tests, roof-strap installs; badges unlocked offline.</li>
+              <li><b>Emergency mode:</b> cyclone checklist, safe routes, first-aid flashcards; works fully offline.</li>
+            </ul>
+          </div>
+        </div>
+        <details class="toolbox"><summary>Developer: JSON Schemas</summary>
+<pre class="tiny" aria-label="JSON Schemas">
+{
+  "$id":"/schemas/project.json",
+  "type":"object",
+  "required":["id","name","island","ward","owner","category"],
+  "properties":{
+    "id":{"type":"string"},
+    "name":{"type":"string"},
+    "island":{"type":"string"},
+    "ward":{"type":"string"},
+    "owner":{"type":"string"},
+    "category":{"enum":["reef","mangrove","water","energy","housing","education","venture"]},
+    "status":{"enum":["idea","pilot","active","complete"]},
+    "metrics":{"type":"object"}
+  }
+}
+</pre>
+        </details>
+      </div>
+    </section>
+
+    <!-- MONITORING & EVALUATION -->
+    <section id="me" class="block" aria-expanded="false">
+      <header role="button" aria-controls="me-body" aria-expanded="false"><h2>Monitoring & Evaluation</h2><span class="hint">Reefs restored • Youth jobs • Hectares reforested • Representation achieved</span></header>
+      <div id="me-body" class="content">
+        <div class="metric-grid" role="list">
+          <div class="metric" role="listitem"><div>Reef tiles installed</div><b id="m-reef">0</b></div>
+          <div class="metric" role="listitem"><div>Mangroves planted</div><b id="m-mangrove">0</b></div>
+          <div class="metric" role="listitem"><div>Youth jobs created</div><b id="m-jobs">0</b></div>
+          <div class="metric" role="listitem"><div>Households storm-hardened</div><b id="m-homes">0</b></div>
+          <div class="metric" role="listitem"><div>Villages with rain tanks</div><b id="m-water">0</b></div>
+          <div class="metric" role="listitem"><div>Delegates seated</div><b id="m-delegates">0</b></div>
+        </div>
+        <details class="toolbox"><summary>OKR Tree & Data Entry</summary>
+          <p>Paste CSV data below to update metrics offline. Your data is stored locally in your browser (no cloud).</p>
+          <textarea id="csv" rows="6" style="width:100%" placeholder="metric,value\nreef,120\nmangrove,5400\njobs,85\nhomes,42\nwater,18\ndelegates,7"></textarea>
+          <div style="margin-top:.6rem; display:flex; gap:.6rem; flex-wrap:wrap">
+            <button class="pill" id="applyCsv">Apply CSV</button>
+            <button class="pill" id="exportJson">Export JSON</button>
+            <span class="tag">Local-only • No tracking</span>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- IMPLEMENTATION ROADMAP -->
+    <section id="roadmap" class="block" aria-expanded="false">
+      <header role="button" aria-controls="roadmap-body" aria-expanded="false"><h2>Implementation Roadmap</h2><span class="hint">0–6 months • 6–24 months • 5–10 years</span></header>
+      <div id="roadmap-body" class="content timeline">
+        <div class="row"><h3>0–6 months</h3>
+          <ul>
+            <li>Stand up youth councils; adopt bylaws; safety & nonviolence training.</li>
+            <li>Launch mangrove nurseries; pilot coral gardening in 3 sites.</li>
+            <li>School + church climate modules; print packs delivered to low-connectivity areas.</li>
+            <li>Micro-grants (USD $500–$2,000) for 100 youth ventures; ROSCAs formalized.</li>
+            <li>Storm-harden 200 homes with local carpenters; rain tanks for clinics and schools.</li>
+          </ul>
