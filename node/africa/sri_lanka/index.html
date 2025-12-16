@@ -1,0 +1,718 @@
+<!-- File: /water/index.html  (standalone, long-form, gamified) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+  <title>Water Sovereignty · Sri Lanka (Dry‑Zone Smallholders) · Planetary Restoration Archive</title>
+  <meta name="description" content="Ultra long-form, gamified water-sovereignty guide for Sri Lanka’s dry-zone smallholders. Seasonal quests (Maha/Yala), cascade stewardship (ellangā), rainwater harvesting, SRI/AWD, greywater, and governance (bethma). Offline-first + Habitica + WebLLM." />
+  <meta name="keywords" content="Sri Lanka,dry zone,ellanga,wewa,tank cascade,gasgommana,perahana,kattakaduwa,bethma,water sovereignty,rainwater harvesting,SRI,AWD,greywater,smallholders,Anuradhapura,Polonnaruwa,Hambantota" />
+  <link rel="canonical" href="https://planetaryrestorationarchive.local/water/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Water Sovereignty · Sri Lanka (Dry‑Zone Smallholders)" />
+  <meta property="og:description" content="Gamified, offline-first guide for cascade stewardship, seasonal planning, and household water." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://planetaryrestorationarchive.local/water/" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Water Sovereignty · Sri Lanka (Dry‑Zone Smallholders)" />
+  <meta name="twitter:description" content="Gamified, offline-first guide for cascade stewardship, seasonal planning, and household water." />
+
+  <!-- JSON-LD: hybrid presentation schema + schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": [
+      "https://schema.org",
+      "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"
+    ],
+    "@type": "Guide",
+    "name": "Water Sovereignty — Sri Lanka (Dry‑Zone Smallholders)",
+    "about": ["ellangā wewa (tank cascade)", "bethma", "gasgommana", "perahana", "kattakaduwa", "SRI/AWD", "rainwater harvesting", "greywater reuse"],
+    "inLanguage": "en",
+    "audience": { "@type": "Audience", "audienceType": "Smallholder farmers (Sri Lanka dry zone)" },
+    "isPartOf": { "@type": "CreativeWorkSeries", "name": "Food & Water Sovereignty Series" },
+    "publisher": { "@type": "Organization", "name": "Planetary Restoration Archive" }
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#05060a; --fg:#dfe7ff; --muted:#99a7bd; --accent:#7cd6ff; --accent2:#ffc76b;
+      --card:#0b0e17; --glass:rgba(15,18,30,.55); --ok:#9afa8f; --warn:#ffd479; --danger:#ff7a7a;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Roboto Mono", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans); line-height:1.6;
+      overflow-x:hidden;
+    }
+    /* Starfield canvas fills screen; content overlays */
+    #starfield{position:fixed; inset:0; z-index:-2; display:block}
+    .vignette:before{
+      content:""; position:fixed; inset:-10vh; z-index:-1;
+      background:radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,.5) 80%, rgba(0,0,0,.85) 100%);
+      pointer-events:none
+    }
+    header{
+      position:sticky; top:0; z-index:10; backdrop-filter:saturate(120%) blur(8px);
+      background:linear-gradient(180deg, rgba(5,6,10,.88), rgba(5,6,10,.6));
+      border-bottom:1px solid rgba(124,214,255,.15);
+    }
+    .nav{
+      display:flex; gap:1rem; align-items:center; padding:0.75rem 1rem; max-width:1200px; margin:0 auto;
+    }
+    .brand{font-weight:700; letter-spacing:.5px}
+    .nav a{color:var(--accent); text-decoration:none}
+    .nav a:hover{text-decoration:underline}
+    main{max-width:1200px; margin:0 auto; padding:2rem 1rem}
+    .hero{
+      display:grid; grid-template-columns:1.2fr .8fr; gap:2rem; align-items:center;
+    }
+    @media (max-width: 980px){ .hero{grid-template-columns:1fr} }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:16px; padding:1.25rem; box-shadow:0 10px 40px rgba(0,0,0,.35);
+    }
+    .glass{background:var(--glass); border:1px solid rgba(255,255,255,.08)}
+    .kicker{color:var(--accent2); text-transform:uppercase; letter-spacing:.15em; font-size:.8rem}
+    h1{margin:.2rem 0 1rem; font-size:clamp(1.8rem, 3.8vw, 3rem)}
+    h2{margin:2.2rem 0 1rem; font-size:clamp(1.4rem, 2.4vw, 2rem)}
+    h3{margin:1.6rem 0 .6rem; font-size:1.1rem}
+    .cta-row{display:flex; gap:.75rem; flex-wrap:wrap; margin-top:1rem}
+    button, .btn{
+      appearance:none; border:1px solid rgba(255,255,255,.15); background:#0f1524; color:var(--fg);
+      border-radius:12px; padding:.7rem 1rem; cursor:pointer; font-weight:600;
+      transition:transform .08s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    button:hover, .btn:hover{border-color:rgba(124,214,255,.45); box-shadow:0 5px 18px rgba(124,214,255,.15)}
+    button:active{transform:translateY(1px)}
+    .grid{display:grid; gap:1rem}
+    .grid.cols-2{grid-template-columns:1fr 1fr}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    @media (max-width: 900px){ .grid.cols-2, .grid.cols-3{grid-template-columns:1fr} }
+    .pill{display:inline-flex; align-items:center; gap:.5rem; background:rgba(124,214,255,.12); border:1px solid rgba(124,214,255,.25); padding:.25rem .6rem; border-radius:999px; font-size:.8rem}
+    .xp{color:var(--ok); font-variant-numeric:tabular-nums}
+    .meter{height:10px; background:rgba(255,255,255,.06); border-radius:999px; overflow:hidden}
+    .meter > span{display:block; height:100%; background:linear-gradient(90deg, #70d7ff, #aaf7b7)}
+    .footnote{font-size:.9rem; color:var(--muted)}
+    details{border:1px dashed rgba(255,255,255,.2); border-radius:10px; padding:.75rem 1rem}
+    details[open]{background:rgba(255,255,255,.03)}
+    code,kbd{font-family:var(--mono); background:rgba(255,255,255,.06); padding:.2rem .4rem; border-radius:6px}
+    .chat{position:fixed; right:1rem; bottom:1rem; width:min(420px, 92vw); z-index:20}
+    .chat .pane{display:none; background:var(--card); border:1px solid rgba(124,214,255,.2); border-radius:14px; padding:0; overflow:hidden}
+    .chat .title{display:flex; align-items:center; justify-content:space-between; padding:.6rem .8rem; background:rgba(124,214,255,.08)}
+    .chat .log{max-height:45vh; overflow:auto; padding:.75rem}
+    .chat textarea{width:100%; min-height:80px; resize:vertical; background:#0c1221; color:var(--fg); border:0; border-top:1px solid rgba(255,255,255,.08); padding:.75rem}
+    .chat .controls{display:flex; gap:.5rem; padding:.6rem .75rem; border-top:1px solid rgba(255,255,255,.08)}
+    .badge{display:inline-flex; gap:.5rem; align-items:center; border:1px solid rgba(255,255,255,.15); border-radius:10px; padding:.25rem .5rem}
+    .table{width:100%; border-collapse:collapse}
+    .table th,.table td{border-bottom:1px solid rgba(255,255,255,.08); padding:.5rem .4rem; text-align:left}
+    .muted{color:var(--muted)}
+    .floating-refs{position:fixed; left:1rem; bottom:1rem; z-index:15; display:flex; gap:.5rem; flex-wrap:wrap}
+    .floating-refs a{opacity:.75}
+    .sr-only{position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); border:0}
+    @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important} }
+  </style>
+</head>
+
+<body class="vignette">
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <header>
+    <nav class="nav" aria-label="Primary">
+      <div class="brand">Planetary Restoration Archive · Water</div>
+      <a href="/water/">/water/</a>
+      <a href="/food/">/food/</a>
+      <span class="pill" id="levelPill">Level <strong id="level">1</strong> • <span class="xp" id="xp">0</span> XP</span>
+      <span class="pill">Season: <span id="seasonLabel">Maha</span></span>
+      <button id="saveBtn" title="Save progress to your browser">Save</button>
+      <button id="exportBtn" title="Export progress JSON">Export</button>
+      <button id="resetBtn" title="Clear local data" style="border-color:rgba(255,122,122,.35);">Reset</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="card glass">
+        <div class="kicker">Sri Lanka · Dry‑Zone Smallholders</div>
+        <h1>Water Sovereignty: Playable Strategy for Cascades, Households & Fields</h1>
+        <p>
+          You’re stewarding a village <em>ellangā</em> (cascade) that dances between flood and thirst.
+          This guide turns climate‑wise practices into quests: household rainwater, cascade habitat belts
+          (<strong>gasgommana</strong>, <strong>perahana</strong>, <strong>kattakaduwa</strong>), drought fairness (<strong>bethma</strong>),
+          field water efficiency (SRI/AWD), and safe reuse. Earn badges as you restore flows, litres, and trust.
+        </p>
+        <div class="cta-row">
+          <button id="startMaha">Start Maha Questline</button>
+          <button id="startYala">Start Yala Questline</button>
+          <button id="openHabitica">Connect Habitica</button>
+          <button id="openMentor">Launch Field Mentor (WebLLM)</button>
+        </div>
+        <p class="footnote">
+          Progress is stored locally (IndexedDB). Habitica export is optional and uses your own API token.
+        </p>
+        <div class="meter" aria-label="XP progress"><span id="xpBar" style="width:0%"></span></div>
+      </div>
+      <aside class="card">
+        <h2>Quick Wins (Today)</h2>
+        <ol>
+          <li><strong>Gutter audit</strong>: sketch roof area, locate leaks, measure downpipe diameter.</li>
+          <li><strong>First‑flush</strong>: set a target of 0.5–1.0 mm diversion per rainfall event.</li>
+          <li><strong>Tree belt scout</strong>: map the <em>gasgommana</em>; flag gaps & evaporation hotspots.</li>
+          <li><strong>AWD check</strong>: tag a paddy plot for alternate wetting & drying trial.</li>
+          <li><strong>Greywater plan</strong>: pick 2 fruit trees for filtered kitchen greywater.</li>
+        </ol>
+        <p class="muted">Each of these is a To‑Do you can export to Habitica below.</p>
+      </aside>
+    </section>
+
+    <!-- =======================================================================
+         MODULE 0: Habitica + Profile
+    ========================================================================= -->
+    <section id="habitica" class="card glass" style="margin-top:2rem;">
+      <h2>Habitica Integration (optional)</h2>
+      <p>Export quests as To‑Dos/Dailies to your Habitica account. Credentials are stored only in your browser and can be wiped any time.</p>
+      <div class="grid cols-3">
+        <div>
+          <label>User ID<br><input id="habUser" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" style="width:100%"></label>
+        </div>
+        <div>
+          <label>API Token<br><input id="habKey" placeholder="your-api-token" style="width:100%" type="password"></label>
+        </div>
+        <div class="grid">
+          <label>Tag for tasks<br><input id="habTag" placeholder="Water Sovereignty" style="width:100%"></label>
+          <button id="testHabitica">Test Connection</button>
+        </div>
+      </div>
+      <div class="cta-row">
+        <button id="exportSelected">Export Selected Quests → Habitica</button>
+        <button id="clearCreds">Clear Credentials</button>
+      </div>
+      <p class="footnote">Uses Habitica v3 API (<code>POST /api/v3/tasks/user</code> with <code>x-api-user</code> + <code>x-api-key</code> headers). Rate‑limit friendly and idempotent where possible.</p>
+    </section>
+
+    <!-- =======================================================================
+         MODULE 1: Cascade Stewardship (ellangā)
+    ========================================================================= -->
+    <section id="cascade" class="card glass">
+      <div class="kicker">Questline · Landscape</div>
+      <h2>Ellangā Stewardship: Keep the Tanks Alive</h2>
+      <p>
+        The village tank‑cascade is a climate machine: trees upwind to cool and cut evaporation; reeds to filter; a salt‑catching
+        strip downstream; channels and bunds that like gentle maintenance more than grand projects. Stewardship is small, seasonal, and relentless.
+      </p>
+
+      <div class="grid cols-3" id="cascadeQuests">
+        <!-- Quest cards injected by JS -->
+      </div>
+
+      <details>
+        <summary><strong>Why these three habitats?</strong></summary>
+        <p><strong>Gasgommana</strong> (tree belt): reduces wind and evaporation; roots create fish habitat; biodiversity reservoir.</p>
+        <p><strong>Perahana</strong> (reed/grass filter): traps silt from chena lands; polishes inflow.</p>
+        <p><strong>Kattakaduwa</strong> (interceptor strip): holds salts & agrochemicals below the bund, improving water quality for fields and wells.</p>
+        <p class="footnote">Names & functions from Sri Lankan cascade literature. See References inside the page footer.</p>
+      </details>
+    </section>
+
+    <!-- =======================================================================
+         MODULE 2: Household Rainwater Harvesting (RWH)
+    ========================================================================= -->
+    <section id="rwh" class="card glass">
+      <div class="kicker">Questline · Household</div>
+      <h2>Roof‑to‑Jar: Rainwater You Can Count</h2>
+      <p>Dry‑zone households live by the litre. Use the quick calculator to size storage and first‑flush, then pick a build path (HDPE, ferrocement, masonry).</p>
+      <div class="grid cols-2">
+        <div>
+          <h3>Quick Calculator</h3>
+          <label>Annual Rainfall (mm) <input id="rain_mm" type="number" value="1200" min="200" max="3000" style="width:100%"></label>
+          <label>Roof Catchment (m²) <input id="roof_m2" type="number" value="60" min="10" max="400" style="width:100%"></label>
+          <label>Runoff Coefficient (0.6–0.9) <input id="coef" type="number" value="0.8" step="0.05" min="0.5" max="0.95" style="width:100%"></label>
+          <label>Loss Factor (first‑flush + leaks, 0–0.2) <input id="loss" type="number" value="0.1" step="0.01" min="0" max="0.25" style="width:100%"></label>
+          <div class="cta-row"><button id="calcRWH">Compute Harvestable Volume</button></div>
+          <p id="rwhOut" class="pill">—</p>
+          <p class="muted">Rule of thumb: 1 mm rain on 1 m² = 1 litre. Storage coverage target: 30–90 days of basic domestic use.</p>
+        </div>
+        <div>
+          <h3>Build Paths</h3>
+          <ul>
+            <li><strong>HDPE tank</strong> with food‑grade taps; shade + mosquito mesh; anchored base.</li>
+            <li><strong>Ferrocement</strong> for low‑cost large volumes; plastered & sealed; overflow to garden pit.</li>
+            <li><strong>Masonry jars</strong> (lined); keep lids sealed; pre‑chlorination for potable uses.</li>
+          </ul>
+          <p class="footnote">Sri Lanka has a national policy on RWH and NGO support for household systems; designs are proven in dry‑zone villages.</p>
+        </div>
+      </div>
+
+      <h3>RWH Quest Board</h3>
+      <div class="grid cols-3" id="rwhQuests"></div>
+    </section>
+
+    <!-- =======================================================================
+         MODULE 3: Field Efficiency (Paddy + Home Gardens)
+    ========================================================================= -->
+    <section id="fields" class="card glass">
+      <div class="kicker">Questline · Fields</div>
+      <h2>Use Less, Grow More: AWD & SRI for Paddy; Drip for Gardens</h2>
+      <p>
+        Paddy wants water at the right time, not all the time. Alternate Wetting & Drying (AWD) and SRI spacing/transplanting
+        reduce water while stabilizing yield. For home gardens, buckets and gravity‑drip beat flooding every day.
+      </p>
+
+      <div class="grid cols-3" id="fieldQuests"></div>
+
+      <details>
+        <summary><strong>AWD checkpoint method</strong></summary>
+        <p>Install a perforated PVC tube (15–20 cm deep). When water drops to ~15 cm below soil, re‑flood. Skip standing water during mid‑tillering to panicle initiation unless stress shows.</p>
+      </details>
+    </section>
+
+    <!-- =======================================================================
+         MODULE 4: Greywater Reuse (Safe & Simple)
+    ========================================================================= -->
+    <section id="greywater" class="card glass">
+      <div class="kicker">Questline · Household + Garden</div>
+      <h2>Greywater to Green Rings</h2>
+      <p>
+        Kitchen and laundry water can safely irrigate non‑leafy crops and trees when filtered through a sand–gravel–charcoal bed and a mulch basin.
+        Keep flows subsurface; don’t spray on edible leaves; rotate basins; rest and dry filters.
+      </p>
+      <div class="grid cols-3" id="greyQuests"></div>
+      <p class="footnote">Greywater is a recognized water‑security strategy; perceptions improve with simple, well‑kept filters and clear rules.</p>
+    </section>
+
+    <!-- =======================================================================
+         MODULE 5: Governance & Drought Rules
+    ========================================================================= -->
+    <section id="governance" class="card glass">
+      <div class="kicker">Questline · Governance</div>
+      <h2>Rules of the Thirst: Bethma & Transparent Allocation</h2>
+      <p>
+        Drought isn’t a surprise; it’s a season. A written bethma charter, a water board with tail‑ender seats,
+        and posted canal schedules keep peace in the bad years and trust in the good ones.
+      </p>
+      <div class="grid cols-3" id="govQuests"></div>
+      <table class="table">
+        <thead><tr><th>Signal</th><th>Action</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Sub‑bund gauge < 50% by week 6</td><td>Trigger bethma rotation</td><td>Share the head‑end advantage</td></tr>
+          <tr><td>Canal inflow variability ↑</td><td>Introduce 2‑day rest windows</td><td>Recharge groundwater; reduce tail loss</td></tr>
+          <tr><td>Salinity spike at tail</td><td>Expand kattakaduwa strip</td><td>Trap salts, protect drinking wells</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- =======================================================================
+         REFERENCES (for end users)
+    ========================================================================= -->
+    <section class="card" id="refs">
+      <h2>References & Further Reading</h2>
+      <ul>
+        <li>Tank cascade (ellangā wewa), FAO GIAHS overview & history.</li>
+        <li>Gasgommana / Perahana / Kattakaduwa functions and placement.</li>
+        <li>Bethma drought‑sharing practices and equity for tail‑enders.</li>
+        <li>Dry‑zone rainfall & Maha/Yala season calendars shaping water demand.</li>
+        <li>Water efficiency in paddy (SRI/AWD) and potential savings.</li>
+        <li>National rainwater harvesting policy and household benefits.</li>
+      </ul>
+      <p class="muted">This file includes in‑page footnotes and an offline cache. Open the Floating References for live links when online.</p>
+    </section>
+  </main>
+
+  <!-- Floating quick links (live references for online readers) -->
+  <div class="floating-refs" aria-hidden="true">
+    <a class="pill" href="https://webllm.mlc.ai/docs/user/basic_usage.html" target="_blank" rel="noopener">WebLLM Docs</a>
+    <a class="pill" href="https://habitica.com/apidoc/" target="_blank" rel="noopener">Habitica API</a>
+    <a class="pill" href="https://en.wikipedia.org/wiki/Tank_cascade_system" target="_blank" rel="noopener">Ellangā (overview)</a>
+  </div>
+
+  <!-- WebLLM Mentor Panel -->
+  <div class="chat">
+    <button class="btn" id="toggleChat">Field Mentor</button>
+    <div class="pane" id="chatPane" role="dialog" aria-label="Field Mentor">
+      <div class="title">
+        <strong>Field Mentor (on‑device WebLLM)</strong>
+        <button id="closeChat" aria-label="Close">×</button>
+      </div>
+      <div class="log" id="chatLog" aria-live="polite"></div>
+      <div class="controls">
+        <input id="modelId" value="Llama-3.1-8B-Instruct" style="flex:1" />
+        <button id="initModel">Init Model</button>
+      </div>
+      <textarea id="chatInput" placeholder="Ask: 'How do I size a first-flush for 25mm storms?'" disabled></textarea>
+      <div class="controls">
+        <button id="sendMsg" disabled>Send</button>
+        <span id="loadStatus" class="muted">Model idle.</span>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // ------------------------------ Starfield (photorealistic-ish) ------------------------------
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let W, H, stars = [], nebulas = [];
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+    function resize(){
+      W = canvas.width = Math.floor(innerWidth * DPR);
+      H = canvas.height = Math.floor(innerHeight * DPR);
+      canvas.style.width = innerWidth + 'px';
+      canvas.style.height = innerHeight + 'px';
+      makeStars(); makeNebulas();
+    }
+    window.addEventListener('resize', resize, {passive:true});
+    function rand(a,b){return a + Math.random()*(b-a)}
+    function makeStars(){
+      stars = [];
+      const n = Math.floor((W*H) / (1500 * DPR)); // density
+      for(let i=0;i<n;i++){
+        const z = Math.random(); // depth 0..1
+        stars.push({
+          x: Math.random()*W,
+          y: Math.random()*H,
+          r: (0.6 + 2.4*z) * DPR * (Math.random()<0.03?2.2:1),
+          a: rand(0.7, 1),
+          tw: rand(0.001, 0.006)*(Math.random()<0.2?3:1),
+          z
+        });
+      }
+    }
+    function makeNebulas(){
+      nebulas = [];
+      const blobs = 4;
+      for(let i=0;i<blobs;i++){
+        nebulas.push({
+          x: rand(W*0.1, W*0.9), y: rand(H*0.1, H*0.9),
+          rx: rand(200*DPR, 520*DPR), ry: rand(90*DPR, 260*DPR),
+          a: rand(0.02,0.08)
+        });
+      }
+    }
+    let t=0, last=0;
+    function draw(now){
+      requestAnimationFrame(draw);
+      const dt = Math.min((now-last)||16, 32); last = now; t += dt*0.001;
+      ctx.clearRect(0,0,W,H);
+
+      // soft space gradient
+      const g = ctx.createRadialGradient(W*0.5, H*0.55, 50*DPR, W*0.5, H*0.5, Math.hypot(W,H)*0.6);
+      g.addColorStop(0, "#0a0d18"); g.addColorStop(1, "#02040b");
+      ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+      // nebulas
+      for(const nb of nebulas){
+        ctx.save();
+        ctx.translate(nb.x, nb.y);
+        ctx.rotate(0.3*Math.sin(t*0.1));
+        const grd = ctx.createRadialGradient(0,0, nb.ry*0.1, 0,0, Math.max(nb.rx, nb.ry));
+        grd.addColorStop(0, `rgba(124,214,255,${nb.a})`);
+        grd.addColorStop(0.7, `rgba(255,199,107,${nb.a*0.3})`);
+        grd.addColorStop(1, 'transparent');
+        ctx.globalCompositeOperation = 'screen';
+        ctx.fillStyle = grd; ctx.beginPath();
+        ctx.ellipse(0,0, nb.rx, nb.ry, 0, 0, Math.PI*2); ctx.fill();
+        ctx.restore();
+      }
+
+      // stars
+      for(const s of stars){
+        const tw = s.a*(0.8 + 0.2*Math.sin(t*6*s.tw + s.x*1e-3));
+        ctx.globalCompositeOperation = 'screen';
+        ctx.fillStyle = `rgba(255,255,255,${tw})`;
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
+        // tiny diffraction spikes
+        if(s.r > 2*DPR){
+          ctx.globalAlpha = tw*0.35;
+          ctx.fillRect(s.x-6*DPR, s.y-0.2*DPR, 12*DPR, 0.4*DPR);
+          ctx.fillRect(s.x-0.2*DPR, s.y-6*DPR, 0.4*DPR, 12*DPR);
+          ctx.globalAlpha = 1;
+        }
+      }
+
+      // occasional meteor
+      if(Math.random() < 0.003){
+        const y = rand(0.1*H, 0.6*H); const x = rand(-0.1*W, 1.1*W);
+        const vx = rand(-0.4, 0.4)*DPR, vy = rand(0.05,0.2)*DPR, len = rand(50,140)*DPR;
+        ctx.save(); ctx.globalCompositeOperation = 'screen';
+        const g2 = ctx.createLinearGradient(x, y, x+len*vx, y+len*vy);
+        g2.addColorStop(0, 'rgba(255,255,255,0.8)'); g2.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.strokeStyle = g2; ctx.lineWidth = 1.4*DPR; ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x+len*vx, y+len*vy); ctx.stroke(); ctx.restore();
+      }
+    }
+    resize(); requestAnimationFrame(draw);
+
+    // ------------------------------ IndexedDB (progress) ------------------------------
+    const DB_NAME = 'sovereigntyDB', DB_VER = 1;
+    let db;
+    function openDB(){
+      return new Promise((resolve, reject)=>{
+        const req = indexedDB.open(DB_NAME, DB_VER);
+        req.onupgradeneeded = () => {
+          const d = req.result;
+          if(!d.objectStoreNames.contains('progress')) d.createObjectStore('progress', {keyPath:'id'});
+          if(!d.objectStoreNames.contains('settings')) d.createObjectStore('settings', {keyPath:'id'});
+          if(!d.objectStoreNames.contains('habitica')) d.createObjectStore('habitica', {keyPath:'id'});
+        };
+        req.onsuccess = ()=>{db=req.result; resolve(db)};
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+    async function put(store, val){
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction(store, 'readwrite'); tx.oncomplete = ()=>resolve();
+        tx.onerror = ()=>reject(tx.error); tx.objectStore(store).put(val);
+      });
+    }
+    async function get(store, id){
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction(store, 'readonly'); const r = tx.objectStore(store).get(id);
+        r.onsuccess = ()=>resolve(r.result); r.onerror = ()=>reject(r.error);
+      });
+    }
+    async function all(store){
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction(store, 'readonly'); const req = tx.objectStore(store).getAll();
+        req.onsuccess = ()=>resolve(req.result || []); req.onerror = ()=>reject(req.error);
+      });
+    }
+    await openDB();
+
+    // ------------------------------ Gamification core ------------------------------
+    let XP=0, LEVEL=1;
+    const xpEl = document.getElementById('xp'), levelEl = document.getElementById('level'), xpBar = document.getElementById('xpBar');
+    function addXP(n){
+      XP += n; while(XP >= LEVEL*100){ XP -= LEVEL*100; LEVEL++; toast(`Level up! You are now Level ${LEVEL}.`)}
+      xpEl.textContent = Math.floor(XP); levelEl.textContent = LEVEL;
+      xpBar.style.width = `${Math.min(99, (XP/(LEVEL*100))*100)}%`;
+      put('progress', {id:'meta', XP, LEVEL});
+    }
+    // Restore
+    (async ()=>{
+      const meta = await get('progress','meta'); if(meta){ XP = meta.XP||0; LEVEL = meta.LEVEL||1; xpEl.textContent=XP; levelEl.textContent=LEVEL; xpBar.style.width = `${Math.min(99,(XP/(LEVEL*100))*100)}%`; }
+    })();
+
+    function toast(msg){
+      const n = document.createElement('div');
+      n.textContent = msg; n.className='pill'; n.style.position='fixed'; n.style.left='50%'; n.style.top='1rem'; n.style.transform='translateX(-50%)';
+      n.style.zIndex=30; n.style.background='rgba(0,0,0,.6)'; document.body.appendChild(n);
+      setTimeout(()=>n.remove(), 2400);
+    }
+
+    // ------------------------------ Quests ------------------------------
+    // Shared helper for building quest cards
+    function questCard({id, title, xp=25, checklist=[], notes="", tag}){
+      const wrap = document.createElement('div'); wrap.className='card';
+      wrap.innerHTML = `
+        <h3>${title}</h3>
+        <p class="muted">${notes}</p>
+        <ul>${checklist.map((t,i)=>`<li><label><input type="checkbox" data-q="${id}" data-i="${i}"> ${t}</label></li>`).join('')}</ul>
+        <div class="cta-row">
+          <button data-complete="${id}">Complete</button>
+          <button data-habitica="${id}">Add to Habitica</button>
+          <span class="pill"><span class="xp">+${xp}</span> XP</span>
+        </div>`;
+      wrap.addEventListener('click', async (ev)=>{
+        if(ev.target.dataset.complete===id){
+          addXP(xp);
+          const state = await get('progress', id) || {id, checklist: Array(checklist.length).fill(false), completed: false};
+          state.completed = true; await put('progress', state);
+        }
+      });
+      wrap.addEventListener('change', async (ev)=>{
+        if(ev.target.matches('input[type="checkbox"]')){
+          const i = +ev.target.dataset.i;
+          const state = await get('progress', id) || {id, checklist: Array(checklist.length).fill(false), completed:false};
+          state.checklist[i] = ev.target.checked; await put('progress', state);
+        }
+      });
+      // Export to Habitica
+      wrap.querySelector(`[data-habitica="${id}"]`).addEventListener('click', ()=>exportTaskToHabitica({id, title, notes, checklist, tag}));
+      return wrap;
+    }
+
+    // Cascade quests
+    const cascadeList = [
+      {id:'gasgommana-gap-map', title:'Map gasgommana gaps', xp:40, notes:'Walk the upwind rim. Mark bare segments, evaporation hotspots, and cattle pressure.', checklist:['Sketch tank rim','Wind direction check','Flag >10m gaps'] , tag:'Landscape'},
+      {id:'perahana-check', title:'Assess perahana filter', xp:35, notes:'Reed density, flow paths, silt traps. Avoid digging through the filter for shortcuts.', checklist:['Locate main inflow','Measure silt depth','Re‑plant reeds where sparse'] , tag:'Landscape'},
+      {id:'kattakaduwa-extend', title:'Extend kattakaduwa 3 m', xp:50, notes:'Add a mixed strip downstream of the bund for salt & nutrient interception.', checklist:['Stake 3m strip','Plant salt‑tolerants','Mulch & water‑in'] , tag:'Landscape'},
+      {id:'bund-desilt', title:'Community desilt day', xp:60, notes:'Desilt inlet sills and restore gentle slopes. Protect perahana; do not “clean to bare clay”.', checklist:['Shovels/hoes','Silt staging area','Sill re‑grade'] , tag:'Landscape'}
+    ];
+    const cascadeRoot = document.getElementById('cascadeQuests');
+    cascadeList.forEach(q=>cascadeRoot.appendChild(questCard(q)));
+
+    // RWH quests
+    const rwhList = [
+      {id:'gutter-audit', title:'Gutter & downpipe audit', xp:30, notes:'Leak points, slope, debris traps, mesh. Target 0.5–1 mm first‑flush.', checklist:['Slope check','Leaf guard','First‑flush diverter location'], tag:'Household'},
+      {id:'tank-foundation', title:'Pour tank foundation', xp:45, notes:'Level, anchored, shaded. Overflow to soak pit or garden basin.', checklist:['Mark & level base','Concrete cure 48h','Anchor straps'], tag:'Household'},
+      {id:'first-flush-build', title:'Build first‑flush diverter', xp:50, notes:'Simple standpipe or ball‑seat. Drain valve for cleaning.', checklist:['Cut standpipe','Install tee & valve','Test dump timing'], tag:'Household'},
+      {id:'mosquito-mesh', title:'Fit mosquito mesh & lids', xp:25, notes:'All inlets/outlets screened. Keep lids on, chlorine dosing if potable.', checklist:['Cut mesh','Install clamps','Chlorine protocol card'], tag:'Household'}
+    ];
+    const rwhRoot = document.getElementById('rwhQuests');
+    rwhList.forEach(q=>rwhRoot.appendChild(questCard(q)));
+
+    // Field quests
+    const fieldList = [
+      {id:'awd-tube', title:'Install AWD tube on 0.25 ac', xp:40, notes:'Perforated PVC 15–20 cm. Re‑flood when water 15 cm below surface.', checklist:['Cut perforations','Stake tube','Record first cycle'], tag:'Field'},
+      {id:'sri-bed-prep', title:'Prepare SRI seedbed', xp:35, notes:'Young seedlings (8–12 days), wide spacing, careful transplant with root & soil.', checklist:['Seed select','Nursery bed','Transplant plan'], tag:'Field'},
+      {id:'drip-kit', title:'Set gravity‑drip on garden', xp:30, notes:'Bucket or tank >1 m head. Emitters or pinholes; mulch basins.', checklist:['Stand build','Lateral lay','Leak & flow test'], tag:'Field'}
+    ];
+    const fieldRoot = document.getElementById('fieldQuests'); fieldList.forEach(q=>fieldRoot.appendChild(questCard(q)));
+
+    // Greywater quests
+    const greyList = [
+      {id:'filter-box', title:'Build 3‑layer filter box', xp:35, notes:'Gravel → sand → charcoal, with cleanout & bypass for heavy loads.', checklist:['Cut box/drum','Layer media','Install drain'], tag:'Household'},
+      {id:'mulch-basins', title:'Dig two mulch basins', xp:30, notes:'30–60 cm rings for trees; subsurface inflow to avoid leaf wetting.', checklist:['Mark rings','Dig & mulch','Flow test'], tag:'Household'},
+      {id:'rotation-plan', title:'Greywater rotation plan', xp:25, notes:'Alternate basins to avoid waterlogging; weekly rest days.', checklist:['Label A/B basins','Weekly schedule','Monthly media check'], tag:'Household'}
+    ];
+    const greyRoot = document.getElementById('greyQuests'); greyList.forEach(q=>greyRoot.appendChild(questCard(q)));
+
+    // Governance quests
+    const govList = [
+      {id:'bethma-charter', title:'Draft bethma charter', xp:60, notes:'Define triggers, plot rotation, enforcement, and tail‑ender guarantees.', checklist:['Draft clauses','Public reading','Signatures'], tag:'Governance'},
+      {id:'canal-schedule', title:'Post canal schedules', xp:30, notes:'Head‑/tail‑ender rotations visible at sluice & temple board.', checklist:['Print board','Post at sluice','Tail‑ender hotline'], tag:'Governance'},
+      {id:'quality-kit', title:'Community water‑quality kit', xp:45, notes:'EC/salinity & turbidity checks at head, mid, tail & wells.', checklist:['Calibrate EC','Sampling plan','Monthly log'], tag:'Governance'}
+    ];
+    const govRoot = document.getElementById('govQuests'); govList.forEach(q=>govRoot.appendChild(questCard(q)));
+
+    // Seasonal toggles
+    const seasonLabel = document.getElementById('seasonLabel');
+    document.getElementById('startMaha').onclick = ()=>{ seasonLabel.textContent='Maha'; addXP(10); toast('Maha questline primed. Focus on storage & soil.'); };
+    document.getElementById('startYala').onclick = ()=>{ seasonLabel.textContent='Yala'; addXP(10); toast('Yala questline primed. Focus on efficiency & fairness.'); };
+
+    // RWH calculator
+    document.getElementById('calcRWH').onclick = ()=>{
+      const rain = +document.getElementById('rain_mm').value;
+      const roof = +document.getElementById('roof_m2').value;
+      const coef = +document.getElementById('coef').value;
+      const loss = +document.getElementById('loss').value;
+      const litres = rain * roof * coef * (1 - loss);
+      const m3 = litres / 1000;
+      document.getElementById('rwhOut').textContent = `${Math.round(litres).toLocaleString()} L/yr (~${m3.toFixed(1)} m³)`;
+    };
+
+    // Save/Export/Reset
+    const saveBtn = document.getElementById('saveBtn'), exportBtn = document.getElementById('exportBtn'), resetBtn = document.getElementById('resetBtn');
+    saveBtn.onclick = async ()=>{
+      await put('progress',{id:'meta', XP, LEVEL});
+      toast('Progress saved.');
+    };
+    exportBtn.onclick = async ()=>{
+      const out = {
+        meta: await get('progress','meta'),
+        tasks: await all('progress'),
+        settings: await all('settings')
+      };
+      const blob = new Blob([JSON.stringify(out,null,2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='water-sovereignty-progress.json'; a.click();
+      URL.revokeObjectURL(url);
+    };
+    resetBtn.onclick = async ()=>{
+      indexedDB.deleteDatabase(DB_NAME);
+      location.reload();
+    };
+
+    // ------------------------------ Habitica export ------------------------------
+    const habUser = document.getElementById('habUser'), habKey = document.getElementById('habKey'), habTag = document.getElementById('habTag');
+    (async ()=>{
+      const creds = await get('habitica','creds'); if(creds){ habUser.value=creds.user; habKey.value=creds.key; habTag.value=creds.tag||'Water Sovereignty'; }
+    })();
+    document.getElementById('clearCreds').onclick = async ()=>{ await put('habitica',{id:'creds', user:'', key:'', tag:''}); habUser.value=''; habKey.value=''; toast('Habitica credentials cleared.'); };
+    document.getElementById('testHabitica').onclick = async ()=>{
+      await put('habitica',{id:'creds', user:habUser.value.trim(), key:habKey.value.trim(), tag:habTag.value.trim()});
+      try{
+        const r = await fetch('https://habitica.com/api/v3/user', {headers:{'x-api-user':habUser.value.trim(), 'x-api-key':habKey.value.trim()}});
+        toast(r.ok?'Habitica OK.':'Habitica error.');
+      }catch(e){ toast('Network error.'); }
+    };
+    async function exportTaskToHabitica({id, title, notes, checklist, tag}){
+      const user = habUser.value.trim(), key = habKey.value.trim();
+      if(!user || !key){ toast('Enter Habitica credentials first.'); return; }
+      await put('habitica',{id:'creds', user, key, tag:habTag.value.trim()||tag||'Water Sovereignty'});
+      const task = {
+        type:'todo',
+        text:title,
+        notes: (notes||'') + `\n\n[Source] /water/`,
+        tags: [], // tag management could be added via /tags endpoints
+        checklist: checklist.map(x=>({text:x, completed:false})),
+      };
+      try{
+        const res = await fetch('https://habitica.com/api/v3/tasks/user', {
+          method:'POST',
+          headers:{'Content-Type':'application/json','x-api-user':user,'x-api-key':key},
+          body:JSON.stringify(task)
+        });
+        if(res.ok){ addXP(8); toast('Exported to Habitica.'); } else { toast('Habitica rejected the request.'); }
+      }catch(e){ toast('Network error.'); }
+    }
+    document.getElementById('exportSelected').onclick = async ()=>{
+      const allQs = [...cascadeList, ...rwhList, ...fieldList, ...greyList, ...govList];
+      for(const q of allQs){ await exportTaskToHabitica(q); }
+    };
+
+    // ------------------------------ WebLLM Mentor ------------------------------
+    import { CreateMLCEngine } from "https://unpkg.com/@mlc-ai/web-llm@0.2.79/dist/index.js";
+    const chatBtn = document.getElementById('toggleChat'), chatPane = document.getElementById('chatPane'), closeChat = document.getElementById('closeChat');
+    chatBtn.onclick = ()=>{ chatPane.style.display = chatPane.style.display==='block'?'none':'block' };
+    closeChat.onclick = ()=>{ chatPane.style.display='none' };
+    const chatLog = document.getElementById('chatLog'), chatInput = document.getElementById('chatInput'), sendBtn = document.getElementById('sendMsg'), initBtn = document.getElementById('initModel'), loadStatus = document.getElementById('loadStatus'), modelIdInput = document.getElementById('modelId');
+    let engine = null, history = [{role:'system', content:'You are a practical field mentor for Sri Lanka dry-zone water sovereignty. Keep answers concise, actionable, and locally grounded.'}];
+    function append(role, text){
+      const div = document.createElement('div'); div.className='badge'; div.innerHTML = `<strong>${role}:</strong> <span>${text}</span>`; chatLog.appendChild(div); chatLog.scrollTop = chatLog.scrollHeight;
+    }
+    initBtn.onclick = async ()=>{
+      const modelId = modelIdInput.value.trim() || "Llama-3.1-8B-Instruct";
+      try{
+        loadStatus.textContent = 'Downloading model (first run caches for offline)...';
+        engine = await CreateMLCEngine(modelId, { initProgressCallback(p){ loadStatus.textContent = `Loading: ${Math.floor(p.progress*100)}%`; }});
+        loadStatus.textContent = 'Model ready.'; chatInput.disabled=false; sendBtn.disabled=false;
+      }catch(e){ loadStatus.textContent = 'Failed to init model (WebGPU?). Check console.'; console.error(e); }
+    };
+    sendBtn.onclick = async ()=>{
+      const msg = chatInput.value.trim(); if(!msg || !engine) return;
+      append('you', msg); chatInput.value=''; loadStatus.textContent='Thinking...';
+      history.push({role:'user', content:msg});
+      try{
+        let reply = '';
+        const chunks = await engine.chat.completions.create({ messages: history, stream:true });
+        for await (const ch of chunks){ reply += ch.choices[0]?.delta.content || ''; loadStatus.textContent = 'Streaming...'; }
+        history.push({role:'assistant', content:reply}); append('mentor', reply); loadStatus.textContent='Done.';
+      }catch(e){ append('mentor', 'Error generating. Try again.'); }
+    };
+  </script>
+
+  <script>
+    // ------------------------------ PWA-lite (self-caching) ------------------------------
+    if('serviceWorker' in navigator){
+      const code = `
+        const CACHE='water-sovereignty-v1';
+        self.addEventListener('install',e=>{ e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./']))); self.skipWaiting(); });
+        self.addEventListener('activate',e=>{ e.waitUntil(self.clients.claim()); });
+        self.addEventListener('fetch',e=>{
+          const u = new URL(e.request.url);
+          if(u.origin === location.origin){ e.respondWith(caches.match(e.request).then(r=>r || fetch(e.request).then(res=>{ const copy=res.clone(); caches.open(CACHE).then(c=>c.put(e.request, copy)); return res; }))); }
+        });
+      `;
+      const blob = new Blob([code], {type:'text/javascript'});
+      const url = URL.createObjectURL(blob);
+      navigator.serviceWorker.register(url);
+    }
+  </script>
+
+  <footer class="card" style="margin:2rem auto; max-width:1200px;">
+    <p class="muted">
+      Built for dry‑zone smallholders. Keep wells safe, sluices honest, and jars sealed. Links above point to parent folders:
+      <a href="/water/">/water/</a> and <a href="/food/">/food/</a>.
+    </p>
+  </footer>
+</body>
+</html>

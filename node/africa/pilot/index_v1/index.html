@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mycelial Restoration Atlas — Starfield</title>
+<style>
+  html, body { margin:0; padding:0; overflow:hidden; background:#000; font-family:sans-serif; }
+  canvas { display:block; position:absolute; top:0; left:0; }
+  #fallback { display:none; position:absolute; top:0; left:0; width:100%; height:100%; color:#fff; background:#000; text-align:center; padding-top:40vh; }
+  .wizard-clue { position:absolute; top:10px; left:50%; transform:translateX(-50%); color:#FFD700; font-weight:bold; font-size:1.2em; background:rgba(0,0,0,0.6); padding:0.3em 0.6em; border-radius:5px; display:none; }
+</style>
+</head>
+<body>
+<canvas id="starfield"></canvas>
+<div id="fallback">
+  <h2>Mycelial Restoration Atlas (Fallback)</h2>
+  <p>Your browser does not support full animation. Regions R1–R7 are color-coded as follows:</p>
+  <ul style="list-style:none; padding:0; font-size:1.1em;">
+    <li style="color:#FF4500;">R1 — Hot Desert</li>
+    <li style="color:#FFD700;">R2 — Semiarid / Sahel</li>
+    <li style="color:#32CD32;">R3 — Savannah</li>
+    <li style="color:#006400;">R4 — Rainforest</li>
+    <li style="color:#1E90FF;">R5 — Mediterranean</li>
+    <li style="color:#8A2BE2;">R6 — Highlands</li>
+    <li style="color:#00CED1;">R7 — Humid Subtropical</li>
+  </ul>
+</div>
+<div class="wizard-clue" id="wizardClue"></div>
+
+<script>
+(function(){
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+
+  // fallback check
+  if(!ctx) { document.getElementById('fallback').style.display='block'; return; }
+
+  const regions = [
+    {name:'R1', color:'#FF4500'},
+    {name:'R2', color:'#FFD700'},
+    {name:'R3', color:'#32CD32'},
+    {name:'R4', color:'#006400'},
+    {name:'R5', color:'#1E90FF'},
+    {name:'R6', color:'#8A2BE2'},
+    {name:'R7', color:'#00CED1'}
+  ];
+
+  // Starfield particles
+  const stars = [];
+  const numStars = 200;
+  for(let i=0;i<numStars;i++){
+    stars.push({
+      x: Math.random()*w,
+      y: Math.random()*h,
+      z: Math.random()*w,
+      color: regions[Math.floor(Math.random()*regions.length)].color,
+      size: Math.random()*2+1
+    });
+  }
+
+  let mouseX=w/2, mouseY=h/2;
+  window.addEventListener('mousemove', e=>{ mouseX=e.clientX; mouseY=e.clientY; });
+  window.addEventListener('touchmove', e=>{ mouseX=e.touches[0].clientX; mouseY=e.touches[0].clientY; });
+
+  // Wizard
+  let wizard = {x:Math.random()*w, y:Math.random()*h, visible:false, timer:0};
+  const wizardClues = [
+    "Tech tomorrow hides in ancient roots.",
+    "Data grows where mycelium spreads.",
+    "Watch the dust, foresee the drought.",
+    "Networks underground echo in code.",
+    "Wisdom is spores, silent but everywhere."
+  ];
+
+  function drawWizard(){
+    if(Math.random()<0.002 && !wizard.visible){
+      wizard.visible=true;
+      wizard.timer=200;
+      wizard.x=Math.random()*w;
+      wizard.y=Math.random()*h;
+      const clue = wizardClues[Math.floor(Math.random()*wizardClues.length)];
+      const el = document.getElementById('wizardClue');
+      el.textContent=clue;
+      el.style.display='block';
+    }
+    if(wizard.visible){
+      ctx.beginPath();
+      ctx.arc(wizard.x, wizard.y, 10, 0, Math.PI*2);
+      ctx.fillStyle='#FFD700';
+      ctx.fill();
+      wizard.timer--;
+      if(wizard.timer<=0){
+        wizard.visible=false;
+        document.getElementById('wizardClue').style.display='none';
+      }
+    }
+  }
+
+  function animate(){
+    ctx.fillStyle='rgba(0,0,0,0.3)';
+    ctx.fillRect(0,0,w,h);
+    for(let i=0;i<stars.length;i++){
+      const s = stars[i];
+      let k = 128.0/s.z;
+      let px = (s.x - w/2)*k + w/2 + (mouseX-w/2)*0.02;
+      let py = (s.y - h/2)*k + h/2 + (mouseY-h/2)*0.02;
+      let size = s.size*k*0.5;
+      ctx.beginPath();
+      ctx.arc(px, py, size,0,Math.PI*2);
+      ctx.fillStyle=s.color;
+      ctx.fill();
+      s.z -= 2;
+      if(s.z<=1) { s.z=w; s.x=Math.random()*w; s.y=Math.random()*h; s.color=regions[Math.floor(Math.random()*regions.length)].color; }
+    }
+    drawWizard();
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  window.addEventListener('resize', ()=>{
+    w=canvas.width=window.innerWidth;
+    h=canvas.height=window.innerHeight;
+  });
+})();
+</script>
+</body>
+</html>

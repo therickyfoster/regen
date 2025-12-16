@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="midnight">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Canada Food & Water Sovereignty • Planetary Restoration Archive</title>
+
+  <!-- SEO -->
+  <meta name="description" content="An online-first, offline-ready guide to food and water sovereignty in Canada—complete with policy playbooks, community actions, emergency kits, Habitica quests, WebLLM helper, and IndexedDB progress tracking." />
+  <meta name="keywords" content="food sovereignty, water sovereignty, Canada, Indigenous rights, watershed, regenerative agriculture, emergency water, community food hubs, PWA, IndexedDB, WebLLM, Habitica" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Ccircle cx='48' cy='48' r='46' fill='black'/%3E%3Cpath d='M48 14l7 20h21l-17 12 7 21-18-12-18 12 7-21-17-12h21z' fill='%23fff'/%3E%3C/svg%3E" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Canada Food & Water Sovereignty • PRA" />
+  <meta property="og:description" content="Online-first, offline-ready guide with policy, tools, quests, and emergency playbooks." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAB..." />
+
+  <!-- JSON-LD: presentation schema (PRA custom) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "name": "Canada Food & Water Sovereignty Guide",
+    "headline": "Online-first, offline-fallback sovereignty guide",
+    "about": [{
+      "@type": "Thing",
+      "name": "planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"
+    }],
+    "datePublished": "2025-10-24",
+    "inLanguage": "en-CA",
+    "author": {"@type":"Organization","name":"Planetary Restoration Archive"},
+    "keywords": "food sovereignty, water sovereignty, Canada, Indigenous-led, watershed, regenerative, emergency"
+  }
+  </script>
+
+  <!-- Minimal, self-hosted CSS (no external dependencies for offline) -->
+  <style>
+    :root{
+      --bg:#000;--fg:#e7edf6;--muted:#9fb3c8;--accent:#6bf2d7;--green:#6ff09a;--gold:#ffd166;--red:#ff686b;--panel:#0b1220;--glass:rgba(255,255,255,.06);
+      --card-r:20px;--shadow:0 10px 40px rgba(0,0,0,.5);--mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    [data-theme="midnight"]{--bg:#000;--panel:#050a14}
+    html,body{height:100%;background:var(--bg);color:var(--fg);margin:0;font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+    .grid{display:grid;gap:1rem}
+    .wrap{max-width:1200px;margin:0 auto;padding:16px}
+    header{position:fixed;inset:0 0 auto 0;height:72px;background:linear-gradient(180deg, rgba(0,0,0,.8), rgba(0,0,0,0));backdrop-filter:blur(6px);z-index:40}
+    header .inner{display:flex;align-items:center;justify-content:space-between;height:100%;}
+    .brand{display:flex;gap:.75rem;align-items:center}
+    .brand .orb{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #6bf2d7 0, #1b3350 60%, #000 100%);box-shadow:0 0 24px #6bf2d788, inset 0 0 24px #09111d}
+    nav{display:flex;gap:.75rem;flex-wrap:wrap}
+    nav button{background:var(--glass);border:1px solid #24334c;color:var(--fg);padding:.5rem .75rem;border-radius:999px;cursor:pointer}
+    nav button.active{outline:2px solid var(--accent)}
+    main{padding-top:90px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));border:1px solid #172236;border-radius:var(--card-r);box-shadow:var(--shadow)}
+    .card .hd{padding:18px 18px 0;font-weight:700;font-size:1.15rem}
+    .card .bd{padding:18px}
+    .pill{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem .6rem;border-radius:999px;background:var(--glass);border:1px solid #1b2a44;color:var(--muted);font-size:.85rem}
+    .two{display:grid;grid-template-columns: 1fr 1fr;gap:1rem} @media (max-width:1000px){.two{grid-template-columns:1fr}}
+    .kbd{font-family:var(--mono);background:#0b1526;border:1px solid #1d2b43;padding:.05rem .35rem;border-radius:6px}
+    .starfield{position:fixed;inset:0;z-index:-1;background:#000}
+    .floating-toolbar{position:fixed;inset:auto 16px 16px auto;z-index:50;display:flex;flex-direction:column;gap:.5rem}
+    .floating-toolbar button{padding:.65rem .8rem;border-radius:12px;border:1px solid #223355;background:var(--panel);color:var(--fg);box-shadow:var(--shadow);cursor:pointer}
+    details summary{cursor:pointer}
+    .note{font-size:.95rem;color:var(--muted)}
+    .badge{display:inline-block;background:#0b1526;border:1px solid #23365a;padding:.2rem .5rem;border-radius:8px;margin:.15rem 0}
+    .ok{color:var(--green)} .warn{color:var(--gold)} .err{color:var(--red)}
+    .hero{position:relative;isolation:isolate;border-radius:24px;padding:28px;overflow:hidden}
+    .hero:before{content:"";position:absolute;inset:-40% -20% auto auto;height:120%;width:120%;background:radial-gradient(ellipse at 70% 30%, rgba(107,242,215,.12), transparent 60%);z-index:-1;filter:blur(10px)}
+    .blockquote{border-left:4px solid #244; padding-left:12px;opacity:.95}
+    .list-tight li{margin:.35rem 0}
+    .progress{height:10px;border-radius:999px;background:#0b1526;border:1px solid #1a2a47;overflow:hidden}
+    .progress > b{display:block;height:100%;background:linear-gradient(90deg,#6bf2d7,#6ff09a)}
+    .kbdrow{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0}
+    /* tooltip */
+    [data-tip]{position:relative}
+    [data-tip]::after{content:attr(data-tip);position:absolute;bottom:120%;left:0;transform:translateY(6px);background:#071020;border:1px solid #193055;padding:.4rem .55rem;border-radius:8px;color:#cde;opacity:0;pointer-events:none;white-space:pre-wrap;min-width:180px;max-width:320px;transition:opacity .2s, transform .2s;box-shadow:var(--shadow)}
+    [data-tip]:hover::after{opacity:1;transform:translateY(0)}
+    .footer{opacity:.7;font-size:.9rem;padding:24px 8px}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .callout{background:#071326;border:1px solid #183056;border-radius:16px;padding:16px}
+    .tabbar{display:flex;gap:.5rem;flex-wrap:wrap}
+    .tabbar button{border:1px solid #1a2a47;background:#061022;color:#cde;padding:.5rem .75rem;border-radius:10px}
+    .tabbar button[aria-selected="true"]{outline:2px solid var(--accent)}
+    .kbdblock{background:#081423;border:1px solid #193157;border-radius:12px;padding:.65rem;font-family:var(--mono);overflow:auto}
+  </style>
+</head>
+<body>
+  <!-- Photorealistic starfield (WebGL if online, 2D fallback offline) -->
+  <canvas id="starfield" class="starfield" aria-hidden="true"></canvas>
+
+  <header>
+    <div class="inner wrap">
+      <div class="brand">
+        <div class="orb" aria-hidden="true"></div>
+        <strong>PRA • Canada Sovereignty</strong>
+        <span class="pill">Online-first • Offline-ready</span>
+      </div>
+      <nav aria-label="Primary">
+        <button class="navbtn" data-target="overview">Overview</button>
+        <button class="navbtn" data-target="water">Water</button>
+        <button class="navbtn" data-target="food">Food</button>
+        <button class="navbtn" data-target="indigenous">Indigenous-led</button>
+        <button class="navbtn" data-target="policy">Policy</button>
+        <button class="navbtn" data-target="playbooks">Emergency</button>
+        <button class="navbtn" data-target="tools">Tools</button>
+        <button class="navbtn" data-target="quests">Quests</button>
+        <button class="navbtn" data-target="ai">AI Helper</button>
+        <button class="navbtn" data-target="about">About</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap grid" id="app" role="main">
+
+    <!-- HERO -->
+    <section class="card hero" id="overview" tabindex="-1">
+      <div class="hd">Food & Water Sovereignty in Canada</div>
+      <div class="bd grid">
+        <p class="note">This guide is designed to work <strong>best online</strong> yet still provide a robust <strong>offline fallback</strong>. It stores your notes and progress locally (IndexedDB), optionally syncs with <span class="badge">Habitica</span>, and includes an in-browser <span class="badge">WebLLM</span> helper when online.</p>
+        <div class="two">
+          <div class="callout">
+            <h3>Core Principles</h3>
+            <ul class="list-tight">
+              <li><b>Indigenous sovereignty & leadership</b> — uphold inherent rights, Free Prior and Informed Consent (FPIC), and co-governance of lands and waters.</li>
+              <li><b>Watershed logic</b> — plan by basin, sub-basin, and aquifer; protect headwaters first.</li>
+              <li><b>Regenerative food systems</b> — soil health, seed sovereignty, agroforestry, and local processing.</li>
+              <li><b>Distributed resilience</b> — many small nodes > single points of failure; offline-capable tools.</li>
+              <li><b>Zero-harm guardrails</b> — no weaponization; do no ecological or social harm.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="bd">
+              <h3>What you can do in this page</h3>
+              <ul class="list-tight">
+                <li>Use <b>Playbooks</b> for <i>72-hour</i> water/food continuity and boil-water workflows.</li>
+                <li>Plan <b>community seed banks</b>, <b>orchards</b>, and <b>micro-processing</b> hubs.</li>
+                <li>Map actions by <b>watershed</b>, <b>province/territory</b>, and <b>biome</b>.</li>
+                <li>Track tasks via <b>Habitica</b> or the offline <b>Quest Log</b>.</li>
+                <li>Ask the <b>WebLLM</b> assistant questions (online), with offline notes when not.</li>
+              </ul>
+              <div class="progress" aria-label="Local progress"><b id="progressBar" style="width:0%"></b></div>
+              <small class="note">Progress updates as you check off quests and save notes.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WATER -->
+    <section class="card" id="water" tabindex="-1">
+      <div class="hd">Water Sovereignty Toolkit</div>
+      <div class="bd grid">
+        <div class="two">
+          <div>
+            <h3>Watershed-first planning</h3>
+            <p>Canada’s water security hinges on healthy watersheds, coldwater refugia, and protected headwaters. Use <span data-tip="A headwater is the source region of a river/stream network; protecting it yields outsized downstream benefits.">headwater prioritization</span>, wetland retention, and riparian buffers to reduce flood and drought risks while safeguarding drinking water.</p>
+            <details>
+              <summary>Priority actions (municipal & community)</summary>
+              <ul>
+                <li>Adopt <b>source water protection bylaws</b> and <b>aquifer recharge zones</b> with no-go buffers.</li>
+                <li>Restore <b>wetlands</b> and <b>beaver-based hydrology</b> for natural water storage.</li>
+                <li>Implement <b>green streets</b> and <b>rain gardens</b> to slow/soak runoff.</li>
+                <li>Deploy <b>micro-sensors</b> (turbidity, temp, EC) with community monitoring, store data offline.</li>
+                <li>Establish <b>boil-water SMS trees</b> with redundancy (radio + print kits).</li>
+              </ul>
+            </details>
+          </div>
+          <div>
+            <h3>Household & building standards</h3>
+            <ul>
+              <li><b>Filtration tiers:</b> sediment → activated carbon → hollow-fiber/UF → UV. Keep gravity filter + spare elements.</li>
+              <li><b>Storage:</b> 4 L/person/day × 7 days, rotate quarterly. Include <span class="kbd">unscented bleach</span> dosing chart offline.</li>
+              <li><b>Harvest:</b> rainwater with <b>first-flush diverters</b>; use for irrigation or—if permitted and treated—potable.</li>
+              <li><b>Greywater:</b> simple mulch basins for trees; follow local codes.</li>
+            </ul>
+            <div class="kbdblock" aria-label="Emergency chlorination">
+              Bleach (5–6%) dose: Clear water → 2 drops/L. Cloudy → 4 drops/L. Wait 30 min; slight chlorine smell = OK.<br/>
+              No smell? Repeat dose, wait 15 min more. (Store this page offline!)
+            </div>
+          </div>
+        </div>
+
+        <div class="two">
+          <div>
+            <h3>Community Water Commons</h3>
+            <ul>
+              <li>Stand up <b>community water kiosks</b> with gravity/UV inline and solar backup.</li>
+              <li>Create <b>neighbourhood cistern networks</b> shared across buildings.</li>
+              <li>Map and protect <b>traditional water sources</b> under Indigenous stewardship.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Policy & Governance (snapshot)</h3>
+            <p class="note">For live policy references, add your own links in the <b>Notes</b> panel and cache them locally for offline read.</p>
+            <ul>
+              <li>Embed <b>FPIC</b> and co-management in all watershed decisions.</li>
+              <li>Adopt <b>no net loss of wetlands</b> and <b>net gain</b> targets.</li>
+              <li>Require <b>source water impact statements</b> for high-risk developments.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOD -->
+    <section class="card" id="food" tabindex="-1">
+      <div class="hd">Food Sovereignty Toolkit</div>
+      <div class="bd grid">
+        <div class="two">
+          <div>
+            <h3>Seed → Soil → Harvest → Processing → Distribution</h3>
+            <ul>
+              <li><b>Seed sovereignty:</b> local seed circles, community seed banks (cool, dark, dry), living seed libraries.</li>
+              <li><b>Soil:</b> compost, biochar, cover crops; soil testing; 4 per-thousand carbon strategy.</li>
+              <li><b>Agroforestry & perennials:</b> shelterbelts, edible windbreaks, alley cropping, food forests.</li>
+              <li><b>Processing hubs:</b> community kitchens, dehydrators, freezers; shared canning equipment.</li>
+              <li><b>Distribution:</b> CSAs, mobile markets, school meal pipelines, pantry-friendly recipes.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Northern & Remote Adaptations</h3>
+            <ul>
+              <li>High-efficiency <b>indoor farms</b> (insulated, LED), <b>passive solar greenhouses</b>, and <b>earth berming</b>.</li>
+              <li>Cold-chain resilience: phase-change coolers; solar + battery micro-grids for fridges/freezers.</li>
+              <li>Wild foods: community freezers, training for safe harvest and preservation (respect local protocols).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="two">
+          <div>
+            <h3>School & Campus Programs</h3>
+            <ul>
+              <li>Grow-to-lunch gardens, cafeteria procurement targets for local/regenerative.</li>
+              <li>Food literacy & cooking labs; student-led CSAs.</li>
+              <li>Map dietary gaps; integrate breakfast and snack programs.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Urban Strategies</h3>
+            <ul>
+              <li>Convert ornamental strips → pollinator + edible strips.</li>
+              <li>Rooftop and vertical gardens; gravity-fed irrigation.</li>
+              <li>Edible alleyways; tree inventories to match species with microclimates.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INDIGENOUS -->
+    <section class="card" id="indigenous" tabindex="-1">
+      <div class="hd">Indigenous-led Sovereignty</div>
+      <div class="bd grid">
+        <div class="two">
+          <div>
+            <h3>Respect, Rights, Relationship</h3>
+            <ul>
+              <li>Embed <b>Nation-to-Nation</b> decision-making and <b>FPIC</b> in all water/food projects.</li>
+              <li>Recognize Indigenous laws and guardians programs for lands and waters.</li>
+              <li>Co-manage data: community control, cultural protocols, and benefit-sharing.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Program Patterns</h3>
+            <ul>
+              <li>On-the-land learning; youth rangers; intergenerational knowledge transfer.</li>
+              <li>Indigenous seed banks and traditional foodways restoration.</li>
+              <li>Waterway monitoring with Indigenous guardians and community labs.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POLICY -->
+    <section class="card" id="policy" tabindex="-1">
+      <div class="hd">Policy Toolkit & Templates</div>
+      <div class="bd grid">
+        <div class="two">
+          <div>
+            <h3>Municipal & Regional</h3>
+            <ul>
+              <li>Source Water Protection bylaw: <span class="badge">template</span> <button class="small" id="btnBylaw">Insert into Notes</button></li>
+              <li>Urban Agriculture zoning updates (front-yard food, rooftop farms, shared kitchens).</li>
+              <li>Wetland protection & compensation with net-gain targets.</li>
+              <li>Emergency water & food continuity plans (72-hour to 30-day tiers).</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Procurement & Funding</h3>
+            <ul>
+              <li>School & hospital <b>local/regenerative procurement</b> thresholds.</li>
+              <li>Grant scaffolds for seed banks, micro-processing, and watershed restoration.</li>
+              <li>Community benefit agreements (CBA) including co-ownership and jobs.</li>
+            </ul>
+          </div>
+        </div>
+        <details>
+          <summary>Template: Source Water Protection Bylaw (concise)</summary>
+          <pre class="kbdblock" id="bylawTemplate">Section 1. Purpose — Protect source water (surface & groundwater) for present and future generations through precautionary buffers, monitoring, and enforcement.
+Section 2. Scope — Applies to headwaters, recharge zones, wetlands, riparian corridors, and mapped aquifers.
+Section 3. Prohibited Activities — High-risk discharge, hazardous storage, and soil disturbance in protected zones unless authorized by Council with FPIC and independent review.
+Section 4. Buffer Standards — Minimum 30–100 m based on slope, soil, and habitat; no net loss of wetland function; net gain target 10%/5 years.
+Section 5. Monitoring — Community sensor network, quarterly sampling, public dashboards; data co-stewarded with Indigenous partners.
+Section 6. Enforcement — Graduated penalties; mandatory remediation; developer bonds.
+Section 7. Review — 3-year cycle; adaptive updates with climate data and Indigenous knowledge.</pre>
+        </details>
+      </div>
+    </section>
+
+    <!-- EMERGENCY PLAYBOOKS -->
+    <section class="card" id="playbooks" tabindex="-1">
+      <div class="hd">Emergency Playbooks</div>
+      <div class="bd grid">
+        <div class="two">
+          <div>
+            <h3>Water: Boil-Water Advisory Workflow</h3>
+            <ol>
+              <li>Verify advisory via local authority + radio backup.</li>
+              <li>Switch to stored water; <b>disinfection</b> if boiling impossible.</li>
+              <li>Sanitize containers (1 tsp bleach/L) and air-dry.</li>
+              <li>Log households needing assistance; deploy delivery teams.</li>
+              <li>Track turbidity & chlorine residual (if available); cache in app.</li>
+            </ol>
+          </div>
+          <div>
+            <h3>Food: 7-Day Pantry Kit (per person)</h3>
+            <ul>
+              <li>Staples: oats, rice, pulses, canned fish/beans/tomatoes, oil, salt, spices.</li>
+              <li>Shelf-stable fruits/veg: dried, canned; multivitamins.</li>
+              <li>Fuel: stove + canisters, matches; no-cook recipe card set.</li>
+              <li>Rotation calendar (quarterly); label with dates.</li>
+            </ul>
+          </div>
+        </div>
+        <details>
+          <summary>Wildfire Smoke • Clean-Air Corner</summary>
+          <ul>
+            <li>DIY box-fan filter (MERV 13+) + window sealing; prioritize one safe room.</li>
+            <li>N95 stock; indoor HEPA; avoid indoor burning/cooking that adds PM.</li>
+            <li>Neighbour check-ins for elders & infants; hydrate; track AQI offline.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <!-- TOOLS -->
+    <section class="card" id="tools" tabindex="-1">
+      <div class="hd">Tools • Notes • Offline Cache</div>
+      <div class="bd grid">
+        <div class="two">
+          <div>
+            <h3>Notes (IndexedDB)</h3>
+            <textarea id="notes" rows="10" placeholder="Your local notes (auto-saved offline)"></textarea>
+            <div class="kbdrow">
+              <button id="saveNotes">Save Notes</button>
+              <button id="exportNotes">Export .json</button>
+              <button id="importNotes">Import .json</button>
+              <input id="fileInput" type="file" accept="application/json" class="sr-only" />
+            </div>
+            <small class="note">Notes never leave your device unless you export them.</small>
+          </div>
+          <div>
+            <h3>Local Link Cache</h3>
+            <p>Add useful links while online; they’ll be cached for offline reading (when same-origin CORS allows). For external domains, use the <span data-tip="We attempt to fetch and cache via a best-effort request. Some sites disallow offline caching; you can still save titles/notes.">title+summary</span> feature.</p>
+            <div class="grid">
+              <input id="cacheUrl" placeholder="https://example.org/important.pdf" />
+              <input id="cacheTitle" placeholder="Title / short note" />
+              <button id="btnCache">Save to Local Cache</button>
+            </div>
+            <ul id="cacheList"></ul>
+          </div>
+        </div>
+
+        <div class="two">
+          <div>
+            <h3>Quest Log (Offline)</h3>
+            <ul id="questList"></ul>
+            <div class="grid">
+              <input id="questText" placeholder="Add a quest (e.g., Map headwaters, build seed bank)" />
+              <button id="addQuest">Add Quest</button>
+            </div>
+          </div>
+          <div>
+            <h3>Habitica Sync (Optional)</h3>
+            <p>Bring your quests to Habitica. Store your <span class="kbd">User ID</span> and <span class="kbd">API Token</span> locally (never uploaded).</p>
+            <div class="grid">
+              <input id="habitUser" placeholder="Habitica User ID" />
+              <input id="habitToken" placeholder="Habitica API Token" />
+              <button id="habitSave">Save Credentials</button>
+            </div>
+            <div class="grid">
+              <input id="habitTask" placeholder="New Habitica To-Do (from a quest)" />
+              <button id="habitPush">Create To-Do</button>
+              <small class="note">Requires internet. Your creds are stored only in your browser.</small>
+            </div>
+            <pre class="kbdblock" id="habitStatus" aria-live="polite">Habitica status: idle</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUESTS (curated) -->
+    <section class="card" id="quests" tabindex="-1">
+      <div class="hd">Curated Quests (Click to add)</div>
+      <div class="bd">
+        <div class="tabbar" role="tablist" aria-label="Quest categories">
+          <button role="tab" aria-selected="true" data-questcat="water">Water</button>
+          <button role="tab" aria-selected="false" data-questcat="food">Food</button>
+          <button role="tab" aria-selected="false" data-questcat="policy">Policy</button>
+          <button role="tab" aria-selected="false" data-questcat="community">Community</button>
+        </div>
+        <div id="questShelf" class="grid" style="margin-top:12px"></div>
+      </div>
+    </section>
+
+    <!-- AI HELPER -->
+    <section class="card" id="ai" tabindex="-1">
+      <div class="hd">AI Helper (WebLLM online • Local notes offline)</div>
+      <div class="bd grid">
+        <p class="note">When online, this panel will load a small WebLLM model in your browser (no server required). Offline, it will search your notes and the on-page guide.</p>
+        <div class="grid">
+          <textarea id="aiInput" rows="4" placeholder="Ask about water boil workflows, seed bank setup, or policy templates…"></textarea>
+          <button id="aiAsk">Ask</button>
+          <pre class="kbdblock" id="aiOut" aria-live="polite">Assistant ready.</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT & LEGAL / ZERO-HARM -->
+    <section class="card" id="about" tabindex="-1">
+      <div class="hd">About • Zero-Harm Guardrails</div>
+      <div class="bd grid">
+        <div class="blockquote">
+          <p><b>Zero-Harm Protocol:</b> No feature in this guide may be used to cause harm to people, water, land, or non-human life. Where trade-offs arise, choose the least-harm option and consult affected communities—especially Indigenous stewards—before action. This page includes integrity cues and discourages weaponization.</p>
+        </div>
+        <p class="note">Presentation schema: <span class="kbd">planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid</span></p>
+        <p class="note">Translation chain: append <span class="kbd">planetaryrestorationarchive.com/ref/translation/script1.html</span> to deployments (see <span class="kbd">injectTranslation()</span> in code).</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>© 2025 Planetary Restoration Archive • CC-BY-SA 4.0 • Built as a single-file PWA: online-centric, offline-fallback. Integrity: client-side only.</div>
+    </footer>
+
+  </main>
+
+  <!-- Floating actions -->
+  <div class="floating-toolbar" aria-label="Quick actions">
+    <button id="btnInstall">Install App</button>
+    <button id="btnOffline">Enable Offline Cache</button>
+    <button id="btnTheme">Switch Theme</button>
+    <button id="btnReset" class="warn">Reset Local Data</button>
+  </div>
+
+  <!-- ====== Scripts (no external deps required; optional CDNs loaded dynamically) ====== -->
+  <script>
+  /**********************
+   * Utility / State
+   **********************/
+  const $ = (q,root=document)=>root.querySelector(q);
+  const $$ = (q,root=document)=>[...root.querySelectorAll(q)];
+  const state = {
+    quests: [],
+    notes: "",
+    cache: [],
+    habit: {userId:"", token:""},
+    progress: 0,
+    swReg: null,
+    installPrompt: null,
+  };
+
+  /**********************
+   * Minimal router
+   **********************/
+  function activate(tabId){
+    $$(".navbtn").forEach(b=>b.classList.toggle("active", b.dataset.target===tabId));
+    document.getElementById(tabId)?.scrollIntoView({behavior:"smooth", block:"start"});
+  }
+  $$(".navbtn").forEach(b => b.addEventListener("click", ()=>activate(b.dataset.target)));
+
+  /**********************
+   * Starfield: try WebGL (dynamic import of Three.js CDN), else 2D fallback
+   **********************/
+  (async function starfield(){
+    const canvas = document.getElementById("starfield");
+    const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
+    const resize = ()=>{canvas.width = innerWidth; canvas.height = innerHeight};
+    addEventListener("resize", resize, {passive:true}); resize();
+
+    if(gl){
+      try{
+        // Lightweight shader starfield (no external deps)
+        const vs = `
+          attribute vec2 p;
+          varying vec2 v;
+          void main(){v=p;gl_Position=vec4(p,0.,1.);}
+        `;
+        const fs = `
+          precision highp float;
+          varying vec2 v;
+          uniform float t;
+          float hash(vec2 p){return fract(sin(dot(p, vec2(127.1,311.7)))*43758.5453123);}
+          void main(){
+            vec2 uv = v;
+            uv.x *= float(${window.devicePixelRatio || 1.0});
+            float c = 0.0;
+            // Parallax layers
+            for(float i=1.0;i<=5.0;i+=1.0){
+              float depth = i*0.2;
+              vec2 p = floor((uv*vec2(1200.0,600.0))*depth + vec2(t*0.02*i, 0.0));
+              vec2 f = fract(uv*vec2(1200.0,600.0)*depth);
+              float rnd = hash(p);
+              float star = smoothstep(0.995, 1.0, rnd) * smoothstep(0.0, 0.02, 0.02 - distance(f, vec2(0.5)));
+              c += star * (1.2 - depth);
+            }
+            vec3 col = mix(vec3(0.0), vec3(0.75, 0.95, 0.9), c);
+            gl_FragColor = vec4(col, 1.0);
+          }
+        `;
+        const prg = gl.createProgram();
+        function shader(src, type){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s}
+        gl.attachShader(prg, shader(vs, gl.VERTEX_SHADER));
+        gl.attachShader(prg, shader(fs, gl.FRAGMENT_SHADER));
+        gl.linkProgram(prg);
+        gl.useProgram(prg);
+        const buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+        const loc = gl.getAttribLocation(prg, "p");
+        gl.enableVertexAttribArray(loc);
+        gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+        const uT = gl.getUniformLocation(prg, "t");
+        function loop(t){gl.viewport(0,0,canvas.width,canvas.height);gl.uniform1f(uT, t*0.001);gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);requestAnimationFrame(loop)}
+        requestAnimationFrame(loop);
+      }catch(e){fallback2D()}
+    }else{fallback2D()}
+
+    function fallback2D(){
+      const ctx = canvas.getContext("2d");
+      const stars = new Array(800).fill(0).map(()=>({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        z: Math.random()*1 + .2,
+        r: Math.random()*1.2 + .2
+      }));
+      function step(){
+        ctx.fillStyle="#000";ctx.fillRect(0,0,canvas.width,canvas.height);
+        for(const s of stars){
+          s.x -= s.z*0.6; if(s.x<0) s.x = canvas.width;
+          ctx.globalAlpha = 0.6 + 0.4*Math.random();
+          ctx.fillStyle="#bff";
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.283); ctx.fill();
+        }
+        requestAnimationFrame(step);
+      }
+      step();
+    }
+  })();
+
+  /**********************
+   * IndexedDB (notes/quests/cache/habit)
+   **********************/
+  const DB_NAME="pra-sovereignty", DB_VER=1;
+  let db;
+  function idb(){return new Promise((res,rej)=>{
+    const open = indexedDB.open(DB_NAME, DB_VER);
+    open.onupgradeneeded = ()=>{
+      db = open.result;
+      db.createObjectStore("kv");
+      db.createObjectStore("quests",{keyPath:"id"});
+      db.createObjectStore("cache",{keyPath:"id"});
+    };
+    open.onsuccess=()=>{db=open.result;res(db)}
+    open.onerror=()=>rej(open.error)
+  })}
+  async function kvGet(k){await idb();return new Promise((res,rej)=>{const tx=db.transaction("kv"),s=tx.objectStore("kv").get(k);s.onsuccess=()=>res(s.result||null);s.onerror=()=>rej(s.error)})}
+  async function kvSet(k,v){await idb();return new Promise((res,rej)=>{const tx=db.transaction("kv","readwrite");tx.objectStore("kv").put(v,k);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})}
+  async function storeList(name){await idb();return new Promise((res,rej)=>{const tx=db.transaction(name),r=tx.objectStore(name).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error)})}
+  async function storePut(name,obj){await idb();return new Promise((res,rej)=>{const tx=db.transaction(name,"readwrite");tx.objectStore(name).put(obj);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})}
+  async function storeDel(name,id){await idb();return new Promise((res,rej)=>{const tx=db.transaction(name,"readwrite");tx.objectStore(name).delete(id);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})}
+
+  /**********************
+   * Notes
+   **********************/
+  (async function initNotes(){
+    const saved = await kvGet("notes"); if(saved) {state.notes=saved; $("#notes").value=saved}
+  })();
+  $("#saveNotes").addEventListener("click", async ()=>{
+    state.notes = $("#notes").value; await kvSet("notes", state.notes);
+    toast("Notes saved locally.");
+    updateProgress();
+  });
+  $("#exportNotes").addEventListener("click", async ()=>{
+    const data = {notes: $("#notes").value, quests: await storeList("quests"), cache: await storeList("cache")};
+    const blob = new Blob([JSON.stringify(data,null,2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download="pra-sovereignty-notes.json"; a.click();
+    URL.revokeObjectURL(url);
+  });
+  $("#importNotes").addEventListener("click", ()=>$("#fileInput").click());
+  $("#fileInput").addEventListener("change", async (e)=>{
+    const f=e.target.files[0]; if(!f) return;
+    const txt = await f.text(); const obj = JSON.parse(txt);
+    if(obj.notes){$("#notes").value=obj.notes; await kvSet("notes", obj.notes)}
+    if(Array.isArray(obj.quests)){for(const q of obj.quests){await storePut("quests", q)}}
+    if(Array.isArray(obj.cache)){for(const c of obj.cache){await storePut("cache", c)}}
+    await renderQuests(); await renderCache(); updateProgress();
+    toast("Imported notes/quests/cache.");
+  });
+
+  /**********************
+   * Cache links (best-effort)
+   **********************/
+  async function renderCache(){
+    const list = await storeList("cache");
+    $("#cacheList").innerHTML = list.map(c=>`<li><span class="badge">${c.title||c.url}</span> — <button data-id="${c.id}" class="cache-open">Open</button> <button data-id="${c.id}" class="cache-del">Delete</button></li>`).join("") || "<em>No cached links yet.</em>";
+    $$(".cache-open").forEach(b=>b.onclick=()=>openCached(b.dataset.id));
+    $$(".cache-del").forEach(b=>b.onclick=async()=>{await storeDel("cache", b.dataset.id); renderCache();});
+  }
+  renderCache();
+
+  $("#btnCache").addEventListener("click", async ()=>{
+    const url = $("#cacheUrl").value.trim();
+    const title = $("#cacheTitle").value.trim();
+    if(!url) return toast("Enter a URL.");
+    const id = url;
+    await storePut("cache", {id, url, title, savedAt: Date.now()});
+    renderCache(); $("#cacheUrl").value=""; $("#cacheTitle").value="";
+    toast("Saved to local cache. Try 'Enable Offline Cache' to precache.");
+  });
+  async function openCached(id){
+    const items = await storeList("cache"); const it = items.find(x=>x.id===id);
+    if(it) window.open(it.url, "_blank");
+  }
+
+  /**********************
+   * Quest log (offline) + curated shelf
+   **********************/
+  async function renderQuests(){
+    const items = await storeList("quests");
+    $("#questList").innerHTML = items.map(q=>`
+      <li>
+        <label><input type="checkbox" ${q.done?"checked":""} data-id="${q.id}" class="qtoggle" /> ${q.text}</label>
+        <button data-id="${q.id}" class="qdel">Delete</button>
+      </li>
+    `).join("") || "<em>No quests yet. Add one!</em>";
+    $$(".qtoggle").forEach(el=>el.onchange=async()=>{const id=el.dataset.id; qUpdate(id,{done:el.checked});});
+    $$(".qdel").forEach(el=>el.onclick=async()=>{await storeDel("quests", el.dataset.id); renderQuests(); updateProgress();});
+    updateProgress();
+  }
+  renderQuests();
+
+  async function qAdd(text){const id = "q-"+crypto.randomUUID(); await storePut("quests",{id,text,done:false}); renderQuests();}
+  async function qUpdate(id, patch){
+    const all = await storeList("quests"); const q = all.find(x=>x.id===id); if(!q) return;
+    await storePut("quests", Object.assign(q, patch)); renderQuests();
+  }
+  $("#addQuest").addEventListener("click", ()=>{const t=$("#questText").value.trim(); if(!t) return; qAdd(t); $("#questText").value="";});
+
+  // Curated quests
+  const QUESTS = {
+    water: [
+      "Map headwaters and recharge zones; propose 50 m buffers.",
+      "Assemble neighbourhood 7-day water storage kits.",
+      "Build a gravity + UV community water kiosk (solar-ready).",
+      "Install first-flush diverter on rain barrel."
+    ],
+    food: [
+      "Start a community seed circle and living seed library.",
+      "Plan a micro-processing hub: dehydrator + canning days.",
+      "Plant shelterbelt with edible species; design drip irrigation.",
+      "Draft a school Grow-to-Lunch garden proposal."
+    ],
+    policy: [
+      "Draft Source Water Protection bylaw (insert template).",
+      "Set procurement target: 30% local/regenerative within 2 years.",
+      "Adopt 'no net loss' wetland bylaw with 10% net gain target."
+    ],
+    community: [
+      "Create boil-water SMS tree + radio relay map.",
+      "Recruit youth rangers for water/soil monitoring.",
+      "Set up wildfire clean-air room at the community hall."
+    ]
+  };
+  function renderQuestShelf(cat="water"){
+    const items = QUESTS[cat]||[];
+    $("#questShelf").innerHTML = items.map(q=>`<button class="badge addq" data-text="${q.replace(/"/g,'&quot;')}">＋ ${q}</button>`).join("") || "<em>No items.</em>";
+    $$(".addq").forEach(b=>b.onclick=()=>qAdd(b.dataset.text));
+  }
+  renderQuestShelf("water");
+  $("[data-questcat='water']").focus();
+  $$(".tabbar button").forEach(btn=>btn.addEventListener("click",()=>{
+    $$(".tabbar button").forEach(b=>b.setAttribute("aria-selected","false"));
+    btn.setAttribute("aria-selected","true");
+    renderQuestShelf(btn.dataset.questcat);
+  }));
+
+  /**********************
+   * Habitica (optional online)
+   **********************/
+  async function habitSetStatus(msg){$("#habitStatus").textContent = "Habitica status: " + msg}
+  (async function habitLoad(){
+    const hv = await kvGet("habit"); if(hv){state.habit=hv; $("#habitUser").value=hv.userId||""; $("#habitToken").value=hv.token||"";}
+  })();
+  $("#habitSave").addEventListener("click", async ()=>{
+    state.habit.userId = $("#habitUser").value.trim();
+    state.habit.token = $("#habitToken").value.trim();
+    await kvSet("habit", state.habit);
+    habitSetStatus("credentials saved locally");
+  });
+  $("#habitPush").addEventListener("click", async ()=>{
+    const text = $("#habitTask").value.trim(); if(!text) return habitSetStatus("enter a task");
+    const {userId, token} = state.habit; if(!userId || !token) return habitSetStatus("set credentials first");
+    habitSetStatus("creating to-do…");
+    try{
+      const resp = await fetch("https://habitica.com/api/v3/tasks/user",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          "x-api-user": userId,
+          "x-api-key": token
+        },
+        body: JSON.stringify({text, type:"todo"})
+      });
+      const data = await resp.json();
+      if(data.success){habitSetStatus("created ✔"); $("#habitTask").value="";}
+      else habitSetStatus("failed: "+(data?.message||resp.status));
+    }catch(e){habitSetStatus("network error");}
+  });
+
+  /**********************
+   * Policy template insertion to Notes
+   **********************/
+  $("#btnBylaw").addEventListener("click", async ()=>{
+    const tpl = $("#bylawTemplate").textContent;
+    const prev = $("#notes").value;
+    $("#notes").value = prev + "\n\n=== Source Water Protection Bylaw (template) ===\n" + tpl + "\n";
+    $("#saveNotes").click();
+    toast("Template inserted into Notes.");
+  });
+
+  /**********************
+   * Progress meter (simple heuristic)
+   **********************/
+  async function updateProgress(){
+    const q = await storeList("quests");
+    const done = q.filter(x=>x.done).length;
+    const notesLen = ($("#notes").value||"").length;
+    const pct = Math.min(100, Math.round(done*8 + Math.min(50, notesLen/200)));
+    $("#progressBar").style.width = pct + "%";
+  }
+
+  /**********************
+   * WebLLM (dynamic, online-only)
+   * If unavailable, fallback to keyword search over this page + notes.
+   **********************/
+  let webllm;
+  async function initWebLLM(){
+    if(!navigator.onLine) return;
+    try{
+      // Light loader – if blocked, the catch will fallback.
+      const s = document.createElement("script");
+      s.src = "https://unpkg.com/@mlc-ai/web-llm@0.2.51/dist/index.min.js";
+      await new Promise((ok,err)=>{s.onload=ok; s.onerror=err; document.head.appendChild(s);});
+      webllm = window.mlc;
+    }catch(e){/* ignore */ }
+  }
+  initWebLLM();
+
+  $("#aiAsk").addEventListener("click", async ()=>{
+    const q = $("#aiInput").value.trim();
+    if(!q) return;
+    $("#aiOut").textContent = "Thinking…";
+    if(webllm && navigator.onLine){
+      try{
+        // minimal session (model size kept modest for browser)
+        if(!window.__webllmSession){
+          const engine = await webllm.CreateMLCEngine({model:"Llama-3-8B-Instruct-q4f32_1-MLC", wasm: undefined});
+          window.__webllmSession = engine;
+        }
+        const out = await window.__webllmSession.chat.completions.create({
+          messages:[{role:"system", content:"You are a Canadian food & water sovereignty helper. Be concise and practical."},
+                    {role:"user", content:q}],
+          stream:false, temperature:0.5, max_tokens:256
+        });
+        $("#aiOut").textContent = out?.choices?.[0]?.message?.content || "No output.";
+        return;
+      }catch(e){/* fall back */}
+    }
+    // Offline/No-WebLLM fallback: keyword skim over page + notes
+    const text = (document.body.innerText||"") + "\n\nNOTES:\n" + ($("#notes").value||"");
+    const hits = text.split(/\n+/).filter(line=>q.toLowerCase().split(/\s+/).every(tok=>line.toLowerCase().includes(tok))).slice(0,12);
+    $("#aiOut").textContent = hits.length? ("Offline results:\n• "+hits.join("\n• ")) : "No offline hits. Try a simpler phrase.";
+  });
+
+  /**********************
+   * PWA: Manifest + Service Worker (generated in-page)
+   **********************/
+  // Runtime manifest
+  (function makeManifest(){
+    const manifest = {
+      name: "PRA • Canada Sovereignty",
+      short_name: "PRA Sovereignty",
+      start_url: ".",
+      display: "standalone",
+      background_color: "#000000",
+      theme_color: "#000000",
+      icons: []
+    };
+    const blob = new Blob([JSON.stringify(manifest)], {type:"application/manifest+json"});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("link"); link.rel="manifest"; link.href=url; document.head.appendChild(link);
+  })();
+
+  // Service worker as blob for single-file deployment
+  async function registerSW(){
+    if(!("serviceWorker" in navigator)) return toast("Service worker not supported.");
+    const swCode = `
+      const NAME="pra-sovereignty-cache-v1";
+      const CORE = ["./"];
+      self.addEventListener("install", e=>{
+        e.waitUntil(caches.open(NAME).then(c=>c.addAll(CORE)));
+        self.skipWaiting();
+      });
+      self.addEventListener("activate", e=>{
+        e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==NAME).map(k=>caches.delete(k)))));
+        self.clients.claim();
+      });
+      self.addEventListener("fetch", e=>{
+        const req = e.request;
+        e.respondWith((async()=>{
+          // Network first for HTML; cache first for others.
+          if(req.mode==="navigate"){
+            try{const net = await fetch(req); const c=await caches.open(NAME); c.put(req, net.clone()); return net}catch(_){}
+            const cache = await caches.match(req); if(cache) return cache;
+            return caches.match("./");
+          } else {
+            const cache = await caches.match(req); if(cache) return cache;
+            try{const net = await fetch(req); const c=await caches.open(NAME); c.put(req, net.clone()); return net}catch(_){}
+            return new Response("",{status:504,statusText:"offline"});
+          }
+        })());
+      });
+    `;
+    const blob = new Blob([swCode], {type:"text/javascript"});
+    const url = URL.createObjectURL(blob);
+    try{
+      const reg = await navigator.serviceWorker.register(url, {scope:"./"});
+      state.swReg = reg; toast("Offline cache enabled.");
+    }catch(e){toast("SW registration failed.");}
+  }
+  $("#btnOffline").addEventListener("click", registerSW);
+
+  // Install prompt
+  window.addEventListener("beforeinstallprompt", (e)=>{e.preventDefault(); state.installPrompt=e;});
+  $("#btnInstall").addEventListener("click", async ()=>{
+    if(state.installPrompt){state.installPrompt.prompt(); state.installPrompt=null}
+    else toast("Install prompt not available yet.");
+  });
+
+  /**********************
+   * Theme
+   **********************/
+  $("#btnTheme").addEventListener("click", ()=>{
+    const t = document.documentElement.getAttribute("data-theme")==="midnight" ? "dawn" : "midnight";
+    document.documentElement.setAttribute("data-theme", t);
+  });
+
+  /**********************
+   * Reset
+   **********************/
+  $("#btnReset").addEventListener("click", async ()=>{
+    if(!confirm("This clears local notes/quests/cache. Continue?")) return;
+    indexedDB.deleteDatabase(DB_NAME);
+    localStorage.clear();
+    location.reload();
+  });
+
+  /**********************
+   * Toast
+   **********************/
+  function toast(msg){
+    const n = document.createElement("div");
+    n.textContent = msg;
+    n.style.position="fixed"; n.style.bottom="24px"; n.style.left="50%"; n.style.transform="translateX(-50%)";
+    n.style.background="#081423"; n.style.border="1px solid #193157"; n.style.color="#cde";
+    n.style.padding="10px 14px"; n.style.borderRadius="12px"; n.style.boxShadow="0 10px 30px rgba(0,0,0,.4)";
+    document.body.appendChild(n); setTimeout(()=>n.remove(), 2400);
+  }
+
+  /**********************
+   * By-category quick nav from hash
+   **********************/
+  if(location.hash){activate(location.hash.replace("#",""))}
+
+  /**********************
+   * Simple accessibility: keyboard shortcuts
+   **********************/
+  addEventListener("keydown",(e)=>{
+    if(e.key==="?" && !e.ctrlKey && !e.metaKey){
+      e.preventDefault();
+      alert("Shortcuts:\n\n[g] Go to overview\n[w] Water toolkit\n[f] Food toolkit\n[i] Indigenous-led\n[p] Policy\n[e] Emergency Playbooks\n[t] Tools/Notes\n[q] Quests\n[a] AI Helper\n[h] Toggle theme");
+    }
+    const map = {g:"overview", w:"water", f:"food", i:"indigenous", p:"policy", e:"playbooks", t:"tools", q:"quests", a:"ai", h:null};
+    if(map[e.key]) activate(map[e.key]);
+    if(e.key==="h") $("#btnTheme").click();
+  });
+
+  /**********************
+   * Populate curated shelf and progress on load
+   **********************/
+  updateProgress();
+
+  /**********************
+   * Translation chain hook (PRA convention)
+   **********************/
+  function injectTranslation(){
+    // For deployments on PRA, append shared translation layer:
+    // <script src="/ref/translation/script1.html" type="module"></script>
+    // Since this is single-file, we leave a hook:
+    console.debug("PRA translation layer hook ready.");
+  }
+  injectTranslation();
+
+  </script>
+</body>
+</html>

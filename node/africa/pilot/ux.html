@@ -1,0 +1,213 @@
+{
+  "title": "UXAgent — Master Food & Water Sovereignty (Africa)",
+  "date": "2025-10-31",
+  "document_outline": [
+    {
+      "section": "0. Intro & Overview",
+      "purpose": "Welcome, orientation, and offline guide instructions. Introduces project goals, license (CC-BY 4.0), and local ownership principles.",
+      "expected_user": "Community facilitators, NGO field officers, and local leaders starting the project.",
+      "length_estimate_words": 500,
+      "micro_actions": [
+        "Bookmark page for offline use.",
+        "Add community name and date to the header form.",
+        "Toggle offline mode to confirm availability."
+      ]
+    },
+    {
+      "section": "1. Understanding Sovereignty",
+      "purpose": "Define food and water sovereignty vs. security, rooted in African agroecological practices and rights-based governance.",
+      "expected_user": "Community educators, policymakers, high-school level readers.",
+      "length_estimate_words": 1000,
+      "micro_actions": [
+        "Tap definitions to expand local-language translations.",
+        "Print summary for classroom or meeting use.",
+        "View short animated chart comparing models."
+      ]
+    },
+    {
+      "section": "2. Community Organization Toolkit",
+      "purpose": "Blueprint for forming and running inclusive community committees, bylaws, and transparent recordkeeping.",
+      "expected_user": "Village committees, facilitators, youth & women’s groups.",
+      "length_estimate_words": 1500,
+      "micro_actions": [
+        "Fill out digital bylaws form (auto-saves offline).",
+        "Download printable attendance sheet.",
+        "Check inclusivity checklist with progress bar."
+      ]
+    },
+    {
+      "section": "3. Low-Tech Food Interventions",
+      "purpose": "Practical, low-cost guides for soil improvement, composting, intercropping, and post-harvest storage.",
+      "expected_user": "Farmers, local artisans, agricultural extension workers.",
+      "length_estimate_words": 1800,
+      "micro_actions": [
+        "Watch/scroll visual diagram of composting steps.",
+        "Record composting start date and expected yield.",
+        "Tick off local materials checklist."
+      ]
+    },
+    {
+      "section": "4. Water Management Systems",
+      "purpose": "Showcase household- and community-level rainwater harvesting, small catchments, and filtration systems.",
+      "expected_user": "Community water committees, rural households, masons.",
+      "length_estimate_words": 1800,
+      "micro_actions": [
+        "Enter household size to auto-calculate cistern volume.",
+        "Toggle between regional rainfall datasets.",
+        "Export printable construction diagram."
+      ]
+    },
+    {
+      "section": "5. Seed Sovereignty & Biodiversity",
+      "purpose": "Establishing, managing, and networking community seed banks with local governance models.",
+      "expected_user": "Farmers, women’s groups, seed keepers.",
+      "length_estimate_words": 1500,
+      "micro_actions": [
+        "Add seed variety and harvest year to local database.",
+        "Generate seed bank label templates.",
+        "Mark regeneration plot schedule on local calendar."
+      ]
+    },
+    {
+      "section": "6. Data Dashboard & Metrics",
+      "purpose": "Community-friendly interface to track indicators: water stored, seed varieties, governance participation, and post-harvest loss reduction.",
+      "expected_user": "Facilitators, local monitoring officers, NGOs.",
+      "length_estimate_words": 1000,
+      "micro_actions": [
+        "Enter local measurements into forms.",
+        "View instant charts and summaries offline.",
+        "Export JSON summary to share via USB or phone transfer."
+      ]
+    },
+    {
+      "section": "7. Procurement & Policy Checklists",
+      "purpose": "Transparent, printable tools for community procurement, local budgeting, and aligning with national programs.",
+      "expected_user": "Community procurement committees, NGOs, local government.",
+      "length_estimate_words": 800,
+      "micro_actions": [
+        "Tick-off procurement steps.",
+        "Generate printable supplier checklist.",
+        "Add government contact info for follow-up."
+      ]
+    },
+    {
+      "section": "8. Implementation Roadmap",
+      "purpose": "Phased timeline with milestones for 3-, 6-, and 12-month goals.",
+      "expected_user": "Community project planners, donor monitors, facilitators.",
+      "length_estimate_words": 600,
+      "micro_actions": [
+        "Adjust milestone dates with drag-and-drop interface.",
+        "Set reminders stored in local browser memory.",
+        "Print visual timeline for wall display."
+      ]
+    },
+    {
+      "section": "9. Resource Library",
+      "purpose": "Offline reference archive of visual diagrams, glossaries, printable cards, and external dataset metadata.",
+      "expected_user": "All user groups.",
+      "length_estimate_words": 400,
+      "micro_actions": [
+        "Search resources by keyword offline.",
+        "Toggle between English/French/Arabic interface.",
+        "Download printable quick-reference cards."
+      ]
+    },
+    {
+      "section": "10. Contributor & Attribution Hub",
+      "purpose": "Document contributors, open-license statement (CC-BY 4.0/MIT), and instructions to adapt the toolkit for other regions.",
+      "expected_user": "Developers, educators, NGOs, translators.",
+      "length_estimate_words": 400,
+      "micro_actions": [
+        "Add local contributor info.",
+        "Generate regional adaptation template.",
+        "Export updated license copy."
+      ]
+    }
+  ],
+  "interaction_patterns": {
+    "offline_navigation": {
+      "structure": "Expandable Table of Contents (TOC) anchored at top and bottom; persistent floating button for section index.",
+      "mechanics": "All internal links use #anchors; page scrolls smoothly via JS for accessibility. When offline, PWA cache ensures all anchors are functional."
+    },
+    "bookmarks": "User can mark favorite sections; stored in localStorage (no login needed). Bookmark list accessible via icon in top nav.",
+    "printable_field_sheets": "Each major section has a 'Print Field Sheet' button generating a simplified, A4 printable card with core instructions and form fields.",
+    "visual_modes": {
+      "light_dark_toggle": "Accessible light/dark mode toggle stored in localStorage.",
+      "font_zoom": "Tap or pinch to enlarge text; persistent per-session setting."
+    },
+    "touch_and_layout": {
+      "tap_targets": "Minimum 48px height; designed for thumb reach zones.",
+      "responsive_layout": "Single-column on phones, dual-column on tablets, grid layout on desktop.",
+      "low_bandwidth_images": "SVG icons and line drawings <30KB; raster images lazy-loaded and compressed."
+    },
+    "local_data_storage": {
+      "method": "IndexedDB for structured data (seed records, water logs, governance forms).",
+      "backup": "Optional JSON export/import to USB or SD card for data sharing."
+    }
+  },
+  "data_visuals_spec": [
+    {
+      "id": "map_local_projects",
+      "type": "Offline Map (vector/SVG fallback)",
+      "description": "Displays geolocated community projects with icons for water, seed, compost, etc.",
+      "inputs_schema": {
+        "community_id": "string",
+        "lat": "float",
+        "lon": "float",
+        "project_type": "string",
+        "status": "string",
+        "last_update": "ISO date"
+      },
+      "interactions": ["zoom", "filter by type", "offline hover tooltips"]
+    },
+    {
+      "id": "seasonal_calendar",
+      "type": "Horizontal timeline chart",
+      "description": "Shows seasonal patterns for rainfall, planting, harvest, and hunger gap months.",
+      "inputs_schema": {
+        "month": "string (Jan–Dec)",
+        "rainfall_mm": "number",
+        "planting": "boolean",
+        "harvest": "boolean",
+        "hunger_gap": "boolean"
+      },
+      "interactions": ["tap month for notes", "highlight current month"]
+    },
+    {
+      "id": "water_balance_chart",
+      "type": "Donut or bar chart",
+      "description": "Visualizes household water collected vs. used; encourages water budgeting.",
+      "inputs_schema": {
+        "household_id": "string",
+        "volume_collected_liters": "number",
+        "volume_used_liters": "number",
+        "source_type": "string"
+      },
+      "interactions": ["edit inputs inline", "display remaining % water storage"]
+    },
+    {
+      "id": "supply_chain_flow",
+      "type": "Sankey or flow diagram",
+      "description": "Shows movement of food from production to market; helps identify leakage points.",
+      "inputs_schema": {
+        "node": "string",
+        "flow_from": "string",
+        "flow_to": "string",
+        "quantity": "number"
+      },
+      "interactions": ["drag to rearrange nodes", "tap for value summary"]
+    },
+    {
+      "id": "governance_dashboard",
+      "type": "Composite bar/line dashboard",
+      "description": "Tracks meeting attendance, fund usage, and maintenance activities.",
+      "inputs_schema": {
+        "meeting_date": "ISO date",
+        "attendees": "integer",
+        "funds_spent": "number",
+        "maintenance_tasks_completed": "integer"
+      },
+      "interactions": ["filter by month", "export CSV summary"]
+    }
+  ]
+}

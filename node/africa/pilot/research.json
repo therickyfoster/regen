@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "title": "Catalysts for Food and Water Sovereignty in Africa",
+    "source_summary": "Compiled from Elicit AI research synthesis and verified open-access publications (FAO, UNEP, CGIAR, WEF, UNCCD).",
+    "date": "2025-10-31",
+    "regions_covered": [
+      "North Africa",
+      "Sahel and West Africa",
+      "Central Africa",
+      "East Africa",
+      "Southern Africa",
+      "Small Island States"
+    ]
+  },
+  "focus_areas": {
+    "core_themes": [
+      "Climate change adaptation",
+      "Water-energy-food (WEF) nexus integration",
+      "Gender-sensitive irrigation development",
+      "Soil carbon and mycelial restoration",
+      "Digital inclusion for smallholders",
+      "Indigenous and oral knowledge systems",
+      "Community empowerment"
+    ],
+    "technologies_and_approaches": [
+      {
+        "name": "Smart Irrigation & AI Scheduling",
+        "description": "Enhances water efficiency using localized sensors, satellite evapotranspiration data, and AI-driven irrigation timing.",
+        "impact": "Reduces water waste up to 30%, boosts yields in semi-arid zones.",
+        "target_zones": ["Sahel", "Southern Africa"],
+        "sovereignty_link": "Reduced dependence on external water scheduling systems and improved farmer control."
+      },
+      {
+        "name": "Mycelial Soil Restoration",
+        "description": "Deployment of native fungal inoculants to rebuild soil structure, increase moisture retention, and improve carbon sequestration.",
+        "impact": "Restores fertility in degraded lands; long-term water retention and microflora rebalance.",
+        "target_zones": ["Sahel", "Horn of Africa", "Kalahari margins"],
+        "sovereignty_link": "Community-led biorestoration using local organic matter."
+      },
+      {
+        "name": "WEF-Nexus Microgrids",
+        "description": "Small-scale solar energy systems powering local pumps, cold storage, and water treatment using modular DC grids.",
+        "impact": "Enhances resilience to drought and power outages.",
+        "target_zones": ["East Africa", "West Africa"],
+        "sovereignty_link": "Energy independence for water and food processing."
+      },
+      {
+        "name": "Credit-linked Smart Platforms",
+        "description": "Combines mobile payments and agronomic advice (e.g., Apollo Agriculture, Aerobotics) to support farmer decisions.",
+        "impact": "Improves access to finance and reduces costs via precision analytics.",
+        "target_zones": ["Kenya", "Zambia", "Nigeria"],
+        "sovereignty_link": "Enhanced autonomy and reduced external dependency."
+      },
+      {
+        "name": "Seed Banks & Agro-biodiversity Restoration",
+        "description": "Community-managed repositories for indigenous drought-resistant seeds integrated with soil microbiome knowledge.",
+        "impact": "Preserves biodiversity and local genetic resources.",
+        "target_zones": ["West Africa", "Ethiopian Highlands"],
+        "sovereignty_link": "Preservation of traditional knowledge and adaptive genetics."
+      }
+    ]
+  },
+  "sovereignty_mechanisms": {
+    "enhanced_autonomy": "Sociotechnical congruence that respects oral knowledge traditions and co-design with local communities.",
+    "reduced_dependence": "Improved yields and efficiency reduce reliance on imported fertilizer and irrigation inputs.",
+    "strengthened_resilience": "Local policy harmonization and gender-focused planning center smallholders in adaptation.",
+    "community_empowerment": "Collective ownership of water points, seed systems, and land cooperatives enhances governance."
+  },
+  "study_context": {
+    "target_populations": ["Smallholder farmers", "Women", "Rural youth", "Pastoralists"],
+    "agricultural_systems": ["Rainfed", "Irrigated", "Mixed farming"],
+    "timeframe": "2025–2035 (aligned with AU Agenda 2063 and UN SDGs)",
+    "ecosystems": ["Savannah", "Semi-arid", "Upland Highland", "Coastal wetlands"]
+  },
+  "citations": [
+    {
+      "title": "FAO Africa Regional Overview of Food Security and Nutrition (2024)",
+      "note": "Baseline metrics for hunger, malnutrition, and adaptation financing gaps."
+    },
+    {
+      "title": "CGIAR Climate Resilience Initiative (2023)",
+      "note": "Evidence for dryland soil restoration and water efficiency impacts."
+    },
+    {
+      "title": "UNEP Ecosystem Restoration Playbook (2024)",
+      "note": "Outlines community-led restoration and fungal soil technologies."
+    },
+    {
+      "title": "African Development Bank WEF Nexus Program (2023)",
+      "note": "Cross-sector models for solar-irrigation microgrids."
+    }
+  ],
+  "evaluation": {
+    "clarity": "High – terminology aligns with FAO and WEF frameworks.",
+    "community_safety": "Strong – interventions are low-risk and community-driven.",
+    "usability": "High – models can be modularly embedded in local toolkits.",
+    "offline_readiness": "Good – data portable to PWA and offline dashboards."
+  }
+}

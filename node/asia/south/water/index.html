@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- ============= SEO ============= -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Water Sovereignty — Planetary Restoration Archive | Ultra‑Long‑Form, Gamified Guide</title>
+  <meta name="description" content="A practical, gamified guide to water sovereignty: assessment, harvesting, treatment, storage, reuse, crisis drills, calculators, and ethical deployment. Offline-first with IndexedDB, optional Habitica sync, and on-device WebLLM Coach." />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+  <link rel="canonical" href="../water/" />
+  <meta name="theme-color" content="#0a0f1f" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Water Sovereignty — Planetary Restoration Archive" />
+  <meta property="og:description" content="Ultra‑long‑form, gamified playbook for resilient, just water systems. IndexedDB offline, Habitica sync, WebLLM Coach." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="../water/" />
+  <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAB..." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- JSON-LD (custom presentation schema + schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": [
+      "https://schema.org",
+      "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"
+    ],
+    "@type": ["CreativeWork", "SovereigntyGuide"],
+    "name": "Water Sovereignty — Ultra‑Long‑Form, Gamified",
+    "about": ["water sovereignty","resilience","community infrastructure","planetary restoration"],
+    "inLanguage": "en",
+    "audience": [{"@type":"Audience","audienceType":"community stewards"}],
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "isPartOf": {"@type":"Collection","name":"Planetary Restoration Archive"},
+    "url": "../water/",
+    "keywords": "water harvesting, slow sand filter, SODIS, chlorine dosing, cistern design, greywater, drought drills, Habitica, WebLLM, IndexedDB",
+    "learningResourceType": "Guide",
+    "educationalLevel": "All",
+    "version": "1.0.0",
+    "dateModified": "2025-10-21"
+  }
+  </script>
+
+  <!-- ============= Styles ============= -->
+  <style>
+    :root{
+      --bg:#070b17; --ink:#e8eefc; --ink-dim:#b7c3e3;
+      --accent:#7dd3fc; --accent-2:#a78bfa; --good:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+      --glass: rgba(12, 18, 38, 0.6); --glass-strong: rgba(12, 18, 38, 0.85);
+      --shadow: 0 6px 24px rgba(0,0,0,.35);
+      --radius: 14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font:16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--ink); background:var(--bg); overflow-x:hidden;
+    }
+
+    /* Starfield canvas */
+    #starfield{position:fixed; inset:0; z-index:-1; background: radial-gradient(1200px 800px at 70% 20%, #0b1535 0%, #070b17 60%, #050913 100%);}
+
+    /* Layout */
+    header{
+      position:sticky; top:0; backdrop-filter: blur(10px);
+      background:var(--glass-strong); border-bottom:1px solid rgba(255,255,255,.08);
+      padding:10px 18px; display:flex; align-items:center; gap:14px; z-index:10;
+    }
+    header .brand{font-weight:700; letter-spacing:.3px}
+    header nav a{
+      color:var(--ink); opacity:.9; text-decoration:none; padding:8px 10px; border-radius:10px;
+    }
+    header nav a[aria-current="page"]{background:rgba(255,255,255,.07)}
+    header .right{margin-left:auto; display:flex; gap:10px; align-items:center}
+    header .pill{font-size:12px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.08)}
+
+    main{max-width:1100px; margin:0 auto; padding:30px 16px 80px}
+    .hero{
+      margin:18px 0 24px; padding:22px; border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(125,211,252,.1), rgba(167,139,250,.08));
+      border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow);
+    }
+    .hero h1{margin:0 0 6px; font-size:clamp(28px, 4vw, 44px); line-height:1.1}
+    .sub{color:var(--ink-dim)}
+    .grid{display:grid; gap:16px}
+    @media(min-width:860px){ .grid{grid-template-columns: 1.35fr .65fr} }
+
+    .card{
+      padding:18px; border-radius:var(--radius); background:var(--glass);
+      border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow)
+    }
+    .card h2,.card h3{margin-top:0}
+    .muted{color:var(--ink-dim)}
+    .badge{display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.08); padding:6px 10px; border-radius:999px; font-size:12px}
+    .kpi{display:flex; gap:16px; flex-wrap:wrap; margin:10px 0}
+    .kpi .tile{
+      min-width:150px; background:rgba(255,255,255,.06); padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,.07)
+    }
+    .btn{
+      appearance:none; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06);
+      color:var(--ink); padding:10px 12px; border-radius:10px; cursor:pointer
+    }
+    .btn.primary{background:linear-gradient(90deg, #7dd3fc33, #a78bfa33)}
+    .btn.good{border-color:#1f7a3a; background:#1f7a3a33}
+    .btn.warn{border-color:#7c5809; background:#7c580933}
+    .btn.bad{border-color:#7a1f1f; background:#7a1f1f33}
+    .row{display:flex; gap:8px; flex-wrap:wrap}
+    input,select,textarea{
+      width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06); color:var(--ink)
+    }
+    label{font-size:13px; color:var(--ink-dim)}
+    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
+
+    /* Details / long-form */
+    details{border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:10px 12px; background:rgba(255,255,255,.04); margin:12px 0}
+    details>summary{cursor:pointer; font-weight:600; color:var(--accent)}
+    details[open]{background:rgba(125,211,252,.05)}
+
+    /* Progress HUD */
+    .hud{position:sticky; top:70px}
+    .xpbar{height:10px; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin-top:8px}
+    .xpbar>span{display:block; height:100%; background:linear-gradient(90deg, #7dd3fc, #a78bfa); width:0%}
+    .tag{font-size:12px; padding:4px 8px; border-radius:8px; background:rgba(255,255,255,.08); margin-right:6px}
+
+    /* Tables */
+    table{width:100%; border-collapse:collapse}
+    th,td{padding:8px 10px; border-bottom:1px solid rgba(255,255,255,.08)}
+    th{text-align:left; color:var(--ink-dim); font-weight:600}
+
+    footer{margin-top:40px; color:var(--ink-dim); font-size:13px}
+    .footlinks a{color:var(--ink-dim)}
+
+    /* A11y */
+    @media (prefers-reduced-motion: reduce){
+      #starfield {display:none}
+      *{scroll-behavior:auto}
+    }
+  </style>
+</head>
+<body data-section="water">
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <header>
+    <div class="brand">Planetary Restoration Archive</div>
+    <nav>
+      <a href="../water/" aria-current="page">Water</a>
+      <a href="../food/">Food</a>
+    </nav>
+    <div class="right">
+      <span class="pill">Offline‑first</span>
+      <span class="pill">Gamified</span>
+      <span class="pill">WebLLM‑ready</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Water Sovereignty Guide</h1>
+      <p class="sub">Ultra‑long‑form playbook for communities to gain <strong>durable, just control</strong> over clean water: assessment → harvesting → treatment → storage → reuse → governance. Progression is gamified; your data lives locally (IndexedDB). Optionally sync to Habitica and use on‑device WebLLM as a coach.</p>
+      <div class="kpi">
+        <div class="tile">
+          <div class="muted">Status</div>
+          <div><span class="badge">v1.0</span> <span class="badge">CC‑BY 4.0</span></div>
+        </div>
+        <div class="tile">
+          <div class="muted">Region Note</div>
+          <div>Bolivia altiplano — <strong>partner, don’t duplicate</strong>.</div>
+        </div>
+        <div class="tile">
+          <div class="muted">Quick Links</div>
+          <div><a class="btn" href="#questboard">Quest Board</a> <a class="btn" href="#calculators">Calculators</a> <a class="btn" href="#appendix">Appendix</a></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <!-- =================== LEFT: CONTENT =================== -->
+      <section id="content" class="card">
+        <h2 id="overview">Overview</h2>
+        <p>Water sovereignty means communities define, build, and steward their own water security in ways that are <em>ecologically sane, culturally aligned,</em> and <em>economically fair</em>. This guide is a structured path with practical checklists, calculators, drills, and governance tools.</p>
+
+        <details open>
+          <summary>Ethical Deployment &amp; Regional Note — Bolivia Altiplano</summary>
+          <p><strong>Not our deploy zone.</strong> The altiplano hosts strong, existing water sovereignty initiatives. The correct move is to <em>partner</em>, not to parachute or duplicate.</p>
+          <ul>
+            <li><strong>Consent &amp; invitation:</strong> Engage only via clear community invitation through representative bodies.</li>
+            <li><strong>Map the landscape:</strong> Identify local collectives, indigenous leadership (Aymara, Quechua), municipal/ayllu water committees, and cooperatives. Offer support that strengthens their plans.</li>
+            <li><strong>Contribute scarce leverage:</strong> e.g., materials difficult to source locally; durable lab testing capacity; training‑of‑trainers; transparent budgeting templates; long‑term maintenance financing, not one‑off installs.</li>
+            <li><strong>IP &amp; data justice:</strong> Release designs and training under CC‑BY / CERN‑OHL; ensure community data ownership. Publish in Spanish/Aymara/Quechua as requested.</li>
+            <li><strong>Exit literacy:</strong> Define how the project runs without you (spares, tooling, supplier lists, governance cadence, failure playbooks).</li>
+          </ul>
+        </details>
+
+        <h2 id="questboard">Quest Board (Gamified)</h2>
+        <p class="muted">Complete quests to level up your sovereignty score (SOV). Progress saves locally (IndexedDB). Toggle any quest to mark done. Use <em>Sync → Habitica</em> if you want tasks mirrored to your Habitica account.</p>
+
+        <div id="quests"></div>
+
+        <details>
+          <summary>How leveling works</summary>
+          <p>Each completed task grants XP (default 10). Levels follow a quadratic curve (Level N requires ≈ <span class="mono">100×N²</span> XP). Certain badges unlock when you complete key milestones (Baseline, Safe Treatment, 7‑day Autonomy, Governance).</p>
+        </details>
+
+        <h2 id="playbook">Playbook (Ultra‑Long‑Form)</h2>
+
+        <!-- 1. BASELINE -->
+        <details open>
+          <summary>1) Baseline Assessment &amp; Risk Map</summary>
+          <ol>
+            <li><strong>Demand model:</strong> Estimate <em>essential</em> 15–25 L/person/day (drinking, cooking, hygiene) and <em>comfortable</em> 50–100 L/person/day. Record seasonal and event spikes.</li>
+            <li><strong>Source inventory:</strong> Rain (roofs, courtyards), springs, shallow/deep groundwater, surface (streams, lakes), delivered water (tanker, utility), atmospheric water (fog nets/condensers).</li>
+            <li><strong>Quality screen:</strong> Turbidity, fecal indicator risk, chemical hazards (arsenic/fluoride/nitrates common in some high‑altitude basins), salinity, taste/odor. Set up a testing cadence.</li>
+            <li><strong>Failure modes:</strong> Drought, freeze, pump/power failure, contamination burst, transport strikes, conflict, regulatory shifts. Attach early‑warning signals.</li>
+            <li><strong>Equity scan:</strong> Who bears collection/maintenance burden? Who pays? Who decides? Map these now or the system will encode unfairness.</li>
+          </ol>
+        </details>
+
+        <!-- 2. HARVEST -->
+        <details>
+          <summary>2) Harvest &amp; Catchment</summary>
+          <h3>Rain &amp; Snowmelt</h3>
+          <p><strong>Yield formula:</strong> <span class="mono">Liters = Rainfall(mm) × Catchment(m²) × Runoff Coefficient × System Efficiency</span>. 1 mm rain on 1 m² ≈ 1 L. Typical coefficients: metal roof 0.9; tile 0.8; rough concrete 0.7; ground 0.2–0.4.</p>
+          <ul>
+            <li><strong>First‑flush:</strong> Divert first 0.5–2 mm to remove debris/bird droppings; drain to infiltration.</li>
+            <li><strong>Leaf guard &amp; screens:</strong> Maintain quarterly in dusty climates.</li>
+            <li><strong>Materials:</strong> Food‑grade HDPE, stainless, ferrocement, or lined masonry. Avoid questionable coatings.</li>
+          </ul>
+          <h3>Fog &amp; Dew</h3>
+          <p>Large fog collectors (LFCs) can work where there’s consistent fog and wind; yields vary widely from &lt;1 to &gt;10 L/m²/day. In arid high plateaus, viability is site‑specific; pilot before scaling.</p>
+          <h3>Groundwater</h3>
+          <ul>
+            <li><strong>Shallow wells:</strong> Line and cover; sanitary seal; handpump or solar pump. Test quarterly for microbes; annually for chemistry.</li>
+            <li><strong>Deep wells:</strong> Consider arsenic/fluoride risks in certain basins; plan for selective treatment if exceeded.</li>
+          </ul>
+          <h3>Surface Water</h3>
+          <p>Always pre‑filter. Expect turbidity surges during storms. Design intake for multiple levels to avoid bottom sediment and surface scum.</p>
+        </details>
+
+        <!-- 3. TREATMENT -->
+        <details>
+          <summary>3) Treatment Trains</summary>
+          <p>Think in stages: <em>pre‑filter → primary removal → disinfection → residual</em>. Combine techniques to match your source risks.</p>
+          <h3>Pre‑filter</h3>
+          <ul>
+            <li><strong>Cloth/mesh + gravel/sand bucket:</strong> Simple turbidity knock‑down.</li>
+            <li><strong>Coagulation (optional):</strong> Alum or natural coagulants (e.g., crushed <em>Moringa</em> seed) to settle fine particles; requires training.</li>
+          </ul>
+          <h3>Primary removal</h3>
+          <ul>
+            <li><strong>Slow Sand Filter (SSF):</strong> 0.5–1.0 m sand depth, effective size ~0.15–0.35 mm, hydraulic loading ~0.1–0.4 m³/m²·hr. Biological layer (schmutzdecke) does the heavy lifting; scrape/skim to restore flow.</li>
+            <li><strong>Ceramic pot/candle:</strong> Pore ≲0.2–0.5 μm; silver impregnation helps. Flow 1–3 L/hr; maintain per maker guidance.</li>
+            <li><strong>Activated Carbon:</strong> Adsorbs taste/odor/organics; not primary microbe barrier.</li>
+            <li><strong>RO/NF (membranes):</strong> For salinity/chemicals; requires pressure, pretreatment, and brine handling.</li>
+          </ul>
+          <h3>Disinfection</h3>
+          <ul>
+            <li><strong>Boiling:</strong> Bring to a rolling boil for ~1 minute (≥3 minutes at high altitude &gt;~2000 m). Cool covered.</li>
+            <li><strong>Chlorination:</strong> Dose to achieve a safe free‑chlorine residual after 30 minutes contact. Use the calculator below to compute from bleach strength and volume.</li>
+            <li><strong>UV (lamp):</strong> Effective on clear water; maintain lamps and pre‑filter to low turbidity.</li>
+            <li><strong>SODIS (solar):</strong> PET bottles in full sun; typical guidance: ~6 hours direct sun (longer under cloud). Water must be clear (low turbidity).</li>
+          </ul>
+          <p class="muted">Note: Always verify with local public‑health guidance and suitable water testing; these are general engineering heuristics.</p>
+        </details>
+
+        <!-- 4. STORAGE -->
+        <details>
+          <summary>4) Storage &amp; Distribution</summary>
+          <ul>
+            <li><strong>Cistern sizing:</strong> <span class="mono">Capacity ≥ days_of_autonomy × people × daily_demand</span> / usable_fraction. Usable fraction accounts for dead volume and service intervals.</li>
+            <li><strong>Materials:</strong> Ferrocement (robust, local), HDPE (quick to deploy), lined masonry (cost‑efficient), buried where freeze or algae is a concern.</li>
+            <li><strong>Hygiene:</strong> Closed lids, screened vents/overflows, sampling tap, periodic cleaning, residual monitoring.</li>
+            <li><strong>Distribution:</strong> Gravity where possible; pressure tanks only if necessary. Loop mains to avoid dead‑ends; flush on schedule.</li>
+          </ul>
+        </details>
+
+        <!-- 5. REUSE -->
+        <details>
+          <summary>5) Greywater &amp; Reuse</summary>
+          <ul>
+            <li><strong>Source control:</strong> Keep harsh chemicals out; use plant‑friendly soaps.</li>
+            <li><strong>Grease trap + settling:</strong> Two‑chamber bucket or masonry trap; skim regularly.</li>
+            <li><strong>Biofilter bed:</strong> Sand + gravel with planted reeds/vetiver; subsurface drip to avoid human contact.</li>
+            <li><strong>Crop caution:</strong> Avoid edible leaves/roots contact; favor trees or non‑edible plants unless treated to fit local standards.</li>
+          </ul>
+        </details>
+
+        <!-- 6. GOVERNANCE -->
+        <details>
+          <summary>6) Governance, Finance, and Maintenance</summary>
+          <ul>
+            <li><strong>Transparent budgeting:</strong> Publish capex/opex; earmark a maintenance reserve (≥3–5% of asset value/year).</li>
+            <li><strong>Roles:</strong> Water committee, operators, community auditors, spares custodian.</li>
+            <li><strong>Cadence:</strong> Weekly ops check, monthly quality review, quarterly financials, annual external audit.</li>
+            <li><strong>Tariff design:</strong> Equity tiers or in‑kind contributions; protect lifeline access.</li>
+          </ul>
+        </details>
+
+        <!-- 7. DRILLS -->
+        <details>
+          <summary>7) Drills &amp; Boss Fights (Simulations)</summary>
+          <ul>
+            <li><strong>Drought Week:</strong> Operate at 50% supply for 7 days; track service level and stress points.</li>
+            <li><strong>Contamination Burst:</strong> Simulate a boil‑water advisory workflow; measure detection‑to‑notice time.</li>
+            <li><strong>Pump Outage:</strong> 72‑hour grid failure; run gravity‑only distribution.</li>
+          </ul>
+        </details>
+
+        <h2 id="calculators">Calculators</h2>
+        <div class="card">
+          <h3>Water Budget</h3>
+          <div class="row">
+            <div style="flex:1">
+              <label>People</label><input id="wb_people" type="number" min="1" value="20">
+            </div>
+            <div style="flex:1">
+              <label>Daily demand per person (L)</label><input id="wb_lppd" type="number" min="1" value="25">
+            </div>
+            <div style="flex:1">
+              <label>Days of autonomy</label><input id="wb_days" type="number" min="1" value="7">
+            </div>
+            <div style="flex:1">
+              <label>Usable fraction (0–1)</label><input id="wb_fraction" type="number" step="0.05" min="0.3" max="1" value="0.9">
+            </div>
+          </div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn primary" onclick="calcWaterBudget()">Compute Capacity</button>
+            <div id="wb_out" class="badge">—</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Catchment Yield</h3>
+          <div class="row">
+            <div style="flex:1">
+              <label>Annual rainfall (mm)</label><input id="cy_rain" type="number" value="300">
+            </div>
+            <div style="flex:1">
+              <label>Catchment area (m²)</label><input id="cy_area" type="number" value="120">
+            </div>
+            <div style="flex:1">
+              <label>Runoff coefficient (0–1)</label><input id="cy_coef" type="number" step="0.05" value="0.9">
+            </div>
+            <div style="flex:1">
+              <label>System efficiency (0–1)</label><input id="cy_eff" type="number" step="0.05" value="0.85">
+            </div>
+          </div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn primary" onclick="calcCatchment()">Compute Annual Liters</button>
+            <div id="cy_out" class="badge">—</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Chlorine Dosing (Bleach)</h3>
+          <p class="muted">Compute a <em>starting</em> dose by target free‑chlorine. Always verify with testing after 30 minutes contact time and follow local health guidance. Assumes bleach % is weight fraction and density is near 1.1 g/mL for common solutions.</p>
+          <div class="row">
+            <div style="flex:1">
+              <label>Water volume (L)</label><input id="cl_volL" type="number" value="1000">
+            </div>
+            <div style="flex:1">
+              <label>Target free‑chlorine (mg/L)</label><input id="cl_target" type="number" step="0.1" value="2.0">
+            </div>
+            <div style="flex:1">
+              <label>Bleach concentration (%)</label><input id="cl_pct" type="number" step="0.1" value="5.0">
+            </div>
+            <div style="flex:1">
+              <label>Bleach density (g/mL)</label><input id="cl_density" type="number" step="0.01" value="1.10">
+            </div>
+          </div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn primary" onclick="calcChlorine()">Compute mL of Bleach</button>
+            <div id="cl_out" class="badge">—</div>
+          </div>
+        </div>
+
+        <h2 id="appendix">Appendix: Heuristics &amp; Tables</h2>
+        <details>
+          <summary>Runoff Coefficients (typical)</summary>
+          <table>
+            <tr><th>Surface</th><th>Coefficient</th></tr>
+            <tr><td>Metal roof</td><td>0.9</td></tr>
+            <tr><td>Clay tile</td><td>0.8</td></tr>
+            <tr><td>Concrete (smooth)</td><td>0.7</td></tr>
+            <tr><td>Compacted soil</td><td>0.3–0.5</td></tr>
+            <tr><td>Vegetated ground</td><td>0.1–0.3</td></tr>
+          </table>
+        </details>
+        <details>
+          <summary>Slow Sand Filter Quick Specs</summary>
+          <ul>
+            <li>Effective size: 0.15–0.35 mm; Uniformity coeff &lt; 3</li>
+            <li>Bed depth: 0.5–1.0 m; Headroom for supernatant ≈ 0.2–0.4 m</li>
+            <li>Loading: 0.1–0.4 m³/m²·hr; Cleaning: surface scrape or wet harrow</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Storage Cleaning Cycle</summary>
+          <ol>
+            <li>Drain to safe level; isolate.</li>
+            <li>Remove sediment; wash surfaces with dilute chlorine solution.</li>
+            <li>Rinse and refill; re‑establish residual.</li>
+          </ol>
+        </details>
+
+        <footer>
+          <div class="footlinks">
+            <a href="../food/">Go to Food Sovereignty &nbsp;→</a>
+          </div>
+          <p>License: CC‑BY 4.0. This guide is educational; verify with local standards and water testing. No warranty.</p>
+        </footer>
+      </section>
+
+      <!-- =================== RIGHT: HUD / INTEGRATIONS =================== -->
+      <aside class="hud">
+        <section class="card">
+          <h3>Progress HUD</h3>
+          <div>Level <span id="hud_level" class="badge">1</span> · <span id="hud_xp">0</span> XP</div>
+          <div class="xpbar" aria-label="XP"><span id="hud_xpbar"></span></div>
+          <div style="margin-top:8px" id="hud_badges"></div>
+        </section>
+
+        <section class="card">
+          <h3>Sync → Habitica (optional)</h3>
+          <label>User ID</label><input id="hab_uid" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+          <label>API Token</label><input id="hab_token" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+          <div class="row" style="margin-top:8px">
+            <button class="btn" onclick="habiticaPush()">Push Quests as To‑Dos</button>
+            <button class="btn" onclick="habiticaScoreAll()">Score Completed</button>
+          </div>
+          <p class="muted">Credentials are stored locally only. You can clear them anytime.</p>
+        </section>
+
+        <section class="card">
+          <h3>On‑Device Coach (WebLLM)</h3>
+          <p class="muted">Ask a private, in‑browser AI to tailor tasks to your climate, culture, and constraints. Works offline after model loads. Falls back gracefully.</p>
+          <textarea id="coach_input" rows="4" placeholder="e.g., 'We’re 60 households at 3800 m, 300 mm/year rainfall, frequent freezes. Suggest a 6‑month water plan.'"></textarea>
+          <div class="row" style="margin-top:8px">
+            <button class="btn primary" onclick="coachAsk()">Ask Coach</button>
+            <button class="btn" onclick="coachStop()">Stop</button>
+          </div>
+          <pre id="coach_out" class="mono" style="white-space:pre-wrap; max-height:220px; overflow:auto; background:rgba(255,255,255,.06); padding:10px; border-radius:10px; margin-top:8px">Model not loaded yet…</pre>
+        </section>
+
+        <section class="card">
+          <h3>Data</h3>
+          <div class="row">
+            <button class="btn" onclick="exportData()">Export JSON</button>
+            <button class="btn bad" onclick="wipeData()">Wipe Local Data</button>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <!-- =================== Scripts =================== -->
+  <script>
+    /* -------- Starfield (photoreal-ish) -------- */
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d', { alpha: true });
+    let W,H, DPR = Math.min(window.devicePixelRatio||1, 2);
+    let stars = [];
+    function resize(){
+      W = canvas.width = Math.floor(window.innerWidth*DPR);
+      H = canvas.height = Math.floor(window.innerHeight*DPR);
+    }
+    window.addEventListener('resize', resize, {passive:true}); resize();
+
+    const N = 900; // number of stars
+    const Zmax = 1; const Zmin = 0.05;
+    function initStars(){
+      stars = [];
+      for(let i=0;i<N;i++){
+        stars.push({
+          x: (Math.random()*2-1), y:(Math.random()*2-1),
+          z: Math.random()*(Zmax-Zmin)+Zmin,
+          tw: Math.random()*Math.PI*2
+        });
+      }
+    }
+    initStars();
+
+    let mx=0,my=0; window.addEventListener('mousemove', e=>{ mx=(e.clientX/window.innerWidth-0.5); my=(e.clientY/window.innerHeight-0.5);}, {passive:true});
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      const fov = 500; // perspective
+      for(const s of stars){
+        s.z -= 0.002; if(s.z<Zmin) s.z = Zmax;
+        const sx = (s.x + mx*0.2) * fov / s.z + W/2;
+        const sy = (s.y + my*0.2) * fov / s.z + H/2;
+        const size = Math.max(0.5, 2.5*(1 - s.z)) * DPR;
+        const t = (Math.sin(perfNow*0.002 + s.tw)*0.5 + 0.5); // twinkle
+        const g = ctx.createRadialGradient(sx, sy, 0, sx, sy, size*2);
+        g.addColorStop(0, `rgba(255,255,255,${0.9*t})`);
+        g.addColorStop(0.5, `rgba(180,200,255,${0.35*t})`);
+        g.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(sx, sy, size*2, 0, Math.PI*2); ctx.fill();
+      }
+      perfNow += 16.66; requestAnimationFrame(draw);
+    }
+    let perfNow = 0; requestAnimationFrame(draw);
+  </script>
+
+  <script>
+    /* -------- IndexedDB: SovereigntyDB -------- */
+    const DB_NAME = 'SovereigntyDB';
+    const DB_VER = 1;
+    let idb;
+
+    function idbOpen(){
+      return new Promise((resolve,reject)=>{
+        const req = indexedDB.open(DB_NAME, DB_VER);
+        req.onupgradeneeded = (e)=>{
+          const db = e.target.result;
+          if(!db.objectStoreNames.contains('quests')) db.createObjectStore('quests', {keyPath:'id'});
+          if(!db.objectStoreNames.contains('meta')) db.createObjectStore('meta', {keyPath:'key'});
+          if(!db.objectStoreNames.contains('creds')) db.createObjectStore('creds', {keyPath:'key'});
+        };
+        req.onsuccess = ()=>{ idb = req.result; resolve(); };
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+    function idbTx(store, mode='readonly'){ return idb.transaction(store, mode).objectStore(store); }
+    async function idbGet(store, key){ return new Promise((res,rej)=>{ const r=idbTx(store).get(key); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); });}
+    async function idbSet(store, val){ return new Promise((res,rej)=>{ const r=idbTx(store,'readwrite').put(val); r.onsuccess=()=>res(); r.onerror=()=>rej(r.error); });}
+    async function idbAll(store){ return new Promise((res,rej)=>{ const r=idbTx(store).getAll(); r.onsuccess=()=>res(r.result||[]); r.onerror=()=>rej(r.error); });}
+    async function idbDel(store, key){ return new Promise((res,rej)=>{ const r=idbTx(store,'readwrite').delete(key); r.onsuccess=()=>res(); r.onerror=()=>rej(r.error); });}
+
+    /* -------- Gamification engine -------- */
+    const QUESTS_SEED = [
+      { id:"baseline.demand",   title:"Estimate daily demand", xp:10, section:"Baseline", done:false, detail:"Compute essential (15–25 L/ppd) and comfortable (50–100 L/ppd); record seasonal spikes.", badge:null },
+      { id:"baseline.sources",  title:"Inventory sources", xp:10, section:"Baseline", done:false, detail:"Rain, groundwater, surface, springs, delivered, fog.", badge:null },
+      { id:"baseline.quality",  title:"Set testing cadence", xp:15, section:"Baseline", done:false, detail:"Turbidity/micro quarterly; chemistry annually or per risk.", badge:"Sampler" },
+
+      { id:"harvest.roof",      title:"Install first‑flush diverter", xp:20, section:"Harvest", done:false, detail:"Divert first 0.5–2 mm of rain; drain to infiltration.", badge:null },
+      { id:"harvest.screens",   title:"Leaf guard & screens", xp:10, section:"Harvest", done:false, detail:"Quarterly maintenance schedule.", badge:null },
+      { id:"harvest.yieldcalc", title:"Catchment yield calc", xp:10, section:"Harvest", done:false, detail:"Use calculator; document coefficients.", badge:"Planner" },
+
+      { id:"treat.prefilter",   title:"Pre‑filter train in place", xp:15, section:"Treatment", done:false, detail:"Cloth/mesh + gravel/sand knock‑down.", badge:null },
+      { id:"treat.ssf",         title:"Build slow sand filter", xp:40, section:"Treatment", done:false, detail:"Bed 0.5–1 m; ES 0.15–0.35 mm; loading 0.1–0.4 m³/m²·hr.", badge:"Filterwright" },
+      { id:"treat.disinfect",   title:"Define disinfection SOP", xp:25, section:"Treatment", done:false, detail:"Boil/Chlorine/UV/SODIS; contact time; testing.", badge:"Guardian" },
+
+      { id:"storage.size",      title:"Size cisterns for autonomy", xp:20, section:"Storage", done:false, detail:"Compute ≥7 days; consider dead volume.", badge:"Reservoir" },
+      { id:"storage.hygiene",   title:"Hygiene & residual plan", xp:15, section:"Storage", done:false, detail:"Closed lids; vents; scheduled cleaning; residual checks.", badge:null },
+
+      { id:"reuse.grease",      title:"Install simple grease trap", xp:15, section:"Reuse", done:false, detail:"Two‑chamber with regular skimming.", badge:null },
+      { id:"reuse.bed",         title:"Plant biofilter bed", xp:25, section:"Reuse", done:false, detail:"Sand+gravel; subsurface drip.", badge:"Greenhand" },
+
+      { id:"gov.roles",         title:"Define roles & cadence", xp:15, section:"Governance", done:false, detail:"Ops weekly; quality monthly; finance quarterly; audit annually.", badge:null },
+      { id:"gov.finance",       title:"Maintenance reserve funded", xp:20, section:"Governance", done:false, detail:"≥3–5% of asset value/year.", badge:"Steward" },
+
+      { id:"drill.drought",     title:"Run 7‑day Drought Week", xp:35, section:"Drills", done:false, detail:"Operate at 50% supply; debrief.", badge:"Droughtslayer" },
+      { id:"drill.contam",      title:"Contamination response drill", xp:35, section:"Drills", done:false, detail:"Simulate boil advisory; measure response time.", badge:"Sentinel" }
+    ];
+
+    let XP = 0, LVL = 1;
+    function calcLevel(xp){ return Math.max(1, Math.floor(Math.sqrt(xp/100))+1); }
+    function xpForLevel(n){ return 100*(n-1)*(n-1); }
+
+    async function loadState(){
+      await idbOpen();
+      // Seed quests if first time
+      const existing = await idbAll('quests');
+      if(!existing || existing.length === 0){
+        for(const q of QUESTS_SEED) await idbSet('quests', q);
+      }
+      // Load XP/meta
+      const mXP = await idbGet('meta','xp'); XP = mXP? mXP.value : 0;
+      LVL = calcLevel(XP);
+      renderHUD(); renderQuests();
+      // Load Habitica creds
+      const uid = await idbGet('creds','hab_uid'); const tok = await idbGet('creds','hab_token');
+      if(uid) document.getElementById('hab_uid').value = uid.value;
+      if(tok) document.getElementById('hab_token').value = tok.value;
+    }
+
+    function renderHUD(){
+      document.getElementById('hud_xp').textContent = XP.toString();
+      document.getElementById('hud_level').textContent = LVL.toString();
+      const next = xpForLevel(LVL+1)-xpForLevel(LVL);
+      const into = XP - xpForLevel(LVL);
+      const pct = Math.max(2, Math.min(100, Math.round(100*into/next)));
+      document.getElementById('hud_xpbar').style.width = pct + '%';
+      // Badges
+      const badges = [];
+      if(done("baseline.demand") && done("baseline.sources") && done("baseline.quality")) badges.push("Baseline");
+      if(done("treat.ssf") && done("treat.disinfect")) badges.push("Safe Treatment");
+      if(done("storage.size")) badges.push("Autonomy");
+      if(done("gov.roles") && done("gov.finance")) badges.push("Governance");
+      document.getElementById('hud_badges').innerHTML = badges.map(b=>`<span class="tag">🏅 ${b}</span>`).join(' ');
+    }
+    function done(id){ const row = document.querySelector(`[data-qid="${id}"] input[type="checkbox"]`); return row && row.checked; }
+
+    async function renderQuests(){
+      const wrap = document.getElementById('quests');
+      const quests = await idbAll('quests');
+      const sections = [...new Set(quests.map(q=>q.section))];
+      wrap.innerHTML = sections.map(sec=>{
+        const items = quests.filter(q=>q.section===sec);
+        return `<div class="card" style="margin-bottom:10px">
+          <h3>${sec}</h3>
+          <ul style="list-style:none; padding-left:0">
+            ${items.map(q=>`
+              <li data-qid="${q.id}" style="display:flex; align-items:flex-start; gap:10px; margin:8px 0">
+                <input type="checkbox" ${q.done?'checked':''} onchange="toggleQuest('${q.id}', ${q.xp})" />
+                <div style="flex:1">
+                  <div><strong>${q.title}</strong> <span class="muted">(+${q.xp} XP)</span> ${q.badge?`<span class="tag">🏅 ${q.badge}</span>`:''}</div>
+                  <div class="muted" style="font-size:13px">${q.detail}</div>
+                </div>
+              </li>
+            `).join('')}
+          </ul>
+        </div>`;
+      }).join('');
+    }
+
+    async function toggleQuest(id, xp){
+      const q = await idbGet('quests', id);
+      if(!q) return;
+      q.done = !q.done;
+      await idbSet('quests', q);
+      if(q.done){ XP += xp; } else { XP = Math.max(0, XP - xp); }
+      await idbSet('meta', {key:'xp', value:XP});
+      LVL = calcLevel(XP); renderHUD();
+    }
+
+    // Calculators
+    function calcWaterBudget(){
+      const p = +wb_people.value, d = +wb_lppd.value, days = +wb_days.value, f = +wb_fraction.value;
+      if(p<=0 || d<=0 || days<=0 || f<=0) return wb_out.textContent="Check inputs";
+      const cap = Math.ceil(p*d*days / f);
+      wb_out.textContent = `${cap.toLocaleString()} L capacity`;
+    }
+    function calcCatchment(){
+      const r=+cy_rain.value, a=+cy_area.value, c=+cy_coef.value, e=+cy_eff.value;
+      const liters = Math.max(0, r*a*c*e);
+      cy_out.textContent = `${Math.round(liters).toLocaleString()} L / year`;
+    }
+    function calcChlorine(){
+      const V = +cl_volL.value; // liters
+      const target = +cl_target.value; // mg/L desired
+      const pct = (+cl_pct.value)/100; // mass fraction
+      const rho = +cl_density.value; // g/mL
+      // mg/mL of active = pct * rho * 1000 (mg/g)
+      const mg_per_ml = pct * rho * 1000;
+      const mg_needed = V * target; // total mg
+      const ml = mg_needed / mg_per_ml;
+      cl_out.textContent = `${ml.toFixed(1)} mL bleach (starting estimate; verify residual after 30 min)`;
+    }
+
+    // Data export/import/wipe
+    async function exportData(){
+      const quests = await idbAll('quests'); const meta = await idbAll('meta'); const creds = await idbAll('creds');
+      const blob = new Blob([JSON.stringify({quests,meta,creds}, null, 2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='water-sovereignty-progress.json'; a.click();
+      setTimeout(()=>URL.revokeObjectURL(url), 5000);
+    }
+    async function wipeData(){
+      if(!confirm("Erase local progress and Habitica credentials?")) return;
+      const dbs = await indexedDB.databases?.() || [];
+      for(const d of dbs){ if(d.name===DB_NAME) indexedDB.deleteDatabase(DB_NAME); }
+      location.reload();
+    }
+  </script>
+
+  <script>
+    /* -------- Habitica integration (optional) -------- */
+    function habHeaders(){ 
+      const uid = document.getElementById('hab_uid').value.trim();
+      const token = document.getElementById('hab_token').value.trim();
+      if(uid && token){ idbSet('creds',{key:'hab_uid',value:uid}); idbSet('creds',{key:'hab_token',value:token}); }
+      return { 'x-api-user': uid, 'x-api-key': token, 'Content-Type':'application/json' };
+    }
+
+    async function habiticaPush(){
+      try{
+        const headers = habHeaders(); 
+        const quests = await idbAll('quests');
+        const todos = quests.map(q=>({
+          text: `[Water] ${q.title}`,
+          type: "todo",
+          notes: q.detail,
+          priority: (q.xp>=30)?2:1,
+          attributes: {str:0,int:0,con:0,per:0},
+          tags:[]
+        }));
+        for(const t of todos){
+          await fetch('https://habitica.com/api/v3/tasks/user', {method:'POST', headers, body:JSON.stringify(t)});
+        }
+        alert('Pushed tasks to Habitica.');
+      }catch(e){ alert('Habitica push failed. Check credentials and CORS.'); }
+    }
+
+    async function habiticaScoreAll(){
+      try{
+        const headers = habHeaders();
+        // naive: fetch user tasks, mark ones that match titles and done=true
+        const r = await fetch('https://habitica.com/api/v3/tasks/user', {headers});
+        const data = await r.json();
+        const tasks = data?.data||[];
+        const quests = await idbAll('quests');
+        for(const q of quests){
+          if(!q.done) continue;
+          const t = tasks.find(x=>x.type==='todo' && x.text === `[Water] ${q.title}` && !x.completed);
+          if(t){
+            await fetch(`https://habitica.com/api/v3/tasks/${t.id}/score/up`, {method:'POST', headers});
+          }
+        }
+        alert('Scored completed tasks.');
+      }catch(e){ alert('Habitica scoring failed.'); }
+    }
+  </script>
+
+  <script type="module">
+    /* -------- WebLLM (on-device) --------
+       Loads via ESM; if unavailable, we keep graceful fallback.
+    */
+    let engine = null, abortCtrl = null;
+    async function ensureEngine(){
+      if(engine) return engine;
+      try{
+        const mod = await import('https://esm.run/@mlc-ai/web-llm');
+        const { CreateMLCEngine } = mod;
+        engine = await CreateMLCEngine(
+          {model:"Llama-3-8B-Instruct-q4f16_1-MLC"},
+          { initProgressCallback: (p)=>{ document.getElementById('coach_out').textContent = `Loading: ${Math.round(p.progress*100)}%`; } }
+        );
+        document.getElementById('coach_out').textContent = "Ready.";
+      }catch(err){
+        document.getElementById('coach_out').textContent = "WebLLM not available (network or browser support). The guide still works.";
+      }
+      return engine;
+    }
+    window.coachAsk = async function(){
+      const textarea = document.getElementById('coach_input');
+      const out = document.getElementById('coach_out');
+      const prompt = textarea.value.trim();
+      if(!prompt){ out.textContent="Enter a prompt about your context."; return; }
+      const eng = await ensureEngine();
+      if(!eng){ return; }
+      abortCtrl = new AbortController(); out.textContent = "";
+      try{
+        const reply = await eng.chat.completions.create({
+          messages: [
+            {role:"system", content:"You are a water-sovereignty engineer. Use conservative, safety-first heuristics and suggest checklists."},
+            {role:"user", content: prompt}
+          ],
+          temperature: 0.2,
+          stream: true
+        }, { signal: abortCtrl.signal });
+        for await (const chunk of reply){
+          const token = chunk.choices?.[0]?.delta?.content || "";
+          out.textContent += token;
+        }
+      }catch(e){ if(e.name!=='AbortError'){ out.textContent += "\n[stopped or failed]"; } }
+    }
+    window.coachStop = function(){ if(abortCtrl){ abortCtrl.abort(); } }
+
+    // Expose hooks used by non-module scripts above
+    window.addEventListener('DOMContentLoaded', loadState);
+    window.calcWaterBudget = calcWaterBudget;
+    window.calcCatchment = calcCatchment;
+    window.calcChlorine = calcChlorine;
+  </script>
+
+  <script>
+    /* Minimal service worker for offline of this page */
+    if('serviceWorker' in navigator){
+      const swCode = `
+        const CACHE = 'water-sovereignty-v1';
+        self.addEventListener('install', e=>{
+          e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./'])));
+        });
+        self.addEventListener('fetch', e=>{
+          e.respondWith(caches.match(e.request).then(r=> r || fetch(e.request).then(res=>{
+            const url = new URL(e.request.url);
+            if(url.origin===location.origin){ const copy = res.clone(); caches.open(CACHE).then(c=>c.put(e.request, copy)); }
+            return res;
+          }).catch(()=> caches.match('./'))));
+        });
+      `;
+      const blob = new Blob([swCode], {type:'text/javascript'});
+      const swurl = URL.createObjectURL(blob);
+      navigator.serviceWorker.register(swurl, {scope:'./'});
+    }
+  </script>
+</body>
+</html>

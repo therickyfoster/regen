@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Global South Children Blueprint · Malta’s Reflection → Africa’s Follow‑up</title>
+  <meta name="description" content="Feature‑rich policy+implementation blueprint for children in the Global South with animated galactic background, offline‑first support, and exportable toolkit." />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="manifest" href="#app-manifest" id="manifest-link" />
+  <meta name="theme-color" content="#0b1224" />
+  <style>
+    :root{
+      --bg: #070b16; --ink:#f3f6ff; --muted:#a9b3d3; --accent:#77e2ff; --accent-2:#8fffcc; --card:#0f1730;
+      --ok:#37d67a; --warn:#ffce54; --bad:#ff6b6b; --focus: #ffd166;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    html,body{height:100%;}
+    body{
+      margin:0; color:var(--ink); background:var(--bg); font: 16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      overflow-x:hidden;
+    }
+    /* Animated galactic backdrop */
+    canvas#galaxy{position:fixed; inset:0; z-index:-1; background: radial-gradient(1200px 600px at 20% 10%, #14203f 0%, #070b16 60%, #050914 100%);}    
+    .star{ position:absolute; width:2px; height:2px; background:#fff; border-radius:50%; opacity:.75 }
+
+    header.top{
+      position:sticky; top:0; z-index:5; backdrop-filter: blur(8px);
+      background: linear-gradient(180deg, rgba(7,11,22,.9), rgba(7,11,22,.55));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .wrap{ max-width:1100px; margin:auto; padding:24px }
+    nav.toolbar{ display:flex; gap:12px; align-items:center; flex-wrap:wrap }
+    nav.toolbar .brand{ font-weight:700; letter-spacing:.2px }
+    nav.toolbar .pill{ background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); border-radius:999px; padding:8px 12px }
+    nav.toolbar input[type="search"]{ flex:1 1 260px; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); color:var(--ink) }
+    nav.toolbar button, .btn{ cursor:pointer; padding:10px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.18); background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); color:var(--ink); box-shadow:var(--shadow) }
+    nav.toolbar .skip{ position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden }
+    nav.toolbar .skip:focus{ position:static; width:auto; height:auto; padding:8px 10px; outline:2px dashed var(--focus) }
+
+    .notice{ background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.15); padding:14px 16px; border-radius:14px; margin:18px 0 }
+
+    main{ position:relative; z-index:1 }
+    .grid{ display:grid; grid-template-columns: 320px 1fr; gap:20px }
+    .panel{ background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:18px; padding:18px; box-shadow: var(--shadow) }
+    .toc{ position:sticky; top:84px; max-height: calc(100vh - 120px); overflow:auto }
+    .toc a{ display:block; color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:10px }
+    .toc a:hover, .toc a:focus{ background: rgba(255,255,255,.08); color:var(--ink) }
+
+    h1{ font-size:clamp(28px, 2.6vw, 44px); margin:18px 0 6px }
+    h2{ font-size:clamp(20px, 1.8vw, 30px); margin:18px 0 6px }
+    h3{ font-size:clamp(18px, 1.3vw, 22px); margin:16px 0 4px; color: var(--accent) }
+    p, li{ color: #dbe3ff }
+    code.inline{ background: rgba(255,255,255,.08); padding:2px 6px; border-radius:6px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace }
+
+    details{ border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px 14px; margin:14px 0; background: rgba(255,255,255,.04) }
+    details[open]{ background: rgba(255,255,255,.06) }
+    summary{ cursor:pointer; font-weight:600 }
+
+    .kpi{ display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; margin:16px 0 }
+    .card{ background: rgba(10,20,40,.65); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:14px }
+    .card .val{ font-size:20px; font-weight:700 }
+
+    .flex{ display:flex; gap:12px; flex-wrap:wrap; align-items:center }
+    .badge{ border:1px solid rgba(255,255,255,.18); border-radius:999px; padding:4px 10px; font-size:12px; color:var(--muted) }
+
+    footer{ margin:40px 0; color:var(--muted); text-align:center }
+
+    @media (max-width: 920px){ .grid{ grid-template-columns: 1fr } .toc{ position:relative; top:0; max-height:none } .kpi{ grid-template-columns: repeat(2, 1fr) } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <canvas id="galaxy" aria-hidden="true"></canvas>
+  <header class="top" role="banner">
+    <div class="wrap">
+      <nav class="toolbar" aria-label="Top toolbar">
+        <div class="brand" aria-label="Blueprint title">Global South Children · Malta → Africa</div>
+        <span class="pill" title="Offline‑first enabled">Offline‑first</span>
+        <input id="search" type="search" placeholder="Search sections, keywords… (e.g., ‘micronutrients’, ‘IDPs’, ‘cash transfers’)" aria-label="Search the blueprint" />
+        <button id="expandAll" class="btn" title="Expand all sections">Expand all</button>
+        <button id="collapseAll" class="btn" title="Collapse all sections">Collapse all</button>
+        <button id="export" class="btn" title="Print / Save as PDF">Export</button>
+      </nav>
+      <div class="notice" role="note">
+        <strong>Frame:</strong> Design for children in the Global South through a two‑lens approach—<em>Malta’s reflection</em> (post‑1945 gains + vulnerabilities of a small state) and <em>Africa’s follow‑up</em> (scale, diversity, and 21st‑century shocks). Central risks: malnutrition, hunger, conflict displacement. Gains since 1945 are real—but fragile.
+      </div>
+      <section class="kpi" aria-label="Key indicators">
+        <div class="card" title="Proxy demonstration values; replace with live data as desired."><div class="label">Child Stunting ↓</div><div class="val" id="kpi-stunting">–</div><div class="badge">target: <b>–3%/yr</b></div></div>
+        <div class="card"><div class="label">Acute Malnutrition (wasting) ↓</div><div class="val" id="kpi-wasting">–</div><div class="badge">target: <b>–2%/yr</b></div></div>
+        <div class="card"><div class="label">Out‑of‑School Children ↓</div><div class="val" id="kpi-oos">–</div><div class="badge">target: <b>–5%/yr</b></div></div>
+        <div class="card"><div class="label">Displaced Children Integrated ↑</div><div class="val" id="kpi-idp">–</div><div class="badge">target: <b>+15%/yr</b></div></div>
+      </section>
+    </div>
+  </header>
+
+  <main id="main" class="wrap" role="main">
+    <div class="grid">
+      <aside class="panel toc" aria-label="Table of contents">
+        <h3>Contents</h3>
+        <nav id="tocNav"></nav>
+        <hr />
+        <div>
+          <h3>Quick tools</h3>
+          <button class="btn" id="installPWA" title="Install as app (if browser supports)">Install App</button>
+          <button class="btn" id="clearCache" title="Clear offline cache">Clear Cache</button>
+        </div>
+      </aside>
+
+      <article id="content" class="panel" aria-label="Blueprint content">
+        <h1 id="intro">Blueprint: Children in the Global South</h1>
+        <p>
+          This blueprint stitches together historic lessons (post‑1945 recovery), small‑state agility (Malta’s reflection), and continental scale (Africa’s follow‑up) into a child‑first strategy. The core thesis: <em>zero hunger, safe learning, and dignified mobility</em> are the load‑bearing beams for intergenerational flourishing. Everything else is scaffolding.
+        </p>
+
+        <details id="principles" open>
+          <summary><h2>1) First Principles & Narrative</h2></summary>
+          <p><strong>Zero‑harm</strong> (do no harm; conflict‑sensitive design), <strong>universality with local fit</strong> (minimum service guarantees; local language/culture), <strong>child agency</strong> (participatory co‑design), <strong>continuity</strong> (shock‑resilient systems), and <strong>proof over promises</strong> (transparent indicators, independent verification).</p>
+          <ul>
+            <li><em>Malta’s reflection:</em> leverage small‑island governance agility, diaspora networks, and maritime logistics to build robust supply nodes and child guarantees.</li>
+            <li><em>Africa’s follow‑up:</em> continental scale means heterogeneity by design; think federated blueprints, not one template.</li>
+          </ul>
+        </details>
+
+        <details id="health">
+          <summary><h2>2) Health & Nutrition</h2></summary>
+          <h3>2.1 Nutrition core</h3>
+          <p>Universal <em>nutrient floor</em> for ages 0–5 and pregnant/lactating women: diversified diets, fortified staples (iron, iodine, vitamin A, folate), ready‑to‑use therapeutic foods for SAM (severe acute malnutrition), and deworming. School meals as the daily anchor for ages 5–18.</p>
+          <h3>2.2 Water, Sanitation, Hygiene (WASH)</h3>
+          <p>Every school and clinic: safe water source, hand‑washing stations, menstrual hygiene support, fecal‑sludge management. Pair WASH with cholera/diarrheal disease early‑warning via community health workers + SMS/USSD.</p>
+          <h3>2.3 Primary care continuity</h3>
+          <p>Task‑shifting to community health workers; vaccine cold‑chain reliability; integrated child illness management; digital child cards (offline‑capable) to keep records through displacement.</p>
+          <details><summary>Implementation stack</summary>
+            <ul>
+              <li>Micronutrient supply mapping + last‑mile logistics (geo‑tagged).</li>
+              <li>School meal local procurement (farmer co‑ops; climate‑smart crops).</li>
+              <li>mHealth for growth monitoring (height‑for‑age, MUAC), offline sync.</li>
+            </ul>
+          </details>
+        </details>
+
+        <details id="education">
+          <summary><h2>3) Education & Skills</h2></summary>
+          <p>Guarantee <em>continuity of learning</em> across crises: compact curricula, radio/SMS backup, community classrooms, and accelerated learning for children who’ve missed years.</p>
+          <ul>
+            <li>Universal foundational literacy & numeracy by age 10; mother‑tongue first, scaffolded to bilingual mastery.</li>
+            <li>Low‑bandwidth digital kits: offline content bundles, device libraries, safe‑mode browsers for kids.</li>
+            <li>Secondary pathways: TVET (technical/vocational), apprenticeships, entrepreneurship modules.</li>
+          </ul>
+          <details><summary>Refugee/IDP inclusion</summary>
+            <p>Recognize qualifications across borders; flexible placement; trauma‑informed classrooms; psychosocial support integrated, not add‑on.</p>
+          </details>
+        </details>
+
+        <details id="safety">
+          <summary><h2>4) Protection & Safe Mobility</h2></summary>
+          <p>Child‑sensitive displacement systems: safe‑route mapping, family tracing, anti‑trafficking hotlines, case management, and guardianship frameworks.</p>
+          <ul>
+            <li>Birth registration & portable identity tokens (privacy‑preserving, offline‑first).</li>
+            <li>Community‑led protection committees with escalation SOPs.</li>
+            <li>Safeguarding by design in shelters, schools, markets, and transport.</li>
+          </ul>
+        </details>
+
+        <details id="governance">
+          <summary><h2>5) Governance & Finance</h2></summary>
+          <p>Codify a <em>Child Minimum Services Guarantee</em>: nutrition, primary health, learning continuity, protection casework, and safe water within a 2‑hour travel window.</p>
+          <ul>
+            <li>Results‑linked financing for verified child outcomes.</li>
+            <li>Social protection floor: child grants, school‑meal entitlements, shock‑responsive cash.</li>
+            <li>Open contracts for food & health supply chains; citizen audit portals.</li>
+          </ul>
+        </details>
+
+        <details id="economy">
+          <summary><h2>6) Local Economies: Food & Work</h2></summary>
+          <p>Children thrive when households are food‑secure and caregivers have stable income. Pair <em>school meals</em> with <em>local purchase</em> from farmer co‑ops; promote micro‑enterprise around foods, WASH hardware, school uniforms, and learning kits.</p>
+          <ul>
+            <li>Climate‑smart crops, seed banks, community irrigation; cold storage and solar drying.</li>
+            <li>Women‑led micro‑enterprises with ROSCA/SHG integration; market‑day child care stations.</li>
+            <li>Cash‑for‑work restoring clinics, schools, and water points post‑shock.</li>
+          </ul>
+        </details>
+
+        <details id="technology">
+          <summary><h2>7) Technology & Data (Offline‑First)</h2></summary>
+          <p>Minimal‑data, privacy‑respecting systems: no surveillance creep. Child records and service logs must work offline and sync opportunistically.</p>
+          <ul>
+            <li>Open standards; CSV/JSON exports; human‑readable backups.</li>
+            <li>USSD/SMS service discovery; radio content mirrors; device meshes in outage zones.</li>
+            <li>Kid‑safe digital spaces; content whitelists curated with educators.</li>
+          </ul>
+        </details>
+
+        <details id="culture">
+          <summary><h2>8) Culture, Languages, Continuity</h2></summary>
+          <p>Children are not only future workers; they’re carriers of language, land knowledge, and arts. Embed cultural content in learning kits; support community storytelling festivals and intergenerational clubs.</p>
+        </details>
+
+        <details id="cooperation">
+          <summary><h2>9) Regional & Global Cooperation</h2></summary>
+          <ul>
+            <li>AU/EU/UN platforms for pooled procurement of micronutrients and cold‑chain hardware.</li>
+            <li>Mutual recognition of child learning modules across borders (for mobile families).</li>
+            <li>Disaster compacts that protect schooling and child grants during fiscal shocks.</li>
+          </ul>
+        </details>
+
+        <details id="timeline">
+          <summary><h2>10) Action Timeline</h2></summary>
+          <ul>
+            <li><strong>First 90 days:</strong> map nutrition/WASH gaps; secure school‑meal supply; stand up USSD helplines; IDP learning hubs.</li>
+            <li><strong>Year 1:</strong> child grants rollout; cold chain stabilization; accelerated learning cohorts; ROSCA/SHG‑linked micro‑enterprise.</li>
+            <li><strong>Years 2–3:</strong> universal foundational literacy; stunting reduction >5 percentage points in hardest‑hit districts; interoperable records across borders.</li>
+          </ul>
+        </details>
+
+        <details id="indicators">
+          <summary><h2>11) Indicators & Verification</h2></summary>
+          <p>Priority indicators with sample disaggregation (sex, age, disability, displacement status, district):</p>
+          <ul>
+            <li>Stunting (HAZ<-2), Wasting (WHZ<-2), Anaemia (Hb)</li>
+            <li>School attendance/continuity; accelerated learning completion</li>
+            <li>Child protection case resolution time; reunifications</li>
+            <li>Access to safe water at school/clinic; functional latrines with MHM</li>
+            <li>Household food security (FIES) and shock‑responsive cash coverage</li>
+          </ul>
+          <details><summary>JSON schema scaffolds</summary>
+            <pre aria-label="Indicator schema" style="white-space:pre-wrap"><code class="inline" id="schema">{
+  "Indicator": {
+    "id": "string",
+    "name": "string",
+    "definition": "string",
+    "unit": "string",
+    "disaggregation": ["sex","age","disability","displacement","district"],
+    "collection_method": "survey|admin|sensor|mixed",
+    "frequency": "monthly|quarterly|annual",
+    "source": "ministry|ngo|un|mixed"
+  },
+  "Facility": {
+    "id": "string",
+    "type": "school|clinic|water_point|shelter",
+    "geo": {"lat":0,"lng":0},
+    "services": ["meals","vaccines","wash","accelerated_learning"],
+    "accessibility": {"ramps": true, "toilets": true}
+  },
+  "Case": {
+    "id": "string",
+    "child_id": "string",
+    "type": "protection|health|education",
+    "status": "open|closed",
+    "opened_at": "ISO8601",
+    "closed_at": "ISO8601",
+    "notes": "string"
+  }
+}</code></pre>
+          </details>
+        </details>
+
+        <details id="toolkit">
+          <summary><h2>12) Rapid‑Start Toolkit</h2></summary>
+          <ul>
+            <li>Templates: child grant SOP, school‑meal local procurement, accelerated learning module map, IDP learning hub layout.</li>
+            <li>Checklists: cold‑chain audit; WASH minimums; safeguarding in shelters/schools.</li>
+            <li>Community scripts: radio spots on nutrition & schooling continuity; hotline scripts.</li>
+          </ul>
+        </details>
+
+        <details id="risks">
+          <summary><h2>13) Risks & Antico‑option</h2></summary>
+          <ul>
+            <li><strong>Politicization of aid:</strong> publish contracts, rotate vendors, citizen oversight.</li>
+            <li><strong>Digital harm/surveillance:</strong> minimize data, encrypt at rest, tiered access, no facial recognition for children.</li>
+            <li><strong>Supply shocks:</strong> multi‑source micronutrients; regional buffers; diversified crops.</li>
+          </ul>
+        </details>
+
+        <details id="credits">
+          <summary><h2>14) How to adapt this file</h2></summary>
+          <p>This is a single‑file, offline‑capable blueprint. Host from any HTTPS server. To customize: edit sections, add indicator rows, connect to your datasets, or inject real KPIs via the <code class="inline">window.DATA</code> object below.</p>
+          <pre><code class="inline">window.DATA = {
+  kpi: { stunting: "−", wasting: "−", oos: "−", idp: "−" },
+  // swap with live values (strings) or fetch() logic in <script> below
+};</code></pre>
+        </details>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">Made with care for children everywhere · This file runs offline · Press <b>Export</b> to save as PDF.</div>
+  </footer>
+
+  <!-- Minimal manifest embedded via data URL -->
+  <script id="app-manifest" type="application/manifest">{
+    "name": "Global South Children Blueprint",
+    "short_name": "GSC Blueprint",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#070b16",
+    "theme_color": "#0b1224",
+    "icons": []
+  }</script>
+
+  <script>
+  // ===== Animated Galactic Background (Canvas starfield + nebula twinkle) =====
+  (function galaxy(){
+    const c = document.getElementById('galaxy');
+    const ctx = c.getContext('2d');
+    let w, h, stars=[]; const N=420; // playful but light
+    function resize(){ w = c.width = innerWidth; h = c.height = innerHeight; }
+    addEventListener('resize', resize, {passive:true}); resize();
+    for(let i=0;i<N;i++){ stars.push({x:Math.random()*w, y:Math.random()*h, z:Math.random()*1.2+0.2, p:Math.random()*6.283}) }
+    function step(t){
+      ctx.clearRect(0,0,w,h);
+      // faint nebula haze
+      const g = ctx.createRadialGradient(w*0.18,h*0.2,60, w*0.5,h*0.6, Math.max(w,h));
+      g.addColorStop(0,'rgba(119,226,255,.08)'); g.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
+      // stars
+      for(const s of stars){
+        const tw = 0.5 + Math.sin(t/700 + s.p)*0.5; // twinkle
+        ctx.fillStyle = `rgba(255,255,255,${0.5+0.5*tw})`;
+        ctx.fillRect(s.x, s.y, s.z*1.6, s.z*1.6);
+        s.x -= s.z*0.06; if(s.x< -2){ s.x = w+2; s.y = Math.random()*h }
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  })();
+
+  // ===== Accessible TOC generation and search =====
+  (function toc(){
+    const nav = document.getElementById('tocNav');
+    const ids = [...document.querySelectorAll('article details, article h1')];
+    nav.innerHTML = ids.map(el=>{
+      const id = el.id || (el.querySelector('h2,h1')||{}).id || '';
+      const title = el.querySelector('h2,h1')?.textContent || 'Section';
+      return `<a href="#${id}" data-id="${id}">★ ${title}</a>`;
+    }).join('');
+
+    // search filter
+    const input = document.getElementById('search');
+    input.addEventListener('input', e=>{
+      const q = e.target.value.toLowerCase();
+      document.querySelectorAll('article details').forEach(d=>{
+        const txt = d.innerText.toLowerCase();
+        d.style.display = txt.includes(q) ? '' : 'none';
+      });
+    });
+
+    // expand / collapse
+    document.getElementById('expandAll').onclick = ()=>document.querySelectorAll('article details').forEach(d=>d.open=true);
+    document.getElementById('collapseAll').onclick = ()=>document.querySelectorAll('article details').forEach(d=>d.open=false);
+  })();
+
+  // ===== Export (print/PDF) =====
+  document.getElementById('export').addEventListener('click', ()=> window.print());
+
+  // ===== Fake KPI demo values (replace with live fetch) =====
+  window.DATA = window.DATA || { kpi: { stunting: '—', wasting: '—', oos: '—', idp: '—' } };
+  (function kpi(){
+    const {kpi} = window.DATA; // plug real values here
+    document.getElementById('kpi-stunting').textContent = kpi.stunting;
+    document.getElementById('kpi-wasting').textContent = kpi.wasting;
+    document.getElementById('kpi-oos').textContent = kpi.oos;
+    document.getElementById('kpi-idp').textContent = kpi.idp;
+  })();
+
+  // ===== PWA / Offline support (single-file trick using Blob SW) =====
+  (function offline(){
+    if(!('serviceWorker' in navigator)) return;
+
+    // Build a tiny SW as a Blob so we stay single-file.
+    const scope = new URL('.', location.href).href; // current directory
+    const swCode = `self.addEventListener('install',e=>{ self.skipWaiting(); e.waitUntil((async()=>{ const c=await caches.open('gsc-blueprint-v1'); try{ await c.addAll(['./','index.html']); }catch(e){ /* best-effort for subpaths */ } })()) });
+self.addEventListener('activate',e=>{ e.waitUntil(self.clients.claim()) });
+self.addEventListener('fetch',e=>{ const url = new URL(e.request.url); if(url.origin===location.origin){ e.respondWith((async()=>{ const c=await caches.open('gsc-blueprint-v1'); const cached=await c.match(e.request); if(cached) return cached; try{ const res = await fetch(e.request); if(e.request.method==='GET' && res.ok){ c.put(e.request, res.clone()); } return res; }catch(err){ return cached || new Response('<h1>Offline</h1><p>This page is cached for offline use.</p>', {headers:{'Content-Type':'text/html'}}); } })()); } });`;
+
+    const blob = new Blob([swCode], {type:'text/javascript'});
+    const swUrl = URL.createObjectURL(blob);
+    navigator.serviceWorker.register(swUrl, {scope}).catch(console.error);
+
+    // Install prompt
+    document.getElementById('installPWA').addEventListener('click',()=>{
+      alert('To install: use your browser\'s “Install App” option in the menu.');
+    });
+
+    // Clear cache tool
+    document.getElementById('clearCache').addEventListener('click', async()=>{
+      const keys = await caches.keys();
+      await Promise.all(keys.filter(k=>k.startsWith('gsc-blueprint')).map(k=>caches.delete(k)));
+      alert('Offline cache cleared. Reload to rebuild.');
+    });
+
+    // Embed manifest via data URL for single-file
+    const manifestEl = document.getElementById('app-manifest');
+    const link = document.getElementById('manifest-link');
+    const manifestURL = URL.createObjectURL(new Blob([manifestEl.textContent], {type:'application/manifest+json'}));
+    link.setAttribute('href', manifestURL);
+  })();
+  </script>
+</body>
+</html>

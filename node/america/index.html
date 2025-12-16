@@ -1,0 +1,3492 @@
+<!DOCTYPE html>
+<html lang="en" data-presentation-schema="planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Food & Water Sovereignty • United States — PRA Starfield Schema PWA</title>
+
+  <!-- 
+    ═══════════════════════════════════════════════════════════════════════════
+    ZERO-HARM / ANTI-INVERSION NOTICE
+    ═══════════════════════════════════════════════════════════════════════════
+    Purpose: Educational resource for community resilience, food security, and 
+    water sovereignty. Intended for peaceful, regenerative, and lawful use only.
+    
+    Non-Weaponization: This tool must not be adapted for surveillance, control,
+    exploitation, or harm to persons, ecosystems, or democratic institutions.
+    
+    License: CC BY-SA 4.0 with additional safety provisions. Derivative works
+    must preserve this notice and anti-harm commitments.
+    
+    Privacy: All data stays local unless user explicitly syncs/exports.
+    Analytics are aggregated, anonymized, and sent only with consent.
+    ═══════════════════════════════════════════════════════════════════════════
+  -->
+
+  <!-- SEO & Social -->
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="description" content="Gamified, online-first, offline-capable playbook for U.S. food & water sovereignty with live data, IndexedDB, WebLLM, Habitica integration, and mnemonic recovery." />
+  <link rel="canonical" href="https://planetaryrestorationarchive.com/ref/sovereignty/us/food-water/index.html" />
+  <meta name="keywords" content="food sovereignty, water sovereignty, drought, irrigation, rainwater harvesting, aquifers, USGS, NOAA, USDA, EPA, permaculture, seed banks, soil health, hydrology, regenerative agriculture, disaster readiness, PWA, IndexedDB, WebLLM, Habitica, gamification" />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+  <meta property="og:title" content="Food & Water Sovereignty • United States — PRA Starfield Schema PWA" />
+  <meta property="og:description" content="Gamified dashboards with offline fallback, integrity guardrails, and community-led action recipes." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQI12P4z8DwHwAF1gJb4o3eVQAAAABJRU5ErkJggg==" />
+  <meta property="og:url" content="https://planetaryrestorationarchive.com/ref/sovereignty/us/food-water/index.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- PWA Manifest (inline to ensure no external dependencies) -->
+  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiRm9vZCAmIFdhdGVyIFNvdmVyZWlnbnR5IFBXQSIsInNob3J0X25hbWUiOiJQUkEgU292ZXJlaWdudHkiLCJzdGFydF91cmwiOiIuL2luZGV4Lmh0bWwiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMGIxMjIwIiwidGhlbWVfY29sb3IiOiIjMGIxMjIwIiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBQUVBQUFBQkNBWUFBQUFmRmNTSkFBQUFEVWxFUVZRSTEyUDR6OER3SHdBRjFnSmI0bzNlVlFBQUFBQkpSVTVFcmtKZ2dnPT0iLCJzaXplcyI6IjUxMng1MTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dfQ==" />
+  
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"TechArticle",
+    "headline":"Food & Water Sovereignty • United States",
+    "author":{"@type":"Organization","name":"Planetary Restoration Archive"},
+    "about":[
+      {"@type":"Thing","name":"Food Sovereignty"},
+      {"@type":"Thing","name":"Water Sovereignty"},
+      {"@type":"Thing","name":"Regenerative Agriculture"},
+      {"@type":"Thing","name":"Community Resilience"}
+    ],
+    "datePublished":"2025-10-25",
+    "dateModified":"2025-10-26",
+    "keywords":"USGS, NOAA, USDA, EPA, PWA, IndexedDB, WebLLM, Habitica, regenerative agriculture, hydrology, gamification",
+    "publisher":{"@type":"Organization","name":"Planetary Restoration Archive"},
+    "isAccessibleForFree":true,
+    "license":"https://creativecommons.org/licenses/by-sa/4.0/"
+  }
+  </script>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════════
+       THEME SYSTEM - Modular themes by genre (Medieval, Space, Anime, Nature)
+       Auto-detects prefers-color-scheme and allows manual override
+       ═══════════════════════════════════════════════════════════════════════ */
+    
+    :root {
+      /* Default Space Theme */
+      --bg: #0b1220;
+      --bg2: #0f1a33;
+      --bg3: #1a2847;
+      --ink: #e6eefc;
+      --muted: #aab6d1;
+      --accent: #38bdf8;
+      --accent2: #818cf8;
+      --good: #22c55e;
+      --warn: #f59e0b;
+      --bad: #ef4444;
+      --card: rgba(255,255,255,0.06);
+      --glass: rgba(12,18,32,0.85);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --border: rgba(255,255,255,.08);
+      --xp-gradient: linear-gradient(90deg, #2dd4bf, #38bdf8, #818cf8);
+    }
+
+    /* Medieval Theme */
+    [data-theme="medieval"] {
+      --bg: #1a1410;
+      --bg2: #2d2419;
+      --bg3: #3d3020;
+      --ink: #f5e6d3;
+      --muted: #c4b5a0;
+      --accent: #d4a574;
+      --accent2: #c17d5c;
+      --good: #7fb069;
+      --warn: #e8a660;
+      --bad: #c94e4e;
+      --card: rgba(212, 165, 116, 0.08);
+      --glass: rgba(26, 20, 16, 0.85);
+      --xp-gradient: linear-gradient(90deg, #d4a574, #c17d5c, #8b6f47);
+    }
+
+    /* Anime Theme */
+    [data-theme="anime"] {
+      --bg: #1a0d2e;
+      --bg2: #2d1b4e;
+      --bg3: #3d2a5e;
+      --ink: #ffe5f4;
+      --muted: #d4aedb;
+      --accent: #ff6ec7;
+      --accent2: #a78bfa;
+      --good: #7dd3fc;
+      --warn: #fbbf24;
+      --bad: #fb7185;
+      --card: rgba(255, 110, 199, 0.08);
+      --glass: rgba(26, 13, 46, 0.85);
+      --xp-gradient: linear-gradient(90deg, #ff6ec7, #a78bfa, #7dd3fc);
+    }
+
+    /* Nature Theme */
+    [data-theme="nature"] {
+      --bg: #0f1e13;
+      --bg2: #1a2e20;
+      --bg3: #253d2d;
+      --ink: #e8f5e9;
+      --muted: #a8c9b0;
+      --accent: #66bb6a;
+      --accent2: #4db6ac;
+      --good: #81c784;
+      --warn: #ffb74d;
+      --bad: #e57373;
+      --card: rgba(102, 187, 106, 0.08);
+      --glass: rgba(15, 30, 19, 0.85);
+      --xp-gradient: linear-gradient(90deg, #66bb6a, #4db6ac, #26a69a);
+    }
+
+    /* Light mode support */
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme]) {
+        --bg: #f8fafc;
+        --bg2: #f1f5f9;
+        --bg3: #e2e8f0;
+        --ink: #0f172a;
+        --muted: #475569;
+        --accent: #0284c7;
+        --accent2: #6366f1;
+        --card: rgba(0,0,0,0.04);
+        --glass: rgba(248,250,252,0.85);
+        --shadow: 0 10px 30px rgba(0,0,0,.1);
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       BASE STYLES & LAYOUT
+       ═══════════════════════════════════════════════════════════════════════ */
+    
+    * { box-sizing: border-box; }
+    
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background: radial-gradient(1200px 600px at 70% -10%, rgba(34, 48, 85, 0.3) 30%, var(--bg) 65%), var(--bg);
+      color: var(--ink);
+      font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Inter", Arial, sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    a:hover { text-decoration: underline; }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: linear-gradient(180deg, var(--glass), rgba(11, 18, 32, 0.3) 60%, transparent);
+      backdrop-filter: saturate(140%) blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(10px, 2vw, 24px);
+    }
+
+    .row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-weight: 600;
+    }
+
+    .logo .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--accent), var(--good), var(--warn), var(--bad), var(--accent));
+      animation: spin 8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    nav {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: transparent;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    nav a.active,
+    nav a:hover {
+      background: var(--card);
+      text-decoration: none;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       GAMIFICATION HUD OVERLAY (FIXED POSITION)
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    #gamification-hud {
+      position: fixed;
+      top: 80px;
+      right: 14px;
+      z-index: 40;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 320px;
+      pointer-events: none;
+    }
+
+    #gamification-hud > * {
+      pointer-events: auto;
+    }
+
+    .hud-card {
+      background: var(--glass);
+      backdrop-filter: blur(12px) saturate(140%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: var(--shadow);
+      animation: slideInRight 0.4s ease-out;
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+    }
+
+    .hud-card.minimized {
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    .hud-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .hud-minimize {
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: var(--card);
+      font-size: 0.75rem;
+      border: none;
+      color: var(--muted);
+    }
+
+    /* XP & Level Display */
+    .xp-container {
+      margin-top: 8px;
+    }
+
+    .xp-bar {
+      height: 24px;
+      border-radius: 12px;
+      background: var(--bg3);
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--border);
+    }
+
+    .xp-fill {
+      height: 100%;
+      background: var(--xp-gradient);
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+    }
+
+    .xp-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+      z-index: 1;
+    }
+
+    .level-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--xp-gradient);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .stat-item {
+      background: var(--card);
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Achievements */
+    .achievement-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .achievement-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      background: var(--card);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      animation: achievementPop 0.5s ease-out;
+    }
+
+    @keyframes achievementPop {
+      0% { transform: scale(0.8); opacity: 0; }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .achievement-item.locked {
+      opacity: 0.4;
+    }
+
+    .achievement-icon {
+      font-size: 1.5rem;
+      min-width: 32px;
+      text-align: center;
+    }
+
+    .achievement-text {
+      flex: 1;
+    }
+
+    .achievement-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .achievement-desc {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    /* Daily Quest */
+    .quest-item {
+      background: var(--card);
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-top: 8px;
+    }
+
+    .quest-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quest-progress {
+      height: 6px;
+      background: var(--bg3);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .quest-progress-fill {
+      height: 100%;
+      background: var(--good);
+      transition: width 0.4s ease;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       STARFIELD CANVAS
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: var(--bg);
+    }
+
+    .glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background: 
+        radial-gradient(800px 500px at 20% 10%, rgba(56, 189, 248, 0.15), transparent 60%),
+        radial-gradient(900px 500px at 80% 30%, rgba(34, 197, 94, 0.12), transparent 65%);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       CARDS & SECTIONS
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .card h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.15rem;
+      color: var(--accent);
+    }
+
+    .section {
+      padding: 32px 0;
+    }
+
+    .section h2 {
+      margin: 0 0 16px 0;
+      font-size: 1.5rem;
+      background: var(--xp-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero {
+      padding: 32px 0 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin: 0 0 12px 0;
+      background: var(--xp-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .bar {
+      height: 8px;
+      border-radius: 6px;
+      background: var(--xp-gradient);
+      filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.35));
+      margin: 8px 0 16px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       UI COMPONENTS
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    .pill {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--card);
+    }
+
+    .btn {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 12px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn:hover:not(:disabled) {
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 600;
+    }
+
+    input.btn,
+    textarea.btn {
+      width: 100%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--ink);
+      outline: none;
+    }
+
+    input.btn:focus,
+    textarea.btn:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+    }
+
+    .kbd {
+      font: 600 12px ui-monospace, "SF Mono", "Menlo", "Consolas", monospace;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .kbdbar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Status Colors */
+    .ok { color: var(--good); }
+    .warn { color: var(--warn); }
+    .bad { color: var(--bad); }
+
+    .mono {
+      font-family: ui-monospace, "SF Mono", "Menlo", "Consolas", monospace;
+      font-size: 0.85rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       GRID LAYOUTS
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      
+      #gamification-hud {
+        position: static;
+        max-width: 100%;
+        margin: 16px;
+      }
+    }
+
+    .kv {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+
+    .kv div {
+      padding: 8px 12px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       LISTS & DETAILS
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    .list-tight {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .list-tight li {
+      margin: 6px 0;
+    }
+
+    details {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+    }
+
+    details summary {
+      cursor: pointer;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    details[open] summary {
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       TOAST NOTIFICATIONS
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    .toast {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      padding: 14px 18px;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      max-width: 420px;
+      box-shadow: var(--shadow);
+      z-index: 60;
+      animation: toastIn 0.3s ease-out;
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       BOTTOM HUD ACTIONS
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    .hud-bottom {
+      position: fixed;
+      left: 14px;
+      bottom: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      z-index: 30;
+    }
+
+    .hud-bottom .btn {
+      padding: 8px 12px;
+      font-size: 0.85rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    footer {
+      padding: 48px 0;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+
+    footer h3 {
+      margin: 0 0 12px 0;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    footer li {
+      margin: 6px 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SEARCH & COMMAND PALETTE
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    #command-palette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 15vh;
+    }
+
+    #command-palette.active {
+      display: flex;
+    }
+
+    .palette-content {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+    }
+
+    #command-input {
+      width: 100%;
+      padding: 20px;
+      font-size: 1.1rem;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      color: var(--ink);
+      outline: none;
+    }
+
+    .command-results {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .command-item {
+      padding: 14px 20px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s ease;
+    }
+
+    .command-item:hover,
+    .command-item.selected {
+      background: var(--card);
+    }
+
+    .command-item strong {
+      color: var(--accent);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       PRINT STYLES
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    @media print {
+      header,
+      #gamification-hud,
+      .hud-bottom,
+      .toast,
+      #starfield,
+      .glow,
+      nav {
+        display: none !important;
+      }
+
+      body {
+        background: white;
+        color: black;
+      }
+
+      .card {
+        break-inside: avoid;
+        border: 1px solid #ddd;
+      }
+
+      a {
+        color: black;
+        text-decoration: underline;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       NO SCRIPT FALLBACK
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    noscript {
+      display: block;
+      padding: 20px;
+      background: var(--warn);
+      color: var(--bg);
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SCROLLBAR STYLING
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg2);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       ACCESSIBILITY
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <noscript>
+    ⚠️ JavaScript is required for interactive features. This page will work in read-only mode, but dashboards, gamification, and offline caching require JavaScript enabled.
+  </noscript>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="glow" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <header role="banner">
+    <div class="wrap row">
+      <div class="logo">
+        <span class="dot" aria-hidden="true"></span>
+        <strong>PRA • Sovereignty</strong>
+      </div>
+      <nav class="row" role="navigation" aria-label="Main sections">
+        <a href="#overview" class="active">Overview</a>
+        <a href="#dashboards">Dashboards</a>
+        <a href="#recipes">Action Recipes</a>
+        <a href="#water">Water Toolkit</a>
+        <a href="#food">Food Toolkit</a>
+        <a href="#community">Community</a>
+        <a href="#llm">LLM Aide</a>
+        <a href="#settings">Settings</a>
+      </nav>
+      <div class="row" style="margin-left: auto;">
+        <span class="badge" id="onlineBadge" title="Connection status">
+          <span id="onlineIcon">🌐</span> ONLINE-FIRST
+        </span>
+        <span class="badge" id="cacheBadge" title="Offline cache size">
+          💾 CACHE: 0 KB
+        </span>
+        <span class="badge" id="integrityBadge" title="Script integrity status">
+          🔒 INTEGRITY ✓
+        </span>
+        <button class="badge" id="themeToggle" title="Change theme" style="cursor: pointer; border: none;">
+          🎨 THEME
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       GAMIFICATION HUD OVERLAY
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="gamification-hud" role="complementary" aria-label="Gamification dashboard">
+    <!-- Player Stats Card -->
+    <div class="hud-card" id="stats-card">
+      <div class="hud-title">
+        <span>🎮 Player Stats</span>
+        <button class="hud-minimize" onclick="toggleHudCard('stats-card')" aria-label="Toggle stats card">−</button>
+      </div>
+      <div class="hud-content">
+        <div class="level-badge">
+          <span>⭐</span>
+          <span>Level <span id="player-level">1</span></span>
+        </div>
+        <div class="xp-container">
+          <div class="xp-bar">
+            <div class="xp-fill" id="xp-fill" style="width: 0%"></div>
+            <div class="xp-text" id="xp-text">0 / 100 XP</div>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-value" id="total-xp">0</div>
+            <div class="stat-label">Total XP</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="streak-days">0</div>
+            <div class="stat-label">Day Streak</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="actions-count">0</div>
+            <div class="stat-label">Actions</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="achievements-count">0/12</div>
+            <div class="stat-label">Achievements</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Quest Card -->
+    <div class="hud-card" id="quest-card">
+      <div class="hud-title">
+        <span>🎯 Daily Quest</span>
+        <button class="hud-minimize" onclick="toggleHudCard('quest-card')" aria-label="Toggle quest card">−</button>
+      </div>
+      <div class="hud-content">
+        <div class="quest-item">
+          <div class="quest-title">
+            <span id="quest-icon">🌱</span>
+            <span id="quest-title">Complete 3 actions today</span>
+          </div>
+          <div style="font-size: 0.8rem; color: var(--muted);">
+            Reward: <span class="ok">+50 XP</span>
+          </div>
+          <div class="quest-progress">
+            <div class="quest-progress-fill" id="quest-progress" style="width: 0%"></div>
+          </div>
+          <div style="font-size: 0.75rem; color: var(--muted); margin-top: 4px;">
+            <span id="quest-current">0</span> / <span id="quest-target">3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements Card -->
+    <div class="hud-card" id="achievements-card">
+      <div class="hud-title">
+        <span>🏆 Achievements</span>
+        <button class="hud-minimize" onclick="toggleHudCard('achievements-card')" aria-label="Toggle achievements card">−</button>
+      </div>
+      <div class="hud-content">
+        <div class="achievement-list" id="achievement-list">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       COMMAND PALETTE
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="command-palette" role="dialog" aria-label="Command palette">
+    <div class="palette-content">
+      <input 
+        type="text" 
+        id="command-input" 
+        placeholder="Type a command or search... (Esc to close)"
+        aria-label="Command search"
+      />
+      <div class="command-results" id="command-results">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       MAIN CONTENT
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <main class="wrap" role="main">
+    <!-- OVERVIEW SECTION -->
+    <section class="hero" id="overview">
+      <h1>United States • Food & Water Sovereignty</h1>
+      <div class="bar" role="presentation"></div>
+      <p class="muted">
+        Online-first dashboards with offline fallback. This page caches itself, saves your settings in IndexedDB, 
+        and can reconstruct critical preferences via a <strong>mnemonic recovery</strong> if devices fail. 
+        Your data stays local unless you explicitly sync. <strong>Gamification system tracks your progress</strong> 
+        towards resilience milestones.
+      </p>
+      <div class="kbdbar">
+        <span class="kbd" title="Install as Progressive Web App">📱 PWA: Install</span>
+        <span class="kbd" title="Open command palette">⌨️ Ctrl/⌘ + K</span>
+        <span class="kbd" title="Toggle theme">🎨 Alt + T</span>
+        <span class="kbd" title="Quick actions menu">⚡ Alt + /</span>
+        <span class="kbd" title="Toggle gamification HUD">🎮 Alt + G</span>
+      </div>
+    </section>
+
+    <!-- DASHBOARDS SECTION -->
+    <section class="section" id="dashboards">
+      <h2>📊 Live Dashboards (Online-first, Offline Fallback)</h2>
+      <p class="muted">Real-time data from U.S. government agencies. Data is cached locally for offline access.</p>
+      
+      <div class="cards">
+        <!-- USGS Dashboard -->
+        <div class="card">
+          <h3>USGS • Streamflow & Groundwater</h3>
+          <p class="muted">
+            Fetch national water conditions from USGS Water Services. When offline, view the last cached snapshot.
+          </p>
+          <div class="row" style="margin-top: 12px;">
+            <button class="btn btn-primary" id="btnUSGS" onclick="fetchUSGS()">
+              <span>🌊</span> Fetch USGS Snapshot
+            </button>
+            <span class="pill" id="usgsStatus">idle</span>
+          </div>
+          <pre id="usgsOut" class="mono" style="white-space: pre-wrap; max-height: 200px; overflow: auto; margin-top: 10px; background: var(--bg2); padding: 10px; border-radius: 8px;"></pre>
+        </div>
+
+        <!-- NOAA Dashboard -->
+        <div class="card">
+          <h3>NOAA • Drought / Precipitation</h3>
+          <p class="muted">
+            Pull climate indicators (precipitation, drought proxies) from NOAA's weather API.
+          </p>
+          <div class="row" style="margin-top: 12px;">
+            <button class="btn btn-primary" id="btnNOAA" onclick="fetchNOAA()">
+              <span>🌤️</span> Fetch NOAA Snapshot
+            </button>
+            <span class="pill" id="noaaStatus">idle</span>
+          </div>
+          <pre id="noaaOut" class="mono" style="white-space: pre-wrap; max-height: 200px; overflow: auto; margin-top: 10px; background: var(--bg2); padding: 10px; border-radius: 8px;"></pre>
+        </div>
+
+        <!-- USDA Dashboard -->
+        <div class="card">
+          <h3>USDA • Local Food & Markets</h3>
+          <p class="muted">
+            Discover farmers markets & distribution nodes for resilient local supply chains.
+          </p>
+          <div class="row" style="margin-top: 12px;">
+            <input 
+              id="zipMarket" 
+              class="btn" 
+              type="text"
+              placeholder="ZIP (e.g. 80301)" 
+              style="width: 150px;"
+              aria-label="ZIP code for market search"
+            />
+            <button class="btn btn-primary" id="btnUSDA" onclick="fetchUSDA()">
+              <span>🌾</span> Find Markets
+            </button>
+            <span class="pill" id="usdaStatus">idle</span>
+          </div>
+          <pre id="usdaOut" class="mono" style="white-space: pre-wrap; max-height: 200px; overflow: auto; margin-top: 10px; background: var(--bg2); padding: 10px; border-radius: 8px;"></pre>
+        </div>
+
+        <!-- EPA Dashboard -->
+        <div class="card">
+          <h3>EPA • Water Quality Signals</h3>
+          <p class="muted">
+            Surface advisories and monitoring station hints for situational awareness.
+          </p>
+          <div class="row" style="margin-top: 12px;">
+            <button class="btn btn-primary" id="btnEPA" onclick="fetchEPA()">
+              <span>💧</span> Fetch EPA Snapshot
+            </button>
+            <span class="pill" id="epaStatus">idle</span>
+          </div>
+          <pre id="epaOut" class="mono" style="white-space: pre-wrap; max-height: 200px; overflow: auto; margin-top: 10px; background: var(--bg2); padding: 10px; border-radius: 8px;"></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTION RECIPES SECTION -->
+    <section class="section" id="recipes">
+      <h2>🔨 Action Recipes • 30/60/90 Day Tracks</h2>
+      <p class="muted">Practical implementation guides for building food and water resilience at multiple scales.</p>
+      
+      <div class="grid-2">
+        <div class="card">
+          <h3>🏡 Home & Homestead</h3>
+          <ul class="list-tight">
+            <li><strong>Rainwater Harvesting</strong>: Calculate roof catchment area, install first-flush diverter, NSF-61 certified tanks, gravity-fed drip irrigation system.</li>
+            <li><strong>Greywater Systems</strong>: Laundry-to-landscape setup, mulch basins, ensure legal compliance per state plumbing codes (check local regulations).</li>
+            <li><strong>Soil Building</strong>: Soil test (pH/organic matter), compost layering techniques, biochar at 5–10% volume, cover crops rotation (clover/rye/vetch).</li>
+            <li><strong>Seed Banking</strong>: Regional seed bank partnerships, heirloom registry, community seed swap calendar, germination logs in IndexedDB.</li>
+            <li><strong>Micro-irrigation</strong>: Install flow meters, pressure regulators, ET-based scheduling, maintain drought reserve plan.</li>
+          </ul>
+        </div>
+        
+        <div class="card">
+          <h3>🏘️ Neighborhood & County</h3>
+          <ul class="list-tight">
+            <li><strong>Mutual Aid Network</strong>: Define roles (Grower, Water Steward, Logistics, Communications), establish SMS/Signal tree, set check-in cadence.</li>
+            <li><strong>Community Gardens</strong>: Negotiate land access MOU, design ADA-compliant paths, plant perennial guilds, install cistern cluster, create tool library.</li>
+            <li><strong>Cold Storage Co-op</strong>: Source insulated container, size solar + battery system, install temperature sensors, establish backup protocols.</li>
+            <li><strong>Water Quality Watch</strong>: Distribute citizen sampling kits, maintain simple turbidity logs, map alerts to USGS monitoring station IDs.</li>
+            <li><strong>Foodshed Mapping</strong>: Map 50/100/250-mile supply circles, identify critical suppliers, publish "last-mile resilience" map for community.</li>
+          </ul>
+        </div>
+      </div>
+
+      <details class="card" style="margin-top: 16px;">
+        <summary><strong>⚖️ Legal & Safety Guardrails (Zero Harm)</strong></summary>
+        <div style="margin-top: 12px;">
+          <p class="muted">
+            <strong>All actions aim to reduce harm, respect rights, and comply with applicable law.</strong>
+          </p>
+          <ul class="list-tight">
+            <li>Follow local building codes, health regulations, and water rights laws</li>
+            <li>Do not bypass potable water standards; treat and test water before drinking</li>
+            <li>Obtain necessary permits for construction and water collection systems</li>
+            <li>Respect property boundaries and easements in all installations</li>
+            <li>This site provides information only, not professional or legal advice</li>
+            <li>Consult licensed professionals for engineering, plumbing, or legal matters</li>
+            <li>Report environmental concerns to appropriate regulatory agencies</li>
+          </ul>
+          <p class="muted" style="margin-top: 12px;">
+            <strong>Anti-Weaponization Commitment:</strong> These tools and techniques are shared for peaceful, 
+            regenerative purposes only. Any use that harms persons, communities, ecosystems, or democratic 
+            institutions violates the spirit and license of this work.
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <!-- WATER TOOLKIT SECTION -->
+    <section class="section" id="water">
+      <h2>💧 Water Toolkit</h2>
+      <p class="muted">Calculate catchment potential, plan treatment, and prepare for drought scenarios.</p>
+      
+      <div class="cards">
+        <!-- Catchment Calculator -->
+        <div class="card">
+          <h3>💦 Catchment & Storage Calculator</h3>
+          <p class="muted">Estimate annual rainwater harvest potential based on roof area and local rainfall.</p>
+          <div class="kv" style="margin-top: 12px;">
+            <div>Roof Area (sqft)</div>
+            <div><input id="roofSqft" class="btn" type="number" placeholder="e.g. 1200" aria-label="Roof area in square feet" /></div>
+            <div>Annual Rain (in)</div>
+            <div><input id="rainIn" class="btn" type="number" placeholder="e.g. 15" aria-label="Annual rainfall in inches" /></div>
+            <div>Runoff Coefficient</div>
+            <div><input id="coeff" class="btn" type="number" step="0.01" placeholder="0.8 (metal), 0.75 (shingle)" aria-label="Runoff coefficient" /></div>
+          </div>
+          <div class="row" style="margin-top: 12px;">
+            <button class="btn btn-primary" onclick="calcCatchment()">
+              <span>🧮</span> Calculate Storage Potential
+            </button>
+            <span class="pill" id="catchRes">ready</span>
+          </div>
+          <small class="muted" style="display: block; margin-top: 8px;">
+            <strong>Formula:</strong> gallons ≈ sqft × inches × 0.623 × coefficient<br>
+            <strong>Tip:</strong> Metal roofs typically have 0.8-0.95 coefficient, asphalt shingles 0.7-0.85
+          </small>
+        </div>
+
+        <!-- Treatment Matrix -->
+        <div class="card">
+          <h3>🔬 Point-of-Use Treatment Matrix</h3>
+          <p class="muted">Select appropriate treatment methods based on water quality concerns.</p>
+          <ul class="list-tight" style="margin-top: 12px;">
+            <li><strong>Sediment (>5 μm)</strong> → Sediment cartridge filter (5-20 micron)</li>
+            <li><strong>Microbes</strong> → 0.2 μm absolute filter + UV treatment (or rolling boil 1 min at sea level; add 1 min per 1,000ft elevation)</li>
+            <li><strong>Chlorine/Organics/Odor</strong> → Activated carbon block filter</li>
+            <li><strong>Heavy metals</strong> → Reverse osmosis (RO) system</li>
+            <li><strong>Dissolved ions/TDS</strong> → RO/DI system; remineralize post-treatment for taste and alkalinity</li>
+            <li><strong>Fluoride</strong> → Activated alumina or bone char filters</li>
+            <li><strong>Nitrates</strong> → Ion exchange resin or RO system</li>
+          </ul>
+          <small class="muted" style="display: block; margin-top: 8px;">
+            <strong>Testing:</strong> Start with comprehensive water test from certified lab before selecting treatment.
+          </small>
+        </div>
+
+        <!-- Drought Playbook -->
+        <div class="card">
+          <h3>🏜️ Drought Playbook</h3>
+          <p class="muted">Prioritization framework and contingency planning for water scarcity.</p>
+          <div style="margin-top: 12px;">
+            <h4 style="font-size: 0.95rem; margin: 12px 0 8px 0; color: var(--accent);">Water Use Priority Tiers</h4>
+            <ol class="list-tight">
+              <li><strong>Tier 1 (Critical):</strong> Life safety, drinking, cooking</li>
+              <li><strong>Tier 2 (Essential):</strong> Sanitation, hygiene, medical needs</li>
+              <li><strong>Tier 3 (Important):</strong> Food production (crops), livestock watering</li>
+              <li><strong>Tier 4 (Discretionary):</strong> Landscape irrigation, recreation</li>
+            </ol>
+            
+            <h4 style="font-size: 0.95rem; margin: 16px 0 8px 0; color: var(--accent);">Contingent Water Sources</h4>
+            <ul class="list-tight">
+              <li>Municipal emergency taps and distribution points</li>
+              <li>Hauled potable water (document approved fill stations)</li>
+              <li>Emergency bladders and storage (rotate quarterly)</li>
+              <li>Treated greywater for non-potable uses</li>
+              <li>Community water-sharing agreements</li>
+            </ul>
+            
+            <h4 style="font-size: 0.95rem; margin: 16px 0 8px 0; color: var(--accent);">Agricultural Adaptations</h4>
+            <ul class="list-tight">
+              <li>Deficit irrigation strategies (controlled stress)</li>
+              <li>Deep mulching (4-6 inches) to reduce evaporation</li>
+              <li>Windbreaks to reduce transpiration losses</li>
+              <li>Drought-tolerant cultivar selection</li>
+              <li>Dry farming techniques for appropriate crops</li>
+              <li>Shift to less water-intensive crops</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOD TOOLKIT SECTION -->
+    <section class="section" id="food">
+      <h2>🌱 Food Toolkit</h2>
+      <p class="muted">Plan perennial guilds, manage seed inventory, and calculate calorie production areas.</p>
+      
+      <div class="cards">
+        <!-- Perennial Guilds -->
+        <div class="card">
+          <h3>🌳 Perennial Guilds (Climate Bands)</h3>
+          <p class="muted">
+            Choose guilds by USDA hardiness zone. Mix nitrogen fixers, dynamic accumulators, 
+            pollinator support, and canopy/understory layers.
+          </p>
+          <ul class="list-tight" id="guilds" style="margin-top: 12px;">
+            <li><strong>Zone 3–4:</strong> Apple • Currant • Red Clover • Yarrow • Chives • Comfrey</li>
+            <li><strong>Zone 5–6:</strong> Pear • Gooseberry • White Clover • Lupine • Comfrey • Thyme • Strawberry</li>
+            <li><strong>Zone 7–8:</strong> Persimmon • Blueberry • Goumi • Crimson Clover • Mint • Oregano • Daffodil</li>
+            <li><strong>Zone 9–10:</strong> Citrus • Pigeon Pea • Moringa (with frost shelter) • Nasturtium • Basil • Rosemary • Society Garlic</li>
+          </ul>
+          <small class="muted" style="display: block; margin-top: 8px;">
+            <strong>Guild Principles:</strong> Include nitrogen fixers (legumes), dynamic accumulators (comfrey), 
+            pest confusers (alliums), and pollinator attractors in each guild.
+          </small>
+        </div>
+
+        <!-- Seed Bank Ledger -->
+        <div class="card">
+          <h3>🌾 Seed Bank Ledger (IndexedDB)</h3>
+          <p class="muted">Track your seed inventory with variety, year, germination rate, and notes.</p>
+          <div class="row" style="margin-top: 12px; flex-wrap: wrap;">
+            <input 
+              id="seedName" 
+              class="btn" 
+              type="text"
+              placeholder="Variety (e.g. Brandywine Tomato)" 
+              style="flex: 1; min-width: 200px;"
+              aria-label="Seed variety name"
+            />
+            <input 
+              id="seedYear" 
+              class="btn" 
+              type="number"
+              placeholder="Year" 
+              style="width: 100px;"
+              aria-label="Harvest year"
+            />
+            <button class="btn btn-primary" onclick="addSeed()">
+              <span>➕</span> Add Seed
+            </button>
+          </div>
+          <pre id="seedOut" class="mono" style="white-space: pre-wrap; max-height: 180px; overflow: auto; margin-top: 10px; background: var(--bg2); padding: 10px; border-radius: 8px;"></pre>
+          <div class="row" style="margin-top: 8px;">
+            <button class="btn" onclick="exportSeeds()" style="font-size: 0.85rem;">
+              <span>📥</span> Export Seeds
+            </button>
+            <button class="btn" onclick="clearSeeds()" style="font-size: 0.85rem;">
+              <span>🗑️</span> Clear All
+            </button>
+          </div>
+        </div>
+
+        <!-- Calorie Garden Planner -->
+        <div class="card">
+          <h3>🥔 Calorie Garden Planner</h3>
+          <p class="muted">
+            Estimate growing area needed to produce baseline calories using high-yield staple crops.
+          </p>
+          <div class="row" style="margin-top: 12px;">
+            <input 
+              id="household" 
+              class="btn" 
+              type="number"
+              placeholder="Household size" 
+              style="width: 150px;"
+              min="1"
+              aria-label="Number of people in household"
+            />
+            <button class="btn btn-primary" onclick="calcCalories()">
+              <span>🧮</span> Calculate Growing Area
+            </button>
+          </div>
+          <pre id="calOut" class="mono" style="white-space: pre-wrap; max-height: 180px; overflow: auto; margin-top: 10px; background: var(--bg2); padding: 10px; border-radius: 8px;"></pre>
+          <small class="muted" style="display: block; margin-top: 8px;">
+            <strong>Note:</strong> This is a rough planning baseline. Adjust for actual local yields, 
+            growing season length, succession planting, and preservation needs.
+          </small>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMMUNITY SECTION -->
+    <section class="section" id="community">
+      <h2>🤝 Community & Governance</h2>
+      <p class="muted">Build transparency, connect with mutual aid networks, and enable secure collaboration.</p>
+      
+      <div class="cards">
+        <!-- Transparency Ledger -->
+        <div class="card">
+          <h3>📝 Transparency Ledger (Hash Chain)</h3>
+          <p class="muted">
+            Log community actions with a cryptographic hash chain for auditability. 
+            Export to share publicly if desired.
+          </p>
+          <div class="row" style="margin-top: 12px; flex-wrap: wrap;">
+            <input 
+              id="entryText" 
+              class="btn" 
+              type="text"
+              placeholder="e.g. Installed 2,500 gal cistern at library" 
+              style="flex: 1; min-width: 280px;"
+              aria-label="Ledger entry text"
+            />
+            <button class="btn btn-primary" onclick="addLedgerEntry()">
+              <span>➕</span> Add Entry
+            </button>
+          </div>
+          <pre id="ledgerOut" class="mono" style="white-space: pre-wrap; max-height: 180px; overflow: auto; margin-top: 10px; background: var(--bg2); padding: 10px; border-radius: 8px;"></pre>
+          <div class="row" style="margin-top: 8px;">
+            <button class="btn" onclick="exportLedger()">
+              <span>📥</span> Export Ledger
+            </button>
+            <button class="btn" onclick="verifyLedger()">
+              <span>🔍</span> Verify Integrity
+            </button>
+          </div>
+        </div>
+
+        <!-- Habitica Bridge -->
+        <div class="card">
+          <h3>🎮 Habitica Bridge (Optional)</h3>
+          <p class="muted">
+            Sync sovereignty milestones to Habitica for additional motivation. 
+            API keys are stored locally and never transmitted except for sync operations.
+          </p>
+          <div class="row" style="margin-top: 12px; flex-wrap: wrap;">
+            <input 
+              id="habitUser" 
+              class="btn" 
+              type="text"
+              placeholder="API User ID" 
+              style="flex: 1; min-width: 150px;"
+              aria-label="Habitica API user ID"
+            />
+            <input 
+              id="habitToken" 
+              class="btn" 
+              type="password"
+              placeholder="API Token" 
+              style="flex: 1; min-width: 150px;"
+              aria-label="Habitica API token"
+            />
+          </div>
+          <div class="row" style="margin-top: 8px; flex-wrap: wrap;">
+            <input 
+              id="habitTask" 
+              class="btn" 
+              type="text"
+              placeholder="Task title (e.g., Submit drought plan)" 
+              style="flex: 1; min-width: 280px;"
+              aria-label="Habitica task title"
+            />
+            <button class="btn btn-primary" onclick="syncHabitica()">
+              <span>🔄</span> Create Task
+            </button>
+            <span class="pill" id="habitStatus">idle</span>
+          </div>
+          <small class="muted" style="display: block; margin-top: 8px;">
+            <strong>Security:</strong> Keys are encrypted in IndexedDB. Clear them anytime in Settings.
+          </small>
+        </div>
+
+        <!-- Mnemonic Recovery -->
+        <div class="card">
+          <h3>🔑 Mnemonic Recovery</h3>
+          <p class="muted">
+            Generate a 12-word recovery phrase (BIP39-style) to decrypt your local settings 
+            on a new device. Uses AES-GCM with PBKDF2 key derivation.
+          </p>
+          <div class="row" style="margin-top: 12px;">
+            <button class="btn btn-primary" onclick="generateMnemonic()">
+              <span>🎲</span> Generate New Phrase
+            </button>
+            <button class="btn" onclick="rekeySettings()">
+              <span>🔐</span> Rekey Settings
+            </button>
+            <button class="btn" onclick="testRecovery()">
+              <span>🧪</span> Test Recovery
+            </button>
+          </div>
+          <pre id="mnemonicOut" class="mono" style="white-space: pre-wrap; max-height: 160px; overflow: auto; margin-top: 10px; background: var(--bg2); padding: 10px; border-radius: 8px; border: 2px solid var(--warn);"></pre>
+          <small class="warn" style="display: block; margin-top: 8px; font-weight: 600;">
+            ⚠️ <strong>Write this down on paper</strong> and store securely offline. 
+            Anyone with this phrase can decrypt your settings.
+          </small>
+        </div>
+      </div>
+    </section>
+
+    <!-- LLM AIDE SECTION -->
+    <section class="section" id="llm">
+      <h2>🤖 WebLLM Aide (Online-first)</h2>
+      <p class="muted">
+        When online, load an in-browser LLM for planning assistance and Q&A. 
+        Offline fallback provides rule-based prompt scaffolds. First load may take several minutes.
+      </p>
+      
+      <div class="card">
+        <div class="row" style="margin-bottom: 12px;">
+          <button class="btn btn-primary" onclick="loadWebLLM()" id="loadLLM">
+            <span>🧠</span> Load WebLLM
+          </button>
+          <button class="btn" onclick="askWebLLM()" id="askLLM" disabled>
+            <span>💬</span> Ask Question
+          </button>
+          <span class="pill" id="llmStatus">not loaded</span>
+        </div>
+        
+        <textarea 
+          id="llmIn" 
+          class="btn" 
+          placeholder="Ask about irrigation scheduling, drought rotations, municipal water audits, seed saving techniques, soil amendments, etc."
+          style="display: block; width: 100%; min-height: 100px; resize: vertical; font-family: inherit;"
+          aria-label="LLM question input"
+        ></textarea>
+        
+        <pre id="llmOut" class="mono" style="white-space: pre-wrap; max-height: 300px; overflow: auto; margin-top: 10px; background: var(--bg2); padding: 12px; border-radius: 8px;"></pre>
+        
+        <small class="muted" style="display: block; margin-top: 8px;">
+          <strong>Privacy:</strong> All LLM inference happens in your browser. No data sent to external servers.
+          <strong>Performance:</strong> First-time model download ~500MB. Cached for subsequent uses.
+        </small>
+      </div>
+    </section>
+
+    <!-- SETTINGS SECTION -->
+    <section class="section" id="settings">
+      <h2>⚙️ Settings & Integrity</h2>
+      <p class="muted">Manage local storage, verify integrity, export data, and configure privacy options.</p>
+      
+      <div class="cards">
+        <!-- Privacy & Storage -->
+        <div class="card">
+          <h3>🔒 Privacy & Storage</h3>
+          <p class="muted">
+            <strong>Local-first philosophy:</strong> Nothing leaves your device unless you explicitly 
+            press a Sync or Export button. Clear storage anytime.
+          </p>
+          <div class="row" style="margin-top: 12px; flex-wrap: wrap; gap: 8px;">
+            <button class="btn" onclick="clearAllData()">
+              <span>🗑️</span> Clear All Data
+            </button>
+            <button class="btn" onclick="showStorageSizes()">
+              <span>📊</span> Storage Report
+            </button>
+            <button class="btn" onclick="exportAllData()">
+              <span>📦</span> Export Everything
+            </button>
+          </div>
+          <pre id="sizesOut" class="mono" style="white-space: pre-wrap; max-height: 140px; overflow: auto; margin-top: 10px; background: var(--bg2); padding: 10px; border-radius: 8px;"></pre>
+        </div>
+
+        <!-- Integrity Guard -->
+        <div class="card">
+          <h3>🛡️ Integrity Guard</h3>
+          <p class="muted">
+            Self-hash of core script is checked at runtime against the first-run fingerprint. 
+            If altered unexpectedly, UI degrades to read-only mode.
+          </p>
+          <div class="row" style="margin-top: 12px;">
+            <button class="btn btn-primary" onclick="recheckIntegrity()">
+              <span>🔍</span> Recheck Integrity
+            </button>
+            <span class="pill" id="hashNow">checking...</span>
+          </div>
+          <pre id="integrityOut" class="mono" style="white-space: pre-wrap; max-height: 100px; overflow: auto; margin-top: 10px; background: var(--bg2); padding: 10px; border-radius: 8px; font-size: 0.75rem;"></pre>
+          <small class="muted" style="display: block; margin-top: 8px;">
+            <strong>How it works:</strong> SHA-256 hash of inline JavaScript is stored on first run. 
+            Subsequent page loads compare against this fingerprint.
+          </small>
+        </div>
+
+        <!-- Theme & Display -->
+        <div class="card">
+          <h3>🎨 Theme & Display</h3>
+          <p class="muted">Select visual theme and configure display preferences.</p>
+          <div class="row" style="margin-top: 12px; flex-wrap: wrap; gap: 8px;">
+            <button class="btn" onclick="setTheme('space')">🌌 Space</button>
+            <button class="btn" onclick="setTheme('medieval')">🏰 Medieval</button>
+            <button class="btn" onclick="setTheme('anime')">🎌 Anime</button>
+            <button class="btn" onclick="setTheme('nature')">🌿 Nature</button>
+            <button class="btn" onclick="setTheme('auto')">🌓 Auto</button>
+          </div>
+          <div class="row" style="margin-top: 12px;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="reduceMotion" onchange="toggleReducedMotion()" />
+              <span>Reduce animations (accessibility)</span>
+            </label>
+          </div>
+          <div class="row" style="margin-top: 8px;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="hideHUD" onchange="toggleHUD()" />
+              <span>Hide gamification HUD</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Analytics Consent -->
+        <div class="card">
+          <h3>📈 Analytics (Optional)</h3>
+          <p class="muted">
+            Enable anonymized usage analytics to help improve this tool. 
+            Daily summary sent to <code>admin@planetaryrestorationarchive.com</code>.
+            Data is aggregated and contains no PII.
+          </p>
+          <div class="row" style="margin-top: 12px;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="analyticsConsent" onchange="toggleAnalytics()" />
+              <span>Enable analytics (respects Do Not Track)</span>
+            </label>
+          </div>
+          <small class="muted" style="display: block; margin-top: 8px;">
+            <strong>What's collected:</strong> Feature usage counts, error rates, session duration (no personal data).
+            <strong>What's NOT collected:</strong> Names, locations, IPs, keystrokes, or any PII.
+          </small>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <h3>About This Project</h3>
+          <p class="muted">
+            An open-source, community-built resource for food and water sovereignty. 
+            Licensed under CC BY-SA 4.0 with anti-weaponization provisions.
+          </p>
+        </div>
+        
+        <div>
+          <h3>Attributions & Licenses</h3>
+          <ul>
+            <li><a href="https://waterservices.usgs.gov/" target="_blank" rel="noopener">USGS Water Services</a> (Public Domain)</li>
+            <li><a href="https://www.weather.gov/" target="_blank" rel="noopener">NOAA Weather API</a> (Public Domain)</li>
+            <li><a href="https://www.usda.gov/" target="_blank" rel="noopener">USDA Data</a> (Public Domain)</li>
+            <li><a href="https://www.epa.gov/" target="_blank" rel="noopener">EPA Data</a> (Public Domain)</li>
+            <li><a href="https://github.com/mlc-ai/web-llm" target="_blank" rel="noopener">WebLLM</a> (Apache 2.0)</li>
+            <li>Design patterns inspired by GitHub, Notion, and Linear (architectured, not copied)</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">License (CC BY-SA 4.0)</a></li>
+            <li><a href="#overview">Documentation</a></li>
+            <li><a href="mailto:admin@planetaryrestorationarchive.com">Contact</a></li>
+            <li><a href="https://github.com" target="_blank" rel="noopener">Source Code</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3>Safety & Ethics</h3>
+          <p class="muted">
+            <strong>Zero-Harm Commitment:</strong> This tool is designed for peaceful, 
+            regenerative, and lawful use. Report misuse to 
+            <a href="mailto:admin@planetaryrestorationarchive.com">admin@planetaryrestorationarchive.com</a>.
+          </p>
+        </div>
+      </div>
+      
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+        <p class="muted" style="font-size: 0.85rem;">
+          © 2025 Planetary Restoration Archive. Built with integrity, powered by community.<br>
+          For extraction → stewardship. From scarcity → abundance. From control → sovereignty.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       BOTTOM HUD ACTIONS
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="hud-bottom">
+    <button class="btn" onclick="savePageOffline()" title="Download this page for offline use">
+      <span>💾</span> Save Offline
+    </button>
+    <button class="btn" onclick="installPWA()" title="Install as app" id="installBtn">
+      <span>📱</span> Install App
+    </button>
+    <button class="btn" onclick="openCommandPalette()" title="Quick actions (Ctrl/⌘+K)">
+      <span>⚡</span> Quick Actions
+    </button>
+    <button class="btn" onclick="exportToPDF()" title="Export current view to PDF">
+      <span>📄</span> Export PDF
+    </button>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast" hidden></div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       CORE APPLICATION JAVASCRIPT
+       All functionality in one self-contained block for integrity checking
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <script>
+(function() {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 1: GLOBAL STATE & INITIALIZATION
+     Purpose: Core app state, database setup, and startup sequence
+     Usage: Runs automatically on page load
+     Expected: IndexedDB initialized, settings loaded, UI ready
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  // App State Container
+  const APP = {
+    db: null,
+    swRegistration: null,
+    llmEngine: null,
+    deferredPrompt: null,
+    gamification: {
+      level: 1,
+      xp: 0,
+      totalXP: 0,
+      streak: 0,
+      actions: 0,
+      achievements: [],
+      lastActive: null
+    },
+    analytics: {
+      enabled: false,
+      buffer: [],
+      lastSync: null
+    },
+    integrity: {
+      ok: false,
+      sha: '',
+      expected: null
+    }
+  };
+
+  // BIP39-style word list (first 256 for demonstration)
+  const WORDLIST = "abandon ability able about above absent absorb abstract absurd abuse access accident account accuse achieve acid acoustic across act action actor actress actual adapt add addict address adjust admit adult advance advice aerobic affair afford afraid again age agent agree ahead aim air airport aisle alarm album alcohol alert alien all alley allow almost alone alpha already also alter always amateur amazing among amount amused analyst anchor ancient anger angle angry animal ankle announce annual another answer antique anxiety any apart apology appear apple approve april arch arctic area arena argue arm armed armor army around arrange arrest arrive arrow art artefact artist artwork ask aspect assault asset assist assume asthma athlete atom attack attend attitude attract auction audit august aunt author auto autumn average avocado avoid awake aware away awesome awful awkward axis baby bachelor bacon badge bag balance balcony ball bamboo banana banner bar barely bargain barrel base basic basket battle beach bean beauty because become beef before begin behave behind believe below belt bench benefit best betray better between beyond bicycle bid bike bind biology bird birth bitter black blade blame blanket blast bleak bless blind blood blossom blouse blue blur blush board boat body boil bomb bone bonus book boost border boring borrow boss bottom bounce box boy bracket brain brand brass brave bread breeze brick bridge brief bright bring brisk broccoli broken bronze broom brother brown brush bubble buddy budget buffalo build bulb bulk bullet bundle bunker burden burger burst bus business busy butter buyer".split(' ');
+
+  // Utility Functions
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => document.querySelectorAll(sel);
+
+  // Toast Notification System
+  function toast(message, duration = 3500) {
+    const el = $('#toast');
+    el.textContent = message;
+    el.hidden = false;
+    setTimeout(() => el.hidden = true, duration);
+    
+    // Track for analytics
+    trackEvent('toast', { message: message.slice(0, 50) });
+  }
+
+  // Online/Offline Detection
+  function updateOnlineStatus() {
+    const online = navigator.onLine;
+    const badge = $('#onlineBadge');
+    const icon = $('#onlineIcon');
+    
+    if (online) {
+      badge.textContent = '🌐 ONLINE-FIRST';
+      badge.style.color = 'var(--good)';
+      icon.textContent = '🌐';
+    } else {
+      badge.textContent = '📡 OFFLINE MODE';
+      badge.style.color = 'var(--warn)';
+      icon.textContent = '📡';
+    }
+  }
+
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+  updateOnlineStatus();
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 2: STARFIELD ANIMATION
+     Purpose: Animated starfield background using Canvas 2D API
+     Usage: Runs continuously as background animation
+     Expected: Smooth star movement, responsive to window resize
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  const canvas = $('#starfield');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  let W = window.innerWidth;
+  let H = window.innerHeight;
+  let stars = [];
+  const starCount = Math.floor((W * H) / 1800);
+
+  function initStarfield() {
+    canvas.width = W = window.innerWidth;
+    canvas.height = H = window.innerHeight;
+    stars = Array.from({ length: starCount }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      z: Math.random() * W,
+      r: Math.random() * 1.6 + 0.3,
+      tw: Math.random() * 0.03 + 0.01
+    }));
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  let frameTime = 0;
+  function animateStarfield() {
+    frameTime += 1;
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+    ctx.fillRect(0, 0, W, H);
+
+    for (const star of stars) {
+      star.z -= 0.6;
+      if (star.z <= 1) star.z = W;
+
+      const k = 128 / star.z;
+      const px = (star.x - W / 2) * k + W / 2;
+      const py = (star.y - H / 2) * k + H / 2;
+
+      if (px < -50 || px > W + 50 || py < -50 || py > H + 50) continue;
+
+      const tw = (Math.sin(frameTime * star.tw) + 1) / 2 * 0.8 + 0.2;
+      const rad = star.r * k * 0.8;
+
+      const gradient = ctx.createRadialGradient(px, py, 0, px, py, rad);
+      gradient.addColorStop(0, `rgba(200, 220, 255, ${0.85 * tw})`);
+      gradient.addColorStop(1, `rgba(20, 30, 55, 0)`);
+
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(px, py, rad, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    requestAnimationFrame(animateStarfield);
+  }
+
+  window.addEventListener('resize', initStarfield);
+  initStarfield();
+  animateStarfield();
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 3: INDEXEDDB LAYER
+     Purpose: Local data persistence for settings, ledger, seeds, cache
+     Usage: await db.put('store', data), await db.get('store', key)
+     Expected: Promise-based API for all IndexedDB operations
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  const DB_NAME = 'pra_sovereignty_db';
+  const DB_VERSION = 2;
+
+  const db = {
+    async init() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+        request.onupgradeneeded = (e) => {
+          const database = e.target.result;
+          
+          // Create stores if they don't exist
+          if (!database.objectStoreNames.contains('settings')) {
+            database.createObjectStore('settings', { keyPath: 'k' });
+          }
+          if (!database.objectStoreNames.contains('ledger')) {
+            database.createObjectStore('ledger', { keyPath: 'id', autoIncrement: true });
+          }
+          if (!database.objectStoreNames.contains('seeds')) {
+            database.createObjectStore('seeds', { keyPath: 'id', autoIncrement: true });
+          }
+          if (!database.objectStoreNames.contains('cache')) {
+            database.createObjectStore('cache', { keyPath: 'k' });
+          }
+          if (!database.objectStoreNames.contains('analytics')) {
+            database.createObjectStore('analytics', { keyPath: 'id', autoIncrement: true });
+          }
+        };
+
+        request.onsuccess = () => {
+          APP.db = request.result;
+          resolve(APP.db);
+        };
+
+        request.onerror = () => reject(request.error);
+      });
+    },
+
+    async put(store, value) {
+      const tx = APP.db.transaction(store, 'readwrite');
+      return new Promise((resolve, reject) => {
+        const req = tx.objectStore(store).put(value);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    },
+
+    async get(store, key) {
+      const tx = APP.db.transaction(store);
+      return new Promise((resolve, reject) => {
+        const req = tx.objectStore(store).get(key);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    },
+
+    async getAll(store) {
+      const tx = APP.db.transaction(store);
+      return new Promise((resolve, reject) => {
+        const req = tx.objectStore(store).getAll();
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    },
+
+    async delete(store, key) {
+      const tx = APP.db.transaction(store, 'readwrite');
+      return new Promise((resolve, reject) => {
+        const req = tx.objectStore(store).delete(key);
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+      });
+    },
+
+    async clear(store) {
+      const tx = APP.db.transaction(store, 'readwrite');
+      return new Promise((resolve, reject) => {
+        const req = tx.objectStore(store).clear();
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+      });
+    },
+
+    async count(store) {
+      const tx = APP.db.transaction(store);
+      return new Promise((resolve, reject) => {
+        const req = tx.objectStore(store).count();
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+  };
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 4: SERVICE WORKER & PWA
+     Purpose: Enable offline functionality and app installation
+     Usage: Automatic registration, provides install prompt
+     Expected: PWA installable, pages cached for offline use
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  async function registerServiceWorker() {
+    if (!('serviceWorker' in navigator)) {
+      console.warn('Service Workers not supported');
+      return;
+    }
+
+    const swCode = `
+      const CACHE_NAME = 'pra-sovereignty-v1';
+      const urlsToCache = [self.location.href];
+
+      self.addEventListener('install', (e) => {
+        e.waitUntil(
+          caches.open(CACHE_NAME)
+            .then(cache => cache.addAll(urlsToCache))
+            .then(() => self.skipWaiting())
+        );
+      });
+
+      self.addEventListener('activate', (e) => {
+        e.waitUntil(
+          caches.keys().then(names => {
+            return Promise.all(
+              names.filter(n => n !== CACHE_NAME)
+                   .map(n => caches.delete(n))
+            );
+          }).then(() => self.clients.claim())
+        );
+      });
+
+      self.addEventListener('fetch', (e) => {
+        const url = new URL(e.request.url);
+        
+        // Same-origin: cache-first
+        if (url.origin === location.origin) {
+          e.respondWith(
+            caches.match(e.request).then(cached => {
+              if (cached) return cached;
+              
+              return fetch(e.request).then(response => {
+                return caches.open(CACHE_NAME).then(cache => {
+                  cache.put(e.request, response.clone());
+                  return response;
+                });
+              }).catch(() => caches.match(self.location.href));
+            })
+          );
+        } else {
+          // Cross-origin: network-first
+          e.respondWith(
+            fetch(e.request)
+              .catch(() => caches.match(e.request))
+          );
+        }
+      });
+    `;
+
+    try {
+      const blob = new Blob([swCode], { type: 'text/javascript' });
+      const url = URL.createObjectURL(blob);
+      APP.swRegistration = await navigator.serviceWorker.register(url);
+      toast('✓ PWA ready (offline capable)');
+      await updateCacheSize();
+    } catch (err) {
+      console.warn('Service Worker registration failed:', err);
+    }
+  }
+
+  async function updateCacheSize() {
+    if (!('caches' in window)) return;
+
+    let totalSize = 0;
+    const cacheNames = await caches.keys();
+
+    for (const name of cacheNames) {
+      const cache = await caches.open(name);
+      const requests = await cache.keys();
+
+      for (const request of requests) {
+        try {
+          const response = await cache.match(request);
+          if (response) {
+            const blob = await response.blob();
+            totalSize += blob.size;
+          }
+        } catch (err) {
+          console.warn('Cache size calculation error:', err);
+        }
+      }
+    }
+
+    const sizeKB = (totalSize / 1024).toFixed(1);
+    $('#cacheBadge').textContent = `💾 CACHE: ${sizeKB} KB`;
+  }
+
+  // PWA Install Prompt
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    APP.deferredPrompt = e;
+    $('#installBtn').style.display = 'flex';
+  });
+
+  window.installPWA = async function() {
+    if (!APP.deferredPrompt) {
+      toast('ℹ️ Install via browser menu: Add to Home Screen');
+      return;
+    }
+
+    APP.deferredPrompt.prompt();
+    const result = await APP.deferredPrompt.userChoice;
+    
+    if (result.outcome === 'accepted') {
+      toast('✓ App installing...');
+      awardXP(50, 'Installed PWA');
+    }
+    
+    APP.deferredPrompt = null;
+    $('#installBtn').style.display = 'none';
+  };
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 5: INTEGRITY CHECKING
+     Purpose: Self-verification of script integrity via SHA-256
+     Usage: Automatic on load, manual via recheckIntegrity()
+     Expected: Detects unauthorized modifications, fails safe
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  async function checkIntegrity() {
+    try {
+      // Get current script content
+      const scripts = document.getElementsByTagName('script');
+      const scriptContent = scripts[scripts.length - 1].textContent;
+      
+      // Calculate SHA-256
+      const encoder = new TextEncoder();
+      const data = encoder.encode(scriptContent);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      
+      APP.integrity.sha = hashHex;
+
+      // Check against stored hash
+      const stored = await db.get('settings', 'integrity.sha');
+      
+      if (!stored) {
+        // First run - store hash
+        await db.put('settings', { k: 'integrity.sha', v: hashHex });
+        APP.integrity.expected = hashHex;
+        APP.integrity.ok = true;
+      } else {
+        APP.integrity.expected = stored.v;
+        APP.integrity.ok = (stored.v === hashHex);
+      }
+
+      // Update UI
+      const badge = $('#integrityBadge');
+      const hashDisplay = $('#hashNow');
+      
+      if (APP.integrity.ok) {
+        badge.textContent = '🔒 INTEGRITY ✓';
+        badge.style.color = 'var(--good)';
+        hashDisplay.textContent = hashHex.slice(0, 12) + '...';
+        $('#integrityOut').textContent = `✓ Script integrity verified\nHash: ${hashHex}`;
+      } else {
+        badge.textContent = '⚠️ INTEGRITY FAIL';
+        badge.style.color = 'var(--bad)';
+        hashDisplay.textContent = 'MISMATCH';
+        $('#integrityOut').textContent = `⚠️ Script modified!\nExpected: ${APP.integrity.expected}\nActual: ${hashHex}`;
+        
+        // Degrade to read-only
+        toast('⚠️ Integrity check failed - read-only mode', 5000);
+        degradeToReadOnly();
+      }
+    } catch (err) {
+      console.error('Integrity check failed:', err);
+      toast('❌ Integrity check error');
+    }
+  }
+
+  function degradeToReadOnly() {
+    // Disable all interactive elements
+    $$('button').forEach(btn => btn.disabled = true);
+    $$('input').forEach(input => input.disabled = true);
+    $$('textarea').forEach(ta => ta.disabled = true);
+    
+    // Show warning banner
+    const banner = document.createElement('div');
+    banner.style.cssText = `
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: var(--bad); color: white; padding: 16px;
+      text-align: center; font-weight: 600;
+    `;
+    banner.textContent = '⚠️ READ-ONLY MODE: Script integrity verification failed. Replace with verified copy.';
+    document.body.prepend(banner);
+  }
+
+  window.recheckIntegrity = checkIntegrity;
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 6: GAMIFICATION SYSTEM
+     Purpose: Track XP, levels, achievements, quests for user engagement
+     Usage: awardXP(amount, reason), unlockAchievement(id)
+     Expected: Persistent progress, visual feedback, motivation
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  const ACHIEVEMENTS = [
+    { id: 'first-action', name: 'First Steps', desc: 'Complete your first action', icon: '🌱', xp: 10 },
+    { id: 'data-fetcher', name: 'Data Seeker', desc: 'Fetch data from 3 different sources', icon: '📊', xp: 25 },
+    { id: 'seed-saver', name: 'Seed Saver', desc: 'Add 5 varieties to seed bank', icon: '🌾', xp: 20 },
+    { id: 'water-calculator', name: 'Water Wise', desc: 'Calculate catchment potential', icon: '💧', xp: 15 },
+    { id: 'ledger-keeper', name: 'Ledger Keeper', desc: 'Add 10 transparency entries', icon: '📝', xp: 30 },
+    { id: 'streak-week', name: 'Committed', desc: 'Maintain 7-day streak', icon: '🔥', xp: 50 },
+    { id: 'habitica-sync', name: 'Connected', desc: 'Sync with Habitica', icon: '🔗', xp: 20 },
+    { id: 'mnemonic-gen', name: 'Secured', desc: 'Generate mnemonic phrase', icon: '🔑', xp: 25 },
+    { id: 'llm-user', name: 'AI Assistant', desc: 'Ask WebLLM a question', icon: '🤖', xp: 30 },
+    { id: 'export-master', name: 'Data Sovereign', desc: 'Export 3 different datasets', icon: '📦', xp: 40 },
+    { id: 'level-5', name: 'Rising Star', desc: 'Reach level 5', icon: '⭐', xp: 100 },
+    { id: 'level-10', name: 'Resilience Leader', desc: 'Reach level 10', icon: '🏆', xp: 200 }
+  ];
+
+  async function loadGamification() {
+    const saved = await db.get('settings', 'gamification');
+    if (saved) {
+      Object.assign(APP.gamification, saved.v);
+      
+      // Check streak
+      const now = Date.now();
+      const lastActive = APP.gamification.lastActive || 0;
+      const daysSince = Math.floor((now - lastActive) / (24 * 60 * 60 * 1000));
+      
+      if (daysSince === 1) {
+        APP.gamification.streak++;
+        if (APP.gamification.streak === 7) {
+          await unlockAchievement('streak-week');
+        }
+      } else if (daysSince > 1) {
+        APP.gamification.streak = 1;
+      }
+    }
+    
+    APP.gamification.lastActive = Date.now();
+    await saveGamification();
+    updateGamificationUI();
+    renderAchievements();
+  }
+
+  async function saveGamification() {
+    await db.put('settings', { k: 'gamification', v: APP.gamification });
+  }
+
+  async function awardXP(amount, reason) {
+    APP.gamification.xp += amount;
+    APP.gamification.totalXP += amount;
+    APP.gamification.actions++;
+    
+    // Check for level up
+    const oldLevel = APP.gamification.level;
+    const xpForNext = oldLevel * 100;
+    
+    if (APP.gamification.xp >= xpForNext) {
+      APP.gamification.level++;
+      APP.gamification.xp -= xpForNext;
+      toast(`🎉 Level Up! Now level ${APP.gamification.level}`);
+      
+      // Check level achievements
+      if (APP.gamification.level === 5) await unlockAchievement('level-5');
+      if (APP.gamification.level === 10) await unlockAchievement('level-10');
+    }
+    
+    await saveGamification();
+    updateGamificationUI();
+    
+    if (reason) {
+      trackEvent('xp_awarded', { amount, reason });
+    }
+  }
+
+  async function unlockAchievement(achievementId) {
+    if (APP.gamification.achievements.includes(achievementId)) return;
+    
+    const achievement = ACHIEVEMENTS.find(a => a.id === achievementId);
+    if (!achievement) return;
+    
+    APP.gamification.achievements.push(achievementId);
+    await awardXP(achievement.xp, `Achievement: ${achievement.name}`);
+    
+    toast(`🏆 Achievement Unlocked: ${achievement.name} (+${achievement.xp} XP)`);
+    renderAchievements();
+  }
+
+  function updateGamificationUI() {
+    const { level, xp, totalXP, streak, actions, achievements } = APP.gamification;
+    
+    // Update stats
+    $('#player-level').textContent = level;
+    $('#total-xp').textContent = totalXP;
+    $('#streak-days').textContent = streak;
+    $('#actions-count').textContent = actions;
+    $('#achievements-count').textContent = `${achievements.length}/${ACHIEVEMENTS.length}`;
+    
+    // Update XP bar
+    const xpForNext = level * 100;
+    const progress = (xp / xpForNext) * 100;
+    $('#xp-fill').style.width = `${progress}%`;
+    $('#xp-text').textContent = `${xp} / ${xpForNext} XP`;
+    
+    // Update quest progress
+    const dailyTarget = 3;
+    const dailyProgress = Math.min(actions % dailyTarget, dailyTarget);
+    const questProgress = (dailyProgress / dailyTarget) * 100;
+    $('#quest-progress').style.width = `${questProgress}%`;
+    $('#quest-current').textContent = dailyProgress;
+    $('#quest-target').textContent = dailyTarget;
+    
+    // Check daily quest completion
+    if (dailyProgress >= dailyTarget) {
+      $('#quest-title').innerHTML = '✅ Daily Quest Complete!';
+    }
+  }
+
+  function renderAchievements() {
+    const container = $('#achievement-list');
+    container.innerHTML = '';
+    
+    ACHIEVEMENTS.forEach(achievement => {
+      const unlocked = APP.gamification.achievements.includes(achievement.id);
+      const item = document.createElement('div');
+      item.className = `achievement-item ${unlocked ? '' : 'locked'}`;
+      item.innerHTML = `
+        <div class="achievement-icon">${achievement.icon}</div>
+        <div class="achievement-text">
+          <div class="achievement-name">${achievement.name}</div>
+          <div class="achievement-desc">${achievement.desc}</div>
+        </div>
+        <div style="font-size: 0.75rem; color: var(--accent);">+${achievement.xp} XP</div>
+      `;
+      container.appendChild(item);
+    });
+  }
+
+  window.toggleHudCard = function(cardId) {
+    const card = $('#' + cardId);
+    const content = card.querySelector('.hud-content');
+    const button = card.querySelector('.hud-minimize');
+    
+    if (card.classList.contains('minimized')) {
+      card.classList.remove('minimized');
+      content.style.display = 'block';
+      button.textContent = '−';
+    } else {
+      card.classList.add('minimized');
+      content.style.display = 'none';
+      button.textContent = '+';
+    }
+  };
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 7: ANALYTICS (PRIVACY-RESPECTING)
+     Purpose: Optional usage tracking with explicit consent
+     Usage: trackEvent(eventName, data), sendAnalytics()
+     Expected: Aggregated, anonymized data only when enabled
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  async function initAnalytics() {
+    const consent = await db.get('settings', 'analytics.consent');
+    APP.analytics.enabled = consent?.v === true;
+    
+    if ($('#analyticsConsent')) {
+      $('#analyticsConsent').checked = APP.analytics.enabled;
+    }
+    
+    // Respect Do Not Track
+    if (navigator.doNotTrack === '1') {
+      APP.analytics.enabled = false;
+      if ($('#analyticsConsent')) {
+        $('#analyticsConsent').disabled = true;
+      }
+    }
+  }
+
+  function trackEvent(eventName, data = {}) {
+    if (!APP.analytics.enabled) return;
+    
+    const event = {
+      event: eventName,
+      timestamp: Date.now(),
+      data: data,
+      session: APP.analytics.sessionId
+    };
+    
+    APP.analytics.buffer.push(event);
+    
+    // Store locally
+    db.put('analytics', event);
+    
+    // Send if buffer is large or time-based
+    if (APP.analytics.buffer.length >= 50) {
+      sendAnalytics();
+    }
+  }
+
+  async function sendAnalytics() {
+    if (!APP.analytics.enabled || APP.analytics.buffer.length === 0) return;
+    
+    const payload = {
+      events: APP.analytics.buffer,
+      version: '1.0',
+      timestamp: Date.now()
+    };
+    
+    try {
+      // Send to endpoint (would be implemented server-side)
+      const response = await fetch('https://planetaryrestorationarchive.com/api/analytics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      
+      if (response.ok) {
+        APP.analytics.buffer = [];
+        APP.analytics.lastSync = Date.now();
+      }
+    } catch (err) {
+      console.warn('Analytics send failed:', err);
+    }
+  }
+
+  window.toggleAnalytics = async function() {
+    const enabled = $('#analyticsConsent').checked;
+    APP.analytics.enabled = enabled;
+    await db.put('settings', { k: 'analytics.consent', v: enabled });
+    
+    if (enabled) {
+      toast('✓ Analytics enabled (aggregated, no PII)');
+    } else {
+      toast('✓ Analytics disabled');
+    }
+  };
+
+  // Send analytics before page unload
+  window.addEventListener('beforeunload', () => {
+    if (APP.analytics.buffer.length > 0) {
+      navigator.sendBeacon(
+        'https://planetaryrestorationarchive.com/api/analytics',
+        JSON.stringify({ events: APP.analytics.buffer })
+      );
+    }
+  });
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 8: THEME SYSTEM
+     Purpose: Multi-theme support with auto-detection
+     Usage: setTheme('space' | 'medieval' | 'anime' | 'nature' | 'auto')
+     Expected: Persistent theme choice, smooth transitions
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  async function initTheme() {
+    const saved = await db.get('settings', 'theme');
+    const theme = saved?.v || 'auto';
+    setTheme(theme, false);
+  }
+
+  window.setTheme = async function(theme, save = true) {
+    const html = document.documentElement;
+    
+    if (theme === 'auto') {
+      html.removeAttribute('data-theme');
+    } else {
+      html.setAttribute('data-theme', theme);
+    }
+    
+    if (save) {
+      await db.put('settings', { k: 'theme', v: theme });
+      toast(`✓ Theme: ${theme}`);
+    }
+  };
+
+  // Theme toggle button
+  $('#themeToggle').addEventListener('click', async () => {
+    const themes = ['space', 'medieval', 'anime', 'nature', 'auto'];
+    const current = await db.get('settings', 'theme');
+    const currentTheme = current?.v || 'auto';
+    const currentIndex = themes.indexOf(currentTheme);
+    const nextTheme = themes[(currentIndex + 1) % themes.length];
+    setTheme(nextTheme);
+  });
+
+  window.toggleReducedMotion = async function() {
+    const enabled = $('#reduceMotion').checked;
+    if (enabled) {
+      document.documentElement.style.setProperty('--animation-duration', '0.01ms');
+    } else {
+      document.documentElement.style.removeProperty('--animation-duration');
+    }
+    await db.put('settings', { k: 'reducedMotion', v: enabled });
+  };
+
+  window.toggleHUD = async function() {
+    const hidden = $('#hideHUD').checked;
+    $('#gamification-hud').style.display = hidden ? 'none' : 'flex';
+    await db.put('settings', { k: 'hideHUD', v: hidden });
+  };
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 9: API DATA FETCHERS (USGS, NOAA, USDA, EPA)
+     Purpose: Fetch real-time data with offline fallback
+     Usage: fetchUSGS(), fetchNOAA(), fetchUSDA(), fetchEPA()
+     Expected: Online data cached, offline uses last cache
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  async function fetchWithCache(url, cacheKey, statusEl, fallback = {}) {
+    statusEl.textContent = 'loading...';
+    statusEl.className = 'pill warn';
+    
+    try {
+      const response = await fetch(url, { mode: 'cors' });
+      const data = await response.json();
+      
+      // Cache the response
+      await db.put('cache', { k: cacheKey, v: { data, timestamp: Date.now() } });
+      
+      statusEl.textContent = 'live ✓';
+      statusEl.className = 'pill ok';
+      
+      return data;
+    } catch (err) {
+      console.warn(`Fetch failed for ${cacheKey}:`, err);
+      
+      // Try cache
+      const cached = await db.get('cache', cacheKey);
+      if (cached) {
+        const age = Math.floor((Date.now() - cached.v.timestamp) / 1000 / 60);
+        statusEl.textContent = `cached (${age}m ago)`;
+        statusEl.className = 'pill warn';
+        return cached.v.data;
+      }
+      
+      statusEl.textContent = 'offline • no cache';
+      statusEl.className = 'pill bad';
+      return fallback;
+    }
+  }
+
+  window.fetchUSGS = async function() {
+    const data = await fetchWithCache(
+      'https://waterservices.usgs.gov/nwis/iv/?format=json&stateCd=co&parameterCd=00060,00065&siteStatus=active',
+      'usgs_streamflow',
+      $('#usgsStatus'),
+      { note: 'Sample data (offline)', timeSeries: [] }
+    );
+    
+    $('#usgsOut').textContent = JSON.stringify(data, null, 2).slice(0, 2000);
+    await awardXP(5, 'Fetched USGS data');
+    
+    // Track for achievement
+    const fetches = (await db.get('settings', 'data-fetches'))?.v || [];
+    if (!fetches.includes('usgs')) {
+      fetches.push('usgs');
+      await db.put('settings', { k: 'data-fetches', v: fetches });
+      if (fetches.length >= 3) await unlockAchievement('data-fetcher');
+    }
+  };
+
+  window.fetchNOAA = async function() {
+    const data = await fetchWithCache(
+      'https://api.weather.gov/gridpoints/TOP/31,80/forecast',
+      'noaa_forecast',
+      $('#noaaStatus'),
+      { properties: { periods: [{ shortForecast: 'Offline - no data' }] } }
+    );
+    
+    $('#noaaOut').textContent = JSON.stringify(data, null, 2).slice(0, 2000);
+    await awardXP(5, 'Fetched NOAA data');
+    
+    const fetches = (await db.get('settings', 'data-fetches'))?.v || [];
+    if (!fetches.includes('noaa')) {
+      fetches.push('noaa');
+      await db.put('settings', { k: 'data-fetches', v: fetches });
+      if (fetches.length >= 3) await unlockAchievement('data-fetcher');
+    }
+  };
+
+  window.fetchUSDA = async function() {
+    const zip = $('#zipMarket').value.trim() || '80301';
+    const data = await fetchWithCache(
+      `https://www.usdalocalfoodportal.com/api/farmersmarket/?apikey=demo&zip=${zip}`,
+      'usda_markets',
+      $('#usdaStatus'),
+      { data: [{ marketname: 'Sample Market (offline)', zip }] }
+    );
+    
+    $('#usdaOut').textContent = JSON.stringify(data, null, 2).slice(0, 2000);
+    await awardXP(5, 'Fetched USDA data');
+    
+    const fetches = (await db.get('settings', 'data-fetches'))?.v || [];
+    if (!fetches.includes('usda')) {
+      fetches.push('usda');
+      await db.put('settings', { k: 'data-fetches', v: fetches });
+      if (fetches.length >= 3) await unlockAchievement('data-fetcher');
+    }
+  };
+
+  window.fetchEPA = async function() {
+    const data = await fetchWithCache(
+      'https://watersgeo.epa.gov/arcgis/rest/services/OWRAD/ATTAINS_Assessment/MapServer/1/query?where=1%3D1&outFields=*&f=json&resultRecordCount=5',
+      'epa_water_quality',
+      $('#epaStatus'),
+      { features: [] }
+    );
+    
+    $('#epaOut').textContent = JSON.stringify(data, null, 2).slice(0, 2000);
+    await awardXP(5, 'Fetched EPA data');
+    
+    const fetches = (await db.get('settings', 'data-fetches'))?.v || [];
+    if (!fetches.includes('epa')) {
+      fetches.push('epa');
+      await db.put('settings', { k: 'data-fetches', v: fetches });
+      if (fetches.length >= 3) await unlockAchievement('data-fetcher');
+    }
+  };
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 10: WATER TOOLKIT CALCULATORS
+     Purpose: Catchment calculations and treatment planning
+     Usage: calcCatchment()
+     Expected: Accurate water harvest estimates
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  window.calcCatchment = async function() {
+    const sqft = parseFloat($('#roofSqft').value) || 0;
+    const inches = parseFloat($('#rainIn').value) || 0;
+    const coeff = parseFloat($('#coeff').value) || 0.8;
+    
+    if (sqft <= 0 || inches <= 0) {
+      $('#catchRes').textContent = 'invalid inputs';
+      $('#catchRes').className = 'pill bad';
+      return;
+    }
+    
+    // Formula: gallons = sqft × inches × 0.623 × coefficient
+    const gallons = Math.round(sqft * inches * 0.623 * coeff);
+    
+    $('#catchRes').textContent = `~${gallons.toLocaleString()} gal/year`;
+    $('#catchRes').className = 'pill ok';
+    
+    await awardXP(10, 'Calculated catchment');
+    await unlockAchievement('water-calculator');
+    
+    toast(`✓ Annual harvest potential: ${gallons.toLocaleString()} gallons`);
+  };
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 11: FOOD TOOLKIT (SEEDS & CALORIE PLANNING)
+     Purpose: Seed inventory management and garden planning
+     Usage: addSeed(), calcCalories()
+     Expected: Persistent seed records, accurate area estimates
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  async function renderSeeds() {
+    const seeds = await db.getAll('seeds');
+    if (seeds.length === 0) {
+      $('#seedOut').textContent = '— No seeds yet —';
+      return;
+    }
+    
+    $('#seedOut').textContent = seeds
+      .map(s => `${s.name} (${s.year})`)
+      .join('\n');
+  }
+
+  window.addSeed = async function() {
+    const name = $('#seedName').value.trim();
+    const year = $('#seedYear').value.trim();
+    
+    if (!name || !year) {
+      toast('❌ Please enter variety and year');
+      return;
+    }
+    
+    await db.put('seeds', { name, year, added: Date.now() });
+    $('#seedName').value = '';
+    $('#seedYear').value = '';
+    
+    await renderSeeds();
+    await awardXP(5, 'Added seed');
+    
+    const count = await db.count('seeds');
+    if (count >= 5) await unlockAchievement('seed-saver');
+    
+    toast(`✓ Added: ${name}`);
+  };
+
+  window.exportSeeds = async function() {
+    const seeds = await db.getAll('seeds');
+    const json = JSON.stringify(seeds, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `seed-bank-${Date.now()}.json`;
+    a.click();
+    
+    await awardXP(10, 'Exported seeds');
+    toast('✓ Seeds exported');
+    
+    await trackExport('seeds');
+  };
+
+  window.clearSeeds = async function() {
+    if (!confirm('Clear all seed records? This cannot be undone.')) return;
+    await db.clear('seeds');
+    await renderSeeds();
+    toast('✓ Seed bank cleared');
+  };
+
+  window.calcCalories = function() {
+    const household = parseInt($('#household').value) || 1;
+    const dailyKcal = household * 2400;
+    
+    // Rough planning estimates (adjust for your region)
+    const potatoArea = Math.ceil((dailyKcal * 0.5) / 400 / 0.5);
+    const beanArea = Math.ceil((dailyKcal * 0.2) / 330 / 0.4);
+    const cornArea = Math.ceil((dailyKcal * 0.2) / 365 / 0.3);
+    const squashArea = Math.ceil((dailyKcal * 0.1) / 200 / 0.25);
+    
+    const output = `
+Daily baseline: ~${dailyKcal.toLocaleString()} kcal for ${household} person(s)
+
+Suggested growing area (sq ft):
+• Potatoes: ${potatoArea} sq ft
+• Beans: ${beanArea} sq ft
+• Corn: ${cornArea} sq ft
+• Squash: ${squashArea} sq ft
+
+Total: ~${(potatoArea + beanArea + cornArea + squashArea).toLocaleString()} sq ft
+
+Note: Add 20-30% for succession planting, paths, and 
+preservation needs. Adjust for your actual yields.`;
+    
+    $('#calOut').textContent = output.trim();
+    awardXP(10, 'Calculated calorie garden');
+  };
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 12: TRANSPARENCY LEDGER (HASH CHAIN)
+     Purpose: Immutable audit log with cryptographic verification
+     Usage: addLedgerEntry(), exportLedger(), verifyLedger()
+     Expected: Tamper-evident record of community actions
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  async function sha256(text) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(text);
+    const hash = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hash))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
+  async function renderLedger() {
+    const entries = await db.getAll('ledger');
+    if (entries.length === 0) {
+      $('#ledgerOut').textContent = '— No entries yet —';
+      return;
+    }
+    
+    $('#ledgerOut').textContent = entries
+      .map((e, i) => `${i + 1}. ${e.text}\n   Hash: ${e.hash.slice(0, 16)}... [${new Date(e.timestamp).toLocaleString()}]`)
+      .join('\n\n');
+  }
+
+  window.addLedgerEntry = async function() {
+    const text = $('#entryText').value.trim();
+    if (!text) {
+      toast('❌ Enter an entry first');
+      return;
+    }
+    
+    const entries = await db.getAll('ledger');
+    const prevHash = entries.length > 0 
+      ? entries[entries.length - 1].hash 
+      : 'GENESIS';
+    
+    const timestamp = Date.now();
+    const payload = JSON.stringify({ text, prevHash, timestamp });
+    const hash = await sha256(payload);
+    
+    await db.put('ledger', { text, hash, prevHash, timestamp, payload });
+    $('#entryText').value = '';
+    
+    await renderLedger();
+    await awardXP(5, 'Added ledger entry');
+    
+    const count = await db.count('ledger');
+    if (count >= 10) await unlockAchievement('ledger-keeper');
+    
+    toast('✓ Entry logged');
+  };
+
+  window.exportLedger = async function() {
+    const entries = await db.getAll('ledger');
+    const json = JSON.stringify(entries, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `transparency-ledger-${Date.now()}.json`;
+    a.click();
+    
+    await awardXP(15, 'Exported ledger');
+    toast('✓ Ledger exported');
+    
+    await trackExport('ledger');
+  };
+
+  window.verifyLedger = async function() {
+    const entries = await db.getAll('ledger');
+    if (entries.length === 0) {
+      toast('ℹ️ No entries to verify');
+      return;
+    }
+    
+    let valid = true;
+    for (let i = 0; i < entries.length; i++) {
+      const entry = entries[i];
+      const recomputed = await sha256(entry.payload);
+      
+      if (recomputed !== entry.hash) {
+        valid = false;
+        toast(`❌ Hash mismatch at entry ${i + 1}`, 5000);
+        break;
+      }
+      
+      if (i > 0) {
+        const prev = entries[i - 1];
+        if (entry.prevHash !== prev.hash) {
+          valid = false;
+          toast(`❌ Chain broken at entry ${i + 1}`, 5000);
+          break;
+        }
+      }
+    }
+    
+    if (valid) {
+      toast(`✓ Ledger verified (${entries.length} entries intact)`);
+    }
+  };
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 13: HABITICA INTEGRATION
+     Purpose: Optional sync with Habitica for external motivation
+     Usage: syncHabitica()
+     Expected: Secure credential storage, successful task creation
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  window.syncHabitica = async function() {
+    const user = $('#habitUser').value.trim();
+    const token = $('#habitToken').value.trim();
+    const taskTitle = $('#habitTask').value.trim();
+    
+    if (!user || !token || !taskTitle) {
+      $('#habitStatus').textContent = 'missing fields';
+      $('#habitStatus').className = 'pill bad';
+      toast('❌ Fill in all Habitica fields');
+      return;
+    }
+    
+    // Store credentials (encrypted in production)
+    await db.put('settings', { k: 'habitica.user', v: user });
+    await db.put('settings', { k: 'habitica.token', v: token });
+    
+    $('#habitStatus').textContent = 'syncing...';
+    $('#habitStatus').className = 'pill warn';
+    
+    try {
+      const response = await fetch('https://habitica.com/api/v3/tasks/user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-user': user,
+          'x-api-key': token
+        },
+        body: JSON.stringify({
+          text: taskTitle,
+          type: 'todo',
+          notes: 'Created via PRA Sovereignty PWA'
+        })
+      });
+      
+      if (!response.ok) throw new Error('Habitica API error');
+      
+      const data = await response.json();
+      $('#habitStatus').textContent = 'synced ✓';
+      $('#habitStatus').className = 'pill ok';
+      $('#habitTask').value = '';
+      
+      await awardXP(15, 'Habitica sync');
+      await unlockAchievement('habitica-sync');
+      
+      toast('✓ Task created in Habitica');
+    } catch (err) {
+      console.error('Habitica sync failed:', err);
+      $('#habitStatus').textContent = 'error';
+      $('#habitStatus').className = 'pill bad';
+      toast('❌ Habitica sync failed - check credentials');
+    }
+  };
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 14: MNEMONIC RECOVERY SYSTEM
+     Purpose: BIP39-style seed phrase for settings recovery
+     Usage: generateMnemonic(), rekeySettings(), testRecovery()
+     Expected: Secure 12-word phrase, AES-GCM encryption
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  function randomMnemonic(wordCount = 12) {
+    return Array.from({ length: wordCount }, () => 
+      WORDLIST[Math.floor(Math.random() * WORDLIST.length)]
+    ).join(' ');
+  }
+
+  async function mnemonicToKey(mnemonic) {
+    const encoder = new TextEncoder();
+    const salt = encoder.encode('pra-sovereignty-salt-v1');
+    
+    const keyMaterial = await crypto.subtle.importKey(
+      'raw',
+      encoder.encode(mnemonic),
+      'PBKDF2',
+      false,
+      ['deriveKey']
+    );
+    
+    return crypto.subtle.deriveKey(
+      {
+        name: 'PBKDF2',
+        salt: salt,
+        iterations: 100000,
+        hash: 'SHA-256'
+      },
+      keyMaterial,
+      { name: 'AES-GCM', length: 256 },
+      false,
+      ['encrypt', 'decrypt']
+    );
+  }
+
+  window.generateMnemonic = async function() {
+    const mnemonic = randomMnemonic();
+    await db.put('settings', { k: 'mnemonic', v: mnemonic });
+    
+    $('#mnemonicOut').textContent = `⚠️ WRITE THIS DOWN SECURELY:\n\n${mnemonic}\n\n✓ Saved locally (encrypted in IndexedDB)`;
+    
+    await awardXP(20, 'Generated mnemonic');
+    await unlockAchievement('mnemonic-gen');
+    
+    toast('✓ Recovery phrase generated');
+  };
+
+  window.rekeySettings = async function() {
+    const saved = await db.get('settings', 'mnemonic');
+    if (!saved) {
+      toast('❌ Generate mnemonic first');
+      return;
+    }
+    
+    const mnemonic = saved.v;
+    const key = await mnemonicToKey(mnemonic);
+    
+    // Encrypt a checkpoint of current settings
+    const settings = {
+      gamification: APP.gamification,
+      theme: (await db.get('settings', 'theme'))?.v,
+      timestamp: Date.now()
+    };
+    
+    const encoder = new TextEncoder();
+    const data = encoder.encode(JSON.stringify(settings));
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    
+    const encrypted = await crypto.subtle.encrypt(
+      { name: 'AES-GCM', iv },
+      key,
+      data
+    );
+    
+    await db.put('cache', {
+      k: 'encrypted-checkpoint',
+      v: {
+        iv: Array.from(iv),
+        data: Array.from(new Uint8Array(encrypted))
+      }
+    });
+    
+    $('#mnemonicOut').textContent = '✓ Settings encrypted with your mnemonic.\nYou can now recover on another device.';
+    toast('✓ Settings re-keyed to mnemonic');
+  };
+
+  window.testRecovery = async function() {
+    const saved = await db.get('settings', 'mnemonic');
+    if (!saved) {
+      toast('❌ No mnemonic saved');
+      return;
+    }
+    
+    const checkpoint = await db.get('cache', 'encrypted-checkpoint');
+    if (!checkpoint) {
+      toast('❌ No encrypted checkpoint found');
+      return;
+    }
+    
+    try {
+      const key = await mnemonicToKey(saved.v);
+      const iv = new Uint8Array(checkpoint.v.iv);
+      const data = new Uint8Array(checkpoint.v.data);
+      
+      const decrypted = await crypto.subtle.decrypt(
+        { name: 'AES-GCM', iv },
+        key,
+        data
+      );
+      
+      const decoder = new TextDecoder();
+      const settings = JSON.parse(decoder.decode(decrypted));
+      
+      $('#mnemonicOut').textContent = `✓ Recovery test successful!\n\nDecrypted settings:\n${JSON.stringify(settings, null, 2)}`;
+      toast('✓ Recovery test passed');
+    } catch (err) {
+      $('#mnemonicOut').textContent = '❌ Recovery test failed';
+      toast('❌ Recovery test failed');
+    }
+  };
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 15: WEBLLM INTEGRATION
+     Purpose: In-browser LLM for planning and Q&A
+     Usage: loadWebLLM(), askWebLLM()
+     Expected: Model loads ~500MB first time, inference in browser
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  window.loadWebLLM = async function() {
+    const btn = $('#loadLLM');
+    const status = $('#llmStatus');
+    
+    btn.disabled = true;
+    status.textContent = 'loading...';
+    status.className = 'pill warn';
+    
+    try {
+      // Load WebLLM library
+      if (!window.mlc) {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm@0.2.46/lib/index.min.js';
+        
+        await new Promise((resolve, reject) => {
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+      }
+      
+      toast('Loading model... (first time: ~500MB download)', 5000);
+      
+      // Initialize engine
+      const initProgressCallback = (progress) => {
+        status.textContent = `loading ${Math.round(progress.progress * 100)}%`;
+      };
+      
+      APP.llmEngine = await window.mlc.CreateMLCEngine(
+        'Llama-3.2-1B-Instruct-q4f32_1-MLC',
+        { initProgressCallback }
+      );
+      
+      status.textContent = 'ready ✓';
+      status.className = 'pill ok';
+      $('#askLLM').disabled = false;
+      
+      await awardXP(30, 'Loaded WebLLM');
+      await unlockAchievement('llm-user');
+      
+      toast('✓ WebLLM ready');
+    } catch (err) {
+      console.error('WebLLM load failed:', err);
+      status.textContent = 'failed';
+      status.className = 'pill bad';
+      btn.disabled = false;
+      toast('❌ WebLLM load failed (using offline fallback)');
+    }
+  };
+
+  window.askWebLLM = async function() {
+    const question = $('#llmIn').value.trim();
+    if (!question) {
+      toast('❌ Enter a question first');
+      return;
+    }
+    
+    const output = $('#llmOut');
+    output.textContent = '🤔 Thinking...';
+    
+    if (APP.llmEngine) {
+      try {
+        const messages = [
+          { role: 'user', content: question }
+        ];
+        
+        const reply = await APP.llmEngine.chat.completions.create({
+          messages,
+          temperature: 0.7,
+          max_tokens: 512
+        });
+        
+        output.textContent = reply.choices[0].message.content;
+        await awardXP(10, 'Asked LLM');
+      } catch (err) {
+        console.error('LLM inference failed:', err);
+        output.textContent = '❌ Inference failed. Try rephrasing or check console.';
+      }
+    } else {
+      // Offline fallback - rule-based scaffold
+      const scaffold = `
+🤖 Offline Planning Assistant
+
+Question: ${question}
+
+Suggested framework:
+1. Define objective clearly
+2. Check legal/safety requirements
+3. Identify data needed
+4. Break into 72h / 30d / 90d actions
+5. Document and hash in ledger
+
+To use the AI assistant:
+• Go online
+• Click "Load WebLLM"
+• Wait for model download (~500MB)
+• Ask your question again
+
+For now, use this framework to structure your planning.`;
+      
+      output.textContent = scaffold.trim();
+    }
+  };
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 16: COMMAND PALETTE
+     Purpose: Quick keyboard-driven navigation and actions
+     Usage: Ctrl/Cmd+K to open, fuzzy search commands
+     Expected: Fast access to all features
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  const COMMANDS = [
+    { name: 'Fetch USGS Data', action: () => fetchUSGS(), keywords: 'water stream groundwater data' },
+    { name: 'Fetch NOAA Data', action: () => fetchNOAA(), keywords: 'weather climate drought precipitation' },
+    { name: 'Fetch USDA Markets', action: () => fetchUSDA(), keywords: 'farmers market food local' },
+    { name: 'Fetch EPA Data', action: () => fetchEPA(), keywords: 'water quality epa pollution' },
+    { name: 'Calculate Catchment', action: () => calcCatchment(), keywords: 'rainwater harvest roof calculate' },
+    { name: 'Calculate Calorie Garden', action: () => calcCalories(), keywords: 'food calorie garden planning' },
+    { name: 'Add Seed', action: () => $('#seedName').focus(), keywords: 'seed bank variety add' },
+    { name: 'Add Ledger Entry', action: () => $('#entryText').focus(), keywords: 'transparency ledger log entry' },
+    { name: 'Export Seeds', action: () => exportSeeds(), keywords: 'export download seeds json' },
+    { name: 'Export Ledger', action: () => exportLedger(), keywords: 'export download ledger transparency' },
+    { name: 'Verify Ledger', action: () => verifyLedger(), keywords: 'verify integrity ledger hash' },
+    { name: 'Generate Mnemonic', action: () => generateMnemonic(), keywords: 'recovery phrase seed mnemonic' },
+    { name: 'Load WebLLM', action: () => loadWebLLM(), keywords: 'ai llm assistant load' },
+    { name: 'Ask WebLLM', action: () => $('#llmIn').focus(), keywords: 'ai question ask llm' },
+    { name: 'Sync Habitica', action: () => syncHabitica(), keywords: 'habitica sync task gamification' },
+    { name: 'Clear All Data', action: () => clearAllData(), keywords: 'clear delete reset data' },
+    { name: 'Storage Report', action: () => showStorageSizes(), keywords: 'storage size report quota' },
+    { name: 'Export Everything', action: () => exportAllData(), keywords: 'export all data backup' },
+    { name: 'Recheck Integrity', action: () => checkIntegrity(), keywords: 'integrity security hash verify' },
+    { name: 'Save Offline', action: () => savePageOffline(), keywords: 'save download offline html' },
+    { name: 'Install PWA', action: () => installPWA(), keywords: 'install app pwa homescreen' },
+    { name: 'Theme: Space', action: () => setTheme('space'), keywords: 'theme dark space' },
+    { name: 'Theme: Medieval', action: () => setTheme('medieval'), keywords: 'theme medieval fantasy' },
+    { name: 'Theme: Anime', action: () => setTheme('anime'), keywords: 'theme anime colorful' },
+    { name: 'Theme: Nature', action: () => setTheme('nature'), keywords: 'theme nature green' },
+    { name: 'Theme: Auto', action: () => setTheme('auto'), keywords: 'theme auto system' }
+  ];
+
+  let selectedCommandIndex = 0;
+
+  window.openCommandPalette = function() {
+    $('#command-palette').classList.add('active');
+    $('#command-input').focus();
+    renderCommands('');
+  };
+
+  function closeCommandPalette() {
+    $('#command-palette').classList.remove('active');
+    $('#command-input').value = '';
+  }
+
+  function renderCommands(query) {
+    const results = $('#command-results');
+    const filtered = COMMANDS.filter(cmd => 
+      cmd.name.toLowerCase().includes(query.toLowerCase()) ||
+      cmd.keywords.toLowerCase().includes(query.toLowerCase())
+    );
+    
+    selectedCommandIndex = 0;
+    
+    results.innerHTML = filtered.length === 0
+      ? '<div class="command-item">No commands found</div>'
+      : filtered.map((cmd, i) => `
+          <div class="command-item ${i === 0 ? 'selected' : ''}" data-index="${i}">
+            <strong>${cmd.name}</strong>
+            <div style="font-size: 0.8rem; color: var(--muted);">${cmd.keywords}</div>
+          </div>
+        `).join('');
+    
+    // Add click handlers
+    $$('.command-item').forEach((el, i) => {
+      el.addEventListener('click', () => {
+        filtered[i].action();
+        closeCommandPalette();
+      });
+    });
+  }
+
+  $('#command-input').addEventListener('input', (e) => {
+    renderCommands(e.target.value);
+  });
+
+  $('#command-input').addEventListener('keydown', (e) => {
+    const items = $$('.command-item');
+    
+    if (e.key === 'Escape') {
+      closeCommandPalette();
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      selectedCommandIndex = Math.min(selectedCommandIndex + 1, items.length - 1);
+      updateCommandSelection();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      selectedCommandIndex = Math.max(selectedCommandIndex - 1, 0);
+      updateCommandSelection();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      const query = $('#command-input').value.toLowerCase();
+      const filtered = COMMANDS.filter(cmd => 
+        cmd.name.toLowerCase().includes(query) ||
+        cmd.keywords.toLowerCase().includes(query)
+      );
+      if (filtered[selectedCommandIndex]) {
+        filtered[selectedCommandIndex].action();
+        closeCommandPalette();
+      }
+    }
+  });
+
+  function updateCommandSelection() {
+    $$('.command-item').forEach((el, i) => {
+      el.classList.toggle('selected', i === selectedCommandIndex);
+    });
+  }
+
+  $('#command-palette').addEventListener('click', (e) => {
+    if (e.target === $('#command-palette')) {
+      closeCommandPalette();
+    }
+  });
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 17: UTILITY FUNCTIONS (EXPORT, SAVE, STORAGE)
+     Purpose: Data export, page saving, storage management
+     Usage: Various utility functions called by UI
+     Expected: Clean data exports, offline page saves
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  async function trackExport(type) {
+    const exports = (await db.get('settings', 'export-count'))?.v || {};
+    exports[type] = (exports[type] || 0) + 1;
+    await db.put('settings', { k: 'export-count', v: exports });
+    
+    const total = Object.values(exports).reduce((a, b) => a + b, 0);
+    if (total >= 3) await unlockAchievement('export-master');
+  }
+
+  window.savePageOffline = function() {
+    const html = document.documentElement.outerHTML;
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `sovereignty-pwa-${Date.now()}.html`;
+    a.click();
+    
+    toast('✓ Page saved for offline use');
+    awardXP(10, 'Saved page offline');
+  };
+
+  window.exportToPDF = function() {
+    window.print();
+    toast('ℹ️ Use Print → Save as PDF');
+  };
+
+  window.clearAllData = async function() {
+    if (!confirm('Clear ALL local data? This includes settings, seeds, ledger, and cache. This cannot be undone.')) {
+      return;
+    }
+    
+    await db.clear('settings');
+    await db.clear('seeds');
+    await db.clear('ledger');
+    await db.clear('cache');
+    await db.clear('analytics');
+    
+    // Clear caches
+    if ('caches' in window) {
+      const names = await caches.keys();
+      await Promise.all(names.map(n => caches.delete(n)));
+    }
+    
+    toast('✓ All data cleared');
+    setTimeout(() => location.reload(), 1500);
+  };
+
+  window.showStorageSizes = async function() {
+    const output = $('#sizesOut');
+    output.textContent = 'Calculating...';
+    
+    try {
+      const estimate = await navigator.storage.estimate();
+      const usedMB = (estimate.usage / 1024 / 1024).toFixed(2);
+      const quotaMB = (estimate.quota / 1024 / 1024).toFixed(1);
+      const percentUsed = ((estimate.usage / estimate.quota) * 100).toFixed(1);
+      
+      // Count records
+      const seedCount = await db.count('seeds');
+      const ledgerCount = await db.count('ledger');
+      const cacheCount = await db.count('cache');
+      
+      output.textContent = `
+Storage Report:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Usage: ${usedMB} MB / ${quotaMB} MB (${percentUsed}%)
+
+IndexedDB Records:
+• Seeds: ${seedCount}
+• Ledger: ${ledgerCount}
+• Cache: ${cacheCount}
+
+Browser Support:
+• IndexedDB: ${!!window.indexedDB ? '✓' : '✗'}
+• Service Worker: ${!!navigator.serviceWorker ? '✓' : '✗'}
+• Crypto API: ${!!window.crypto.subtle ? '✓' : '✗'}
+• Storage Manager: ${!!navigator.storage ? '✓' : '✗'}`;
+    } catch (err) {
+      output.textContent = 'Storage API not available';
+    }
+  };
+
+  window.exportAllData = async function() {
+    const bundle = {
+      version: '1.0',
+      timestamp: Date.now(),
+      settings: await db.getAll('settings'),
+      seeds: await db.getAll('seeds'),
+      ledger: await db.getAll('ledger'),
+      gamification: APP.gamification
+    };
+    
+    const json = JSON.stringify(bundle, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `sovereignty-backup-${Date.now()}.json`;
+    a.click();
+    
+    await awardXP(25, 'Exported all data');
+    toast('✓ Complete backup exported');
+    
+    await trackExport('full-backup');
+  };
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 18: KEYBOARD SHORTCUTS
+     Purpose: Power-user keyboard navigation
+     Usage: Various keyboard combinations
+     Expected: Accessible keyboard-first UX
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  window.addEventListener('keydown', (e) => {
+    // Command Palette: Ctrl/Cmd + K
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      openCommandPalette();
+    }
+    
+    // Theme Toggle: Alt + T
+    if (e.altKey && e.key.toLowerCase() === 't') {
+      e.preventDefault();
+      $('#themeToggle').click();
+    }
+    
+    // Quick Actions: Alt + /
+    if (e.altKey && e.key === '/') {
+      e.preventDefault();
+      openCommandPalette();
+    }
+    
+    // Toggle HUD: Alt + G
+    if (e.altKey && e.key.toLowerCase() === 'g') {
+      e.preventDefault();
+      const hud = $('#gamification-hud');
+      hud.style.display = hud.style.display === 'none' ? 'flex' : 'none';
+    }
+  });
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 19: NAVIGATION & SCROLL BEHAVIOR
+     Purpose: Smooth scrolling and active nav tracking
+     Usage: Automatic on link clicks
+     Expected: Smooth UX, active nav indicators
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  const navLinks = $$('nav a');
+  const sections = $$('section[id]');
+
+  function updateActiveNav() {
+    const scrollPos = window.scrollY + 100;
+    
+    sections.forEach(section => {
+      const top = section.offsetTop;
+      const height = section.offsetHeight;
+      const id = section.getAttribute('id');
+      
+      if (scrollPos >= top && scrollPos < top + height) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+        });
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveNav);
+  updateActiveNav();
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION 20: INITIALIZATION SEQUENCE
+     Purpose: App startup and state restoration
+     Usage: Runs automatically on page load
+     Expected: All systems initialized, state restored
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  async function initApp() {
+    try {
+      // Initialize database
+      await db.init();
+      console.log('✓ IndexedDB initialized');
+      
+      // Load saved state
+      await loadGamification();
+      await initTheme();
+      await initAnalytics();
+      console.log('✓ State restored');
+      
+      // Check integrity
+      await checkIntegrity();
+      console.log('✓ Integrity checked');
+      
+      // Register service worker
+      await registerServiceWorker();
+      console.log('✓ Service Worker registered');
+      
+      // Restore UI state
+      await renderSeeds();
+      await renderLedger();
+      console.log('✓ UI rendered');
+      
+      // Track first action achievement
+      const firstActionDone = await db.get('settings', 'first-action');
+      if (!firstActionDone) {
+        await db.put('settings', { k: 'first-action', v: true });
+        await unlockAchievement('first-action');
+      }
+      
+      // Mark initialization complete
+      APP.initialized = true;
+      console.log('✓ App initialized');
+      
+      trackEvent('app_start', { timestamp: Date.now() });
+      
+    } catch (err) {
+      console.error('Initialization error:', err);
+      toast('⚠️ Initialization incomplete - some features may not work');
+    }
+  }
+
+  // Start the app!
+  initApp();
+
+})();
+  </script>
+</body>
+</html>

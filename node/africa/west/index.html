@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Planetary Restoration Archive — Burkina Faso</title>
+  <meta name="description" content="PRA Burkina Faso node — Sahelian agroforestry, watershed repair, seed sovereignty. Offline-first PWA with gamified pledges, TLK chat (collapsed), and optional on-chain anchoring."/>
+  <meta name="theme-color" content="#081221"/>
+  <style>
+    :root{
+      --bg:#04060b; --ink:#e8f3ff; --muted:#94b8c2;
+      --accent:#7fe3c7; --accent-2:#ffd36e; --glass:rgba(255,255,255,.03); --glass-b:#0d1920;
+      --blur:12px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);overflow-x:hidden}
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
+    main{position:relative;min-height:100vh;z-index:2}
+    a{color:var(--accent)}
+    .wrap{max-width:1160px;margin:0 auto;padding:38px 20px}
+    header.site-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand h1{font-size:18px;margin:0;letter-spacing:.6px}
+    .small{font-size:13px;color:#cde}
+    .muted{color:var(--muted)}
+    .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#012;border:none;border-radius:12px;padding:9px 13px;font-weight:800;cursor:pointer}
+    .btn.alt{background:linear-gradient(90deg,#0b1a20,#0a1520);color:#dff}
+    .glass-card{background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.012));border:1px solid rgba(255,255,255,.06);backdrop-filter:blur(var(--blur));border-radius:14px;padding:18px}
+    section{margin:48px 0}
+    h2{margin:0 0 12px 0;font-size:20px}
+    p.lead{color:#d8fff6;max-width:74ch;line-height:1.6}
+    .cols{display:grid;grid-template-columns:1fr 360px;gap:22px}
+    .project-list{display:flex;flex-direction:column;gap:12px}
+    .project{padding:12px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.012),rgba(255,255,255,.006));border:1px solid rgba(255,255,255,.05)}
+    .chip{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(255,255,255,.08);padding:6px 10px;border-radius:999px;background:rgba(0,20,18,.35)}
+    .hero{position:relative;min-height:62vh;display:flex;align-items:center}
+    .cta-row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+    .tooltip{position:relative;cursor:help}
+    .tooltip[data-tooltip]:hover::after{content:attr(data-tooltip);position:absolute;left:0;top:120%;white-space:nowrap;padding:8px 10px;border-radius:10px;background:#071a18;color:var(--accent);border:1px solid rgba(255,255,255,.08);transform:translateY(6px);z-index:40}
+    #tlkFrame{width:340px;height:430px;border-radius:12px;border:1px solid rgba(0,0,0,.25);display:none;overflow:hidden}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .hud{position:fixed;right:18px;bottom:18px;z-index:60}
+    .hud .mini{background:linear-gradient(180deg,#02101866,#00101444);padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.07);backdrop-filter:blur(8px)}
+    .badge{background:#0b1f13;padding:6px 8px;border-radius:10px;border:1px solid rgba(255,255,255,.07);font-weight:800;color:var(--accent-2)}
+    @media (max-width:980px){.cols{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <!-- Photorealistic constellation parallax -->
+  <canvas id="stars" style="position:fixed;inset:0;z-index:0;display:block"></canvas>
+  <canvas id="nebula" style="position:fixed;inset:0;z-index:1;mix-blend-mode:screen;pointer-events:none"></canvas>
+  <canvas id="myco"   style="position:fixed;inset:0;z-index:1;mix-blend-mode:lighten;pointer-events:none"></canvas>
+
+  <main aria-labelledby="page-title">
+    <div class="wrap">
+      <header class="site-head">
+        <div class="brand" role="banner">
+          <svg width="44" height="44" viewBox="0 0 48 48" aria-hidden="true">
+            <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#7fe3c7"/><stop offset="1" stop-color="#ffd36e"/></linearGradient></defs>
+            <rect width="48" height="48" rx="10" fill="#02121a"/>
+            <path d="M8 34c8-12 16-14 32-26" stroke="url(#g)" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <h1 id="page-title">Planetary Restoration Archive — Burkina Faso</h1>
+            <p class="small">Node: Burkina Faso • Sahelian restoration • Community-led action</p>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Primary" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <button class="btn" id="pledgeBtn">Make a Pledge</button>
+          <button class="btn alt" id="i18nToggle" title="Switch language">EN • FR • MO</button>
+          <button class="btn alt" id="downloadManifest">Manifest</button>
+          <button class="btn" id="toggleTlkBtn">Chat (TLK.io)</button>
+        </nav>
+      </header>
+
+      <section class="hero glass-card" role="region" aria-label="Intro">
+        <div>
+          <h2 data-i18n="hero.title">Burkina Faso — Sahelian Agroforestry & Water Resilience</h2>
+          <p class="lead" data-i18n="hero.lead">
+            This node advances farmer-managed natural regeneration (FMNR), zai/half-moon earthworks,
+            mycorrhizal soil repair, and seed sovereignty across the Plateau Central, Nord, and Est.
+            It is offline-first, cryptographically attestable, and gamified to invite participation
+            from local stewards to global allies.
+          </p>
+          <div class="cta-row">
+            <button class="btn" id="joinQuest" data-i18n="cta.join">Join a Quest</button>
+            <button class="btn" id="viewProjects" data-i18n="cta.explore">Explore Projects</button>
+            <span class="chip tooltip" data-tooltip="Works offline, sync on your terms" data-i18n="cta.offline">Offline-first • IndexedDB • PWA</span>
+            <span class="chip">📱 Gyro-Parallax</span>
+            <span class="chip">🍄 Living Mycelium</span>
+            <span class="chip tooltip" data-tooltip="Mnemonic to recall program order" data-i18n="mnemonic">W • T • S — Water, Trees, Seeds</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="overview" class="glass-card">
+        <h2 data-i18n="overview.title">Project Overview</h2>
+        <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+          <div style="flex:1;min-width:280px">
+            <p class="small" data-i18n="overview.p1">Our focus areas align with Sahelian realities:</p>
+            <ul class="small">
+              <li><strong data-i18n="overview.pillar1">Waterworks</strong> — <span data-i18n="overview.pillar1d">zai pits & half-moons (demi-lunes) to harvest rain, reduce runoff, and recharge soils.</span></li>
+              <li><strong data-i18n="overview.pillar2">FMNR & Myco-Guilds</strong> — <span data-i18n="overview.pillar2d">protect/regenerate stumps and inoculate guilds for soil carbon and shade.</span></li>
+              <li><strong data-i18n="overview.pillar3">Seed Sovereignty</strong> — <span data-i18n="overview.pillar3d">community vaults with cryptographic provenance & seasonal exchange.</span></li>
+            </ul>
+            <p class="small" data-i18n="overview.p2">Entries are locally led, measurable, and verifiable. Badges live locally and can be anchored on-chain by choice.</p>
+          </div>
+
+          <aside class="glass-card" style="width:320px">
+            <h3 style="margin-top:0" data-i18n="facts.title">Quick Facts</h3>
+            <p class="small"><strong data-i18n="facts.locL">Regions:</strong> <span data-i18n="facts.locV">Plateau Central, Nord, Est (opt-in partner clusters)</span></p>
+            <p class="small"><strong data-i18n="facts.focusL">Focus:</strong> <span data-i18n="facts.focusV">Water capture, shade corridors, seed banks, livelihoods</span></p>
+            <p class="small"><strong>Contact:</strong> steward@planetaryrestorationarchive.com</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="projects" class="glass-card">
+        <h2 data-i18n="projects.title">Active Projects</h2>
+        <div class="cols">
+          <div>
+            <div class="project-list" id="projectList">
+              <div class="project">
+                <h3 data-i18n="proj1.title">1) Half-Moon Waterworks — Koupéla Corridor</h3>
+                <p class="small" data-i18n="proj1.body">Construct semicircular bunds to catch rain and silt; pair with mycorrhizal inoculation. Metrics: infiltration, survival rate, yield delta.</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="btn small" onclick="claim('water')" data-i18n="proj1.cta1">Sponsor 50 Half-Moons</button>
+                  <button class="btn small" onclick="claim('tools')" data-i18n="proj1.cta2">Fund Tools & Training</button>
+                </div>
+              </div>
+
+              <div class="project">
+                <h3 data-i18n="proj2.title">2) FMNR Shade Lanes — Yatenga</h3>
+                <p class="small" data-i18n="proj2.body">Protect/regenerate on-farm trees; prune for canopy & fodder; track soil moisture & temperature moderation.</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="btn small" onclick="claim('fmnr')" data-i18n="proj2.cta1">Adopt a Lane</button>
+                  <button class="btn small" onclick="claim('guild')" data-i18n="proj2.cta2">Support Myco-Guild Kits</button>
+                </div>
+              </div>
+
+              <div class="project">
+                <h3 data-i18n="proj3.title">3) Seed Vault & Provenance — Fada N’Gourma</h3>
+                <p class="small" data-i18n="proj3.body">Offline-first vault with local landrace tracking and optional IPFS/OTS anchoring.</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="btn small" onclick="openSeedModal()" data-i18n="proj3.cta1">Add Seed Entry</button>
+                  <button class="btn small" onclick="exportSeeds()" data-i18n="proj3.cta2">Export Vault</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside>
+            <div class="glass-card">
+              <h3 data-i18n="mn.title">Gamified Mnemonics</h3>
+              <ol class="small">
+                <li data-i18n="mn.step1">Earn <span class="badge">WATER</span> by logging a completed half-moon cluster.</li>
+                <li data-i18n="mn.step2">Earn <span class="badge">TREE</span> by certifying an FMNR shade lane with proper pruning.</li>
+                <li data-i18n="mn.step3">Earn <span class="badge">SEED</span> by submitting a verified landrace entry to the vault.</li>
+              </ol>
+              <p class="small muted" data-i18n="mn.note">Badges are stored locally and can be signed with your wallet when you choose to publish.</p>
+            </div>
+
+            <div class="glass-card" style="margin-top:12px">
+              <h3 data-i18n="partners.title">Local Partners</h3>
+              <p class="small" data-i18n="partners.body">Community groups, soil & water labs, farmer co-ops. Details are opt-in and verified through the steward network.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="contracts" class="glass-card">
+        <h2 data-i18n="sc.title">Smart-Contract Pledges (Skeleton)</h2>
+        <p class="small" data-i18n="sc.p1">Optional path to anchor pledges on-chain. This skeleton is safe and non-executing until you explicitly confirm a transaction in your wallet.</p>
+
+        <div class="grid-3">
+          <div>
+            <label class="small" data-i18n="sc.statusL">Wallet status:</label>
+            <div id="walletStatus" class="small">Not connected</div>
+          </div>
+          <div><button class="btn" id="connectWallet" data-i18n="sc.connect">Connect Wallet</button></div>
+          <div><button class="btn" id="anchorPledge" disabled data-i18n="sc.anchor">Anchor Pledge (Simulate)</button></div>
+        </div>
+
+        <details style="margin-top:10px">
+          <summary class="small tooltip" data-tooltip="Human-readable preview of the call data" data-i18n="sc.preview">Preview</summary>
+          <pre id="contractPreview" class="small" style="background:#00121b;padding:10px;border-radius:10px;color:#9ff;max-height:220px;overflow:auto"></pre>
+        </details>
+
+        <pre id="contractLog" style="margin-top:12px;background:#00121b;padding:10px;border-radius:10px;color:#9ff;font-size:12px;max-height:200px;overflow:auto">Logs will appear here.</pre>
+        <p class="small muted" data-i18n="sc.note">ABI & address placeholders are left for your deploy script. When ready, this UI will render an exact call, gas estimate, and a plain-language summary for consent.</p>
+      </section>
+
+      <section id="chat" class="glass-card">
+        <h2 data-i18n="chat.title">Community Chat (TLK.io embed — collapsed by default)</h2>
+        <p class="small" data-i18n="chat.body">TLK.io loads only when opened to minimize bandwidth and surface.</p>
+        <div id="tlkContainer">
+          <iframe id="tlkFrame" title="Community Chat"></iframe>
+        </div>
+      </section>
+
+      <section id="pledges" class="glass-card">
+        <h2 data-i18n="pledge.title">Pledge Manager (Offline-first)</h2>
+        <p class="small" data-i18n="pledge.body">Make a pledge stored locally. When online, you can choose to publish (anchor). Pledges are hashed locally and can be exported for attestation.</p>
+
+        <form id="pledgeForm" class="small" onsubmit="event.preventDefault();savePledge()">
+          <label>
+            <span data-i18n="pledge.nameL">Name (optional)</span><br/>
+            <input id="pledgeName" placeholder="Your steward name or group" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.08);background:#00121a;color:#dff"/>
+          </label><br/><br/>
+          <label>
+            <span data-i18n="pledge.textL">Pledge (what you'd fund / do)</span><br/>
+            <textarea id="pledgeText" rows="3" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.08);background:#00121a;color:#dff"></textarea>
+          </label><br/><br/>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn" type="submit" data-i18n="pledge.save">Save Locally</button>
+            <button class="btn" type="button" onclick="exportPledges()" data-i18n="pledge.export">Export</button>
+            <button class="btn alt" type="button" onclick="bundleAttestation()" data-i18n="pledge.bundle">Create Attestation Bundle</button>
+          </div>
+        </form>
+
+        <div style="margin-top:12px">
+          <h3 class="small" data-i18n="pledge.local">Local Pledges</h3>
+          <div id="pledgesList" class="small"></div>
+        </div>
+      </section>
+
+      <section id="intrasite" class="glass-card">
+        <h2 data-i18n="intra.title">Intrasite Connectivity Expansion</h2>
+        <p class="small" data-i18n="intra.p1">This node can discover and link to sibling pages offline using a local registry. Add entries to the registry below; when online, you may publish the registry JSON to your preferred storage (e.g., IPFS, GitHub Pages).</p>
+        <div class="grid-3">
+          <div class="small">
+            <label>Label<br/><input id="nodeLabel" class="small" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.08);background:#00121a;color:#dff" placeholder="e.g., Morocco"/></label>
+          </div>
+          <div class="small">
+            <label>URL / Path<br/><input id="nodeURL" class="small" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.08);background:#00121a;color:#dff" placeholder="/morocco or https://..."/></label>
+          </div>
+          <div class="small" style="display:flex;align-items:flex-end;gap:8px">
+            <button class="btn" onclick="addNode()">Add</button>
+            <button class="btn alt" onclick="exportNodes()">Export</button>
+          </div>
+        </div>
+        <div id="nodeList" class="small" style="margin-top:12px"></div>
+      </section>
+
+      <footer class="glass-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+          <div>
+            <strong>Planetary Restoration Archive — Burkina Faso</strong>
+            <div class="small" data-i18n="footer.intent">Immutable intent: all contributions are intended for restoration & community wellbeing.</div>
+          </div>
+          <div class="small muted" data-i18n="footer.legal">This site is offline-first, PWA-ready, and privacy-minded. Use responsibly. Not legal advice.</div>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <div class="hud" aria-hidden="true">
+    <div class="mini glass-card">
+      <div style="display:flex;flex-direction:column">
+        <span class="small">XP <strong id="xpVal">0</strong></span>
+        <span class="small">Badges: <span id="badgeList">—</span></span>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* ===============================[pwa+manifest]=============================== */
+(function(){
+  const swCode = `
+    const V='pra-burkina-v1';
+    const CORE=['/','/index.html'];
+    self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)))});
+    self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.map(k=>k!==V&&caches.delete(k)))));self.clients.claim()});
+    self.addEventListener('fetch',e=>{
+      if(e.request.method!=='GET'){return;}
+      e.respondWith((async()=>{
+        const cache=await caches.open(V);
+        const cached=await cache.match(e.request);
+        if(cached){return cached;}
+        try{
+          const res=await fetch(e.request);
+          if(res&&res.ok){cache.put(e.request,res.clone())}
+          return res;
+        }catch(_){
+          return cached||new Response('Offline', {status:503});
+        }
+      })());
+    });
+  `;
+  try{
+    const blob = new Blob([swCode], {type:'application/javascript'});
+    const swUrl = URL.createObjectURL(blob);
+    if('serviceWorker' in navigator){ navigator.serviceWorker.register(swUrl).catch(()=>{}); }
+  }catch(e){console.warn('sw failed',e)}
+
+  const manifest = {
+    name:"PRA Burkina Faso",
+    short_name:"PRA-BF",
+    start_url:"/index.html",
+    display:"standalone",
+    background_color:"#04060b",
+    theme_color:"#081221",
+    icons:[]
+  };
+  const mblob = new Blob([JSON.stringify(manifest)],{type:"application/manifest+json"});
+  const murl = URL.createObjectURL(mblob);
+  const link=document.createElement('link'); link.rel='manifest'; link.href=murl; document.head.appendChild(link);
+})();
+
+/* ===========[extrasuperficial antideprenarrative inversion (silent)]========= */
+(function(){
+  try{
+    const sig = btoa('planetaryrestorationarchive.com/guardian/burkina');
+    setTimeout(()=>{ (console && console.debug) && console.debug('%cPRA provenance: '+sig,'color:#7fe3c7'); }, 2200);
+    Object.defineProperty(window,'__pra_signet__',{value:sig,writable:false});
+  }catch(_){}
+})();
+
+/* ===========================[constellation + nebula]=========================== */
+(function(){
+  const stars = document.getElementById('stars');
+  const ctx = stars.getContext('2d');
+  let w = stars.width = innerWidth, h = stars.height = innerHeight;
+  const layers=[];
+  function rng(seed){let x = Math.sin(seed)*1e4; return ()=> (x=Math.sin(x)*1e4, x-Math.floor(x));}
+  const r = rng(117);
+  function layer(n,spd,sz,col){ const s=[]; for(let i=0;i<n;i++){s.push({x:r()*w,y:r()*h,z:r(),r:1+ r()*sz,t:r()*6.28});} layers.push({s,spd,col}); }
+  layer(260,.02,1.6,'255,255,255');
+  layer(130,.06,2.4,'180,220,255');
+  layer(70,.12,3.4,'200,255,220');
+  let mx=0,my=0,t=0, gx=0,gy=0;
+  addEventListener('mousemove',e=>{mx=(e.clientX-w/2)/w; my=(e.clientY-h/2)/h});
+  addEventListener('resize',()=>{w=stars.width=innerWidth; h=stars.height=innerHeight});
+  if (window.DeviceOrientationEvent){
+    window.addEventListener('deviceorientation',e=>{
+      gx = (e.gamma||0)/45; gy=(e.beta||0)/90;
+    }, true);
+  }
+  function draw(){
+    t+=.01;
+    const g = ctx.createLinearGradient(0,0,0,h);
+    g.addColorStop(0,'#02141c'); g.addColorStop(1,'#061019');
+    ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
+    for(let i=0;i<layers.length;i++){
+      const L=layers[i];
+      for(const s of L.s){
+        const px = (s.x + (mx+gx)* (i+1)*40 + Math.sin(t+s.t)*6) % w;
+        const py = (s.y + (my+gy)* (i+1)*30 + Math.cos(t+s.t)*6) % h;
+        ctx.fillStyle = `rgba(${L.col},${.8*(.6+s.z*.4)})`;
+        ctx.beginPath(); ctx.arc(px,py,s.r*(.6+Math.sin(t+s.t)*.4),0,Math.PI*2); ctx.fill();
+        if (Math.random()<0.004){
+          const j = L.s[(Math.random()*L.s.length)|0];
+          const px2=(j.x + (mx+gx)*(i+1)*40)%w, py2=(j.y + (my+gy)*(i+1)*30)%h;
+          ctx.strokeStyle='rgba(127,227,199,.06)'; ctx.lineWidth=1;
+          ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(px2,py2); ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+
+  const neb = document.getElementById('nebula'); const nctx = neb.getContext('2d');
+  neb.width=w; neb.height=h;
+  function noise(x,y,s){ return (Math.sin(x*0.01*s)+Math.cos(y*0.008*s)+Math.sin((x+y)*0.005*s))*0.5+0.5; }
+  function paintNebula(){
+    neb.width=innerWidth; neb.height=innerHeight;
+    const img = nctx.createImageData(neb.width, neb.height);
+    for(let y=0;y<neb.height;y+=2){
+      for(let x=0;x<neb.width;x+=2){
+        const n1=noise(x,y,1.2), n2=noise(x+200,y+50,0.6), n3=noise(x*1.4,y*1.2,0.9);
+        let v = Math.max(0, (n1*0.6 + n2*0.3 + n3*0.4)-0.85);
+        v = Math.min(1, v*4);
+        const r=160+80*v, g=120*v, b=255*v*.7, a= v*60;
+        for(let dy=0;dy<2;dy++) for(let dx=0;dx<2;dx++){
+          const idx = ((y+dy)*neb.width + (x+dx)) * 4;
+          img.data[idx]=r; img.data[idx+1]=g; img.data[idx+2]=b; img.data[idx+3]=a;
+        }
+      }
+    }
+    nctx.putImageData(img,0,0);
+  }
+  paintNebula();
+})();
+
+/* ============================[living mycelium layer]=========================== */
+(function(){
+  const c = document.getElementById('myco'); const ctx = c.getContext('2d');
+  let W = c.width = innerWidth, H = c.height = innerHeight;
+  addEventListener('resize',()=>{W=c.width=innerWidth;H=c.height=innerHeight;});
+  const nodes = [];
+  function seed(n=24){
+    nodes.length=0;
+    for(let i=0;i<n;i++){
+      nodes.push({x:Math.random()*W, y:Math.random()*H, a:Math.random()*6.28, v:.3+.4*Math.random()});
+    }
+  }
+  seed();
+  function step(){
+    ctx.clearRect(0,0,W,H);
+    ctx.globalCompositeOperation='lighter';
+    for(const nd of nodes){
+      const nx = nd.x + Math.cos(nd.a)*nd.v;
+      const ny = nd.y + Math.sin(nd.a)*nd.v;
+      ctx.strokeStyle='rgba(127,227,199,.08)'; ctx.lineWidth=1.2;
+      ctx.beginPath(); ctx.moveTo(nd.x,nd.y); ctx.lineTo(nx,ny); ctx.stroke();
+      nd.x=nx; nd.y=ny; nd.a += (Math.random()-.5)*.6;
+      if(nd.x<0) nd.x+=W; if(nd.x>W) nd.x-=W; if(nd.y<0) nd.y+=H; if(nd.y>H) nd.y-=H;
+      if(Math.random()<0.004 && nodes.length<320){ nodes.push({x:nd.x,y:nd.y,a:nd.a+ (Math.random()-.5),v:nd.v*(.9+Math.random()*.2)}); }
+    }
+    requestAnimationFrame(step);
+  }
+  step();
+
+  window.__mycoBoost = function boost(){ for(let i=0;i<12;i++) nodes.push({x:Math.random()*W,y:Math.random()*H,a:Math.random()*6.28,v:.3+.5*Math.random()}); };
+})();
+
+/* ==============================[i18n dictionary]============================== */
+const I18N = {
+  en:{
+    "hero.title":"Burkina Faso — Sahelian Agroforestry & Water Resilience",
+    "hero.lead":"This node advances farmer-managed natural regeneration (FMNR), zai/half-moon earthworks, mycorrhizal soil repair, and seed sovereignty across the Plateau Central, Nord, and Est. It is offline-first, cryptographically attestable, and gamified to invite participation from local stewards to global allies.",
+    "cta.join":"Join a Quest","cta.explore":"Explore Projects","cta.offline":"Offline-first • IndexedDB • PWA",
+    "mnemonic":"W • T • S — Water, Trees, Seeds",
+    "overview.title":"Project Overview","overview.p1":"Our focus areas align with Sahelian realities:",
+    "overview.pillar1":"Waterworks","overview.pillar1d":"zai pits & half-moons (demi-lunes) to harvest rain, reduce runoff, and recharge soils.",
+    "overview.pillar2":"FMNR & Myco-Guilds","overview.pillar2d":"protect/regenerate stumps and inoculate guilds for soil carbon and shade.",
+    "overview.pillar3":"Seed Sovereignty","overview.pillar3d":"community vaults with cryptographic provenance & seasonal exchange.",
+    "overview.p2":"Entries are locally led, measurable, and verifiable. Badges live locally and can be anchored on-chain by choice.",
+    "facts.title":"Quick Facts","facts.locL":"Regions:","facts.locV":"Plateau Central, Nord, Est (opt-in partner clusters)","facts.focusL":"Focus:","facts.focusV":"Water capture, shade corridors, seed banks, livelihoods",
+    "projects.title":"Active Projects",
+    "proj1.title":"1) Half-Moon Waterworks — Koupéla Corridor","proj1.body":"Construct semicircular bunds to catch rain and silt; pair with mycorrhizal inoculation. Metrics: infiltration, survival rate, yield delta.","proj1.cta1":"Sponsor 50 Half-Moons","proj1.cta2":"Fund Tools & Training",
+    "proj2.title":"2) FMNR Shade Lanes — Yatenga","proj2.body":"Protect/regenerate on-farm trees; prune for canopy & fodder; track soil moisture & temperature moderation.","proj2.cta1":"Adopt a Lane","proj2.cta2":"Support Myco-Guild Kits",
+    "proj3.title":"3) Seed Vault & Provenance — Fada N’Gourma","proj3.body":"Offline-first vault with local landrace tracking and optional IPFS/OTS anchoring.","proj3.cta1":"Add Seed Entry","proj3.cta2":"Export Vault",
+    "mn.title":"Gamified Mnemonics","mn.step1":"Earn <span class='badge'>WATER</span> by logging a completed half-moon cluster.","mn.step2":"Earn <span class='badge'>TREE</span> by certifying an FMNR shade lane with proper pruning.","mn.step3":"Earn <span class='badge'>SEED</span> by submitting a verified landrace entry to the vault.","mn.note":"Badges are stored locally and can be signed with your wallet when you choose to publish.",
+    "partners.title":"Local Partners","partners.body":"Community groups, soil & water labs, farmer co-ops. Details are opt-in and verified through the steward network.",
+    "sc.title":"Smart-Contract Pledges (Skeleton)","sc.p1":"Optional path to anchor pledges on-chain. This skeleton is safe and non-executing until you explicitly confirm a transaction in your wallet.",
+    "sc.statusL":"Wallet status:","sc.connect":"Connect Wallet","sc.anchor":"Anchor Pledge (Simulate)","sc.preview":"Preview","sc.note":"ABI & address placeholders are left for your deploy script. When ready, this UI will render an exact call, gas estimate, and a plain-language summary for consent.",
+    "chat.title":"Community Chat (TLK.io embed — collapsed by default)","chat.body":"TLK.io loads only when opened to minimize bandwidth and surface.",
+    "pledge.title":"Pledge Manager (Offline-first)","pledge.body":"Make a pledge stored locally. When online, you can choose to publish (anchor). Pledges are hashed locally and can be exported for attestation.",
+    "pledge.nameL":"Name (optional)","pledge.textL":"Pledge (what you'd fund / do)","pledge.save":"Save Locally","pledge.export":"Export","pledge.bundle":"Create Attestation Bundle","pledge.local":"Local Pledges",
+    "intra.title":"Intrasite Connectivity Expansion","intra.p1":"This node can discover and link to sibling pages offline using a local registry. Add entries to the registry below; when online, you may publish the registry JSON to your preferred storage (e.g., IPFS, GitHub Pages).",
+    "footer.intent":"Immutable intent: all contributions are intended for restoration & community wellbeing.","footer.legal":"This site is offline-first, PWA-ready, and privacy-minded. Use responsibly. Not legal advice."
+  },
+  fr:{
+    "hero.title":"Burkina Faso — Agroforesterie sahélienne & résilience hydrique",
+    "hero.lead":"Ce nœud développe la régénération naturelle gérée par les agriculteurs (FMNR), les zai/demi-lunes, la réparation mycorhizienne des sols et la souveraineté semencière. Hors-ligne par défaut, attestable cryptographiquement, et ludifié.",
+    "cta.join":"Rejoindre une Quête","cta.explore":"Explorer les Projets","cta.offline":"Hors-ligne • IndexedDB • PWA",
+    "mnemonic":"E • A • S — Eau, Arbres, Semences",
+    "overview.title":"Aperçu du projet","overview.p1":"Axes adaptés aux réalités sahéliennes :",
+    "overview.pillar1":"Ouvrages d'eau","overview.pillar1d":"zai & demi-lunes pour capter la pluie, limiter le ruissellement et recharger les sols.",
+    "overview.pillar2":"FMNR & guildes mycorhiziennes","overview.pillar2d":"protéger/régénérer les souches et inoculer des guildes pour le carbone et l’ombre.",
+    "overview.pillar3":"Souveraineté semencière","overview.pillar3d":"coffres communautaires avec provenance cryptographique & échanges saisonniers.",
+    "overview.p2":"Entrées dirigées localement, mesurables et vérifiables. Badges locaux, ancrage on-chain au choix.",
+    "facts.title":"En bref","facts.locL":"Régions :","facts.locV":"Plateau Central, Nord, Est (clusters partenaires)","facts.focusL":"Axes :","facts.focusV":"Captage d’eau, corridors d’ombre, banques de semences, moyens de subsistance",
+    "projects.title":"Projets actifs",
+    "proj1.title":"1) Demi-lunes — Couloir de Koupéla","proj1.body":"Buttes semi-circulaires pour retenir pluie et limon; inoculation mycorhizienne. Indicateurs : infiltration, survie, rendement.","proj1.cta1":"Parrainer 50 demi-lunes","proj1.cta2":"Financer outils & formations",
+    "proj2.title":"2) Lignes d’ombre FMNR — Yatenga","proj2.body":"Protéger/régénérer les arbres de ferme; taille pour canopée & fourrage; suivi humidité/thermique.","proj2.cta1":"Adopter une ligne","proj2.cta2":"Soutenir les kits de guilde mycorhizienne",
+    "proj3.title":"3) Coffre semencier & provenance — Fada N’Gourma","proj3.body":"Coffre hors-ligne avec suivi des variétés locales; ancrage IPFS/OTS optionnel.","proj3.cta1":"Ajouter une semence","proj3.cta2":"Exporter le coffre",
+    "mn.title":"Mnémoniques ludiques","mn.step1":"Gagnez <span class='badge'>EAU</span> en enregistrant un cluster de demi-lunes.","mn.step2":"Gagnez <span class='badge'>ARBRE</span> en certifiant une ligne FMNR.","mn.step3":"Gagnez <span class='badge'>SEMENCE</span> en soumettant une variété locale vérifiée.","mn.note":"Badges stockés localement; signature via portefeuille possible.",
+    "partners.title":"Partenaires locaux","partners.body":"Groupes communautaires, labos sols & eau, coopératives agricoles. Détails sur consentement.",
+    "sc.title":"Engagements Smart-Contract (squelette)","sc.p1":"Ancrage on-chain optionnel. Non-exécutant tant que vous n’approuvez pas.",
+    "sc.statusL":"État du portefeuille :","sc.connect":"Connecter le portefeuille","sc.anchor":"Ancrer l’engagement (simulation)","sc.preview":"Aperçu","sc.note":"ABI & adresse à insérer lors du déploiement. Résumé en clair avant signature.",
+    "chat.title":"Chat communautaire (TLK.io — replié)","chat.body":"Chargement uniquement à l’ouverture pour limiter l’empreinte.",
+    "pledge.title":"Gestion des engagements (hors-ligne)","pledge.body":"Enregistrez localement; publication/ancrage à votre convenance.",
+    "pledge.nameL":"Nom (facultatif)","pledge.textL":"Engagement (financement / action)","pledge.save":"Enregistrer localement","pledge.export":"Exporter","pledge.bundle":"Créer le bundle d’attestation","pledge.local":"Engagements locaux",
+    "intra.title":"Extension de connectivité intrasite","intra.p1":"Reliez des pages sœurs via un registre local; publiez le JSON à votre convenance.",
+    "footer.intent":"Intention immuable : restauration & bien-être collectif.","footer.legal":"PWA hors-ligne. Utilisation responsable. Pas un avis juridique."
+  },
+  mo:{ /* simple Mooré (approximate community phrases for UI) */
+    "hero.title":"Burkina Faso — Zoodo ne wendga yam (naam taaba)","hero.lead":"Noodo taaba zaabre FMNR, zai/demi-lunes, mycélium taaba, ne zoodo soaba. Tenga ka yamb yamb; PWA; zaabre yamb ka banco.",
+    "cta.join":"Zaka taaba","cta.explore":"Lem soaba","cta.offline":"Yamb • IndexedDB • PWA",
+    "mnemonic":"W • T • S — Nîim, Bii, Sɩŋga",
+    "overview.title":"Barka soaba","overview.p1":"Laa yaa soaba taa Sahel:",
+    "overview.pillar1":"Nîim soaba","overview.pillar1d":"zai ne demi-lunes yɔɔre nîim, da sâa, taaba yamb.",
+    "overview.pillar2":"FMNR ne myco-guild","overview.pillar2d":"segrebi taaba, yir yamb, sâaga ne sɩng yamb.",
+    "overview.pillar3":"Sɩŋga soaba","overview.pillar3d":"bank sɩŋga yamb ka code tɔɔre; yirga saa yamb.",
+    "overview.p2":"Soaba be yirga; ka balim; ka na wɛm. Badge be yamb; chain la na.",
+    "facts.title":"Wusa wusa","facts.locL":"Lagam:","facts.locV":"Plateau Central, Nord, Est","facts.focusL":"Soaba:","facts.focusV":"Nîim, bii yirga, bank sɩŋga, laafi",
+    "projects.title":"Soaba yaa",
+    "proj1.title":"1) Demi-lunes — Koupéla","proj1.body":"Butte yamb ka nîim; mycélium yamb.","proj1.cta1":"Zaka 50 demi-lunes","proj1.cta2":"Zamsé tools ne training",
+    "proj2.title":"2) FMNR bii yirga — Yatenga","proj2.body":"Bii zamsé; taa zamsé; sâaga ne yamb.","proj2.cta1":"Zaka yirga","proj2.cta2":"Zamsé myco-guild",
+    "proj3.title":"3) Bank sɩŋga — Fada N’Gourma","proj3.body":"Bank yamb; IPFS/OTS la na.","proj3.cta1":"Tɩn sɩŋga","proj3.cta2":"Sɔgre bank",
+    "mn.title":"Mnemonic yaa","mn.step1":"Ba <span class='badge'>NÎIM</span> ka demi-lunes tɩn.","mn.step2":"Ba <span class='badge'>BII</span> ka FMNR yirga.","mn.step3":"Ba <span class='badge'>Sɩŋga</span> ka bank tɩn.","mn.note":"Badge yamb; wallet la na.",
+    "partners.title":"Zaksoba yirga","partners.body":"Zaksoba, labo, coop. Detaal be consent la.",
+    "sc.title":"Smart-Contract (zamsé)","sc.p1":"Chain la na; ka wɛn na; wallet la na.",
+    "sc.statusL":"Wallet:","sc.connect":"Kɔɔda wallet","sc.anchor":"Anchor (simu)","sc.preview":"Wɛmda","sc.note":"ABI ne address ba zamsé yamb.",
+    "chat.title":"TLK.io (pam)","chat.body":"Pam na, ka pʋsa.",
+    "pledge.title":"Pledge (yamb)","pledge.body":"Zaka yamb ka sɔgre; hash yamb; attest yamb.",
+    "pledge.nameL":"Zugda (pam)","pledge.textL":"Yamb la","pledge.save":"Sɔgre yamb","pledge.export":"Sɔgre","pledge.bundle":"Attestation","pledge.local":"Yamb yamb",
+    "intra.title":"Intrasite yamb","intra.p1":"Lem page yirga; JSON sɔgre.",
+    "footer.intent":"Intention: laafi ne soaba.","footer.legal":"PWA yamb; kɛlɛ yamb."
+  }
+};
+
+/* ===============================[indexeddb core]============================== */
+const DBNAME='pra-burkina', DBVER=2; let db;
+function openDB(){ return new Promise((res,rej)=>{ if(db) return res(db); const rq=indexedDB.open(DBNAME,DBVER);
+  rq.onupgradeneeded=(ev)=>{const d=ev.target.result;
+    if(!d.objectStoreNames.contains('pledges')) d.createObjectStore('pledges',{keyPath:'id'});
+    if(!d.objectStoreNames.contains('badges')) d.createObjectStore('badges',{keyPath:'id'});
+    if(!d.objectStoreNames.contains('nodes')) d.createObjectStore('nodes',{keyPath:'id'});
+    if(!d.objectStoreNames.contains('prefs')) d.createObjectStore('prefs',{keyPath:'key'});
+  };
+  rq.onsuccess=()=>{db=rq.result; res(db)}; rq.onerror=()=>rej(rq.error);
+});}
+async function saveLocal(store,item){ const d=await openDB(); return new Promise((res,rej)=>{const tx=d.transaction(store,'readwrite'); tx.objectStore(store).put(item); tx.oncomplete=()=>res(true); tx.onerror=()=>rej(tx.error); });}
+async function getAll(store){ const d=await openDB(); return new Promise((res,rej)=>{const tx=d.transaction(store,'readonly'); const c=tx.objectStore(store).getAll(); c.onsuccess=()=>res(c.result); c.onerror=()=>rej(c.error);});}
+async function getPref(k){ const d=await openDB(); return new Promise((res)=>{const tx=d.transaction('prefs','readonly'); const g=tx.objectStore('prefs').get(k); g.onsuccess=()=>res(g.result?.val); tx.oncomplete=()=>{};});}
+async function setPref(k,val){ return saveLocal('prefs',{key:k,val}); }
+
+/* ===============================[ui bootstrap]=============================== */
+(function uiInit(){
+  document.getElementById('pledgeBtn').addEventListener('click',()=>{document.getElementById('pledgeForm').scrollIntoView({behavior:'smooth'})});
+  document.getElementById('toggleTlkBtn').addEventListener('click', toggleTlk);
+  document.getElementById('connectWallet').addEventListener('click', tryConnectWallet);
+  document.getElementById('anchorPledge').addEventListener('click', simulateAnchor);
+  document.getElementById('joinQuest').addEventListener('click',()=>{increaseXP(10); alert('Quest joined! +10 XP'); window.__mycoBoost && __mycoBoost();});
+  document.getElementById('viewProjects').addEventListener('click',()=>{document.getElementById('projects').scrollIntoView({behavior:'smooth'})});
+  document.getElementById('downloadManifest').addEventListener('click',exportManifest);
+  document.getElementById('i18nToggle').addEventListener('click',cycleLang);
+  loadPledges(); loadBadges(); updateHUD(); loadNodes();
+  (async()=>{const L=await getPref('lang'); if(L) setLang(L);})();
+})();
+
+/* ===============================[tlk embed]================================== */
+function toggleTlk(){
+  const frame=document.getElementById('tlkFrame');
+  if(frame.style.display==='none'||frame.style.display===''){
+    frame.src='https://tlk.io/pra-burkina';
+    frame.style.display='block'; frame.style.width='100%'; frame.style.height='430px'; frame.style.maxWidth='440px';
+  }else{ frame.src=''; frame.style.display='none'; }
+}
+
+/* ===============================[pledges]==================================== */
+async function savePledge(){
+  const name=document.getElementById('pledgeName').value||'Anonymous';
+  const text=document.getElementById('pledgeText').value||'No details';
+  const id='p_'+Date.now()+'_'+Math.random().toString(36).slice(2,9);
+  const item={id,name,text,ts:new Date().toISOString()};
+  await saveLocal('pledges',item);
+  document.getElementById('pledgeName').value=''; document.getElementById('pledgeText').value='';
+  await loadPledges();
+  toast('Pledge saved locally — export or anchor when ready.');
+  increaseXP(5); window.__mycoBoost && __mycoBoost();
+}
+async function loadPledges(){
+  const items=await getAll('pledges');
+  const el=document.getElementById('pledgesList');
+  el.innerHTML = items.map(i=>(
+    `<div style="padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,.06);margin-bottom:8px">
+      <strong>${escapeHtml(i.name)}</strong>
+      <div class="small">${escapeHtml(i.text)}</div>
+      <div class="small muted">${i.ts}</div>
+    </div>`
+  )).join('') || '<div class="small muted">No local pledges yet.</div>';
+}
+function exportPledges(){
+  getAll('pledges').then(async items=>{
+    const bundle = await withHashes({type:'pledges',items});
+    saveFile(JSON.stringify(bundle,null,2),'pra-burkina-pledges.attest.json','application/json');
+  });
+}
+
+/* ===============================[seed vault]================================= */
+function openSeedModal(){
+  const name=prompt('Seed name / local identifier:'); if(!name) return;
+  const entry={id:'s_'+Date.now(),'name':name,'ts':new Date().toISOString()};
+  saveLocal('pledges',{id:'seed_'+entry.id,name:'seed-vault',text:JSON.stringify(entry),ts:entry.ts})
+    .then(()=>{toast('Seed entry saved to local vault'); increaseXP(3); window.__mycoBoost && __mycoBoost();});
+}
+function exportSeeds(){
+  getAll('pledges').then(async items=>{
+    const seeds=items.filter(i=>i.id && i.id.startsWith('seed_'));
+    const bundle = await withHashes({type:'seeds',items:seeds});
+    saveFile(JSON.stringify(bundle,null,2),'pra-burkina-seedvault.attest.json','application/json');
+  });
+}
+
+/* ===============================[badges/xp]================================== */
+async function awardBadge(id,label){ await saveLocal('badges',{id,label,ts:new Date().toISOString()}); await loadBadges(); }
+async function loadBadges(){
+  const badges=await getAll('badges');
+  const list=badges.map(b=>b.label).join(', ') || '—';
+  document.getElementById('badgeList').textContent=list;
+  document.getElementById('xpVal').textContent = (badges.length*10 + (parseInt(localStorage.getItem('pra_xp')||'0',10)));
+}
+function increaseXP(n){ const cur=parseInt(localStorage.getItem('pra_xp')||'0',10); localStorage.setItem('pra_xp', (cur+n)); updateHUD(); }
+function updateHUD(){ loadBadges(); }
+function claim(tag){
+  awardBadge(tag, tag.toUpperCase());
+  saveLocal('pledges',{id:'pledge_'+tag+'_'+Date.now(), name:'auto', text:'claimed:'+tag, ts:new Date().toISOString()})
+    .then(()=>toast('Claim noted locally: '+tag));
+}
+
+/* ===============================[wallet + sc]================================ */
+let userAddress=null;
+async function tryConnectWallet(){
+  if(window.ethereum){
+    try{
+      const accounts=await window.ethereum.request({method:'eth_requestAccounts'});
+      userAddress=accounts[0]; document.getElementById('walletStatus').textContent=userAddress;
+      document.getElementById('anchorPledge').disabled=false;
+      logContract('Wallet connected: '+userAddress); renderPreview();
+    }catch(e){ logContract('Wallet connection cancelled.'); }
+  }else{
+    alert('No Ethereum provider detected (MetaMask / WalletConnect). This page can simulate anchoring once a wallet is injected.')
+  }
+}
+async function renderPreview(){
+  const pledges=await getAll('pledges');
+  const demo = { method:'anchorPledges(bytes32[])', to:'0xYourContractAddress', from:userAddress||'0x0',
+    args: await Promise.all(pledges.slice(0,5).map(p=>sha256Hex(p.text))) };
+  document.getElementById('contractPreview').textContent = JSON.stringify(demo,null,2);
+}
+function simulateAnchor(){
+  const sampleHash='0x'+Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b=>b.toString(16).padStart(2,'0')).join('');
+  logContract('Simulated anchor created: '+sampleHash);
+  toast('Simulated anchor created — view log for details.');
+  awardBadge('anchor','ANCHOR PLEDGE');
+}
+function logContract(txt){
+  const el=document.getElementById('contractLog'); el.textContent = (new Date().toISOString())+' — '+txt+'\n'+el.textContent;
+}
+
+/* ===========================[attestation bundle]============================= */
+async function bundleAttestation(){
+  const pledges=await getAll('pledges');
+  const badges=await getAll('badges');
+  const nodes=await getAll('nodes');
+  const payload={version:1, ts:new Date().toISOString(), pledges, badges, nodes};
+  const bundle = await withHashes(payload);
+  saveFile(JSON.stringify(bundle,null,2),'pra-burkina-attestation.json','application/json');
+  toast('Attestation bundle created.');
+}
+
+/* =========================[intrasite connectivity]=========================== */
+async function addNode(){
+  const label=document.getElementById('nodeLabel').value?.trim(); const url=document.getElementById('nodeURL').value?.trim();
+  if(!label||!url) return toast('Missing label or URL');
+  const id='n_'+Date.now()+'_'+Math.random().toString(36).slice(2,6);
+  await saveLocal('nodes',{id,label,url,ts:new Date().toISOString()});
+  document.getElementById('nodeLabel').value=''; document.getElementById('nodeURL').value='';
+  loadNodes();
+}
+async function loadNodes(){
+  const items=await getAll('nodes');
+  const el=document.getElementById('nodeList');
+  el.innerHTML = items.length?('<ul>'+items.map(n=>`<li><a href="${escapeHtml(n.url)}">${escapeHtml(n.label)}</a> <span class="small muted">(${n.ts})</span></li>`).join('')+'</ul>'):'<div class="small muted">No nodes yet.</div>';
+}
+function exportNodes(){
+  getAll('nodes').then(async items=>{
+    const bundle=await withHashes({type:'nodes',items});
+    saveFile(JSON.stringify(bundle,null,2),'pra-burkina-nodes.json','application/json');
+  });
+}
+
+/* ================================[i18n ops]================================== */
+async function setLang(code){
+  const dict=I18N[code]||I18N.en;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.getAttribute('data-i18n'); if(dict[key]) el.innerHTML = dict[key];
+  });
+  await setPref('lang',code);
+}
+async function cycleLang(){
+  const order=['en','fr','mo']; const cur=(await getPref('lang'))||'en';
+  const idx=(order.indexOf(cur)+1)%order.length; setLang(order[idx]);
+  document.getElementById('i18nToggle').textContent = order[idx].toUpperCase().replace('MO','MO');
+}
+
+/* ===============================[helpers]==================================== */
+function toast(msg){ console.log(msg); alert(msg); }
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function saveFile(data,name,type){ const b=new Blob([data],{type}); const u=URL.createObjectURL(b); const a=document.createElement('a'); a.href=u; a.download=name; a.click(); URL.revokeObjectURL(u); }
+async function sha256Hex(str){
+  const enc=new TextEncoder().encode(str);
+  const buf=await crypto.subtle.digest('SHA-256',enc);
+  return '0x'+Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+async function withHashes(obj){
+  const json=JSON.stringify(obj);
+  const h=await sha256Hex(json);
+  return {hash:h, algo:'sha256', created:new Date().toISOString(), data:obj};
+}
+async function exportManifest(){
+  const L=(await getPref('lang'))||'en';
+  const manifest={title:'PRA Burkina Faso', timestamp:new Date().toISOString(), projects:['Half-Moon Waterworks','FMNR Shade Lanes','Seed Vault'], lang:L};
+  saveFile(JSON.stringify(manifest,null,2),'pra-burkina-manifest.json','application/json');
+}
+
+/* ===============================[init openDB]================================ */
+openDB().then(()=>console.info('IndexedDB ready')).catch(e=>console.warn('idb fail',e));
+</script>
+</body>
+</html>
+```0

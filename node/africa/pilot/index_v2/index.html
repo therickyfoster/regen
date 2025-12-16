@@ -1,0 +1,101 @@
+Perfect — I’ll create a fully next-gen-ready single index.html that incorporates:
+
+All conceptual sections from the directory structure (executive summary → wizard riddles)
+
+Starfield parallax with interactive region nodes
+
+Wizard with clues
+
+IndexedDB hooks for all sections, enabling dynamic population and cross-pollination
+
+Zero-harm protocols baked in: all content is non-operational, research-focused, and safe
+
+Fully responsive and public-facing
+
+Here’s the complete scaffold:
+
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Mycelial Restoration Atlas — Africa (Next-Gen)</title> <style> html, body { margin:0; padding:0; font-family:sans-serif; scroll-behavior:smooth; background:#000; color:#fff; } section { padding:60px 20px; min-height:100vh; border-bottom:1px solid rgba(255,255,255,0.1); } h1,h2,h3 { color:#FFD700; } nav { position:fixed; top:0; left:0; width:100%; background:rgba(0,0,0,0.7); z-index:1000; padding:0.5em 1em; display:flex; gap:1em; overflow-x:auto; } nav a { color:#fff; text-decoration:none; white-space:nowrap; } canvas#starfield { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; } .content-placeholder { margin-top:1em; color:#ddd; font-size:0.95em; line-height:1.6em; } #tooltip, #wizardClue { position:absolute; pointer-events:none; background:rgba(0,0,0,0.7); color:#fff; padding:0.5em 1em; border-radius:5px; font-size:0.9em; display:none; max-width:300px; text-align:left; z-index:2000; } </style> </head> <body> <!-- Starfield Background --> <canvas id="starfield"></canvas> <div id="tooltip"></div> <div id="wizardClue"></div> <!-- Navigation --> <nav> <a href="#executive-summary">Executive Summary</a> <a href="#region-maps">Region Maps</a> <a href="#fungal-strategies">Fungal Strategies</a> <a href="#research-framework">Research Framework</a> <a href="#monitoring-metrics">Monitoring Metrics</a> <a href="#ethics-governance">Ethics & Governance</a> <a href="#community-engagement">Community Engagement</a> <a href="#pilot-roadmap">Pilot Roadmap</a> <a href="#wizard-riddles">Wizard Riddles</a> </nav> <!-- Sections --> <section id="executive-summary" data-id="section-exec"> <h1>Executive Summary</h1> <div class="content-placeholder">Loading high-level goals and objectives...</div> </section> <section id="region-maps" data-id="section-maps"> <h1>Region Maps</h1> <div class="content-placeholder">Loading R1–R7 stylized Africa map and hotspot overlays...</div> </section> <section id="fungal-strategies" data-id="section-fungal"> <h1>Fungal Strategies</h1> <div class="content-placeholder">Loading candidate fungal groups, regional research rationale...</div> </section> <section id="research-framework" data-id="section-framework"> <h1>Research Framework</h1> <div class="content-placeholder">Loading desktop → lab → field → adaptive scaling workflow...</div> </section> <section id="monitoring-metrics" data-id="section-metrics"> <h1>Monitoring & Metrics</h1> <div class="content-placeholder">Loading ecological, microclimate, and social indicators...</div> </section> <section id="ethics-governance" data-id="section-ethics"> <h1>Ethics & Governance</h1> <div class="content-placeholder">Loading permitting, consent, safety protocols, risk matrix...</div> </section> <section id="community-engagement" data-id="section-community"> <h1>Community Engagement</h1> <div class="content-placeholder">Loading co-ownership models, training pathways, benefit sharing...</div> </section> <section id="pilot-roadmap" data-id="section-pilot"> <h1>Pilot Roadmap</h1> <div class="content-placeholder">Loading phased pilot plan (Phase 0–5)...</div> </section> <section id="wizard-riddles" data-id="section-wizard"> <h1>Wizard Riddles</h1> <div class="content-placeholder">Hidden interactive clues for advanced insights...</div> </section> <script> // === IndexedDB Scaffold === const DB_NAME = "MRA_IndexDB"; const DB_VERSION = 1; let db; const request = indexedDB.open(DB_NAME, DB_VERSION); request.onupgradeneeded = event => { db = event.target.result; if(!db.objectStoreNames.contains('sections')) { const store = db.createObjectStore('sections', { keyPath: 'id' }); store.createIndex('region', 'region', { unique:false }); } if(!db.objectStoreNames.contains('wizardClues')) { db.createObjectStore('wizardClues', { keyPath: 'id' }); } }; request.onsuccess = event => { db = event.target.result; // Seed placeholders if empty seedSections(); loadAllSections(); }; // Seed example sections (safe, non-operational) function seedSections(){ const sections = [ {id:'section-exec', region:null, content:'Pan-African mycelial restoration vision and goals.'}, {id:'section-maps', region:null, content:'Stylized region maps R1–R7 and hotspot overlays.'}, {id:'section-fungal', region:'R1-R7', content:'Candidate fungal groups and ecological rationale.'}, {id:'section-framework', region:null, content:'Desktop, lab, field, and adaptive scaling workflows.'}, {id:'section-metrics', region:null, content:'Ecological, microclimate, and social indicators.'}, {id:'section-ethics', region:null, content:'Permitting, consent, safety protocols, risk management.'}, {id:'section-community', region:null, content:'Community engagement, training, and benefit sharing.'}, {id:'section-pilot', region:null, content:'Phase 0–5 pilot roadmap, safe for research demonstration.'}, {id:'section-wizard', region:null, content:'Wizard riddles and interactive clues for exploration.'} ]; const tx = db.transaction(['sections'],'readwrite'); const store = tx.objectStore('sections'); sections.forEach(sec => store.put(sec)); } function loadAllSections(){ const tx = db.transaction(['sections'],'readonly'); const store = tx.objectStore('sections'); store.openCursor().onsuccess = e=>{ const cursor = e.target.result; if(cursor){ const secEl = document.querySelector(`[data-id="${cursor.value.id}"] .content-placeholder`); if(secEl) secEl.innerHTML = cursor.value.content; cursor.continue(); } }; } // Update / Add section (next-gen agents can call this) function saveSection(id, region, content){ const tx = db.transaction(['sections'],'readwrite'); const store = tx.objectStore('sections'); store.put({id:id, region:region, content:content}); } // === Starfield & Wizard === const canvas = document.getElementById('starfield'); const ctx = canvas.getContext('2d'); let w = canvas.width = window.innerWidth; let h = canvas.height = window.innerHeight; let mouseX=w/2, mouseY=h/2; window.addEventListener('mousemove', e=>{ mouseX=e.clientX; mouseY=e.clientY; }); window.addEventListener('touchmove', e=>{ mouseX=e.touches[0].clientX; mouseY=e.touches[0].clientY; }); const regions = [ {name:'R1 — Hot Desert', color:'#FF4500', info:'Melanized fungi, rock habitats.'}, {name:'R2 — Semiarid / Sahel', color:'#FFD700', info:'AMF, drought resilience in grasses.'}, {name:'R3 — Savannah', color:'#32CD32', info:'AMF, ectomycorrhizal trees.'}, {name:'R4 — Rainforest', color:'#006400', info:'Nutrient capture, pathogen reduction.'}, {name:'R5 — Mediterranean', color:'#1E90FF', info:'Summer drought resilience.'}, {name:'R6 — Highlands', color:'#8A2BE2', info:'Altitude-adapted mycorrhizae.'}, {name:'R7 — Humid Subtropical', color:'#00CED1', info:'Mangrove fungi, runoff control.'} ]; const spores=[]; for(let i=0;i<150;i++){ const r = regions[Math.floor(Math.random()*regions.length)]; spores.push({x:Math.random()*w,y:Math.random()*h,z:Math.random()*w,color:r.color,region:r,size:Math.random()*3+2,pulse: Math.random()*0.05+0.02}); } let wizard={x:Math.random()*w,y:Math.random()*h,visible:false,timer:0}; const wizardClues = [ "Tech tomorrow hides in ancient roots.", "Data grows where mycelium spreads.", "Watch the dust, foresee the drought.", "Networks underground echo in code.", "Wisdom is spores, silent but everywhere." ]; const tooltip = document.getElementById('tooltip'); const wizardClueEl = document.getElementById('wizardClue'); function animate(){ ctx.fillStyle='rgba(0,0,0,0.25)'; ctx.fillRect(0,0,w,h); for(let i=0;i<spores.length;i++){ const s = spores[i]; let k = 128.0/s.z; let px = (s.x - w/2)*k + w/2 + (mouseX-w/2)*0.03; let py = (s.y - h/2)*k + h/2 + (mouseY-h/2)*0.03; let size = s.size * (1 + Math.sin(Date.now()*0.002+i)) * k*0.3; ctx.beginPath(); ctx.arc(px, py, size,0,Math.PI*2); ctx.fillStyle=s.color; ctx.shadowBlur = 6; ctx.shadowColor = s.color; ctx.fill(); s.z -= 1.5; if(s.z<=1){ s.z=w; s.x=Math.random()*w; s.y=Math.random()*h; } } if(Math.random()<0.002 && !wizard.visible){ wizard.visible=true; wizard.timer=200; wizard.x=Math.random()*w; wizard.y=Math.random()*h; wizardClueEl.textContent = wizardClues[Math.floor(Math.random()*wizardClues.length)]; wizardClueEl.style.display='block'; } 
+if(wizard.visible){
+    wizard.timer--;
+    ctx.beginPath();
+    ctx.arc(wizard.x,wizard.y,12,0,Math.PI*2);
+    ctx.fillStyle='#FF69B4';
+    ctx.shadowBlur=10; ctx.shadowColor='#FF69B4';
+    ctx.fill();
+
+    wizardClueEl.style.left=(wizard.x+15)+'px';
+    wizardClueEl.style.top=(wizard.y-15)+'px';
+
+    if(wizard.timer<=0){
+      wizard.visible=false;
+      wizardClueEl.style.display='none';
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+// Handle window resize
+window.addEventListener('resize',()=>{
+  w=canvas.width=window.innerWidth;
+  h=canvas.height=window.innerHeight;
+});
+
+// Tooltip on hover for spores (region nodes)
+canvas.addEventListener('mousemove', e=>{
+  let found=false;
+  for(let s of spores){
+    let k = 128.0/s.z;
+    let px = (s.x - w/2)*k + w/2 + (mouseX-w/2)*0.03;
+    let py = (s.y - h/2)*k + h/2 + (mouseY-h/2)*0.03;
+    if(Math.hypot(px-e.offsetX, py-e.offsetY)<10){
+      tooltip.style.display='block';
+      tooltip.style.left=(px+10)+'px';
+      tooltip.style.top=(py+10)+'px';
+      tooltip.innerHTML=`<strong>${s.region.name}</strong><br>${s.region.info}`;
+      found=true; break;
+    }
+  }
+  if(!found) tooltip.style.display='none';
+});
+
+// Touch support
+canvas.addEventListener('touchmove', e=>{
+  const touch = e.touches[0];
+  mouseX = touch.clientX; mouseY = touch.clientY;
+  e.preventDefault();
+});
+
+// Optional: allow clicking wizard to “store clues” in IndexedDB
+canvas.addEventListener('click', e=>{
+  if(wizard.visible){
+    const clueID='clue-'+Date.now();
+    const tx=db.transaction(['wizardClues'],'readwrite');
+    tx.objectStore('wizardClues').put({id:clueID, text:wizardClueEl.textContent, timestamp:new Date().toISOString()});
+    alert('Wizard clue stored safely in your IndexedDB!');
+    wizard.visible=false; wizardClueEl.style.display='none';
+  }
+});
+
+// Simple function to fetch all wizard clues (for agents or users)
+function fetchWizardClues(callback){
+  const tx=db.transaction(['wizardClues'],'readonly');
+  const store=tx.objectStore('wizardClues');
+  const clues=[];
+  store.openCursor().onsuccess = e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      clues.push(cursor.value);
+      cursor.continue();
+    } else { callback(clues); }
+  };
+}
+
+// Example: display all stored wizard clues in console
+setTimeout(()=>fetchWizardClues(clues=>console.log('Stored wizard clues:',clues)), 2000);
+
+</script>
+</body>
+</html>

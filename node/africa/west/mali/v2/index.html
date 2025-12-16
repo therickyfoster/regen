@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+  <title>Mali — Ultra‑Long Food & Water Sovereignty Plans | Planetary Restoration Archive</title>
+  <meta name="description" content="Ultra-long, implementation-ready food and water sovereignty plans for Mali (West Africa) with hydrology-aware strategy, agroecology, FMNR, irrigation, WASH, and ecological flow governance. Includes photorealistic starfield, WebLLM, Habitica, and IndexedDB." />
+  <meta name="keywords" content="Mali, Inner Niger Delta, Office du Niger, food sovereignty, water sovereignty, FMNR, agroecology, irrigation, WASH, sand dams, ecological flows, climate adaptation, Sahel" />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+  <link rel="canonical" href="." />
+
+  <!-- Social -->
+  <meta property="og:title" content="Mali — Ultra‑Long Food & Water Sovereignty Plans" />
+  <meta property="og:description" content="Hydrology‑aware, implementation‑grade planning for food & water sovereignty in Mali. Includes WebLLM, Habitica, and a live starfield." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts: use system stack for performance -->
+  <style>
+    :root{
+      --bg:#02040a;
+      --ink:#e9f0ff;
+      --muted:#9fb2c7;
+      --accent:#86e3ff;
+      --accent-2:#ffd166;
+      --danger:#ff6b6b;
+      --panel:#0b1220cc;
+      --glass:#0b122080;
+      --trim:#86e3ff80;
+      --shadow:0 10px 30px rgba(0,0,0,.45);
+      --maxw:1020px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:radial-gradient(1200px 800px at 60% -10%, #0d1a2a 10%, var(--bg) 60%);
+      color:var(--ink); font:16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      overflow-x:hidden;
+    }
+    canvas#cosmos{position:fixed; inset:0; z-index:-2; display:block; background:var(--bg)}
+    .grain{position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.08; background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width=\"120\" height=\"120\"><filter id=\"n\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.9\" numOctaves=\"2\" stitchTiles=\"stitch\"/></filter><rect width=\"100%\" height=\"100%\" filter=\"url(%23n)\" opacity=\"0.6\"/></svg>'); mix-blend-mode:screen}
+    header.site{
+      position:sticky; top:0; z-index:10; backdrop-filter: blur(10px) saturate(140%);
+      background:linear-gradient(180deg, rgba(10,17,30,.85), rgba(10,17,30,.35));
+      border-bottom:1px solid #1a263a; box-shadow: var(--shadow);
+    }
+    .wrap{max-width:var(--maxw); margin-inline:auto; padding:14px 18px}
+    .brand{display:flex; align-items:center; gap:12px}
+    .brand .dot{width:12px; height:12px; border-radius:50%; background:radial-gradient(circle at 30% 30%, #fff, #92e6ff 40%, #10b5ff 60%, transparent 70%); box-shadow:0 0 18px #64d5ff88, inset 0 0 10px #9ae7ff55}
+    .brand h1{margin:0; font-size:18px; letter-spacing:.3px}
+    nav.tools{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    nav.tools button, nav.tools .select {appearance:none; border:1px solid #2a3b57; background:#0b1220; color:var(--ink); padding:10px 12px; border-radius:10px; box-shadow: var(--shadow); cursor:pointer}
+    nav.tools button:hover{border-color:#34527d}
+    nav.tools .select{display:flex; align-items:center; gap:8px}
+    main{position:relative; z-index:1}
+    .hero{
+      margin: 22px auto 10px; max-width:var(--maxw);
+      border:1px solid #1b2d4e; border-radius:16px; background:linear-gradient(180deg, rgba(10,18,34,.78), rgba(10,18,34,.55));
+      overflow:hidden; box-shadow:var(--shadow)
+    }
+    .hero .bar{
+      height:3px; background:
+        linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent);
+      background-size: 200% 100%; animation: sweep 8s linear infinite;
+    }
+    @keyframes sweep{0%{background-position:200% 0}100%{background-position:-200% 0}}
+    .hero .content{padding:22px 22px 16px}
+    h2, h3, h4{margin:18px 0 10px}
+    p{margin:10px 0}
+    .grid{display:grid; gap:16px}
+    @media(min-width:900px){ .grid.two{grid-template-columns: 1.3fr .7fr} }
+    .panel{
+      background:linear-gradient(180deg, rgba(12,19,34,.86), rgba(12,19,34,.66));
+      border:1px solid #1e304f; border-radius:14px; padding:16px; box-shadow: var(--shadow); position:relative; overflow:hidden;
+    }
+    .panel::before, .panel::after{
+      content:""; position:absolute; inset:-2px; border-radius:14px; pointer-events:none;
+      background: conic-gradient(from var(--a,0deg), transparent 20%, var(--trim), transparent 60%);
+      mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; padding:2px; animation: spin 10s linear infinite;
+      opacity:.6;
+    }
+    .panel::after{ --a:180deg; animation-duration:16s; }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    details{border:1px solid #1a2a48; border-radius:12px; overflow:hidden; background:#0b12204d}
+    details[open]>summary{border-bottom:1px solid #1a2a48}
+    summary{cursor:pointer; padding:12px 14px; font-weight:600; list-style:none}
+    summary::-webkit-details-marker{display:none}
+    .muted{color:var(--muted)}
+    .badge{display:inline-block; padding:4px 8px; border:1px solid #274366; border-radius:999px; background:#0c1a2c; color:#a8d8ff; font-size:12px}
+    .toc a{display:block; padding:6px 8px; border-radius:8px; color:var(--ink); text-decoration:none}
+    .toc a:hover{background:#10203a}
+    footer{opacity:.8; padding:24px 0 80px; text-align:center}
+    /* highlight */
+    mark{background:linear-gradient(180deg, #ffe08a66, #ffe08a22); padding:0 2px; border-radius:4px}
+    /* particles near headings */
+    .spark{ position:absolute; width:4px; height:4px; background: radial-gradient(circle at 35% 35%, #fff, #86e3ff 60%, transparent); border-radius:50%;
+      filter: drop-shadow(0 0 6px #c5f1ff); pointer-events:none; animation: asc 6s linear infinite}
+    @keyframes asc{ 0%{ transform:translateY(6px) scale(.7); opacity:0}
+                    15%{opacity:.9}
+                    100%{ transform:translateY(-120px) scale(1.4); opacity:0}}
+    .sr-only{position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden}
+
+    /* content typography a bit wider for “ultra long form” readability */
+    .content-flow{max-width:var(--maxw); margin:18px auto; padding:0 18px}
+    .content-flow p{max-width:78ch}
+    .quote{border-left:3px solid #284467; padding-left:12px; margin:12px 0; font-style:italic; color:#cfe6ff}
+    .small{font-size:13px}
+    /* simple search highlight */
+    .hit{outline:2px dashed #86e3ff66; background-color:#10263b99}
+    /* buttons */
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:10px; border:1px solid #2a3b57; background:#0b1220; color:var(--ink); cursor:pointer}
+    .btn[disabled]{opacity:.6; cursor:not-allowed}
+    .right{float:right}
+  </style>
+
+  <!-- JSON-LD structured data: include user’s presentation schema -->
+  <script type="application/ld+json">
+  {
+    "@context": [
+      "https://schema.org",
+      "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"
+    ],
+    "@type": "WebPage",
+    "name": "Mali — Ultra‑Long Food & Water Sovereignty Plans",
+    "inLanguage": "en",
+    "author": {"@type":"Person","name":"Foster + Navi"},
+    "about": ["Mali","Inner Niger Delta","Office du Niger","Food sovereignty","Water sovereignty","FMNR","Agroecology","Irrigation","WASH","Sahel"],
+    "publisher": {"@type":"Organization","name":"Planetary Restoration Archive"},
+    "dateCreated": "2025-10-21"
+  }
+  </script>
+</head>
+<body>
+  <canvas id="cosmos" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site">
+    <div class="wrap">
+      <div class="brand">
+        <span class="dot"></span>
+        <h1>Mali — Ultra‑Long Food & Water Sovereignty Plans</h1>
+      </div>
+      <nav class="tools" aria-label="utilities">
+        <button id="load-llm" title="Load a small in‑browser model">Init WebLLM</button>
+        <div class="select">
+          <label for="model" class="sr-only">Model</label>
+          <select id="model">
+            <option value="Qwen2.5-0.5B-Instruct-q4f16_1">Qwen2.5‑0.5B (fast)</option>
+            <option value="Llama-3.1-8B-Instruct-q4f16_1">Llama‑3.1‑8B (heavier)</option>
+          </select>
+        </div>
+        <button id="toggle-constellations">Morph Constellations</button>
+        <button id="export-plan">Export Plan (JSON)</button>
+        <button id="print">Print / PDF</button>
+        <span class="badge right">Offline‑ready: IndexedDB</span>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="bar"></div>
+    <div class="content grid two">
+      <div>
+        <h2>Food & Water Sovereignty for Mali, West Africa</h2>
+        <p class="muted">A design‑to‑deploy blueprint for <mark>2025–2035</mark> that keeps the <em>river’s pulse</em> alive while feeding futures—rooted in agroecology, hydrology, and community enterprise.</p>
+        <div class="quote small">“No plan survives contact with a monsoon—so we plan as rivers do: pulsing, branching, and replenishing.”</div>
+      </div>
+      <div class="panel">
+        <strong>Habitica Bridge</strong>
+        <p class="muted small">Store credentials locally and sync tasks for milestones (read‑only by default).</p>
+        <form id="habitica-form" autocomplete="off">
+          <label class="sr-only" for="habitica-user">User ID</label>
+          <input id="habitica-user" name="habitica-user" class="btn" style="width:100%; margin-bottom:8px"
+                 placeholder="Habitica User ID (UUID)" />
+          <label class="sr-only" for="habitica-key">API Token</label>
+          <input id="habitica-key" name="habitica-key" class="btn" style="width:100%; margin-bottom:8px"
+                 placeholder="Habitica API Token" type="password" />
+          <button class="btn" id="habitica-connect" type="button">Connect & Cache</button>
+          <button class="btn" id="habitica-fetch" type="button">Fetch To‑Dos</button>
+          <span class="small muted" id="habitica-status">Not connected.</span>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div class="content-flow">
+    <aside class="panel">
+      <strong>On this page</strong>
+      <nav class="toc" id="toc"></nav>
+    </aside>
+
+    <!-- ULTRA‑LONG FORM CONTENT (intro — full plan appended in Part 2) -->
+    <article id="exec" class="panel">
+      <h2>Executive summary</h2>
+      <p>
+        This plan knits together <em>food sovereignty</em>—the right and capacity to define and control food systems—
+        and <em>water sovereignty</em>—the right and capacity to steward watersheds and aquifers for people and ecosystems.
+        It orients around three hydrologic truths: (1) the <strong>Inner Niger Delta</strong> is a flood‑pulse engine for livelihoods;
+        (2) <strong>ecological flows</strong> must be safeguarded in any irrigation or hydropower expansion; and
+        (3) climate variability across Mali’s north–south gradient demands <strong>polycentric, risk‑diversified</strong> agriculture.
+      </p>
+      <p class="muted small">
+        Food: millet/sorghum/fonio intensification via agroecology & FMNR; locally adapted seed & storage; small‑scale solar pumping where sustainable; cold‑chain micro‑hubs; women‑led processing; school feeding sourced locally. <br/>
+        Water: environmental flows & flow‑sharing rules; wetland & floodplain protection; managed aquifer recharge; village‑scale storage (sand dams/charco dams/earth pans where geology fits); water‑quality monitoring; WASH & governance upgrades.
+      </p>
+    </article>
+
+    <article id="llm" class="panel">
+      <h2>Research Copilot (WebLLM)</h2>
+      <div id="chatlog" class="small muted" style="min-height:90px; white-space:pre-wrap"></div>
+      <div style="display:flex; gap:8px; margin-top:8px">
+        <input id="prompt" class="btn" style="flex:1" placeholder="Ask the local model anything about the plan..." />
+        <button class="btn" id="send">Send</button>
+      </div>
+      <p class="small muted">Models run in your browser via WebGPU. First load downloads weights; subsequent loads are cached.</p>
+    </article>
+
+    <!-- The ultra-long Food & Water plan text and appendices are injected below by Part 2 script for easier sectioning & search. -->
+    <div id="plan-root"></div>
+  </div>
+
+  <footer class="content-flow">
+    <p class="muted small">
+      Built for <strong>Foster + Navi</strong> • Presentation schema integrated • WebLLM + IndexedDB + Habitica bridge • Starfield by custom GLSL + Three.js
+    </p>
+  </footer>
+<!-- Dependencies (ES modules over CDN) -->
+  <script type="module" defer src="https://cdn.jsdelivr.net/npm/idb@8.0.3/build/index.js"></script>
+  <script type="module">
+  /**
+   * Planetary Restoration Archive — Mali Plans
+   * - Photorealistic starfield with morphing constellations (Three.js + GLSL)
+   * - IndexedDB for offline plan & credentials
+   * - WebLLM chat (in-browser)
+   * - Habitica read bridge (user-provided credentials at runtime)
+   */
+
+  /* =========================
+     Imports
+     ========================= */
+  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js';
+  import { CreateMLCEngine } from 'https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm@0.2.79/lib/index.js';
+
+  /* =========================
+     IndexedDB (tiny helper using idb)
+     ========================= */
+  // idb exposes `openDB` globally when using the CDN module path above in some bundlers; here we safely access it:
+  const { openDB } = window.idb ?? await import('https://cdn.jsdelivr.net/npm/idb@8.0.3/build/index.js');
+
+  const db = await openDB('mali-sovereignty', 1, {
+    upgrade(db) {
+      db.createObjectStore('kv');             // generic key->value
+      db.createObjectStore('habitica');       // {user,key}
+      db.createObjectStore('plan-cache');     // raw HTML and JSON export
+      db.createObjectStore('settings');       // UI prefs
+    }
+  });
+
+  const kv = {
+    async get(store, key){ return (await db.get(store, key)) ?? null; },
+    async set(store, key, val){ return db.put(store, val, key); },
+    async del(store, key){ return db.delete(store, key); }
+  };
+
+  /* =========================
+     Photorealistic Starfield + Morphing Constellations
+     ========================= */
+  const canvas = document.getElementById('cosmos');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha:true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(65, window.innerWidth/window.innerHeight, 0.1, 2000);
+  camera.position.set(0,0,28);
+
+  // Star geometry
+  const STAR_COUNT = 14000;
+  const positions = new Float32Array(STAR_COUNT * 3);
+  const magnitudes = new Float32Array(STAR_COUNT);
+  for (let i=0; i<STAR_COUNT; i++){
+    // random points on a sphere shell with slight radial variance
+    const r = 200 + Math.random()*40;
+    const theta = Math.acos(THREE.MathUtils.randFloatSpread(2)); // 0..pi
+    const phi = Math.random()*Math.PI*2;
+    positions[i*3+0] = r*Math.sin(theta)*Math.cos(phi);
+    positions[i*3+1] = r*Math.cos(theta);
+    positions[i*3+2] = r*Math.sin(theta)*Math.sin(phi);
+    magnitudes[i] = Math.pow(Math.random(), 3.5); // bias toward faint stars
+  }
+  const starGeo = new THREE.BufferGeometry();
+  starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  starGeo.setAttribute('mag', new THREE.BufferAttribute(magnitudes, 1));
+
+  const starMat = new THREE.ShaderMaterial({
+    transparent:true, depthWrite:false, blending:THREE.AdditiveBlending,
+    uniforms:{
+      uTime:{value:0},
+      uPixelRatio:{value:Math.min(window.devicePixelRatio, 2)},
+    },
+    vertexShader:`
+      attribute float mag;
+      varying float vMag;
+      void main(){
+        vMag = mag;
+        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+        gl_Position = projectionMatrix * mvPosition;
+        float baseSize = 1.5 + 5.0*pow(1.0 - vMag, 3.0);
+        gl_PointSize = baseSize * (300.0 / -mvPosition.z);
+      }
+    `,
+    fragmentShader:`
+      precision highp float;
+      varying float vMag;
+      uniform float uTime;
+      void main(){
+        vec2 uv = gl_PointCoord*2.0 - 1.0;
+        float r = dot(uv, uv);
+        if(r>1.0) discard;
+        // soft radial falloff + twinkle
+        float twinkle = 0.55 + 0.45*sin(uTime*1.7 + vMag*35.0);
+        float glow = exp(-r*4.5) * (1.0 - vMag) * twinkle;
+        vec3 col = mix(vec3(0.75,0.85,1.0), vec3(0.9,0.95,1.0), 1.0 - vMag);
+        gl_FragColor = vec4(col*glow, glow);
+      }
+    `
+  });
+
+  const stars = new THREE.Points(starGeo, starMat);
+  scene.add(stars);
+
+  // Constellation morph (stylized)
+  const constellations = [
+    // Orion-like (stylized coordinates)
+    [[-3, 1, -40], [-1, 0, -40], [1, -1, -40], [3, 0.2, -40], [2.2,2.2,-40], [-2.1,2.4,-40]],
+    // Scorpius-like
+    [[-2.5,-1.5,-40], [-1.2,-0.6,-40], [0.1,0.2,-40], [1.3,0.8,-40], [2.0,0.2,-40], [1.7,-1.3,-40], [0.5,-2.1,-40]],
+    // Cassiopeia-like (W shape)
+    [[-2.2,1.2,-40], [-1.2,0.1,-40], [0.0,1.0,-40], [1.2,-0.1,-40], [2.3,0.9,-40]],
+    // Cygnus-like
+    [[-2.8,0.3,-40], [0.2,0.2,-40], [2.6,0.2,-40], [0.2,2.0,-40], [0.2,-1.8,-40]]
+  ];
+
+  // Create a line that will morph between target sets by LERP
+  let current = 0, next = 1, t = 0, morphing = false;
+  const maxPts = Math.max(...constellations.map(c=>c.length));
+  const linePositions = new Float32Array(maxPts*3);
+  const lineGeo = new THREE.BufferGeometry();
+  lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions,3));
+  const lineMat = new THREE.LineBasicMaterial({ color:0x86e3ff, transparent:true, opacity:.85 });
+  const line = new THREE.Line(lineGeo, lineMat);
+  scene.add(line);
+
+  function updateLine(){
+    const A = constellations[current], B = constellations[next];
+    const L = Math.max(A.length, B.length);
+    for (let i=0;i<L;i++){
+      const a = A[i % A.length], b = B[i % B.length];
+      const x = THREE.MathUtils.lerp(a[0], b[0], t);
+      const y = THREE.MathUtils.lerp(a[1], b[1], t);
+      const z = THREE.MathUtils.lerp(a[2], b[2], t);
+      linePositions[i*3+0]=x; linePositions[i*3+1]=y; linePositions[i*3+2]=z;
+    }
+    lineGeo.setDrawRange(0, L);
+    lineGeo.attributes.position.needsUpdate = true;
+  }
+  updateLine();
+
+  // Subtle camera drift
+  let clock = new THREE.Clock();
+  function animate(){
+    const elapsed = clock.getElapsedTime();
+    starMat.uniforms.uTime.value = elapsed;
+    camera.position.x = Math.sin(elapsed * 0.07) * 1.0;
+    camera.position.y = Math.sin(elapsed * 0.05) * 0.6;
+    camera.lookAt(0,0,0);
+    if (morphing){
+      t += 0.0045;
+      if (t>=1){ t=0; morphing=false; current=next; next=(next+1)%constellations.length; }
+      updateLine();
+      line.material.opacity = 0.6 + 0.4*Math.sin(elapsed*2.0);
+    }
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  window.addEventListener('resize', ()=>{
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+  });
+
+  document.getElementById('toggle-constellations').addEventListener('click', ()=>{
+    if (!morphing){ morphing = true; }
+  });
+
+  // Decorative spark particles near headings
+  const injectSparks = () => {
+    document.querySelectorAll('h2, h3').forEach(h=>{
+      const b = h.getBoundingClientRect();
+      for(let i=0;i<3;i++){
+        const s = document.createElement('span');
+        s.className='spark';
+        s.style.left = (b.left + b.width*Math.random())+'px';
+        s.style.top  = (window.scrollY + b.top + 40 + Math.random()*40)+'px';
+        document.body.appendChild(s);
+        setTimeout(()=>s.remove(), 5800);
+      }
+    });
+  };
+  setInterval(injectSparks, 4200);
+
+  /* =========================
+     UI helpers
+     ========================= */
+  function buildTOC(){
+    const toc = document.getElementById('toc');
+    toc.innerHTML = '';
+    document.querySelectorAll('#plan-root h2, #plan-root h3').forEach(h=>{
+      const id = h.id || h.textContent.toLowerCase().replace(/\s+/g,'-').replace(/[^\w-]/g,'');
+      h.id = id;
+      const a = document.createElement('a'); a.href = `#${id}`; a.textContent = h.textContent;
+      toc.appendChild(a);
+    });
+  }
+
+  function exportPlan(){
+    const html = document.getElementById('plan-root').innerHTML;
+    const blob = new Blob([html], {type:'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download='mali_food_water_plan.html';
+    a.click(); setTimeout(()=>URL.revokeObjectURL(url), 1000);
+  }
+  document.getElementById('export-plan').onclick = exportPlan;
+  document.getElementById('print').onclick = ()=>window.print();
+
+  /* =========================
+     WebLLM Chat (runs fully in-browser)
+     ========================= */
+  let engine = null;
+  const loadBtn = document.getElementById('load-llm');
+  loadBtn.onclick = async ()=>{
+    loadBtn.disabled = true; loadBtn.textContent = 'Loading…';
+    const modelId = document.getElementById('model').value;
+    engine = await CreateMLCEngine(modelId, {
+      initProgressCallback(progress){
+        loadBtn.textContent = `Loading ${Math.round(progress.progress*100)}%`;
+      }
+    });
+    loadBtn.textContent = 'WebLLM Ready';
+  };
+
+  async function askLLM(text){
+    const chatlog = document.getElementById('chatlog');
+    if (!engine){ chatlog.textContent += "\n[System] Load the model first."; return; }
+    chatlog.textContent += `\n[You] ${text}\n[Model] `;
+    const chunks = await engine.chat.completions.create({
+      messages:[
+        { role:'system', content:'You are a concise, technical copilot focused on Mali food & water sovereignty.' },
+        { role:'user', content:text }
+      ],
+      temperature: 0.7, stream: true, stream_options:{ include_usage:true }
+    });
+    let reply = '';
+    for await (const ch of chunks){ reply += ch.choices[0]?.delta?.content ?? ''; chatlog.textContent = chatlog.textContent + (ch.choices[0]?.delta?.content ?? ''); }
+    await kv.set('kv','last-llm-reply', reply);
+  }
+  document.getElementById('send').onclick = ()=>{
+    const p = document.getElementById('prompt');
+    if (p.value.trim().length) askLLM(p.value.trim()), p.value='';
+  };
+
+  /* =========================
+     Habitica (read-only, cached locally)
+     ========================= */
+  const H = {
+    async connect(){
+      const user = document.getElementById('habitica-user').value.trim();
+      const key  = document.getElementById('habitica-key').value.trim();
+      if(!user || !key) return H.status('Missing credentials', true);
+      await kv.set('habitica','user', user);
+      await kv.set('habitica','key', key);
+      H.status('Saved locally. You can now fetch tasks.');
+    },
+    headers: async ()=>{
+      const user = await kv.get('habitica','user');
+      const key  = await kv.get('habitica','key');
+      return {
+        'Content-Type':'application/json',
+        'x-api-user': user ?? '',
+        'x-api-key':  key ?? '',
+        'x-client':   (user??'client') + '-mali-plan'
+      };
+    },
+    status(msg, error=false){
+      const el = document.getElementById('habitica-status');
+      el.textContent = msg; el.style.color = error? 'var(--danger)' : 'var(--muted)';
+    },
+    async fetchTodos(){
+      try{
+        const res = await fetch('https://habitica.com/api/v3/tasks/user?type=todos', { headers: await H.headers() });
+        if(!res.ok) throw new Error('API error '+res.status);
+        const data = await res.json();
+        const todos = data?.data ?? [];
+        await kv.set('habitica','todos', todos);
+        H.status(`Fetched ${todos.length} to-dos (cached).`);
+        renderTodos(todos);
+      }catch(e){ H.status('Fetch failed: '+e.message, true); }
+    }
+  };
+
+  // Fill defaults from your safe runtime (leave blank in public; you can paste once locally)
+  document.getElementById('habitica-user').value = ""; // 7cc80371-9d5c-4080-81de-784e9be4d3c2
+  document.getElementById('habitica-key').value  = ""; // ef3404f5-a687-49fb-bda0-62327ba606b4
+
+  document.getElementById('habitica-connect').onclick = H.connect;
+  document.getElementById('habitica-fetch').onclick   = H.fetchTodos;
+
+  function renderTodos(list){
+    const host = document.getElementById('exec');
+    const box = document.createElement('div');
+    box.className='panel';
+    box.innerHTML = `<strong>Habitica To‑Dos (cached)</strong><div class="small muted">${list.length} items</div>` +
+      `<ul>${list.map(t=>`<li>${t.completed? '✅' : '⬜️'} ${t.text}</li>`).join('')}</ul>`;
+    host.after(box);
+  }
+
+  /* =========================
+     Ultra‑Long Plan Content (HTML injected for clarity)
+     ========================= */
+  const planHTML = `
+  <article id="context" class="panel">
+    <h2>Context & first principles (hydrology, climate, livelihoods)</h2>
+    <p>
+      Mali’s food and water sovereignty are inseparable from the Niger River and its <strong>Inner Niger Delta</strong>—a flood‑pulse wetland that supports ~1&nbsp;million people directly through fisheries, flood‑recession farming, grazing, transport, and ecosystem services. Any upstream storage or large‑scale abstraction must preserve <em>environmental flows</em> to sustain that pulse.<sup>✶</sup>
+    </p>
+    <p>
+      Climate varies sharply north–south: the Saharan north receives <strong>&lt;100&nbsp;mm</strong> annual rainfall (≈3 months rainy season), while the southern Sudanian/Sudan‑Guinean zones can exceed <strong>1,100&nbsp;mm</strong> (≈6 months season). Food systems must therefore be zoned by water availability, not administrative lines. <em>Polycentric</em> management, distributed storage, and risk‑spreading agronomy are non‑negotiable.
+    </p>
+    <p class="quote">
+      Design rule: <em>prioritize flows before volumes</em>. Lock in ecological minima at Ke‑Macina/Sofara; then optimize irrigation efficiency, storage timing, and recession farming windows.
+    </p>
+  </article>
+
+  <article id="food" class="panel">
+    <h2>Ultra‑long form: Food sovereignty plan (2025–2035)</h2>
+
+    <h3>1) Agroecology & dryland intensification</h3>
+    <p>
+      Scale farmer‑led practices that raise yields and buffer climate shocks without expensive inputs:
+      <strong>FMNR</strong> (Farmer‑Managed Natural Regeneration) to regrow tree cover from stumps and seed banks; parkland enrichment with <em>Faidherbia albida</em> for reverse‑season canopy; intercropping millet/sorghum/fonio with cowpea/groundnut; zai/tassa pits and half‑moons for water harvesting; contour bunds and mulching to cut runoff and evaporative losses. Tie these to community seed banks for landraces adapted to heat, salinity, and erratic onset.
+    </p>
+
+    <h3>2) Irrigation where it truly pays (small & smart first)</h3>
+    <p>
+      In Office du Niger and its satellites, prioritize <em>distribution efficiency</em> (lining leaks, night irrigation windows, telemetry for gate control) before new hectares. Outside ON, support <strong>smallholder solar pumps</strong> with <em>water budgeting</em> and energy meters; tie pump microloans to agronomic coaching and groundwater monitoring. Promote <strong>partial‑root drying</strong> and <strong>alternate wetting and drying (AWD)</strong> in rice to cut water use and methane, alongside SRI‑style transplanting where labor allows.
+    </p>
+
+    <h3>3) Post‑harvest & nutrition</h3>
+    <p>
+      Deploy hermetic storage (PICS or equivalent) and village dryers to slash loss in millet, sorghum, maize. Create <strong>micro‑cold hubs</strong> (solar, prepaid) for vegetables, fish, and milk along Ségou–Mopti–Gao corridors. Pair with <strong>local school feeding</strong> that sources 30–50% from nearby women’s cooperatives, building steady demand for nutritious staples and leafy greens.
+    </p>
+
+    <h3>4) Markets & enterprise</h3>
+    <p>
+      Stand up <strong>regional aggregation nodes</strong> with transparent weights/measures and digital receipts. Invest in <strong>women‑led processing</strong> (fonio de‑husking, shea butter, fish smoking with efficient kilns). Pilot <strong>parametric micro‑insurance</strong> (rainfall index) bundled with seed and soil services; payouts route via mobile money.
+    </p>
+
+    <h3>5) Pastoral mobility</h3>
+    <p>
+      Mark and legally protect <strong>transhumance corridors</strong>, wells, and dry‑season grazing reserves; mediate farmer–herder calendars at commune/basin level. Integrate animal health (PPR vaccination), salt licks, and shade trees at boreholes.
+    </p>
+
+    <details>
+      <summary>Food plan — 10‑year milestones & KPIs</summary>
+      <ul>
+        <li>+2.0–2.5 t/ha average in millet/sorghum with agroecological packages (baseline‑adjusted).</li>
+        <li>50–70% post‑harvest loss reduction in target cereals; 25–40% for perishables via cold micro‑hubs.</li>
+        <li>FMNR/regreening on 1.5–2.0 million ha in suitable communes (parklands + dunes).</li>
+        <li>30% rice water‑use cut in AWD blocks; methane ↓ 20–30% where AWD maintained.</li>
+        <li>20 corridors legally protected; seasonal conflict incidents ↓ year‑on‑year in protected zones.</li>
+      </ul>
+    </details>
+  </article>
+
+  <article id="water" class="panel">
+    <h2>Ultra‑long form: Water sovereignty plan (2025–2035)</h2>
+
+    <h3>1) Environmental flows & flood‑pulse governance</h3>
+    <p>
+      Codify <strong>ecological minimums</strong> and seasonal hydrographs for the Inner Niger Delta, co‑managed by a basin body with community seats (fishers, pastoralists, farmers). Link dam rule curves and ON abstractions to <em>flood extent targets</em> and fisheries calendars. Publish monthly <strong>flow bulletins</strong> with open data and clear thresholds.
+    </p>
+
+    <h3>2) Distributed storage & recharge (right tech, right geology)</h3>
+    <p>
+      In suitable catchments, build <strong>sand dams</strong>/subsurface dams and check‑dam cascades for aquifer recharge; elsewhere use <strong>charco dams</strong>, farm ponds with silt traps, and wetland sponges. Where fracture systems allow, test <strong>Managed Aquifer Recharge</strong> (infiltration basins off ephemeral streams). Always pair with silt control upstream and water‑quality testing downstream.
+    </p>
+
+    <h3>3) Water quality & WASH</h3>
+    <p>
+      Install low‑capex testing (H₂S tests, membrane kits) at commune level; publish <strong>water safety plans</strong>. Prioritize fecal‑sludge management in towns along the Niger/Bani; promote twin‑pit VIP latrines and handwashing stations in schools/markets. Chlorination or SODIS in rural points as interim measures.
+    </p>
+
+    <h3>4) Monitoring network & data</h3>
+    <p>
+      Rehabilitate river gauges and rainfall loggers; add IoT level sensors at village reservoirs; crowd‑source flood extent via mobile surveys and satellite products. Host a public dashboard with <strong>ecoflow compliance</strong>, groundwater trends, and abstraction logs.
+    </p>
+
+    <details>
+      <summary>Water plan — 10‑year milestones & KPIs</summary>
+      <ul>
+        <li>Environmental flow rules adopted; ≥85% monthly compliance years 4–10.</li>
+        <li>500–800 village storages built/rehabilitated with silt control; ≥60% show dry‑season reliability gains.</li>
+        <li>100+ monitoring stations online; groundwater trendlines stabilized in target aquifers.</li>
+        <li>Urban WASH upgrades in 8–12 towns; diarrheal incidence down 20–30% where sanitation is addressed.</li>
+      </ul>
+    </details>
+  </article>
+
+  <article id="delivery" class="panel">
+    <h2>Delivery architecture, phasing, and finance</h2>
+    <h3>Institutional choreography</h3>
+    <p>
+      Create a <strong>Flood‑Pulse Council</strong> (IND) with legal clout to call curtailments and publish compliance; empower commune water committees to sign off on micro‑storage siting. Tie agriculture extension, fisheries co‑management, and pastoral calendars into one seasonal operations plan.
+    </p>
+    <h3>Phasing (3–3–4 years)</h3>
+    <ul>
+      <li><strong>Phase I (0–3y):</strong> flow rules, pilot recharge/storage, FMNR kick‑off, post‑harvest & cold hubs, corridor demarcation, sensors.</li>
+      <li><strong>Phase II (3–6y):</strong> scale irrigation efficiency, expand micro‑storage, upgrade sanitation, deepen markets, flood‑recession optimization.</li>
+      <li><strong>Phase III (6–10y):</strong> consolidation, climate insurance scaling, institutionalization of ecoflow audits, export standards for processed goods.</li>
+    </ul>
+    <h3>Finance</h3>
+    <p>
+      Blend: public capex (dams small‑scale, sensors, sanitation), concessional climate funds (adaptation, methane‑cut AWD), results‑based grants (loss reductions), and private micro‑leasing for pumps and cold hubs. Carbon methodologies (soil, tree cover, methane reduction) can co‑finance FMNR + AWD if MRV stays light.
+    </p>
+  </article>
+
+  <article id="m-e" class="panel">
+    <h2>Monitoring & evaluation</h2>
+    <p>Track yield, loss, nutrition diversity scores, fish landings, flood extent (satellite), water quality, corridor incidents, and compliance with environmental flows. Publish quarterly dashboards; trigger “traffic‑light” responses (e.g., pump curtailments) when thresholds are breached.</p>
+  </article>
+
+  <article id="refs" class="panel">
+    <h2>Key references (clickable)</h2>
+    <ul class="small">
+      <li><a target="_blank" href="https://www.fao.org/aquastat/en/countries-and-basins/country-profiles/country/MLI/index.html">FAO AQUASTAT — Mali country profile</a></li>
+      <li><a target="_blank" href="https://www.wetlands.org/blog/wetlands-for-peace-the-inner-niger-delta/">Wetlands International — Inner Niger Delta livelihoods & importance</a></li>
+      <li><a target="_blank" href="https://climateknowledgeportal.worldbank.org/country/mali">World Bank Climate Knowledge Portal — Mali</a></li>
+      <li><a target="_blank" href="https://link.springer.com/article/10.1007/s00271-009-0199-3">Irrigation Science — Office du Niger performance (Zwart 2010)</a></li>
+      <li><a target="_blank" href="https://forestsnews.cifor.org/94078/farmer-managed-natural-regeneration-land-restoration-great-green-wall">CIFOR — FMNR restoration & scale</a></li>
+      <li><a target="_blank" href="https://hess.copernicus.org/articles/24/1891/2020/">HESS — Sand dams environmental response (Eisma 2020)</a></li>
+    </ul>
+    <p class="small muted">Interpretive plan; adapt to on‑the‑ground constraints and community governance. Flows first, volumes second.</p>
+  </article>
+  `;
+
+  document.getElementById('plan-root').innerHTML = planHTML;
+  buildTOC();
+  await kv.set('plan-cache','html', planHTML);
+
+  // Simple in‑page search (Ctrl/Cmd+F still works; this is a helper you can wire to a field if desired)
+  // Example: highlight “FMNR”
+  function highlight(term){
+    if (!term) return;
+    document.querySelectorAll('.hit').forEach(n=>n.classList.remove('hit'));
+    const walker = document.createTreeWalker(document.getElementById('plan-root'), NodeFilter.SHOW_TEXT);
+    const hits = [];
+    while(walker.nextNode()){
+      const n = walker.currentNode;
+      const i = n.nodeValue.toLowerCase().indexOf(term.toLowerCase());
+      if (i>-1){
+        const range = document.createRange();
+        range.setStart(n, i); range.setEnd(n, i+term.length);
+        const mark = document.createElement('mark'); mark.className='hit';
+        range.surroundContents(mark); hits.push(mark);
+      }
+    }
+    return hits.length;
+  }
+  highlight('FMNR');
+
+  </script>
+</body>
+</html>

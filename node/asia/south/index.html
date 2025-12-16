@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+  <title>Food & Water Sovereignty — South Asia (Standalone)</title>
+  <meta name="description" content="Standalone, offline-ready, gamified Food & Water Sovereignty guide for South Asia. Includes animated starfield, quests, calculators, IndexedDB progress, Habitica sync, and WebLLM helper." />
+  <link rel="canonical" href="/" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0b0f17" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Food & Water Sovereignty — South Asia" />
+  <meta property="og:description" content="Standalone, offline-ready, gamified Food & Water Sovereignty guide with quests, calculators, Habitica sync, and on-device AI." />
+  <meta property="og:url" content="/" />
+  <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABC..." />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Food & Water Sovereignty — South Asia" />
+  <meta name="twitter:description" content="Standalone, offline-ready, gamified Food & Water Sovereignty guide with quests, calculators, Habitica sync, and on-device AI." />
+
+  <!-- Structured Data (Schema.org + your presentation schema). Two Guides (Water, Food) embedded on one page. -->
+  <script type="application/ld+json">
+  {
+    "@context": [
+      "https://schema.org",
+      "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"
+    ],
+    "@graph": [
+      {
+        "@type": "Guide",
+        "name": "Water Sovereignty Quest — South Asia (Moderate–High Need, Uncertain Adjacency)",
+        "about": ["water security","household water treatment","rainwater harvesting","arsenic","fluoride","South Asia"],
+        "inLanguage": "en",
+        "audience": {"@type":"Audience","audienceType":"community stewards, households, local responders"},
+        "isPartOf": {"@type":"CreativeWorkSeries","name":"Food & Water Sovereignty Playbooks"},
+        "headline": "Gamified, offline-ready guide with calculators and quests",
+        "datePublished": "2025-10-21",
+        "mainEntityOfPage": "/water/"
+      },
+      {
+        "@type": "Guide",
+        "name": "Food Sovereignty Quest — South Asia (Moderate–High Need, Uncertain Adjacency)",
+        "about": ["food security","rations","dietary diversity","kitchen gardens","millets","hermetic storage"],
+        "inLanguage": "en",
+        "audience": {"@type":"Audience","audienceType":"community stewards, households, local responders"},
+        "isPartOf": {"@type":"CreativeWorkSeries","name":"Food & Water Sovereignty Playbooks"},
+        "headline": "Gamified, offline-ready guide with calculators and quests",
+        "datePublished": "2025-10-21",
+        "mainEntityOfPage": "/food/"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#0b0f17; --panel:#0f1524; --ink:#e7eefc; --muted:#9fb3d1; --link:#9dd6ff;
+      --accent:#7ee0ff; --ok:#2dd17e; --warn:#ffd166; --bad:#ff6860;
+      --shadow:0 10px 30px rgba(0,0,0,.25); --radius:14px;
+      --font:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5;text-rendering:optimizeLegibility}
+    a{color:var(--link);text-decoration:none}
+    a:hover{text-decoration:underline}
+    header,main,footer{position:relative;z-index:2}
+    header{
+      display:flex;gap:1rem;align-items:center;justify-content:space-between;
+      padding:clamp(12px,2vw,24px);
+      background:linear-gradient(to bottom,rgba(11,15,23,.9),rgba(11,15,23,.3));
+      backdrop-filter:blur(6px)
+    }
+    nav a{margin-right:1rem;padding:.5rem .75rem;border-radius:10px;background:rgba(255,255,255,.04)}
+    .brand{font-weight:700;letter-spacing:.3px}
+    .canvas-wrap{position:fixed;inset:0;z-index:1;pointer-events:none}
+    #starfield{width:100%;height:100%;display:block}
+
+    main{max-width:1180px;margin:0 auto;padding:24px}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;padding:clamp(12px,2vw,24px);
+      background: radial-gradient(1200px 400px at 10% 0%, rgba(126,224,255,.06), transparent),
+                  radial-gradient(800px 400px at 90% 0%, rgba(74,211,129,.06), transparent);
+      border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.06)}
+    .hero h1{margin:.2rem 0 0;font-size:clamp(1.4rem,3.2vw,2.3rem)}
+    .hero p{color:var(--muted);margin-top:.5rem}
+
+    .panel{background:var(--panel);border:1px solid rgba(255,255,255,.06);
+      border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin:18px 0}
+    .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    .kpi{padding:12px;border-radius:12px;background:rgba(255,255,255,.04);text-align:center}
+    .kpi .val{font-size:1.3rem;font-weight:700}
+    .badge{display:inline-block;border:1px solid rgba(255,255,255,.12);padding:.3rem .55rem;border-radius:999px;background:rgba(255,255,255,.05)}
+    .grid{display:grid;gap:18px}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    h2,h3{margin-top:1.2rem}
+    .controls label{display:block;margin-top:.5rem}
+    .controls input,.controls select,.controls button,.controls textarea{
+      width:100%;padding:.65rem .75rem;margin-top:.35rem;border-radius:10px;
+      border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--ink)
+    }
+    .controls button{cursor:pointer}
+    .mono{font-family:var(--mono);font-size:.95em}
+    .progressbar{width:100%;height:10px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden}
+    .progressbar>div{height:100%;background:linear-gradient(90deg,var(--accent),var(--ok));width:0%;transition:width .6s ease}
+    details{border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:.7rem .9rem;background:rgba(255,255,255,.03)}
+    details summary{cursor:pointer}
+    .footnotes{font-size:.9em;color:var(--muted)}
+    .good{color:var(--ok)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+    .sr-only{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+
+    /* Section visibility for virtual routing */
+    section[data-route]{display:none}
+    section[data-route].active{display:block}
+
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr}
+      .kpis{grid-template-columns:repeat(2,1fr)}
+      .grid.cols-2{grid-template-columns:1fr}
+      .grid.cols-3{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (prefers-reduced-motion: reduce){ #starfield{display:none} }
+  </style>
+</head>
+<body>
+  <div class="canvas-wrap" aria-hidden="true"><canvas id="starfield"></canvas></div>
+
+  <header>
+    <div class="brand">Planetary Restoration — <span class="badge">Food & Water</span></div>
+    <nav>
+      <a href="/" data-link>Home</a>
+      <a href="/water/" data-link>Water</a>
+      <a href="/food/" data-link>Food</a>
+      <a href="#ai" data-link>AI Helper</a>
+      <a href="#habitica" data-link>Habitica</a>
+      <a href="#export" data-link>Export</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="home" data-route="/|/index.html" class="active">
+      <div class="hero">
+        <div>
+          <h1>Food & Water Sovereignty — South Asia</h1>
+          <p>
+            Mode: <span class="badge">Moderate–High Need</span> ·
+            <span class="badge">Uncertain Adjacency</span> (disaster/conflict aware).
+            This single file includes everything: quests, calculators, IndexedDB, Habitica sync, and WebLLM (auto‑loads).
+          </p>
+          <div class="panel">
+            <div class="kpis">
+              <div class="kpi"><div class="val" id="xpAll">0</div><div class="lbl">Total XP</div></div>
+              <div class="kpi"><div class="val" id="badgesAll">0</div><div class="lbl">Badges</div></div>
+              <div class="kpi"><div class="val" id="bufferDays">0</div><div class="lbl">Water Buffer Days</div></div>
+              <div class="kpi"><div class="val" id="rwhLiters">0</div><div class="lbl">Rain Capture (L/mo)</div></div>
+              <div class="kpi"><div class="val" id="kcalPlan">0</div><div class="lbl">Kcal Planned / pppd</div></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="progressbar" aria-label="Overall progress"><div id="progressAll"></div></div>
+            <p class="footnotes">Targets embedded: water ≥15–20 L/pppd; safe disinfection & validated filters; ~2,100 kcal/pppd baseline with ~10–12% protein, ≥17% fat; dietary diversity ≥5/10 groups; iodized salt; fortified staples when available. Adjust to local laws and lab results.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Quick Launch</h3>
+          <ol>
+            <li>Open <a href="/water/" data-link>Water</a> → set **household size** and **rain capture**; complete Level 0–2 quests.</li>
+            <li>Open <a href="/food/" data-link>Food</a> → design your **3‑day and 30‑day ration**; set diversity & garden plan.</li>
+            <li><a href="#habitica" data-link>Habitica</a> → paste creds → click **Sync All** to mirror quests.</li>
+            <li><a href="#ai" data-link>AI Helper</a> → ask WebLLM to audit your plan. Offline fallback included.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- WATER -->
+    <section id="water" data-route="/water/">
+      <div class="hero">
+        <div>
+          <h1>Water Sovereignty — South Asia</h1>
+          <p><span class="badge">Moderate–High Need</span> · <span class="badge">Uncertain Adjacency</span> · Monsoon + Groundwater + Arsenic/Fluoride flags.</p>
+          <div class="panel">
+            <div class="kpis">
+              <div class="kpi"><div class="val" id="xpWater">0</div><div class="lbl">XP (Water)</div></div>
+              <div class="kpi"><div class="val" id="badgesWater">0</div><div class="lbl">Badges</div></div>
+              <div class="kpi"><div class="val" id="waterDays">0</div><div class="lbl">Water Buffer Days</div></div>
+              <div class="kpi"><div class="val" id="harvestLiters">0</div><div class="lbl">Rain Capture (L/mo)</div></div>
+              <div class="kpi"><div class="val" id="chlTarget">0.5</div><div class="lbl">Cl₂ target mg/L</div></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="progressbar"><div id="progressWater"></div></div>
+            <p class="footnotes">Residual chlorine target: ≥0.5 mg/L after ≥30 min (pH&lt;8); maintain ≥0.2 mg/L at point of use. SODIS: ~6 h full sun (or ~2 days if mostly cloudy). Rain yield ≈ Area × Rainfall × Coefficient.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <h3 id="risk">Regional Risk Flags</h3>
+          <div class="grid cols-2">
+            <div>
+              <h3>Arsenic & Fluoride</h3>
+              <p>Parts of Bangladesh & West Bengal have arsenic; parts of peninsular India have elevated fluoride. **Do not rely on any source until tested** to guideline levels (As ≤10 µg/L). If affected, prioritize **tested alternative sources** or **validated community treatments**; household improvisations are unsafe.</p>
+            </div>
+            <div>
+              <h3>Algal Toxins</h3>
+              <p>Avoid visibly scummy/green water. Typical household methods don’t remove dissolved microcystins well—switch sources or use safe municipal supplies.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WATER CALCULATORS -->
+      <section class="panel" id="water-calcs">
+        <h2>Calculators</h2>
+        <div class="grid cols-2">
+          <div>
+            <h3>Water Buffer</h3>
+            <div class="controls">
+              <label>People<input type="number" id="w_people" min="1" value="4"></label>
+              <label>Days<input type="number" id="w_days" min="1" value="7"></label>
+              <label>Liters/pppd (15–20)<input type="number" id="w_lppd" min="5" value="20"></label>
+              <button id="w_calc">Compute & Save</button>
+              <div class="mono" id="w_out"></div>
+            </div>
+          </div>
+          <div>
+            <h3>Rainwater Harvesting</h3>
+            <div class="controls">
+              <label>Catchment area (m²)<input type="number" id="w_area" min="1" value="60"></label>
+              <label>Design rainfall (mm/month)<input type="number" id="w_rain" min="1" value="250"></label>
+              <label>Runoff coefficient
+                <select id="w_coef">
+                  <option value="0.90">0.90 — Metal</option>
+                  <option value="0.85">0.85 — Concrete</option>
+                  <option value="0.75">0.75 — Tile</option>
+                  <option value="0.50">0.50 — Thatch</option>
+                </select>
+              </label>
+              <button id="w_rwh">Estimate Yield</button>
+              <div class="mono" id="w_rwh_out"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WATER QUESTS -->
+      <section class="panel" id="water-quests">
+        <h2>Quests (Water)</h2>
+        <p>All tasks save offline automatically. Check them as you complete.</p>
+
+        <details open>
+          <summary><strong>Level 0 — Rapid Assessment</strong> <span class="badge">+50 XP</span></summary>
+          <ul>
+            <li><input type="checkbox" data-task="w.l0_sources"> Map 3 nearest sources (roof, municipal, borewell/surface) with reliability notes.</li>
+            <li><input type="checkbox" data-task="w.l0_containers"> Inventory food‑grade containers (liters; label drinking vs utility).</li>
+            <li><input type="checkbox" data-task="w.l0_quality"> Note visible risks: turbidity, color/odor, algal scum, runoff points.</li>
+            <li><input type="checkbox" data-task="w.l0_social"> Identify 3 community allies (shared rooftops/taps/check‑dams).</li>
+          </ul>
+        </details>
+        <details>
+          <summary><strong>Level 1 — 72‑Hour Buffer</strong> <span class="badge">+120 XP</span></summary>
+          <ul>
+            <li><input type="checkbox" data-task="w.l1_calc"> Set a 3‑day target with the calculator.</li>
+            <li><input type="checkbox" data-task="w.l1_store"> Store sealed/opaque; off floor; label & rotate 6‑monthly.</li>
+            <li><input type="checkbox" data-task="w.l1_disinfect"> Choose validated treatment (SODIS/chlorine/filter+boil); document steps.</li>
+            <li><input type="checkbox" data-task="w.l1_test"> Acquire DPD chlorine test + turbidity tube; log a trial.</li>
+          </ul>
+        </details>
+        <details>
+          <summary><strong>Level 2 — 30‑Day Hygiene‑Inclusive Plan</strong> <span class="badge">+240 XP</span></summary>
+          <ul>
+            <li><input type="checkbox" data-task="w.l2_recalc"> Re‑plan 15–20 L/pppd for 30 days; include hygiene & menstruation needs.</li>
+            <li><input type="checkbox" data-task="w.l2_risk"> Check arsenic/fluoride/algal flags; choose safe sources.</li>
+            <li><input type="checkbox" data-task="w.l2_sodis"> Build a SODIS station; safe drying rack.</li>
+            <li><input type="checkbox" data-task="w.l2_chl"> Establish DPD routine to hit residual targets safely.</li>
+          </ul>
+        </details>
+        <details>
+          <summary><strong>Level 3 — Household Treatment Build</strong> <span class="badge">+400 XP</span></summary>
+          <ul>
+            <li><input type="checkbox" data-task="w.l3_prefilter"> Pre‑filter (cloth + gravel/sand) for turbidity.</li>
+            <li><input type="checkbox" data-task="w.l3_biosand"> Build biosand/slow‑sand to validated specs; pause‑period routine.</li>
+            <li><input type="checkbox" data-task="w.l3_combined"> Combine with boil or chlorination when microbial risk is high.</li>
+            <li><input type="checkbox" data-task="w.l3_ops"> 1‑page ops card: cleaning, rate checks, residual tests, triggers.</li>
+          </ul>
+        </details>
+        <details>
+          <summary><strong>Level 4 — Rooftop Rain Capture</strong> <span class="badge">+420 XP</span></summary>
+          <ul>
+            <li><input type="checkbox" data-task="w.l4_gutters"> Gutters + leaf screens + first‑flush diverter.</li>
+            <li><input type="checkbox" data-task="w.l4_storage"> Opaque, screened, mosquito‑proof storage tank.</li>
+            <li><input type="checkbox" data-task="w.l4_overflow"> Overflow to infiltration/recharge; protect foundations.</li>
+            <li><input type="checkbox" data-task="w.l4_log"> Log yields; refine coefficient with real data.</li>
+          </ul>
+        </details>
+        <details>
+          <summary><strong>Level 5 — Street‑to‑Watershed</strong> <span class="badge">+600 XP</span></summary>
+          <ul>
+            <li><input type="checkbox" data-task="w.l5_checkdams"> Identify micro check‑dam/contour bund sites with neighbors.</li>
+            <li><input type="checkbox" data-task="w.l5_recharge"> Site percolation pits/shafts away from latrines/waste.</li>
+            <li><input type="checkbox" data-task="w.l5_gov"> Align with BIS/CPHEEO/state boards; record approvals.</li>
+            <li><input type="checkbox" data-task="w.l5_monitor"> Seasonal water‑table & quality monitoring notebook.</li>
+          </ul>
+        </details>
+
+        <div class="panel">
+          <button id="w_reset">Reset Water Progress</button>
+        </div>
+      </section>
+    </section>
+
+    <!-- FOOD -->
+    <section id="food" data-route="/food/">
+      <div class="hero">
+        <div>
+          <h1>Food Sovereignty — South Asia</h1>
+          <p><span class="badge">Moderate–High Need</span> · <span class="badge">Uncertain Adjacency</span> · Kitchen gardens + Millets & Pulses + Hermetic storage.</p>
+          <div class="panel">
+            <div class="kpis">
+              <div class="kpi"><div class="val" id="xpFood">0</div><div class="lbl">XP (Food)</div></div>
+              <div class="kpi"><div class="val" id="badgesFood">0</div><div class="lbl">Badges</div></div>
+              <div class="kpi"><div class="val" id="kcalDay">0</div><div class="lbl">Kcal Planned / pppd</div></div>
+              <div class="kpi"><div class="val" id="rationDays">0</div><div class="lbl">Ration Days</div></div>
+              <div class="kpi"><div class="val" id="gardenM2">0</div><div class="lbl">Garden m²</div></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="progressbar"><div id="progressFood"></div></div>
+            <p class="footnotes">Planning anchors: ~2,100 kcal/pppd; ~10–12% protein; ≥17% fat; dietary diversity ≥5/10 groups; iodized salt; fortified staples when available. Pressure‑cook legumes to save fuel/time.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Quick Start</h3>
+          <ol>
+            <li>Design **3‑day** then **30‑day** dry ration (cereal + pulses + oil + sugar + iodized salt).</li>
+            <li>Plan **kitchen garden + sprouts/microgreens** for micronutrients.</li>
+            <li>Dry cereals to ≲13% moisture; store hermetically; rotate FIFO.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- FOOD CALCULATORS -->
+      <section class="panel" id="food-calcs">
+        <h2>Calculators</h2>
+        <div class="grid cols-2">
+          <div>
+            <h3>Ration Designer</h3>
+            <div class="controls">
+              <label>People<input type="number" id="f_ppl" value="4" min="1"></label>
+              <label>Days<input type="number" id="f_days" value="30" min="1"></label>
+              <label>Kcal per person per day<input type="number" id="f_kcal" value="2100" min="1200"></label>
+              <label>Protein % of energy<input type="number" id="f_pctP" value="11" min="8" max="20"></label>
+              <label>Fat % of energy<input type="number" id="f_pctF" value="20" min="17" max="35"></label>
+              <label>Optional sugar g/pppd<input type="number" id="f_sugar" value="20" min="0" max="40"></label>
+              <label>Staple (kcal/100g; protein g/100g)
+                <select id="f_staple">
+                  <option value="360,7">Rice (milled) — 360 / 7</option>
+                  <option value="364,11">Wheat flour — 364 / 11</option>
+                  <option value="360,10">Millet (avg) — 360 / 10</option>
+                </select>
+              </label>
+              <label>Pulses (kcal/100g; protein g/100g)
+                <select id="f_pulses">
+                  <option value="350,25">Lentils — 350 / 25</option>
+                  <option value="340,24">Chickpea — 340 / 24</option>
+                  <option value="330,23">Mung bean — 330 / 23</option>
+                </select>
+              </label>
+              <button id="f_calc">Compute & Save</button>
+              <pre class="mono" id="f_out"></pre>
+            </div>
+          </div>
+
+          <div>
+            <h3>Dietary Diversity & Garden</h3>
+            <div class="controls">
+              <label>Garden area (m²)<input type="number" id="f_gm2" value="6" min="0"></label>
+              <label>Pick all diversity groups met today (≥5 is minimally diverse):</label>
+              <div class="grid cols-3" style="margin:.5rem 0">
+                <label><input type="checkbox" class="mdd" value="1"> Grains/roots/plantains</label>
+                <label><input type="checkbox" class="mdd" value="2"> Pulses</label>
+                <label><input type="checkbox" class="mdd" value="3"> Nuts/seeds</label>
+                <label><input type="checkbox" class="mdd" value="4"> Dairy</label>
+                <label><input type="checkbox" class="mdd" value="5"> Meat/poultry/fish</label>
+                <label><input type="checkbox" class="mdd" value="6"> Eggs</label>
+                <label><input type="checkbox" class="mdd" value="7"> Dark green leafy veg</label>
+                <label><input type="checkbox" class="mdd" value="8"> Vit‑A rich fruit/veg</label>
+                <label><input type="checkbox" class="mdd" value="9"> Other veg</label>
+                <label><input type="checkbox" class="mdd" value="10"> Other fruits</label>
+              </div>
+              <button id="f_mdd">Score Diversity</button>
+              <div class="mono" id="f_mdd_out"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid cols-2">
+          <div>
+            <h3>Storage & Hermetic Plan</h3>
+            <div class="controls">
+              <label>Container volume (L)<input type="number" id="f_volL" value="120" min="1"></label>
+              <label>Bulk density (kg/L)<input type="number" id="f_density" value="0.80" min="0.2" step="0.01"></label>
+              <label>Target moisture %<input type="number" id="f_moist" value="13" min="10" max="16"></label>
+              <button id="f_store">Estimate Capacity</button>
+              <div class="mono" id="f_store_out"></div>
+            </div>
+          </div>
+
+          <div>
+            <h3>Cost Estimator (your prices)</h3>
+            <div class="controls">
+              <label>Staple ₹/kg<input type="number" id="f_priceStaple" value="45" min="0"></label>
+              <label>Pulses ₹/kg<input type="number" id="f_pricePulses" value="110" min="0"></label>
+              <label>Oil ₹/L<input type="number" id="f_priceOil" value="140" min="0"></label>
+              <label>Sugar ₹/kg<input type="number" id="f_priceSugar" value="45" min="0"></label>
+              <button id="f_cost">Monthly Cost (from ration)</button>
+              <div class="mono" id="f_cost_out"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOD QUESTS -->
+      <section class="panel" id="food-quests">
+        <h2>Quests (Food)</h2>
+
+        <details open>
+          <summary><strong>Level 0 — Rapid Diet & Fuel Scan</strong> <span class="badge">+50 XP</span></summary>
+          <ul>
+            <li><input type="checkbox" data-task="f.l0_profiles"> Record constraints (allergies, religious rules, infant feeding, pregnancy).</li>
+            <li><input type="checkbox" data-task="f.l0_fuel"> Inventory fuel & cookware (pressure cooker? tiffin?) and plan fuel‑efficient menus.</li>
+            <li><input type="checkbox" data-task="f.l0_diversity"> Record today’s 10‑group diversity score and gaps.</li>
+            <li><input type="checkbox" data-task="f.l0_sources"> List 3 reliable staple sources (PDS/market/co‑op/farmer).</li>
+          </ul>
+        </details>
+        <details>
+          <summary><strong>Level 1 — 72‑Hour Ration & Micronutrients</strong> <span class="badge">+120 XP</span></summary>
+          <ul>
+            <li><input type="checkbox" data-task="f.l1_ration3d"> Build a 3‑day ration at ~2,100 kcal/pppd.</li>
+            <li><input type="checkbox" data-task="f.l1_iodine"> Use adequately iodized salt (KIO₃ stable in humid climates).</li>
+            <li><input type="checkbox" data-task="f.l1_fortify"> Prefer fortified flour/oil where available; note labels.</li>
+            <li><input type="checkbox" data-task="f.l1_pressure"> Pressure‑cook legumes (energy/time saving, better digestibility).</li>
+          </ul>
+        </details>
+        <details>
+          <summary><strong>Level 2 — 30‑Day Pantry & Hermetic Storage</strong> <span class="badge">+240 XP</span></summary>
+          <ul>
+            <li><input type="checkbox" data-task="f.l2_ration30d"> Scale ration to 30 days; label bins by commodity & date.</li>
+            <li><input type="checkbox" data-task="f.l2_dry"> Dry cereals to ≲13% moisture; test or sun‑dry to target.</li>
+            <li><input type="checkbox" data-task="f.l2_hermetic"> Store in hermetic containers/bags (triple‑layer where available).</li>
+            <li><input type="checkbox" data-task="f.l2_rotate"> Set rotation cadence (FIFO).</li>
+          </ul>
+        </details>
+        <details>
+          <summary><strong>Level 3 — Kitchen Garden, Sprouts & Microgreens</strong> <span class="badge">+400 XP</span></summary>
+          <ul>
+            <li><input type="checkbox" data-task="f.l3_garden"> Plan 4–8 m² containers/beds (greens, amaranth, okra, chili, tomato, herbs).</li>
+            <li><input type="checkbox" data-task="f.l3_sprouts"> Start sprouts/microgreens; if immunocompromised/pregnant, avoid raw sprouts—cook.</li>
+            <li><input type="checkbox" data-task="f.l3_compost"> Safe composting & greywater use (hygiene barriers).</li>
+            <li><input type="checkbox" data-task="f.l3_diversify"> Hit ≥5/10 diversity groups most days; weekly tracking.</li>
+          </ul>
+        </details>
+        <details>
+          <summary><strong>Level 4 — Millets & Pulses Switch (Water‑wise)</strong> <span class="badge">+420 XP</span></summary>
+          <ul>
+            <li><input type="checkbox" data-task="f.l4_millets"> Replace part of rice/wheat with millets & pulses.</li>
+            <li><input type="checkbox" data-task="f.l4_recipes"> Standardize quick recipes (khichdi, upma, millet rotis).</li>
+            <li><input type="checkbox" data-task="f.l4_seedbank"> Maintain a seed bank (OPVs; record Kharif/Rabi/Zaid calendars).</li>
+            <li><input type="checkbox" data-task="f.l4_waterlink"> Link to Water plan (rain capture → irrigation).</li>
+          </ul>
+        </details>
+        <details>
+          <summary><strong>Level 5 — Community Food Commons</strong> <span class="badge">+600 XP</span></summary>
+          <ul>
+            <li><input type="checkbox" data-task="f.l5_coop"> Join/form a co‑op grain bank / bulk buying circle.</li>
+            <li><input type="checkbox" data-task="f.l5_kitchen"> Map community kitchens/canteens; mutual‑aid menus.</li>
+            <li><input type="checkbox" data-task="f.l5_monitor"> Track prices, storage losses, diet diversity; publish a monthly note.</li>
+            <li><input type="checkbox" data-task="f.l5_link"> Align with local schemes (PDS, ICDS, state nutrition missions).</li>
+          </ul>
+        </details>
+
+        <div class="panel">
+          <button id="f_reset">Reset Food Progress</button>
+        </div>
+      </section>
+    </section>
+
+    <!-- HABITICA -->
+    <section id="habitica" data-route="#habitica">
+      <div class="panel">
+        <h2>Habitica Sync — All Quests</h2>
+        <p>Credentials are stored locally in your browser. Once set, click **Sync All** to create To‑Dos for every quest in Water + Food.</p>
+        <div class="grid cols-2">
+          <div class="controls">
+            <label>Habitica User ID<input id="habUser" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"></label>
+            <label>Habitica API Token<input id="habToken" placeholder="long-secret-token"></label>
+            <button id="habSave">Save Credentials</button>
+            <button id="habPushAll">Sync All Quests → Habitica</button>
+            <div class="mono" id="habOut"></div>
+          </div>
+          <div>
+            <details open>
+              <summary>What’s included?</summary>
+              <ul>
+                <li>Level 0–5 quest tasks from both Water and Food as To‑Dos (with checklists where relevant).</li>
+                <li>Local XP/badges here remain local; Habitica rewards are separate.</li>
+              </ul>
+              <p class="footnotes">If a network/CORS block occurs, export tasks below and import via Habitica’s tools.</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI HELPER -->
+    <section id="ai" data-route="#ai">
+      <div class="panel">
+        <h2>On‑device AI Helper (WebLLM) — Default ON</h2>
+        <p>WebLLM will auto‑load model weights from a public CDN; if unavailable, a robust local rule‑based helper activates automatically.</p>
+        <div class="controls">
+          <label>Prompt
+            <textarea id="aiPrompt" rows="5" placeholder="Audit my 30‑day water plan for 5 people (250 mm/month rainfall, 60 m² roof, DPD testing, biosand + chlorination), and align a millet-forward 30‑day ration (rice:millet 60:40)…"></textarea>
+          </label>
+          <button id="askAI">Ask</button>
+          <pre class="mono" id="aiOut">Loading WebLLM… (auto)</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPORT/IMPORT -->
+    <section id="export" data-route="#export">
+      <div class="panel">
+        <h2>Export / Import Progress</h2>
+        <div class="grid cols-2">
+          <div>
+            <button id="exportAll">Export All Progress (JSON)</button>
+            <div class="mono" id="exportInfo"></div>
+          </div>
+          <div class="controls">
+            <label>Import JSON
+              <input type="file" id="importFile" accept="application/json">
+            </label>
+            <button id="importBtn">Import</button>
+            <div class="mono" id="importInfo"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="panel">
+      <div>Sections: <a href="/water/" data-link>Water</a> · <a href="/food/" data-link>Food</a> · <a href="#ai" data-link>AI Helper</a> · <a href="#habitica" data-link>Habitica</a></div>
+      <div class="footnotes">Built for South Asia context. Evidence‑informed thresholds embedded; always align with local law and lab results.</div>
+    </footer>
+  </main>
+
+  <noscript><div class="panel">This app needs JavaScript for calculators, offline saves, and starfield. You can still read the text.</div></noscript>
+
+  <!-- Starfield (photorealistic-ish twinkle) -->
+  <script>
+  (function(){
+    const canvas = document.getElementById('starfield');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let stars=[],width,height,dpr=Math.min(window.devicePixelRatio||1,2);
+    const STAR_COUNT = window.matchMedia('(max-width: 600px)').matches ? 700 : 1600;
+    function resize(){
+      width = canvas.clientWidth; height = canvas.clientHeight;
+      canvas.width = Math.floor(width*dpr); canvas.height = Math.floor(height*dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    function rand(a,b){return a+Math.random()*(b-a)}
+    function init(){
+      stars=[];
+      for(let i=0;i<STAR_COUNT;i++){
+        stars.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,
+          r:Math.pow(Math.random(),2.5)*1.6+0.2, tw:rand(.5,2.2), phase:Math.random()*Math.PI*2,
+          hue:210+rand(-30,30)});
+      }
+    }
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      const grad=ctx.createRadialGradient(width*.15,height*.1,10,width*.15,height*.1,Math.max(width,height));
+      grad.addColorStop(0,'rgba(126,224,255,0.06)'); grad.addColorStop(1,'rgba(11,15,23,0)');
+      ctx.fillStyle=grad; ctx.fillRect(0,0,width,height);
+      const t=performance.now()/1000;
+      for(const s of stars){
+        const tw=0.6+0.4*Math.sin(t*s.tw+s.phase);
+        const glow=s.r*(0.8+0.2*Math.sin(t*0.5+s.phase));
+        ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fillStyle=`hsla(${s.hue},60%,${70+tw*25}%,0.85)`;
+        ctx.shadowColor=`rgba(160,200,255,${0.8*tw})`; ctx.shadowBlur=12*glow; ctx.fill();
+      }
+      ctx.shadowBlur=0; requestAnimationFrame(draw);
+    }
+    resize(); init(); draw(); window.addEventListener('resize',()=>{resize();init();});
+  })();
+  </script>
+
+  <!-- Core App: Router + IndexedDB + Quests + Calculators + Habitica + WebLLM -->
+  <script>
+  // ---------- Tiny Router (supports /, /water/, /food/, #ai, #habitica, #export) ----------
+  const routes = {
+    "/": "home", "/index.html":"home", "/water/":"water", "/food/":"food", "#ai":"ai", "#habitica":"habitica", "#export":"export"
+  };
+  function showRoute(path){
+    const id = routes[path] || (path.startsWith("#") ? routes[path] : null) || "home";
+    document.querySelectorAll('section[data-route], section#home').forEach(s=>s.classList.remove('active'));
+    if(id==="home") document.getElementById('home').classList.add('active');
+    else document.querySelector(`[data-route="${path}"]`)?.classList.add('active');
+    // Update totals when section changes
+    updateTotals();
+  }
+  function handleLink(e){
+    const a = e.target.closest('a[data-link]'); if(!a) return;
+    const href = a.getAttribute('href');
+    if(href.startsWith('#')){ e.preventDefault(); history.pushState({}, "", href); showRoute(href); return; }
+    if(href.endsWith('/water/') || href==='/water/'){ e.preventDefault(); history.pushState({}, "", "/water/"); showRoute("/water/"); return; }
+    if(href.endsWith('/food/') || href==='/food/'){ e.preventDefault(); history.pushState({}, "", "/food/"); showRoute("/food/"); return; }
+    if(href==='/'){ e.preventDefault(); history.pushState({}, "", "/"); showRoute("/"); return; }
+  }
+  document.addEventListener('click', handleLink);
+  window.addEventListener('popstate', ()=> showRoute(location.pathname + location.hash));
+  showRoute(location.pathname + location.hash);
+
+  // ---------- IndexedDB ----------
+  const DB_NAME='sovereignty', DB_VER=3;
+  let db;
+  function idbOpen(){return new Promise((res,rej)=>{const req=indexedDB.open(DB_NAME,DB_VER);
+    req.onupgradeneeded=(e)=>{const d=e.target.result;
+      if(!d.objectStoreNames.contains('kv')) d.createObjectStore('kv');
+      if(!d.objectStoreNames.contains('tasks')) d.createObjectStore('tasks');
+      if(!d.objectStoreNames.contains('badges')) d.createObjectStore('badges');
+      if(!d.objectStoreNames.contains('habitica')) d.createObjectStore('habitica');
+    };
+    req.onsuccess=()=>res(req.result); req.onerror=()=>rej(req.error);});}
+  function idbPut(store,key,val){return new Promise((res,rej)=>{const tx=db.transaction(store,'readwrite'); tx.objectStore(store).put(val,key);
+    tx.oncomplete=res; tx.onerror=()=>rej(tx.error);});}
+  function idbGet(store,key){return new Promise((res,rej)=>{const tx=db.transaction(store,'readonly'); const g=tx.objectStore(store).get(key);
+    g.onsuccess=()=>res(g.result); g.onerror=()=>rej(g.error);});}
+  function idbAllKeys(store){return new Promise((res,rej)=>{const tx=db.transaction(store,'readonly'); const r=tx.objectStore(store).getAllKeys();
+    r.onsuccess=()=>res(r.result||[]); r.onerror=()=>rej(r.error);});}
+  function idbClear(store){return new Promise((res,rej)=>{const tx=db.transaction(store,'readwrite'); tx.objectStore(store).clear();
+    tx.oncomplete=res; tx.onerror=()=>rej(tx.error);});}
+
+  // ---------- Quest Weights ----------
+  const WQ = {
+    "w.l0_sources":10, "w.l0_containers":10, "w.l0_quality":15, "w.l0_social":15,
+    "w.l1_calc":30, "w.l1_store":30, "w.l1_disinfect":30, "w.l1_test":30,
+    "w.l2_recalc":35, "w.l2_risk":35, "w.l2_sodis":35, "w.l2_chl":35,
+    "w.l3_prefilter":40, "w.l3_biosand":80, "w.l3_combined":60, "w.l3_ops":40,
+    "w.l4_gutters":80, "w.l4_storage":80, "w.l4_overflow":80, "w.l4_log":40,
+    "w.l5_checkdams":120, "w.l5_recharge":140, "w.l5_gov":80, "w.l5_monitor":80
+  };
+  const FQ = {
+    "f.l0_profiles":15, "f.l0_fuel":15, "f.l0_diversity":10, "f.l0_sources":10,
+    "f.l1_ration3d":40, "f.l1_iodine":25, "f.l1_fortify":25, "f.l1_pressure":30,
+    "f.l2_ration30d":60, "f.l2_dry":60, "f.l2_hermetic":60, "f.l2_rotate":40,
+    "f.l3_garden":80, "f.l3_sprouts":80, "f.l3_compost":60, "f.l3_diversify":60,
+    "f.l4_millets":80, "f.l4_recipes":60, "f.l4_seedbank":80, "f.l4_waterlink":60,
+    "f.l5_coop":100, "f.l5_kitchen":100, "f.l5_monitor":100, "f.l5_link":100
+  };
+
+  // ---------- Helpers ----------
+  const $=sel=>document.querySelector(sel), $$=sel=>Array.from(document.querySelectorAll(sel));
+
+  async function taskSet(key,val){return idbPut('tasks', key, !!val)}
+  async function taskGet(key){return idbGet('tasks', key)}
+  async function badgeAdd(name){return idbPut('badges', name, Date.now())}
+  async function badgesCount(){const keys=await idbAllKeys('badges'); return keys.length}
+
+  async function calcXP(weights){
+    let xp=0;
+    for(const k of Object.keys(weights)){ if(await taskGet(k)) xp += weights[k]; }
+    return xp;
+  }
+
+  async function updateKPIs_Water(){
+    const xp = await calcXP(WQ);
+    $("#xpWater").textContent = xp;
+    const pct = Math.min(100, Math.round((xp/1800)*100));
+    $("#progressWater").style.width = pct + "%";
+    $("#badgesWater").textContent = await badgesCount();
+    $("#waterDays").textContent = (await idbGet('kv','w.buffer_days')) || 0;
+    $("#harvestLiters").textContent = (await idbGet('kv','w.rwh_lpm')) || 0;
+  }
+  async function updateKPIs_Food(){
+    const xp = await calcXP(FQ);
+    $("#xpFood").textContent = xp;
+    const pct = Math.min(100, Math.round((xp/1800)*100));
+    $("#progressFood").style.width = pct + "%";
+    $("#badgesFood").textContent = await badgesCount();
+    $("#kcalDay").textContent = (await idbGet('kv','f.kcal_pppd')) || 0;
+    $("#rationDays").textContent = (await idbGet('kv','f.ration_days')) || 0;
+    $("#gardenM2").textContent = (await idbGet('kv','f.garden_m2')) || 0;
+  }
+  async function updateTotals(){
+    await updateKPIs_Water(); await updateKPIs_Food();
+    const xpAll = (parseInt($("#xpWater").textContent)||0) + (parseInt($("#xpFood").textContent)||0);
+    $("#xpAll").textContent = xpAll;
+    $("#badgesAll").textContent = await badgesCount();
+    $("#bufferDays").textContent = $("#waterDays").textContent;
+    $("#rwhLiters").textContent = $("#harvestLiters").textContent;
+    $("#kcalPlan").textContent = $("#kcalDay").textContent;
+    const pct = Math.min(100, Math.round((xpAll/3600)*100));
+    $("#progressAll").style.width = pct + "%";
+  }
+
+  // ---------- Initialize ----------
+  (async function init(){
+    db = await idbOpen();
+
+    // Restore checkboxes for both sections and wire events:
+    $$('input[type=checkbox][data-task]').forEach(async (cb)=>{
+      cb.checked = !!(await taskGet(cb.dataset.task));
+      cb.addEventListener('change', async ()=>{
+        await taskSet(cb.dataset.task, cb.checked);
+        // award some fun badges
+        if(cb.dataset.task==='w.l1_store' && cb.checked) await badgeAdd('Buffer‑72h');
+        if(cb.dataset.task==='f.l1_ration3d' && cb.checked) await badgeAdd('Ration‑72h');
+        if(cb.dataset.task==='f.l2_hermetic' && cb.checked) await badgeAdd('Hermetic‑Guardian');
+        if(cb.dataset.task==='f.l3_garden' && cb.checked) await badgeAdd('Kitchen‑Garden‑Starter');
+        updateTotals();
+      });
+    });
+
+    // WATER calculators
+    $("#w_calc").addEventListener('click', async ()=>{
+      const ppl=+$("#w_people").value||1, days=+$("#w_days").value||1, lppd=+$("#w_lppd").value||15;
+      const total=ppl*days*lppd;
+      $("#w_out").textContent = `Target: ${total.toLocaleString()} L (${lppd} L/pppd × ${ppl} ppl × ${days} days).`;
+      await idbPut('kv','w.buffer_days', days);
+      await idbPut('kv','w.buffer_total_liters', total);
+      updateTotals();
+    });
+    $("#w_rwh").addEventListener('click', async ()=>{
+      const A=+$("#w_area").value||0, R=+$("#w_rain").value||0, C=+$("#w_coef").value||0.8;
+      const L=A*R*C;
+      $("#w_rwh_out").textContent = `Est. monthly harvest ≈ ${Math.round(L).toLocaleString()} L (Area×Rain×Coeff). Include first‑flush and losses.`;
+      await idbPut('kv','w.rwh_lpm', Math.round(L));
+      updateTotals();
+    });
+
+    // FOOD calculators
+    $("#f_calc").addEventListener('click', async ()=>{
+      const ppl=+$("#f_ppl").value||1, days=+$("#f_days").value||1, kcal=+$("#f_kcal").value||2100;
+      const pP=Math.min(20,Math.max(8,+$("#f_pctP").value||11));
+      const fP=Math.max(17,+$("#f_pctF").value||20);
+      const sugar=Math.max(0,+$("#f_sugar").value||0);
+      const [eC100,pC100]=$("#f_staple").value.split(",").map(Number);
+      const [ePu100,pPu100]=$("#f_pulses").value.split(",").map(Number);
+      const E=kcal, E_fat=E*(fP/100), g_fat=E_fat/9, E_sugar=sugar*4, E_rem=Math.max(0,E-E_fat-E_sugar);
+      const gP_target=(E*(pP/100))/4;
+      const eC=eC100/100,ePu=ePu100/100,pC=pC100/100,pPu=pPu100/100;
+      const det=eC*pPu - ePu*pC;
+      let gC=(E_rem*pPu - ePu*gP_target)/det;
+      let gPu=(eC*gP_target - E_rem*pC)/det;
+      if(gPu<0){gPu=0; gC=E_rem/eC} if(gC<0){gC=0; gPu=E_rem/ePu}
+      const perDay={staple_g:Math.round(gC), pulses_g:Math.round(gPu), oil_g:Math.round(g_fat), sugar_g:Math.round(sugar), salt_g:5};
+      const totals={
+        staple_kg:(perDay.staple_g*ppl*days/1000).toFixed(2),
+        pulses_kg:(perDay.pulses_g*ppl*days/1000).toFixed(2),
+        oil_L:(perDay.oil_g*ppl*days/1000).toFixed(2),
+        sugar_kg:(perDay.sugar_g*ppl*days/1000).toFixed(2),
+        salt_kg:(perDay.salt_g*ppl*days/1000).toFixed(2)
+      };
+      $("#f_out").textContent = [
+        `Per person per day @ ${kcal} kcal: Protein ~${pP}% → ${Math.round(gP_target)} g; Fat ~${fP}% → ${Math.round(g_fat)} g.`,
+        `Ration (raw weights): Staple ${perDay.staple_g} g | Pulses ${perDay.pulses_g} g | Oil ${perDay.oil_g} g | Sugar ${perDay.sugar_g} g | Salt ${perDay.salt_g} g.`,
+        `Totals for ${ppl} ppl × ${days} days: Staple ${totals.staple_kg} kg | Pulses ${totals.pulses_kg} kg | Oil ${totals.oil_L} L | Sugar ${totals.sugar_kg} kg | Salt ${totals.salt_kg} kg.`,
+        `Notes: Use iodized salt; prefer fortified oil/flour if available.`
+      ].join('\n');
+      await idbPut('kv','f.kcal_pppd', kcal);
+      await idbPut('kv','f.ration_days', days);
+      await idbPut('kv','f.ration_perDay', perDay);
+      await idbPut('kv','f.ration_totals', totals);
+      updateTotals();
+    });
+    $("#f_mdd").addEventListener('click', async ()=>{
+      const score=$$(".mdd").reduce((a,c)=>a+(c.checked?1:0),0);
+      $("#f_mdd_out").innerHTML = `MDD‑score: <span class="${score>=5?'good':'warn'}">${score}</span> / 10 (≥5 is minimally diverse).`;
+      await idbPut('kv','f.mdd_last', score);
+    });
+    $("#f_gm2").addEventListener('change', async ()=>{
+      await idbPut('kv','f.garden_m2', +$("#f_gm2").value||0); updateTotals();
+    });
+    $("#f_store").addEventListener('click', ()=>{
+      const vol=+$("#f_volL").value||0, dens=+$("#f_density").value||0.8, moist=+$("#f_moist").value||13;
+      const mass=vol*dens;
+      $("#f_store_out").textContent = `Capacity ≈ ${mass.toFixed(1)} kg at ${dens} kg/L. Dry cereals to ≲${moist}% for long storage; seal hermetically.`;
+    });
+    $("#f_cost").addEventListener('click', async ()=>{
+      const totals=await idbGet('kv','f.ration_totals');
+      if(!totals){ $("#f_cost_out").textContent='Compute ration first.'; return; }
+      const ps=+$("#f_priceStaple").value||0, pp=+$("#f_pricePulses").value||0, po=+$("#f_priceOil").value||0, psg=+$("#f_priceSugar").value||0;
+      const cost = (ps*totals.staple_kg)+(pp*totals.pulses_kg)+(po*totals.oil_L)+(psg*totals.sugar_kg);
+      $("#f_cost_out").textContent = `Estimated cost ≈ ₹${Math.round(cost).toLocaleString()} (salt negligible).`;
+    });
+
+    // Resets
+    $("#w_reset").addEventListener('click', async ()=>{ await idbClear('tasks'); await idbClear('badges'); updateTotals(); alert('Water progress reset (all tasks cleared).'); });
+    $("#f_reset").addEventListener('click', async ()=>{ await idbClear('tasks'); await idbClear('badges'); updateTotals(); alert('Food progress reset (all tasks cleared).'); });
+
+    // Habitica (default integrated)
+    $("#habSave").addEventListener('click', async ()=>{
+      await idbPut('habitica','user',$("#habUser").value.trim());
+      await idbPut('habitica','token',$("#habToken").value.trim());
+      $("#habOut").textContent='Saved locally.';
+    });
+    async function habGet(key){return idbGet('habitica', key)}
+    $("#habPushAll").addEventListener('click', async ()=>{
+      const user=await habGet('user'), token=await habGet('token');
+      if(!user||!token){ $("#habOut").textContent='Missing credentials.'; return; }
+      const tasks=[...Object.keys(WQ),...Object.keys(FQ)].map(k=>({
+        text:(k.startsWith('w.')?'Water: ':'Food: ')+k,
+        type:"todo", notes:"Imported from Sovereignty guide (standalone). See page for details.", priority:1.5
+      }));
+      try {
+        const res=await fetch('https://habitica.com/api/v3/tasks/user',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','x-api-user':user,'x-api-key':token},
+          body:JSON.stringify(tasks)
+        });
+        if(!res.ok) throw new Error('Habitica API error');
+        $("#habOut").textContent='All quests pushed to Habitica.';
+      } catch(e){ $("#habOut").textContent='Could not push (CORS or network). Consider manual import.'; }
+    });
+
+    // Export / Import
+    $("#exportAll").addEventListener('click', async ()=>{
+      const data = {
+        kv:{
+          'w.buffer_days':await idbGet('kv','w.buffer_days'),
+          'w.buffer_total_liters':await idbGet('kv','w.buffer_total_liters'),
+          'w.rwh_lpm':await idbGet('kv','w.rwh_lpm'),
+          'f.kcal_pppd':await idbGet('kv','f.kcal_pppd'),
+          'f.ration_days':await idbGet('kv','f.ration_days'),
+          'f.ration_perDay':await idbGet('kv','f.ration_perDay'),
+          'f.ration_totals':await idbGet('kv','f.ration_totals'),
+          'f.garden_m2':await idbGet('kv','f.garden_m2'),
+          'f.mdd_last':await idbGet('kv','f.mdd_last')
+        },
+        tasks: await (async()=>{ const keys=await idbAllKeys('tasks'); const out={}; for(const k of keys) out[k]=await idbGet('tasks',k); return out; })(),
+        badges: await (async()=>{ const keys=await idbAllKeys('badges'); return keys; })()
+      };
+      const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+      const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='sovereignty-progress.json'; a.click(); URL.revokeObjectURL(url);
+      $("#exportInfo").textContent='Exported sovereignty-progress.json';
+    });
+    $("#importBtn").addEventListener('click', async ()=>{
+      const f=$("#importFile").files[0]; if(!f){ $("#importInfo").textContent='Choose a file first.'; return; }
+      const txt=await f.text(); const data=JSON.parse(txt);
+      // kv
+      if(data.kv){ for(const k of Object.keys(data.kv)){ await idbPut('kv',k,data.kv[k]); } }
+      // tasks
+      if(data.tasks){ for(const k of Object.keys(data.tasks)){ await idbPut('tasks',k,data.tasks[k]); } }
+      // badges
+      if(data.badges){ for(const name of data.badges){ await idbPut('badges',name,Date.now()); } }
+      $("#importInfo").textContent='Imported. Refreshed totals.'; updateTotals();
+    });
+
+    // WebLLM (auto by default, with local fallback)
+    (async function setupWebLLM(){
+      try {
+        await new Promise((resolve,reject)=>{ const s=document.createElement('script'); s.src='https://unpkg.com/@mlc-ai/web-llm/dist/webllm.min.js'; s.async=true; s.onload=resolve; s.onerror=reject; document.head.appendChild(s); });
+        if(!window.WebLLM) throw new Error('WebLLM not found');
+        const { CreateWebWorkerMLCEngine } = window.WebLLM;
+        const engine = await CreateWebWorkerMLCEngine(
+          new URL('https://unpkg.com/@mlc-ai/web-llm/dist/worker.js', location.href).toString(),
+          { model_list: [{model_id: "Llama-3.2-1B-Instruct-q4f32_1-MLC"}],
+            init_progress_callback:(p)=>$("#aiOut").textContent='WebLLM: '+p.text }
+        );
+        $("#askAI").addEventListener('click', async ()=>{
+          const q=$("#aiPrompt").value.trim()||"Review everything and propose improvements to buffer, treatment, ration, diversity, garden, storage, and community links.";
+          const reply=await engine.chat.completions.create({
+            messages:[
+              {role:'system',content:'You are a food+water sovereignty assistant for South Asia. Be precise, safe, and practical.'},
+              {role:'user',content:q}
+            ],
+            temperature:0.2, stream:false
+          });
+          $("#aiOut").textContent = reply.choices?.[0]?.message?.content || '(no response)';
+        });
+        $("#aiOut").textContent='WebLLM ready.';
+      } catch(e){
+        $("#aiOut").textContent='WebLLM unavailable; using local rule-based helper (auto).';
+        $("#askAI").addEventListener('click', ()=>{
+          const q=($("#aiPrompt").value||'').toLowerCase();
+          let a="Local helper:\n";
+          // Water rules
+          a+="- Water: plan ≥15–20 L/pppd. Verify chlorine residual ≥0.5 mg/L at 30 min (pH<8), ≥0.2 mg/L at use.\n";
+          a+="- SODIS: ~6h full sun (or ~2 days mostly cloudy) with clean, clear PET bottles.\n";
+          a+="- Rain yield ≈ Area × Rainfall × Coefficient (0.9 metal roofs). Include first‑flush and screened inlets.\n";
+          a+="- Arsenic/fluoride flags: prefer tested safe sources; avoid household improvisations.\n";
+          // Food rules
+          a+="- Food: baseline ~2,100 kcal/pppd; protein ~10–12% energy; fat ≥17%.\n";
+          a+="- Ration template: cereal + pulses + oil + sugar + iodized salt; prefer fortified staples.\n";
+          a+="- Diversity: aim ≥5/10 groups; plan kitchen garden + sprouts/microgreens (cook sprouts if uncertain).\n";
+          a+="- Storage: dry cereals to ≲13% moisture; hermetic containers/bags; FIFO rotation.\n";
+          a+="- Millets+pulses: water‑wise switch; standardize pressure‑cooked recipes.\n";
+          $("#aiOut").textContent=a;
+        });
+      }
+    })();
+
+    await updateTotals();
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- ============= SEO ============= -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Food Sovereignty — Planetary Restoration Archive | Ultra‑Long‑Form, Gamified Guide</title>
+  <meta name="description" content="A practical, gamified guide to food sovereignty: soils, seed, water synergy, climate-smart cropping, storage, nutrition, preservation, and governance. Offline-first with IndexedDB, Habitica sync, and WebLLM Coach." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="../food/" />
+  <meta name="theme-color" content="#0a0f1f" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Food Sovereignty — Planetary Restoration Archive" />
+  <meta property="og:description" content="Ultra‑long‑form, gamified playbook for resilient community food systems. IndexedDB offline, Habitica sync, WebLLM Coach." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="../food/" />
+  <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAB..." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- JSON-LD (custom presentation schema + schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": [
+      "https://schema.org",
+      "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"
+    ],
+    "@type": ["CreativeWork","SovereigntyGuide"],
+    "name": "Food Sovereignty — Ultra‑Long‑Form, Gamified",
+    "about": ["food sovereignty","community nutrition","seed systems","agroecology","storage"],
+    "inLanguage": "en",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "isPartOf": {"@type":"Collection","name":"Planetary Restoration Archive"},
+    "url": "../food/",
+    "keywords": "soils, seed banks, water synergy, keyline, wicking beds, microgreens, postharvest, solar drying, root cellars, preservation, governance, Habitica, WebLLM, IndexedDB",
+    "version": "1.0.0",
+    "dateModified": "2025-10-21"
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#070b17; --ink:#e8eefc; --ink-dim:#b7c3e3;
+      --accent:#86efac; --accent-2:#fde68a;
+      --glass: rgba(12, 18, 38, 0.6); --glass-strong: rgba(12, 18, 38, 0.85);
+      --shadow: 0 6px 24px rgba(0,0,0,.35);
+      --radius: 14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial; color:var(--ink); background:var(--bg)}
+    #starfield{position:fixed; inset:0; z-index:-1; background: radial-gradient(1200px 800px at 30% 20%, #0b1535 0%, #070b17 60%, #050913 100%)}
+
+    header{
+      position:sticky; top:0; backdrop-filter: blur(10px);
+      background:var(--glass-strong); border-bottom:1px solid rgba(255,255,255,.08);
+      padding:10px 18px; display:flex; align-items:center; gap:14px; z-index:10;
+    }
+    header .brand{font-weight:700}
+    header nav a{color:var(--ink); opacity:.9; text-decoration:none; padding:8px 10px; border-radius:10px}
+    header nav a[aria-current="page"]{background:rgba(255,255,255,.07)}
+    header .right{margin-left:auto; display:flex; gap:10px}
+    header .pill{font-size:12px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.08)}
+
+    main{max-width:1100px; margin:0 auto; padding:30px 16px 80px}
+    .hero{margin:18px 0 24px; padding:22px; border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(134,239,172,.12), rgba(253,230,138,.08));
+      border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow)}
+    .hero h1{margin:0 0 6px; font-size:clamp(28px, 4vw, 44px); line-height:1.1}
+    .sub{color:var(--ink-dim)}
+
+    .grid{display:grid; gap:16px}
+    @media(min-width:860px){ .grid{grid-template-columns: 1.35fr .65fr} }
+    .card{padding:18px; border-radius:14px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow)}
+    details{border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:10px 12px; background:rgba(255,255,255,.04); margin:12px 0}
+    details>summary{cursor:pointer; font-weight:600; color:var(--accent)}
+    .btn{appearance:none; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:var(--ink); padding:10px 12px; border-radius:10px; cursor:pointer}
+    .badge{display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.08); padding:6px 10px; border-radius:999px; font-size:12px}
+    .mono{font-family:ui-monospace, Menlo, Consolas, monospace}
+    table{width:100%; border-collapse:collapse}
+    th,td{padding:8px 10px; border-bottom:1px solid rgba(255,255,255,.08)}
+    th{text-align:left; color:var(--ink-dim); font-weight:600}
+
+    @media (prefers-reduced-motion: reduce){ #starfield{display:none} }
+  </style>
+</head>
+<body data-section="food">
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <header>
+    <div class="brand">Planetary Restoration Archive</div>
+    <nav>
+      <a href="../water/">Water</a>
+      <a href="../food/" aria-current="page">Food</a>
+    </nav>
+    <div class="right">
+      <span class="pill">Offline‑first</span>
+      <span class="pill">Gamified</span>
+      <span class="pill">WebLLM‑ready</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Food Sovereignty Guide</h1>
+      <p class="sub">Ultra‑long‑form, practical path from soil to storage to governance. Synergizes with the Water guide; includes calculators, drills, and governance templates. IndexedDB for offline progress, optional Habitica sync, optional on‑device WebLLM Coach.</p>
+      <div style="margin-top:6px"><a class="btn" href="../water/">← Go to Water Guide</a></div>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Quest Board (Gamified)</h2>
+        <div id="quests"></div>
+        <details>
+          <summary>Leveling &amp; Badges</summary>
+          <p>Same system as the Water guide. Core food badges: Soil Starter, Seedkeeper, Water‑Wise, Postharvest Pro, Nutrition Guard, Governance.</p>
+        </details>
+
+        <h2>Playbook (Ultra‑Long‑Form)</h2>
+
+        <details open>
+          <summary>1) Soils &amp; Site Reading</summary>
+          <ul>
+            <li><strong>Soil tests:</strong> Texture, organic matter, pH, salinity, key nutrients. Observe infiltration and compaction.</li>
+            <li><strong>Water &amp; wind:</strong> Map flows, frost pockets, wind breaks. Integrate with water capture from the companion guide.</li>
+            <li><strong>Soil building:</strong> Compost, cover crops, mulches, controlled grazing where culturally appropriate.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>2) Seed Systems &amp; Crop Portfolio</summary>
+          <ul>
+            <li><strong>Local seed banks:</strong> Prioritize indigenous and locally adapted varieties. Maintain community catalogs and exchanges.</li>
+            <li><strong>Portfolio balance:</strong> Calories (grains/tubers), protein (legumes), micronutrient‑dense greens, oil/fat sources, spices/medicinals.</li>
+            <li><strong>Andean‑adapted examples:</strong> Quinoa, cañahua/kañiwa, potato + chuño pathway, oca, mashua, tarwi (lupin), broad beans, hardy brassicas.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>3) Water‑Wise Production</summary>
+          <ul>
+            <li><strong>Bed types:</strong> Wicking beds for water scarcity; raised beds for cold soils; keyline for broadacre moisture distribution.</li>
+            <li><strong>Irrigation:</strong> Drip/subsurface with simple filters; schedule via soil feel or tensiometers; mulch to reduce evap.</li>
+            <li><strong>Protected culture:</strong> Low tunnels, high tunnels; frost cloth; windbreaks; orientation for solar gain.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>4) Small Livestock &amp; Integration</summary>
+          <ul>
+            <li><strong>Manure → compost:</strong> Integrate safely (compost times and temps); keep runoff controlled.</li>
+            <li><strong>Contextual species:</strong> Poultry for eggs/manure; rabbits; regionally appropriate species managed ethically.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>5) Postharvest &amp; Storage</summary>
+          <ul>
+            <li><strong>Solar drying:</strong> Passive dryers with bug screens; pretreat by blanching/slice thickness control.</li>
+            <li><strong>Cool storage:</strong> Evaporative coolers (ZECC/pot‑in‑pot), root cellars; humidity control.</li>
+            <li><strong>Grain protection:</strong> Dry to safe moisture, sealed bins, oxygen control where possible.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>6) Nutrition, Menus, &amp; Fair Access</summary>
+          <ul>
+            <li><strong>Targets:</strong> Calories, protein, diverse micronutrients. Community meal templates; school and elder programs.</li>
+            <li><strong>Processing:</strong> Nixtamalization for maize; fermentation for digestibility and storage.</li>
+            <li><strong>Access:</strong> Sliding scales, labor exchanges, cooperative kitchens.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>7) Governance &amp; Finance</summary>
+          <ul>
+            <li><strong>Production calendars:</strong> Seed → harvest with labor scheduling.</li>
+            <li><strong>Co‑op accounting:</strong> Transparent ledgers; reserve funds; solidarity pricing.</li>
+            <li><strong>Food safety:</strong> HACCP‑style basics scaled to community kitchens.</li>
+          </ul>
+        </details>
+
+        <h2>Tables &amp; Checks</h2>
+        <details>
+          <summary>Sample Crop Mix by Function</summary>
+          <table>
+            <tr><th>Function</th><th>Examples</th></tr>
+            <tr><td>Calories</td><td>Potatoes, quinoa, maize (nixtamalized), squash</td></tr>
+            <tr><td>Protein</td><td>Tarwi/lupin (debittered), broad beans, peas, eggs</td></tr>
+            <tr><td>Micronutrients</td><td>Kale, chard, carrots, beets, herbs</td></tr>
+            <tr><td>Fats</td><td>Oilseeds (sunflower), nuts where suited</td></tr>
+          </table>
+        </details>
+
+        <footer style="margin-top:20px">
+          <a class="btn" href="../water/">← Back to Water</a>
+          <p style="color:#b7c3e3">License: CC‑BY 4.0. Educational content; adapt with local agronomy expertise and public‑health guidance.</p>
+        </footer>
+      </section>
+
+      <aside class="card">
+        <h3>Progress HUD</h3>
+        <div>Level <span id="hud_level" class="badge">1</span> · <span id="hud_xp">0</span> XP</div>
+        <div style="height:10px; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin-top:8px">
+          <span id="hud_xpbar" style="display:block; height:100%; background:linear-gradient(90deg, #86efac, #fde68a); width:0%"></span>
+        </div>
+
+        <h3 style="margin-top:16px">Sync → Habitica</h3>
+        <label>User ID</label><input id="hab_uid" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+        <label>API Token</label><input id="hab_token" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+        <div style="display:flex; gap:8px; margin-top:8px">
+          <button class="btn" onclick="habiticaPush()">Push Quests</button>
+          <button class="btn" onclick="habiticaScoreAll()">Score Completed</button>
+        </div>
+
+        <h3 style="margin-top:16px">On‑Device Coach</h3>
+        <textarea id="coach_input" rows="4" placeholder="e.g., 'Cold high‑altitude, low rainfall, wind exposure; design a 12‑month crop plan with storage.'"></textarea>
+        <div style="display:flex; gap:8px; margin-top:8px">
+          <button class="btn" onclick="coachAsk()">Ask Coach</button>
+          <button class="btn" onclick="coachStop()">Stop</button>
+        </div>
+        <pre id="coach_out" class="mono" style="white-space:pre-wrap; max-height:220px; overflow:auto; background:rgba(255,255,255,.06); padding:10px; border-radius:10px; margin-top:8px">Model not loaded yet…</pre>
+
+        <h3>Data</h3>
+        <div style="display:flex; gap:8px">
+          <button class="btn" onclick="exportData()">Export JSON</button>
+          <button class="btn" onclick="wipeData()">Wipe Local Data</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    /* Starfield */
+    const c=document.getElementById('starfield'),x=c.getContext('2d'); let W,H,DPR=Math.min(devicePixelRatio||1,2);
+    function rs(){ W=c.width=Math.floor(innerWidth*DPR); H=c.height=Math.floor(innerHeight*DPR); }
+    addEventListener('resize', rs, {passive:true}); rs();
+    let s=[]; const N=800, Zmin=0.05, Zmax=1; for(let i=0;i<N;i++) s.push({x:Math.random()*2-1,y:Math.random()*2-1,z:Math.random()*(Zmax-Zmin)+Zmin,t:Math.random()*6.28});
+    let t0=0; function d(){ x.clearRect(0,0,W,H); const f=520; for(const p of s){ p.z-=0.002; if(p.z<Zmin)p.z=Zmax; const sx=p.x*f/p.z+W/2, sy=p.y*f/p.z+H/2, r=Math.max(.5,2.3*(1-p.z))*DPR;
+      const tw=(Math.sin(t0*0.002+p.t)*.5+.5); const g=x.createRadialGradient(sx,sy,0,sx,sy,r*2); g.addColorStop(0,`rgba(255,255,255,${.9*tw})`); g.addColorStop(.5,`rgba(180,220,200,${.35*tw})`); g.addColorStop(1,'rgba(0,0,0,0)'); x.fillStyle=g; x.beginPath(); x.arc(sx,sy,r*2,0,6.28); x.fill(); }
+      t0+=16.6; requestAnimationFrame(d); } requestAnimationFrame(d);
+  </script>
+
+  <script>
+    /* IndexedDB + Gamification (Food) */
+    const DB_NAME='SovereigntyDB', DB_VER=1; let idb;
+    function dbOpen(){ return new Promise((res,rej)=>{ const r=indexedDB.open(DB_NAME,DB_VER);
+      r.onupgradeneeded=(e)=>{ const db=e.target.result;
+        if(!db.objectStoreNames.contains('quests')) db.createObjectStore('quests',{keyPath:'id'});
+        if(!db.objectStoreNames.contains('meta')) db.createObjectStore('meta',{keyPath:'key'});
+        if(!db.objectStoreNames.contains('creds')) db.createObjectStore('creds',{keyPath:'key'});
+      };
+      r.onsuccess=()=>{ idb=r.result; res(); }; r.onerror=()=>rej(r.error); });}
+    function tx(s,m='readonly'){ return idb.transaction(s,m).objectStore(s); }
+    function g(s,k){ return new Promise((res,rej)=>{ const r=tx(s).get(k); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); })}
+    function p(s,v){ return new Promise((res,rej)=>{ const r=tx(s,'readwrite').put(v); r.onsuccess=()=>res(); r.onerror=()=>rej(r.error); })}
+    function all(s){ return new Promise((res,rej)=>{ const r=tx(s).getAll(); r.onsuccess=()=>res(r.result||[]); r.onerror=()=>rej(r.error); })}
+
+    const SEED = [
+      {id:"soil.tests",title:"Run basic soil tests",xp:15,section:"Soils",done:false,detail:"Texture, OM, pH, EC; observe infiltration.",badge:"Soil Starter"},
+      {id:"soil.orgmatter",title:"Plan OM increase",xp:15,section:"Soils",done:false,detail:"Compost, cover crops, mulches.",badge:null},
+      {id:"seed.bank",title:"Join/build community seed bank",xp:25,section:"Seed",done:false,detail:"Catalog, exchange, storage SOP.",badge:"Seedkeeper"},
+      {id:"crop.portfolio",title:"Design crop portfolio",xp:20,section:"Seed",done:false,detail:"Balance calories, protein, micronutrients, fats.",badge:null},
+      {id:"water.synergy",title:"Integrate water capture/irrigation",xp:25,section:"Water‑Wise",done:false,detail:"Drip/subsurface, mulches, bed choices.",badge:"Water‑Wise"},
+      {id:"protect.tunnels",title:"Set up low/high tunnels",xp:20,section:"Water‑Wise",done:false,detail:"Frost cloth, windbreaks, solar gain.",badge:null},
+      {id:"post.drying",title:"Build solar dryer",xp:25,section:"Postharvest",done:false,detail:"Screens, airflow, sanitation.",badge:"Postharvest Pro"},
+      {id:"storage.cool",title:"Cool storage or ZECC",xp:20,section:"Postharvest",done:false,detail:"Humidity & temp control.",badge:null},
+      {id:"nutrition.plan",title:"Community meal plan",xp:20,section:"Nutrition",done:false,detail:"Calorie + protein targets; micronutrient diversity.",badge:"Nutrition Guard"},
+      {id:"gov.coop",title:"Co‑op governance & reserves",xp:25,section:"Governance",done:false,detail:"Transparent ledgers; reserve fund.",badge:"Governance"}
+    ];
+
+    let XP=0, LVL=1;
+    function level(xp){ return Math.max(1, Math.floor(Math.sqrt(xp/100))+1); }
+    function need(n){ return 100*(n-1)*(n-1); }
+
+    async function boot(){
+      await dbOpen();
+      const existing = await all('quests');
+      // Only seed food quests if none exist yet that start with "soil."
+      const hasSoil = existing.some(q=>q.id?.startsWith('soil.'));
+      if(!hasSoil){ for(const q of SEED) await p('quests', q); }
+      const m = await g('meta','xp'); XP = m?m.value:0; LVL = level(XP);
+      render(); // HUD + Board
+      const uid = await g('creds','hab_uid'); const tok = await g('creds','hab_token');
+      if(uid) document.getElementById('hab_uid').value = uid.value;
+      if(tok) document.getElementById('hab_token').value = tok.value;
+    }
+
+    function render(){
+      // HUD
+      document.getElementById('hud_xp').textContent = XP;
+      document.getElementById('hud_level').textContent = LVL;
+      const into = XP - need(LVL), span = need(LVL+1)-need(LVL);
+      document.getElementById('hud_xpbar').style.width = Math.max(2,Math.min(100,Math.round(100*into/span))) + '%';
+      // Board
+      all('quests').then(quests=>{
+        const sections = [...new Set(quests.map(q=>q.section))];
+        document.getElementById('quests').innerHTML = sections.map(sec=>{
+          const items = quests.filter(q=>q.section===sec);
+          return `<div class="card" style="margin-bottom:10px">
+            <h3>${sec}</h3>
+            <ul style="list-style:none; padding-left:0">
+              ${items.map(q=>`
+                <li data-qid="${q.id}" style="display:flex; gap:10px; margin:8px 0">
+                  <input type="checkbox" ${q.done?'checked':''} onchange="toggle('${q.id}', ${q.xp})" />
+                  <div style="flex:1">
+                    <div><strong>${q.title}</strong> <span style="opacity:.8">(+${q.xp} XP)</span> ${q.badge?`<span class="badge">🏅 ${q.badge}</span>`:''}</div>
+                    <div style="opacity:.8; font-size:13px">${q.detail}</div>
+                  </div>
+                </li>
+              `).join('')}
+            </ul>
+          </div>`;
+        }).join('');
+      });
+    }
+
+    window.toggle = async function(id, xp){
+      const r = await g('quests', id); if(!r) return;
+      r.done = !r.done; await p('quests', r);
+      XP = Math.max(0, XP + (r.done?+xp:-xp)); await p('meta', {key:'xp', value:XP}); LVL = level(XP); render();
+    }
+
+    // Data mgmt
+    window.exportData = async function(){
+      const quests = await all('quests'); const meta = await all('meta'); const creds = await all('creds');
+      const blob = new Blob([JSON.stringify({quests,meta,creds}, null, 2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='food-sovereignty-progress.json'; a.click();
+      setTimeout(()=>URL.revokeObjectURL(url), 5000);
+    }
+    window.wipeData = async function(){
+      if(!confirm("Erase local progress and Habitica credentials?")) return;
+      const dbs = await indexedDB.databases?.() || []; for(const d of dbs){ if(d.name===DB_NAME) indexedDB.deleteDatabase(DB_NAME); } location.reload();
+    }
+  </script>
+
+  <script>
+    /* Habitica integration (shared DB) */
+    function headers(){
+      const uid=document.getElementById('hab_uid').value.trim(), tok=document.getElementById('hab_token').value.trim();
+      if(uid && tok){ // store
+        const req=indexedDB.open('SovereigntyDB',1);
+        req.onsuccess=()=>{ const db=req.result; const tx=db.transaction('creds','readwrite'); tx.objectStore('creds').put({key:'hab_uid',value:uid}); tx.objectStore('creds').put({key:'hab_token',value:tok}); }
+      }
+      return {'x-api-user':uid,'x-api-key':tok,'Content-Type':'application/json'};
+    }
+    async function habiticaPush(){
+      try{
+        const h=headers();
+        // push only food-tagged quests (heuristic: sections not in water list)
+        const db = await new Promise(res=>{ const r=indexedDB.open('SovereigntyDB',1); r.onsuccess=()=>res(r.result); });
+        const qs = await new Promise(res=>{ const tx=db.transaction('quests'); const store=tx.objectStore('quests'); const r=store.getAll(); r.onsuccess=()=>res(r.result||[]); });
+        const todos = qs.filter(q=>["Soils","Seed","Water‑Wise","Postharvest","Nutrition","Governance"].includes(q.section)).map(q=>({
+          text:`[Food] ${q.title}`, type:"todo", notes:q.detail, priority:(q.xp>=25)?2:1, attributes:{str:0,int:0,con:0,per:0}, tags:[]
+        }));
+        for(const t of todos){ await fetch('https://habitica.com/api/v3/tasks/user',{method:'POST',headers:h,body:JSON.stringify(t)}); }
+        alert('Pushed Food tasks to Habitica.');
+      }catch(e){ alert('Habitica push failed.'); }
+    }
+    async function habiticaScoreAll(){
+      try{
+        const h=headers();
+        const r = await fetch('https://habitica.com/api/v3/tasks/user',{headers:h}); const data = await r.json(); const tasks=data?.data||[];
+        const db = await new Promise(res=>{ const r=indexedDB.open('SovereigntyDB',1); r.onsuccess=()=>res(r.result); });
+        const qs = await new Promise(res=>{ const tx=db.transaction('quests'); const store=tx.objectStore('quests'); const r=store.getAll(); r.onsuccess=()=>res(r.result||[]); });
+        for(const q of qs){ if(!q.done) continue; const t=tasks.find(x=>x.type==='todo' && x.text===`[Food] ${q.title}` && !x.completed); if(t){ await fetch(`https://habitica.com/api/v3/tasks/${t.id}/score/up`,{method:'POST',headers:h}); } }
+        alert('Scored completed Food tasks.');
+      }catch(e){ alert('Habitica scoring failed.'); }
+    }
+  </script>
+
+  <script type="module">
+    /* WebLLM Coach */
+    let engine=null, aborter=null;
+    async function ensure(){
+      if(engine) return engine;
+      try{
+        const { CreateMLCEngine } = await import('https://esm.run/@mlc-ai/web-llm');
+        engine = await CreateMLCEngine(
+          {model:"Llama-3-8B-Instruct-q4f16_1-MLC"},
+          { initProgressCallback: (p)=> coach_out.textContent = `Loading: ${Math.round(p.progress*100)}%` }
+        );
+        coach_out.textContent = "Ready.";
+      }catch{ coach_out.textContent = "WebLLM not available. The guide still works."; }
+      return engine;
+    }
+    window.coachAsk = async function(){
+      const prompt = coach_input.value.trim(); if(!prompt){ coach_out.textContent="Enter a prompt."; return; }
+      const eng = await ensure(); if(!eng) return;
+      aborter = new AbortController(); coach_out.textContent="";
+      try{
+        const reply = await eng.chat.completions.create({
+          messages:[
+            {role:"system", content:"You are an agroecology planner. Output checklists, calendars, and storage safety notes."},
+            {role:"user", content: prompt}
+          ],
+          temperature:0.2, stream:true
+        }, { signal: aborter.signal });
+        for await (const c of reply){ coach_out.textContent += (c.choices?.[0]?.delta?.content || ""); }
+      }catch(e){ if(e.name!=='AbortError') coach_out.textContent += "\n[stopped or failed]"; }
+    }
+    window.coachStop = ()=>{ if(aborter) aborter.abort(); }
+
+    // Boot
+    addEventListener('DOMContentLoaded', boot);
+  </script>
+
+  <script>
+    /* Offline cache */
+    if('serviceWorker' in navigator){
+      const sw = `
+        const CACHE='food-sovereignty-v1';
+        self.addEventListener('install',e=>{ e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./']))); });
+        self.addEventListener('fetch',e=>{
+          e.respondWith(caches.match(e.request).then(r=> r || fetch(e.request).then(res=>{
+            const url=new URL(e.request.url);
+            if(url.origin===location.origin){ const copy=res.clone(); caches.open(CACHE).then(c=>c.put(e.request, copy)); }
+            return res;
+          }).catch(()=>caches.match('./'))));
+        });
+      `;
+      const blob=new Blob([sw],{type:'text/javascript'}); const url=URL.createObjectURL(blob); navigator.serviceWorker.register(url,{scope:'./'});
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!-- Schematic Africa regions (stylized for planning only) -->
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="900" viewBox="0 0 800 900" aria-labelledby="title desc" role="img">
+  <title>Mycelial Restoration Atlas — Africa Regions (schematic)</title>
+  <desc>Stylized region map R1-R7 (not cartographically precise). Use real GIS for operational planning.</desc>
+  <!-- background -->
+  <rect width="800" height="900" fill="#fff"/>
+  <!-- rough continent shape (very stylized) -->
+  <!-- Northern belt (R1 Sahara) -->
+  <path d="M100,80 C180,20 620,20 700,80 L680,180 C640,150 500,160 420,180 C340,200 240,220 160,180 Z" fill="#FF4500" stroke="#000" stroke-width="0.8"/>
+  <!-- Sahel belt (R2) -->
+  <path d="M110,180 C190,140 610,140 690,180 L700,320 C630,300 500,300 420,320 C340,340 240,340 160,320 Z" fill="#FFD700" stroke="#000" stroke-width="0.6"/>
+  <!-- Savannah (R3) -->
+  <path d="M120,320 C200,300 600,300 680,340 L720,480 C650,460 500,460 420,480 C340,500 240,500 170,480 Z" fill="#32CD32" stroke="#000" stroke-width="0.6"/>
+  <!-- Tropical Rainforest (R4) -->
+  <path d="M220,480 C320,460 460,460 580,500 C520,520 420,540 340,560 C260,580 200,540 220,480 Z" fill="#006400" stroke="#000" stroke-width="0.6"/>
+  <!-- Mediterranean / NW cape (R5) -->
+  <circle cx="120" cy="120" r="28" fill="#1E90FF" stroke="#000" stroke-width="0.6"/>
+  <!-- Highlands (R6) southern uplift -->
+  <path d="M220,620 C300,600 420,600 540,640 L520,720 C450,700 380,700 300,720 C240,740 220,700 220,620 Z" fill="#8A2BE2" stroke="#000" stroke-width="0.6"/>
+  <!-- Humid subtropical / southeast coast (R7) -->
+  <path d="M560,640 C640,620 720,620 760,700 L760,800 C700,760 600,760 540,780 C500,760 520,700 560,640 Z" fill="#00CED1" stroke="#000" stroke-width="0.6"/>
+  <!-- Legend -->
+  <g transform="translate(20,820)" font-family="sans-serif" font-size="14">
+    <rect x="0" y="-10" width="760" height="120" fill="#fafafa" stroke="#ccc"/>
+    <text x="10" y="10" font-weight="700">Legend — Regions (schematic)</text>
+    <g transform="translate(10,25)" font-size="13">
+      <rect x="0" y="0" width="18" height="12" fill="#FF4500"/><text x="28" y="10">R1 — Hot Desert</text>
+      <rect x="220" y="0" width="18" height="12" fill="#FFD700"/><text x="250" y="10">R2 — Semiarid / Sahel</text>
+      <rect x="470" y="0" width="18" height="12" fill="#32CD32"/><text x="500" y="10">R3 — Savannah (wet/dry)</text>
+      <rect x="0" y="26" width="18" height="12" fill="#006400"/><text x="28" y="36">R4 — Equatorial / Rainforest</text>
+      <rect x="220" y="26" width="18" height="12" fill="#1E90FF"/><text x="250" y="36">R5 — Mediterranean</text>
+      <rect x="470" y="26" width="18" height="12" fill="#8A2BE2"/><text x="500" y="36">R6 — Highlands / Upland</text>
+      <rect x="0" y="52" width="18" height="12" fill="#00CED1"/><text x="28" y="62">R7 — Humid Subtropical Marine</text>
+    </g>
+  </g>
+</svg>

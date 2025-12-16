@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en" data-app="water-sovereignty">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Navajo (Diné) Water Sovereignty — Gamified Lab</title>
+
+  <!-- Canonical + sibling navigation -->
+  <link rel="canonical" href="/water/" />
+  <link rel="prefetch" href="/food/" as="document" />
+
+  <!-- SEO: Open Graph / Twitter -->
+  <meta name="description" content="Ultra long-form, gamified Water Sovereignty guide for Diné (Navajo): local innovation, make-your-own tools, safe treatment, watershed healing, IndexedDB Lab uploads, Habitica + WebLLM." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Navajo (Diné) Water Sovereignty — Gamified Lab" />
+  <meta property="og:description" content="Photorealistic morphing constellations UI, parallax dropdown menus, offline-first innovation Lab with image uploads, quests, calculators, Habitica + WebLLM." />
+  <meta property="og:url" content="/water/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+
+  <!-- Custom Presentation Schema + schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": [
+      "https://schema.org",
+      "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"
+    ],
+    "@type": "HowTo",
+    "name": "Navajo (Diné) Water Sovereignty — Gamified Lab",
+    "inLanguage": "en",
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Diné (Navajo) households, chapter houses, water operators, youth clubs, and allies"
+    },
+    "about": [
+      "water sovereignty",
+      "arsenic & uranium mitigation",
+      "local fabrication and sourcing",
+      "rain & snow harvesting",
+      "biosand, RO, UV, ceramic filtration",
+      "watershed restoration (one-rock dams, Zuni bowls)",
+      "IndexedDB innovation lab with images"
+    ],
+    "isPartOf": {
+      "@type": "CreativeWorkSeries",
+      "name": "Food & Water Sovereignty Guide",
+      "hasPart": [{"@id":"/water/"},{"@id":"/food/"}]
+    },
+    "publisher": {"@type":"Organization","name":"Planetary Restoration Archive","url":"https://planetaryrestorationarchive.com/"}
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#05080f; --ink:#e7f2ff; --muted:#a5b9d1; --accent:#7fd1ff; --accent2:#89ffcf; --warn:#ffb7a8;
+      --card:#0b1220cc; --card-2:#0e1324e6; --ring:0 0 0 2px color-mix(in oklab, var(--accent) 45%, transparent);
+      --shadow:0 12px 34px rgba(0,0,0,.35); --radius:14px; --gap:16px;
+      --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--font);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
+
+    /* === Universe / Constellations === */
+    #universe, #glow {
+      position:fixed; inset:0; display:block; z-index:-3;
+      background: radial-gradient(1200px 700px at 15% 20%, #0b1426 0%, transparent 60%),
+                  radial-gradient(1200px 700px at 85% 70%, #0a1a2e 0%, transparent 60%),
+                  #02060c;
+    }
+    #glow{ z-index:-2; pointer-events:none; mix-blend-mode:screen; }
+    .veil{
+      pointer-events:none; position:fixed; inset:0; z-index:-1;
+      background: linear-gradient(to bottom, rgba(4,10,20,.55), transparent 35%),
+                  radial-gradient(900px 600px at 50% -10%, rgba(30,50,95,.45), transparent 70%),
+                  linear-gradient(to top, rgba(3,9,18,.35), transparent 35%);
+      backdrop-filter: saturate(118%) contrast(104%);
+    }
+
+    /* === Parallax dropdown nav === */
+    header.site{
+      position:sticky; top:0; z-index:100; border-bottom:1px solid #16223a;
+      background: color-mix(in oklab, var(--card) 72%, transparent);
+      backdrop-filter: blur(12px) saturate(130%); box-shadow: var(--shadow);
+    }
+    .wrap{max-width:1240px; margin:0 auto; padding: 14px 20px}
+    .brand{display:flex; align-items:center; gap:12px}
+    .brand b{font-weight:800; letter-spacing:.2px}
+    .brand small{color:var(--muted)}
+    nav.main{display:flex; align-items:center; gap:16px; flex-wrap:wrap}
+    nav.main a, .nav-drop > button{
+      color:var(--muted); text-decoration:none; font-weight:700; font-size:14px; letter-spacing:.15px;
+      background: transparent; border:0; cursor:pointer; padding:9px 12px; border-radius:10px;
+    }
+    nav.main a:hover, .nav-drop > button:hover{ color:var(--accent) }
+    .nav-drop{
+      position:relative; perspective:900px;
+    }
+    .nav-panel{
+      position:absolute; top:100%; left:0; min-width: 280px;
+      background: linear-gradient(180deg, #0e1834, #0b1326);
+      border:1px solid #1a2a4a; border-radius:14px; box-shadow: 0 30px 70px rgba(0,0,0,.45);
+      padding:10px; transform-origin: 50% -10px; transform: translateY(10px) rotateX(-12deg);
+      opacity:0; visibility:hidden; transition: all .28s cubic-bezier(.2,.8,.2,1);
+    }
+    .nav-drop.open .nav-panel{ opacity:1; visibility:visible; transform: translateY(6px) rotateX(0deg) }
+    .nav-panel a{display:block; padding:10px 12px; border-radius:10px; color:var(--ink)}
+    .nav-panel a small{display:block; color:var(--muted)}
+    .nav-panel a:hover{ background:#0a152d; outline:var(--ring) }
+
+    /* === Cards / utilities === */
+    .grid{display:grid; gap:var(--gap); grid-template-columns: 1.2fr .8fr}
+    @media (max-width: 1080px){ .grid{grid-template-columns: 1fr} }
+    .card{ background: var(--card); border:1px solid #1a243d; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .card > header{ padding:16px 18px; border-bottom:1px solid #1a243d; display:flex; align-items:center; justify-content:space-between }
+    .card > header h3{ margin:0; font-size:18px }
+    .card section{ padding: 18px }
+
+    .hero{ padding: 48px 20px 18px; border-bottom: 1px solid #16223a }
+    .hero h1{ margin:0 0 6px 0; font-size: clamp(28px, 5vw, 48px); line-height:1.12 }
+    .hero .lede{ color:var(--muted); max-width: 88ch }
+    .pills{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px }
+    .pill{ border:1px solid #243458; padding: 8px 12px; border-radius:999px; color:var(--muted); font-weight:700; font-size:13px;
+           background: color-mix(in oklab, var(--card) 70%, transparent) }
+
+    .btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; font-weight:800; border:1px solid #223356; background:#0c1526; color:var(--ink); cursor:pointer }
+    .btn:hover{ outline: var(--ring) } .btn.small{ padding:7px 10px; border-radius:10px; font-size:13px }
+    .btn.ghost{ background:transparent } .btn.accent{ background: linear-gradient(180deg, #0f2337, #0b1d2f) }
+    .btn.danger{ border-color:#402028; background:#1a0f12; color:#ffc7c7 }
+
+    .statbar{display:flex; gap:12px; flex-wrap:wrap}
+    .stat{ background: var(--card-2); border:1px solid #223355; border-radius: 12px; padding: 12px 14px; min-width: 180px }
+    .stat b{display:block; font-size:20px}
+    .muted{ color:var(--muted) } .mono{ font-family:var(--mono) } .accent{ color:var(--accent) } .warn{color:var(--warn)}
+
+    .toc{display:grid; gap:10px; grid-template-columns: repeat(2, minmax(0,1fr))}
+    @media (max-width: 780px){ .toc{grid-template-columns: 1fr} }
+    .toc a{ display:block; border:1px solid #22314c; border-radius: 12px; padding: 12px; text-decoration:none; color:var(--ink); background: linear-gradient(180deg, #0e1730, #0a1326) }
+    .toc a small{display:block; color:var(--muted)}
+    .toc a:hover{ outline: var(--ring) }
+
+    .quest{ border:1px solid #22314c; border-radius: 12px; padding: 14px; margin-bottom:12px; background:#0c1423 }
+    .quest h4{ margin:0 0 6px 0 }
+    .quest .meta{ display:flex; gap:10px; flex-wrap:wrap; margin: 6px 0 10px }
+    .tag{ background:#07101e; border:1px solid #22314c; padding: 3px 8px; border-radius:999px; font-size:12px; color:var(--muted) }
+    .steps{ margin: 8px 0 0; padding-left: 18px } .steps li{ margin:6px 0 }
+
+    /* === Innovation Lab === */
+    .lab-grid{ display:grid; gap:12px; grid-template-columns: repeat(3, minmax(0,1fr)) }
+    @media (max-width: 1100px){ .lab-grid{ grid-template-columns: repeat(2, minmax(0,1fr)) } }
+    @media (max-width: 720px){ .lab-grid{ grid-template-columns: 1fr } }
+    .lab-card{ border:1px solid #21314e; border-radius:12px; overflow:hidden; background:#0a1426 }
+    .lab-card img{ width:100%; height:180px; object-fit:cover; display:block; background:#0b0f18 }
+    .lab-card .body{ padding:12px }
+    .lab-card .body h4{ margin:0 0 4px 0 }
+    .dropzone{ border:2px dashed #294167; border-radius:12px; padding:16px; text-align:center; color:var(--muted); background:#08152c }
+    .dropzone.drag{ outline: var(--ring); background:#0a1b3a }
+
+    /* === Lightbox === */
+    .lightbox{ position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.7); z-index:200 }
+    .lightbox.open{ display:grid }
+    .lightbox img{ max-width:92vw; max-height:86vh; border-radius:12px; border:1px solid #2a3e64; box-shadow: var(--shadow) }
+
+    /* === Command Palette === */
+    .kbar{ position:fixed; inset:0; display:none; place-items:start center; padding-top:12vh; background:rgba(0,0,0,.4); z-index:220 }
+    .kbar.open{ display:grid }
+    .kbar .panel{ width:min(800px, 92vw); background: linear-gradient(180deg, #0c1532, #0a1428); border:1px solid #223356; border-radius:14px; box-shadow: var(--shadow) }
+    .kbar header{ padding:12px 12px 0 } .kbar input{ width:100%; padding:12px 14px; border-radius:10px; border:1px solid #24324d; background:#08142b; color:var(--ink) }
+    .kbar ul{ list-style:none; margin:10px 0 12px; padding:0; max-height:46vh; overflow:auto }
+    .kbar li{ padding:10px 14px; border-top:1px solid #1a2540 } .kbar li:hover{ background:#0b1732 }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce){ .nav-panel{transition:none} #universe,#glow{background:#030a15} .veil{backdrop-filter:none} }
+
+    /* Utilities */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt20{margin-top:20px}.mb0{margin-bottom:0}
+  </style>
+</head>
+<body>
+  <canvas id="universe" aria-hidden="true"></canvas>
+  <canvas id="glow" aria-hidden="true"></canvas>
+  <div class="veil" aria-hidden="true"></div>
+
+  <header class="site">
+    <div class="wrap" style="display:flex; align-items:center; justify-content:space-between;">
+      <div class="brand" style="transform:translateZ(0)">
+        <svg width="30" height="30" viewBox="0 0 64 64" role="img" aria-label="Star water emblem" fill="none">
+          <defs>
+            <radialGradient id="g" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(32 32) rotate(90) scale(30)">
+              <stop stop-color="#7fd1ff"/><stop offset="1" stop-color="#071223"/>
+            </radialGradient>
+          </defs>
+          <circle cx="32" cy="32" r="30" fill="url(#g)" stroke="#19304f" stroke-width="2"/>
+          <path d="M32 14l4 10 11 2-9 7 3 11-9-6-9 6 3-11-9-7 11-2 4-10z" fill="#dff3ff" opacity=".8"/>
+        </svg>
+        <div>
+          <b>Navajo (Diné) Water Sovereignty</b>
+          <small>Household ↔ Community ↔ Watershed</small>
+        </div>
+      </div>
+      <nav class="main" id="nav">
+        <a href="/water/" aria-current="page">Water</a>
+        <a href="/food/">Food</a>
+        <div class="nav-drop" id="sectionsDrop">
+          <button type="button" aria-haspopup="true" aria-expanded="false">Sections ▾</button>
+          <div class="nav-panel" role="menu" aria-label="Sections">
+            <a href="#baseline"><b>Baseline</b><small>Know your water</small></a>
+            <a href="#household"><b>Household Safety</b><small>Storage & POU treatment</small></a>
+            <a href="#harvest"><b>Rain & Snow</b><small>Roof & ground catchment</small></a>
+            <a href="#haul"><b>Hauling & Storage</b><small>Clean transfer</small></a>
+            <a href="#treatment"><b>Treatment Systems</b><small>RO, UV, biosand, ceramic</small></a>
+            <a href="#community"><b>Community</b><small>Kiosks, maps, roles</small></a>
+            <a href="#watershed"><b>Watershed</b><small>One‑rock, Zuni bowl</small></a>
+            <a href="#lab"><b>Innovation Lab</b><small>Upload discoveries + images</small></a>
+            <a href="#calc"><b>Calculators</b><small>First‑flush, chlorine, RO</small></a>
+            <a href="#coach"><b>WebLLM Coach</b><small>On‑device help</small></a>
+          </div>
+        </div>
+        <button class="btn small ghost" id="openKbar" title="Command palette (Ctrl/Cmd+K)">⌘K</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Tó bee iiná — Water is life</h1>
+      <p class="lede">
+        Ultra long‑form, gamified guide to water sovereignty for Diné communities. It’s practical, respectfully
+        cautious, and relentlessly DIY: make your own tools, source locally, test rigorously, heal watersheds,
+        and document discoveries in an offline‑first Lab (IndexedDB) with image uploads. Sync quests to <b>Habitica</b>,
+        ask an on‑device <b>WebLLM</b> coach, and navigate under a sky of photorealistic, morphing constellations.
+      </p>
+      <div class="pills" role="list">
+        <span class="pill" role="listitem">Offline‑first (IndexedDB)</span>
+        <span class="pill" role="listitem">Image uploads to local Lab</span>
+        <span class="pill" role="listitem">Habitica task sync</span>
+        <span class="pill" role="listitem">WebLLM on‑device coach</span>
+        <span class="pill" role="listitem">Parallax dropdown nav</span>
+        <span class="pill" role="listitem">Photorealistic constellations</span>
+      </div>
+    </section>
+
+    <!-- Score + Integrations -->
+    <section class="grid mt16" aria-labelledby="score-h">
+      <div class="card">
+        <header>
+          <h3 id="score-h">Your Sovereignty Score</h3>
+          <div class="muted">Locally saved; private to this device</div>
+        </header>
+        <section>
+          <div class="statbar">
+            <div class="stat"><b id="score">0</b><span class="muted">Points</span></div>
+            <div class="stat"><b id="questsCompleted">0</b><span class="muted">Quests Completed</span></div>
+            <div class="stat"><b id="badgesCount">0</b><span class="muted">Badges</span></div>
+            <div class="stat"><b id="synced">Not connected</b><span class="muted">Habitica</span></div>
+          </div>
+          <div class="mt12">
+            <button class="btn small accent" id="exportBtn">Export Progress (JSON)</button>
+            <label class="btn small ghost" for="importFile">
+              <input id="importFile" type="file" accept="application/json" class="sr-only" />
+              Import Progress
+            </label>
+          </div>
+        </section>
+      </div>
+
+      <div class="card">
+        <header>
+          <h3>Integrations</h3>
+          <div class="muted">Optional, bring-your-own keys</div>
+        </header>
+        <section>
+          <div>
+            <label>Habitica User ID<br />
+              <input id="habiticaUser" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" style="width:100%; padding:10px; border-radius:10px; border:1px solid #24324d; background:#061127; color:var(--ink)">
+            </label>
+            <label class="mt8">Habitica API Token<br />
+              <input id="habiticaKey" placeholder="API Token" style="width:100%; padding:10px; border-radius:10px; border:1px solid #24324d; background:#061127; color:var(--ink)">
+            </label>
+            <div class="mt12">
+              <button class="btn small" id="saveHabitica">Save & Test</button>
+              <button class="btn small ghost" id="syncHabitica">Sync Quests → Habitica</button>
+              <button class="btn small danger" id="clearKeys">Clear Keys</button>
+            </div>
+            <p class="muted mt8" style="font-size:13px">Keys are stored locally (IndexedDB). Remove them anytime via “Clear Keys”.</p>
+          </div>
+          <hr style="border-color:#1a2438;opacity:.6;margin:16px 0">
+          <div>
+            <div class="muted">WebLLM Model (in‑browser)</div>
+            <select id="modelSelect" style="width:100%; padding:10px; border-radius:10px; border:1px solid #24324d; background:#061127; color:var(--ink); margin-top:6px">
+              <option value="Llama-3-8B-Instruct-q4f16_1-MLC">Llama‑3 8B (q4f16_1)</option>
+              <option value="Phi-3-mini-4k-instruct-q4f16_1-MLC">Phi‑3 mini (4k) (q4f16_1)</option>
+              <option value="Qwen2.5-7B-Instruct-q4f16_1-MLC">Qwen2.5 7B (q4f16_1)</option>
+            </select>
+            <div class="mt8">
+              <button class="btn small" id="initLLM">Load Model</button>
+              <span id="llmStatus" class="muted">Idle</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- Table of Contents -->
+    <section class="mt20">
+      <div class="card">
+        <header><h3>Table of Contents</h3></header>
+        <section class="toc">
+          <a href="#preface"><b>0. Respect & Consent</b><small>Protocol, roles, caution</small></a>
+          <a href="#baseline"><b>1. Baseline Assessment</b><small>Sources, storage, quality</small></a>
+          <a href="#household"><b>2. Household Safety</b><small>Filters, arsenic/uranium patterns</small></a>
+          <a href="#harvest"><b>3. Rain & Snow Harvesting</b><small>Roof, ground, first‑flush</small></a>
+          <a href="#haul"><b>4. Hauling & Storage</b><small>Sanitation, transfer pumps</small></a>
+          <a href="#treatment"><b>5. Treatment Systems</b><small>Sediment, carbon, RO, UV, biosand</small></a>
+          <a href="#materials"><b>6. Local Materials & Fabrication</b><small>Source or make your tools</small></a>
+          <a href="#community"><b>7. Community Infrastructure</b><small>Wells, kiosks, NTUA interfaces</small></a>
+          <a href="#watershed"><b>8. Watershed Healing</b><small>One‑rock, Zuni bowl, brush checks</small></a>
+          <a href="#lab"><b>9. Innovation Lab (Uploads)</b><small>Discoveries, images, alternatives</small></a>
+          <a href="#calc"><b>10. Calculators</b><small>First‑flush, chlorine, storage days</small></a>
+          <a href="#coach"><b>11. On‑Device Coach</b><small>WebLLM help</small></a>
+          <a href="#safety"><b>Appendix</b><small>Safety, checklists, glossary</small></a>
+        </section>
+      </div>
+    </section>
+
+    <!-- 0. Preface -->
+    <section id="preface" class="mt20">
+      <div class="card">
+        <header><h3>0. Respect & Consent</h3></header>
+        <section>
+          <p class="muted">
+            Center Diné protocol. Water is a kin relation, not a commodity. Coordinate with chapter leadership,
+            grazing permit holders, and water operators before field work. Some springs and cultural water sites
+            are sensitive; photos and GPS may require permission. Share results back to the people first. Protect
+            private data and locations. When in doubt, slow down.
+          </p>
+          <ul>
+            <li>Safety is cultural care: disinfection, PPE, trench shoring, pump lockouts, and electrical isolation.</li>
+            <li>Respect Zuni bowl origins (A:shiwi/Zuni Pueblo) and credit lineage when teaching patterns.</li>
+            <li>Document clearly so youth can repeat and improve—sovereignty compounds when knowledge compounds.</li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <!-- 1. Baseline -->
+    <section id="baseline" class="mt20">
+      <div class="card">
+        <header><h3>1. Baseline Assessment — “Know Your Water”</h3></header>
+        <section>
+          <p>
+            Map where water comes from (haul, piped, well, spring, roof), where it’s stored, and how it’s treated.
+            Navajo Nation spans high desert and mountain zones across AZ, NM, UT—quality varies by site and season.
+            Track turbidity (NTU), conductivity/TDS (µS/cm or ppm), free chlorine (mg/L), pH, and site‑specific contaminants
+            (notably arsenic and uranium in some groundwaters near legacy mines). Test, don’t guess.
+          </p>
+          <div class="statbar mt12">
+            <div class="stat"><b class="mono">NTU</b><span class="muted">Turbidity</span></div>
+            <div class="stat"><b class="mono">mg/L</b><span class="muted">Arsenic / Uranium</span></div>
+            <div class="stat"><b class="mono">µS/cm</b><span class="muted">Conductivity</span></div>
+            <div class="stat"><b class="mono">mg/L</b><span class="muted">Free Chlorine</span></div>
+          </div>
+          <details class="mt12">
+            <summary><b>Field kit that punches above its weight</b></summary>
+            <ul class="mt8">
+              <li>Turbidity tube (or handheld meter), TDS/EC pen, pH strips, chlorine strips.</li>
+              <li>Sterile bottles, cooler, chain‑of‑custody form for lab metals (As, U, Se, V, Pb).</li>
+              <li>Conductivity helps differentiate sources and track RO performance quickly.</li>
+            </ul>
+          </details>
+        </section>
+      </div>
+    </section>
+
+    <!-- 2. Household -->
+    <section id="household" class="mt20">
+      <div class="card">
+        <header><h3>2. Household Safety — Storage & Point‑of‑Use</h3></header>
+        <section>
+          <p>
+            Safe storage and point‑of‑use (POU) treatment reduce risk immediately. Upgrade to food‑grade,
+            light‑blocking containers; sanitize on a schedule; avoid dip‑and‑pour contamination by using
+            spigots. Build filter chains matched to your pattern: sediment → carbon → RO (arsenic/uranium),
+            plus UV or ceramic for microbes where needed.
+          </p>
+          <div class="quest">
+            <h4>DIY: Storage Sanitation & Labeling</h4>
+            <div class="meta"><span class="tag">storage</span><span class="tag">sanitation</span><span class="tag">easy</span></div>
+            <ol class="steps">
+              <li>Use food‑grade barrels or jerrycans; avoid any that held chemicals or fuel.</li>
+              <li>Make disinfectant: mix ~1 tsp unscented bleach per quart of water as your cleaning solution (then rinse with safe water).</li>
+              <li>Install a spigot; label “DRINKING ONLY.” Record sanitation date & next due date.</li>
+            </ol>
+          </div>
+          <div class="quest">
+            <h4>DIY: POU Filter Chain (Sediment → Carbon → RO/UV/Ceramic)</h4>
+            <div class="meta"><span class="tag">filtration</span><span class="tag">medium</span><span class="tag">arsenic/uranium pattern</span></div>
+            <ol class="steps">
+              <li>Measure turbidity & TDS; confirm metals via lab for design.</li>
+              <li>Plumb 5–20 µm sediment prefilter then granular activated carbon (GAC).</li>
+              <li>For arsenic/uranium, add RO. For microbial risk, add ceramic candles + UV post‑filter.</li>
+              <li>Log filter hours, pressures, and change intervals; verify removal with post‑tests.</li>
+            </ol>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- 3. Rain & Snow -->
+    <section id="harvest" class="mt20">
+      <div class="card">
+        <header><h3>3. Rain & Snow Harvesting — Roof and Ground</h3></header>
+        <section>
+          <p>
+            In dusty, windy climates, first‑flush diverters matter. Opaque tanks, screened vents, mosquito
+            control, and sediment traps improve clarity. “Catch, slow, spread, sink” holds across the homestead,
+            then across the watershed.
+          </p>
+          <div class="quest">
+            <h4>DIY: First‑Flush Diverter (PVC or HDPE)</h4>
+            <div class="meta"><span class="tag">rainwater</span><span class="tag">fabrication</span><span class="tag">medium</span></div>
+            <ol class="steps">
+              <li>Size: ~0.02–0.05 in of rain per sq ft of roof for dusty zones (calculator below).</li>
+              <li>Use 3–4" PVC or HDPE standpipe with ball float to seal when full; add cleanout cap.</li>
+              <li>Include drain for maintenance. Label “first‑flush—do not drink.”</li>
+            </ol>
+          </div>
+          <div class="quest">
+            <h4>DIY: Cistern Calming Inlet + Sump</h4>
+            <div class="meta"><span class="tag">cistern</span><span class="tag">sediment</span><span class="tag">medium</span></div>
+            <ol class="steps">
+              <li>Upward‑facing elbow as calming inlet to avoid disturbing settled fines.</li>
+              <li>Low‑point sump with purge valve; top draw for outlet.</li>
+              <li>Schedule annual cleanouts; confined space precautions if entering tanks.</li>
+            </ol>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- 4. Hauling & Storage -->
+    <section id="haul" class="mt20">
+      <div class="card">
+        <header><h3>4. Hauling & Storage — Clean Transfer</h3></header>
+        <section>
+          <div class="quest">
+            <h4>Haul Hygiene</h4>
+            <div class="meta"><span class="tag">hauling</span><span class="tag">sanitation</span><span class="tag">easy</span></div>
+            <ol class="steps">
+              <li>Dedicated “drinking water only” hoses; keep ends capped and off the ground.</li>
+              <li>Quick‑connects reduce contact with dirty surfaces; sanitize routinely.</li>
+              <li>Shade containers; avoid heat cycling.</li>
+            </ol>
+          </div>
+          <div class="quest">
+            <h4>Transfer Pump + Inline Screen</h4>
+            <div class="meta"><span class="tag">pump</span><span class="tag">medium</span></div>
+            <ol class="steps">
+              <li>Pick a pump for your head/flow and hose diameters.</li>
+              <li>Install 50–100 µm screen pre‑storage; add check valve; log pressures to schedule cleaning.</li>
+            </ol>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- 5. Treatment -->
+    <section id="treatment" class="mt20">
+      <div class="card">
+        <header><h3>5. Treatment Systems — Match to the Pattern</h3></header>
+        <section>
+          <p>
+            Metals pattern: RO (reverse osmosis) excels; consider anion exchange for arsenic species if needed.
+            Microbial pattern: ceramic + UV after fine filtration. Taste/odor: GAC. Always verify with tests.
+          </p>
+          <div class="quest">
+            <h4>RO Commissioning & Verification</h4>
+            <div class="meta"><span class="tag">RO</span><span class="tag">hard</span></div>
+            <ol class="steps">
+              <li>Confirm contaminants & ranges via lab. Pick membrane & tank size for demand.</li>
+              <li>Prefilter: sediment → GAC. Measure TDS pre/post; compute rejection %.</li>
+              <li>Plumb reject water to non‑potable uses where appropriate.</li>
+              <li>Sanitize lines; leak test; document SOP and spare parts list.</li>
+            </ol>
+          </div>
+          <div class="quest">
+            <h4>Biosand or Ceramic Unit</h4>
+            <div class="meta"><span class="tag">biosand</span><span class="tag">ceramic</span><span class="tag">medium</span></div>
+            <ol class="steps">
+              <li>Wash and grade sand/gravel; assemble per spec.</li>
+              <li>Seed biolayer with source water; allow maturation time.</li>
+              <li>Track flow rates and cleanings; verify microbial reduction.</li>
+            </ol>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- 6. Local Materials & Fabrication -->
+    <section id="materials" class="mt20">
+      <div class="card">
+        <header><h3>6. Local Materials & Fabrication — Build or Source</h3></header>
+        <section>
+          <p>
+            Sovereignty blooms when tools can be made, repaired, and improved locally. Below are bill‑of‑materials
+            (BoMs), fabrication notes, and alternatives for desert procurement. Where supply chains snag, swap in
+            equivalents or repurpose salvage—document in the <b>Innovation Lab</b>.
+          </p>
+
+          <details class="disc">
+            <summary><b>Make: First‑Flush Diverter (Standpipe)</b></summary>
+            <p><b>Materials:</b> 3–4" PVC/HDPE pipe & caps, 1 ball float, 1 drain valve, straps, primer/cement or compression couplers.</p>
+            <p><b>Steps:</b> Cut standpipe; add tee from downspout; install ball float near top; drill & fit drain at bottom; add cleanout cap; strap to wall.</p>
+            <p><b>Alternatives:</b> Where PVC is scarce, use food‑grade HDPE with uniseals; use tire‑valve style drains as field hack.</p>
+          </details>
+
+          <details class="disc">
+            <summary><b>Make: Calming Inlet + Sump Kit</b></summary>
+            <p><b>Materials:</b> 1–2" PVC elbows, bulkhead fittings/uniseals, flexible hose, ball valve for purge, screen for vent.</p>
+            <p><b>Steps:</b> Install upward elbow on inlet; create low‑point sump with tee to purge; outlet draws from upper water level.</p>
+          </details>
+
+          <details class="disc">
+            <summary><b>Make: Ceramic Candle Bucket Filter</b></summary>
+            <p><b>Materials:</b> Two food‑grade buckets with lids, 2 ceramic candles (with GAC core optional), bulkhead spigot.</p>
+            <p><b>Steps:</b> Drill upper bucket base for candles; mount; stack atop lower bucket with spigot; sanitize and test for flow & bacteria.</p>
+          </details>
+
+          <details class="disc">
+            <summary><b>Make: Char for Taste/Odor (GAC Substitute in a Pinch)</b></summary>
+            <p><b>Materials:</b> Hardwood or nut shells; lidded steel drum; vent; clean sand. <span class="warn">Safety:</span> controlled burn only; never indoors.</p>
+            <p><b>Steps:</b> Pyrolyze biomass to char; rinse fines; pack in a cartridge. <b>Note:</b> DIY char is <i>not</i> a certified GAC—use as taste aid, not metals removal.</p>
+          </details>
+
+          <details class="disc">
+            <summary><b>Make: Brush Check Weir (Materials from Site)</b></summary>
+            <p><b>Materials:</b> Cut brush, stakes, mallet, shovel, mulch.</p>
+            <p><b>Steps:</b> Lay brush across flow with upstream lean; key ends into banks; tamp; add mulch upstream; re‑visit after rains.</p>
+          </details>
+
+          <details class="disc">
+            <summary><b>Source Map: Where to Look First</b></summary>
+            <ul class="mt8">
+              <li>Local hardware, farm‑ranch supply, plumbing salvage, decommissioned infrastructure yards.</li>
+              <li>Food‑grade barrels via beverage distributors; verify prior contents.</li>
+              <li>HDPE liners and uniseals via irrigation suppliers; RO membranes via water treatment vendors.</li>
+            </ul>
+          </details>
+        </section>
+      </div>
+    </section>
+
+    <!-- 7. Community -->
+    <section id="community" class="mt20">
+      <div class="card">
+        <header><h3>7. Community Infrastructure — Kiosks, Roles, Maps</h3></header>
+        <section>
+          <p>
+            Where piped service is absent, shared kiosks can deliver treated water. Plan for solar pumping, freeze
+            protection, spare parts, and clear SOPs. Private‑first mapping guides action without oversharing.
+          </p>
+          <div class="quest">
+            <h4>Water Kiosk Pattern</h4>
+            <div class="meta"><span class="tag">solar</span><span class="tag">pump</span><span class="tag">hard</span></div>
+            <ol class="steps">
+              <li>Estimate demand & size storage (target days of autonomy).</li>
+              <li>Treatment train: match source (RO for metals; UV for microbes; GAC for taste).</li>
+              <li>Solar array + batteries sized for pump and winter insolation; shade & freeze proofing.</li>
+              <li>Roles: operator, maintenance, finance, data/reporting. Document SOPs and inventory.</li>
+            </ol>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- 8. Watershed -->
+    <section id="watershed" class="mt20">
+      <div class="card">
+        <header><h3>8. Watershed Healing — One‑Rock, Zuni Bowl, Brush Checks</h3></header>
+        <section>
+          <p>
+            Small structures, placed wisely, slow flashy flows and rebuild soil sponges. Practice on safe demo
+            channels first, then scale with permission and training. Never obstruct major drainage.
+          </p>
+          <div class="quest">
+            <h4>One‑Rock Dam (Micro‑Scale Training)</h4>
+            <div class="meta"><span class="tag">restoration</span><span class="tag">erosion</span><span class="tag">medium</span></div>
+            <ol class="steps">
+              <li>Crest slightly lower at center; key into banks; interlock rock to resist design flow.</li>
+              <li>Observe with hose test; look for sediment deposition and gentle spread.</li>
+            </ol>
+          </div>
+          <div class="quest">
+            <h4>Zuni Bowl at Culvert Outlet (Demo)</h4>
+            <div class="meta"><span class="tag">energy dissipation</span><span class="tag">medium</span></div>
+            <ol class="steps">
+              <li>Shallow basin; interlocked rock; downstream apron; lock voids with gravel.</li>
+              <li>Observe early storms; patch gaps; record cross‑sections.</li>
+            </ol>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- 9. Innovation Lab -->
+    <section id="lab" class="mt20">
+      <div class="card">
+        <header><h3>9. Innovation Lab — Upload Discoveries, Images, Alternatives</h3></header>
+        <section>
+          <p>
+            Document local builds, hacks, sourcing finds, and alternative designs. Everything saves to your browser’s
+            <b>IndexedDB</b>—private to this device unless you export and share. Images (multiple) are supported; drag‑and‑drop works offline.
+          </p>
+          <div class="dropzone" id="dropzone">Drag & drop images here (or use the file picker below)…</div>
+          <div class="mt8" style="display:flex; gap:10px; flex-wrap:wrap">
+            <input id="labImages" type="file" multiple accept="image/*" />
+            <input id="labTitle" placeholder="Discovery title (e.g., 'HDPE first‑flush with tire valve')" style="flex:1; padding:10px; border-radius:10px; border:1px solid #24324d; background:#061127; color:var(--ink)">
+          </div>
+          <div class="mt8" style="display:grid; gap:10px; grid-template-columns: repeat(2, minmax(0,1fr))">
+            <select id="labCategory" style="padding:10px; border-radius:10px; border:1px solid #24324d; background:#061127; color:var(--ink)">
+              <option>Local Innovation</option>
+              <option>DIY Build</option>
+              <option>Tools & Materials Sourcing</option>
+              <option>Alternative Design</option>
+              <option>Misc</option>
+            </select>
+            <input id="labTags" placeholder="tags (comma separated)" style="padding:10px; border-radius:10px; border:1px solid #24324d; background:#061127; color:var(--ink)">
+          </div>
+          <div class="mt8">
+            <textarea id="labMaterials" rows="3" placeholder="Materials (one per line, e.g., '2x 3” PVC cap — Local hardware')" style="width:100%; padding:10px; border-radius:10px; border:1px solid #24324d; background:#061127; color:var(--ink)"></textarea>
+            <textarea id="labSteps" rows="5" placeholder="Build steps (one step per line)" style="width:100%; margin-top:8px; padding:10px; border-radius:10px; border:1px solid #24324d; background:#061127; color:var(--ink)"></textarea>
+          </div>
+          <div class="mt8" style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn small accent" id="saveDiscovery">Save Discovery (+35 pts)</button>
+            <button class="btn small" id="exportLab">Export Lab (JSON)</button>
+            <label class="btn small ghost" for="importLab">
+              <input id="importLab" type="file" accept="application/json" class="sr-only" />
+              Import Lab
+            </label>
+            <span class="muted">Images stay local; export bundles images as base64 in JSON.</span>
+          </div>
+          <hr style="border-color:#1a2438;opacity:.6;margin:16px 0">
+          <div class="lab-grid" id="labGrid" aria-live="polite">
+            <!-- populated by JS -->
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- 10. Calculators -->
+    <section id="calc" class="mt20">
+      <div class="card">
+        <header><h3>10. Calculators — Quick & Offline</h3></header>
+        <section style="display:grid; gap:12px; grid-template-columns: repeat(2, minmax(0,1fr))">
+          <div class="card">
+            <header><h3 class="mb0">First‑Flush Sizing</h3></header>
+            <section>
+              <label>Roof Area (sq ft) <input id="ffArea" type="number" value="600" style="width:100%; padding:8px; border-radius:8px; border:1px solid #24324d; background:#061127; color:var(--ink)"></label>
+              <label class="mt8">Dust Factor (in) per storm <input id="ffDust" type="number" step="0.01" value="0.03" style="width:100%; padding:8px; border-radius:8px; border:1px solid #24324d; background:#061127; color:var(--ink)"></label>
+              <div class="mt8">Volume ≈ <b id="ffVol" class="mono">—</b> gallons</div>
+            </section>
+          </div>
+          <div class="card">
+            <header><h3 class="mb0">Chlorine Dose</h3></header>
+            <section>
+              <label>Container Volume (gal) <input id="clVol" type="number" value="55" style="width:100%; padding:8px; border-radius:8px; border:1px solid #24324d; background:#061127; color:var(--ink)"></label>
+              <label class="mt8">Target Free Cl (mg/L) <input id="clTarget" type="number" value="2" style="width:100%; padding:8px; border-radius:8px; border:1px solid #24324d; background:#061127; color:var(--ink)"></label>
+              <label class="mt8">Bleach Strength (%) <input id="clPct" type="number" value="6" style="width:100%; padding:8px; border-radius:8px; border:1px solid #24324d; background:#061127; color:var(--ink)"></label>
+              <div class="mt8">Dose ≈ <b id="clDose" class="mono">—</b> mL household bleach</div>
+            </section>
+          </div>
+          <div class="card">
+            <header><h3 class="mb0">Storage Days</h3></header>
+            <section>
+              <label>Stored Water (gal) <input id="sdGal" type="number" value="110" style="width:100%; padding:8px; border-radius:8px; border:1px solid #24324d; background:#061127; color:var(--ink)"></label>
+              <label class="mt8">People <input id="sdPeople" type="number" value="4" style="width:100%; padding:8px; border-radius:8px; border:1px solid #24324d; background:#061127; color:var(--ink)"></label>
+              <label class="mt8">Gal/person/day <input id="sdGppd" type="number" step="0.1" value="1.2" style="width:100%; padding:8px; border-radius:8px; border:1px solid #24324d; background:#061127; color:var(--ink)"></label>
+              <div class="mt8">Autonomy ≈ <b id="sdDays" class="mono">—</b> days</div>
+            </section>
+          </div>
+          <div class="card">
+            <header><h3 class="mb0">RO Rejection</h3></header>
+            <section>
+              <label>Feed TDS (ppm) <input id="roIn" type="number" value="800" style="width:100%; padding:8px; border-radius:8px; border:1px solid #24324d; background:#061127; color:var(--ink)"></label>
+              <label class="mt8">Permeate TDS (ppm) <input id="roOut" type="number" value="25" style="width:100%; padding:8px; border-radius:8px; border:1px solid #24324d; background:#061127; color:var(--ink)"></label>
+              <div class="mt8">Rejection ≈ <b id="roPct" class="mono">—</b>%</div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- 11. WebLLM Coach -->
+    <section id="coach" class="mt20">
+      <div class="card">
+        <header><h3>11. On‑Device Coach (WebLLM)</h3><div class="muted" id="coachModel">Model: not loaded</div></header>
+        <section>
+          <p class="muted">Ask practical questions. Your data stays in the browser.</p>
+          <div id="coachLog" style="max-height:360px; overflow:auto; border:1px solid #203052; padding:12px; border-radius:12px; background:#081323"></div>
+          <div class="mt12" style="display:flex; gap:10px">
+            <input id="coachInput" placeholder="e.g., How to size first‑flush for a 900 sq ft roof?" style="flex:1; padding:12px; border-radius:12px; border:1px solid #24324d; background:#061127; color:var(--ink)">
+            <button class="btn accent" id="askCoach">Ask</button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- Appendix / Safety -->
+    <section id="safety" class="mt20">
+      <div class="card">
+        <header><h3>Appendix — Safety Notes</h3></header>
+        <section>
+          <ul>
+            <li>Verify: no source is “safe” until tested. Re‑test after any system change.</li>
+            <li>Chlorine is reactive: keep away from ammonia/acid; ventilate; label clearly.</li>
+            <li>Pressurized plumbing & trenches: shoring, eyewear, GFCI, and lockout/tagout.</li>
+            <li>Respect permits, utility rules, and neighbor water rights.</li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <footer class="wrap" style="padding:30px 20px 70px; color:var(--muted)">
+      <div style="display:flex; gap:12px; flex-wrap:wrap">
+        <a class="btn small" href="/water/">/water/</a>
+        <a class="btn small" href="/food/">/food/</a>
+        <button class="btn small ghost" id="installPWA">Install Offline</button>
+      </div>
+      <div class="mt8">Built as a standalone page: photorealistic morphing starfield, parallax dropdowns, IndexedDB Lab with image uploads, Habitica + WebLLM.</div>
+    </footer>
+  </main>
+
+  <!-- ============================
+       SCRIPT (module) — ENDS FILE PART 1
+       ============================ -->
+  <script type="module">
+    /* ========= Utilities ========= */
+    const $ = (sel, el=document)=>el.querySelector(sel);
+    const $$ = (sel, el=document)=>Array.from(el.querySelectorAll(sel));
+    const DPR = Math.max(1, Math.min(2, devicePixelRatio || 1));
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ========= Parallax Dropdown ========= */
+    const drop = $('#sectionsDrop');
+    drop.querySelector('button').addEventListener('click', ()=>{
+      drop.classList.toggle('open');
+      const open = drop.classList.contains('open');
+      drop.querySelector('button').setAttribute('aria-expanded', open ? 'true':'false');
+    });
+    document.addEventListener('click', (e)=>{
+      if(!drop.contains(e.target)) drop.classList.remove('open');
+    });
+
+    /* ========= Command Palette (⌘/Ctrl+K) ========= */
+    const kbar = document.createElement('div');
+    kbar.className = 'kbar';
+    kbar.innerHTML = `
+      <div class="panel">
+        <header><input id="kbarInput" placeholder="Jump to section… (e.g., 'watershed')" autocomplete="off"></header>
+        <ul id="kbarList"></ul>
+      </div>`;
+    document.body.appendChild(kbar);
+    const kbarInput = $('#kbarInput', kbar), kbarList = $('#kbarList', kbar);
+    const kitems = [
+      ['Baseline','#baseline'],['Household','#household'],['Rain & Snow','#harvest'],
+      ['Hauling','#haul'],['Treatment','#treatment'],['Materials','#materials'],
+      ['Community','#community'],['Watershed','#watershed'],['Innovation Lab','#lab'],
+      ['Calculators','#calc'],['Coach','#coach'],['Safety','#safety']
+    ];
+    function openKbar(){ kbar.classList.add('open'); kbarInput.value=''; renderKbar(''); kbarInput.focus(); }
+    function closeKbar(){ kbar.classList.remove('open'); }
+    function renderKbar(q){
+      const rx = new RegExp(q.split(/\s+/).join('.*'), 'i');
+      kbarList.innerHTML = kitems.filter(([t])=>rx.test(t)).map(([t,href])=>`<li data-href="${href}">${t}</li>`).join('') || `<li class="muted">No matches</li>`;
+      $$('li', kbarList).forEach(li=>li.addEventListener('click', ()=>{
+        location.hash = li.dataset.href; closeKbar();
+      }));
+    }
+    $('#openKbar').onclick = openKbar;
+    document.addEventListener('keydown',(e)=>{
+      if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='k'){ e.preventDefault(); openKbar(); }
+      if(e.key==='Escape') closeKbar();
+    });
+    kbarInput.addEventListener('input', e=>renderKbar(e.target.value));
+
+    /* ========= Photorealistic Morphing Constellations ========= */
+    const sky = $('#universe'), glow = $('#glow');
+    const sctx = sky.getContext('2d'), gctx = glow.getContext('2d');
+    let stars=[], shooting=[], constA=[], constB=[], constT=0, constDir=1, parallax={x:0,y:0}, last=0;
+
+    function resizeSky(){
+      const w = innerWidth, h = innerHeight;
+      sky.width = Math.floor(w*DPR); sky.height = Math.floor(h*DPR);
+      glow.width = Math.floor(w*DPR); glow.height = Math.floor(h*DPR);
+      sky.style.width=w+'px'; sky.style.height=h+'px';
+      glow.style.width=w+'px'; glow.style.height=h+'px';
+      sctx.setTransform(DPR,0,0,DPR,0,0); gctx.setTransform(DPR,0,0,DPR,0,0);
+      buildStars(); buildConstellations();
+    }
+    addEventListener('resize', resizeSky, {passive:true});
+
+    function rnd(n=1){ return Math.random()*n }
+    function buildStars(){
+      const {width:w, height:h} = sky;
+      stars = [];
+      // Layers for depth/parallax
+      const layers = [
+        {n: Math.floor((w*h)/9000),  size:[0.6,1.4], spd:.01, tw: .35},
+        {n: Math.floor((w*h)/16000), size:[0.5,1.2], spd:.03, tw: .55},
+        {n: Math.floor((w*h)/26000), size:[0.4,1.0], spd:.07, tw: .75}
+      ];
+      for(const L of layers){
+        for(let i=0;i<L.n;i++){
+          const hue = 200 + rnd(40) - 20, sat = 8 + rnd(20), light = 62 + rnd(30);
+          stars.push({
+            x: rnd(w), y: rnd(h), r: L.size[0]+rnd(L.size[1]-L.size[0]),
+            spd: L.spd, tw: L.tw, t: rnd(Math.PI*2),
+            col:`oklch(${light}% ${sat/100} ${hue})`, z: L.spd*100
+          });
+        }
+      }
+      // Soft Milky Way dust on glow layer
+      gctx.clearRect(0,0,glow.width,glow.height);
+      for(let i=0;i<1600;i++){
+        const a=rnd(Math.PI*2), d=(rnd(1)**1.8)*Math.min(w,h)*0.6;
+        const cx=w*0.58, cy=h*0.48;
+        const x=cx+Math.cos(a)*d, y=cy+Math.sin(a)*d*0.42;
+        gctx.globalAlpha = (1 - d/(Math.min(w,h)*0.6)) * 0.07;
+        gctx.fillStyle = '#cfe3ff';
+        gctx.beginPath(); gctx.arc(x,y,1.2,0,Math.PI*2); gctx.fill();
+      }
+      gctx.globalAlpha=1;
+    }
+    function buildConstellations(){
+      const w = innerWidth, h = innerHeight;
+      function shapeDroplet(){
+        const cx=w*.72, cy=h*.28, r=Math.min(w,h)*.16; const pts=[];
+        for(let i=0;i<18;i++){
+          const a = (i/18)*Math.PI*2, k=(i<9?1:0.85); // hint a droplet
+          pts.push([cx+Math.cos(a)*r*k, cy+Math.sin(a)*r]);
+        }
+        // tail
+        pts.push([cx, cy-r*1.35], [cx, cy-r*1.15], [cx, cy-r*.95]);
+        return pts;
+      }
+      function shapeSpiral(){
+        const cx=w*.30, cy=h*.36, R=Math.min(w,h)*.20; const pts=[];
+        for(let i=0;i<36;i++){
+          const t = i/36*6.0*Math.PI, r = R*(i/36);
+          pts.push([cx+Math.cos(t)*r, cy+Math.sin(t)*r]);
+        }
+        return pts;
+      }
+      function shapeWave(){
+        const pts=[]; const y= h*.72, A=Math.min(w,h)*.05, k= (Math.PI*2)/ (w*.7);
+        for(let x= w*.15; x<= w*.85; x+= (w/28)){ pts.push([x, y + Math.sin((x-w*.15)*k)*A]); }
+        return pts;
+      }
+      const shapes=[shapeDroplet(), shapeSpiral(), shapeWave()];
+      constA = shapes[Math.floor(rnd(shapes.length))];
+      do{ constB = shapes[Math.floor(rnd(shapes.length))]; } while(constB===constA);
+      constT=0; constDir=1;
+    }
+    function lerp(a,b,t){ return a + (b-a)*t }
+    function drawSky(ts){
+      if(!last) last=ts; const dt = Math.min(33, ts-last); last=ts;
+      sctx.clearRect(0,0,sky.width,sky.height);
+
+      // Update stars
+      if(!reduced){
+        for(const s of stars){
+          s.x -= s.spd*dt*(1 + (parallax.x*0.03));
+          if(s.x < -4) s.x = sky.width + rnd(20);
+          s.t += 0.002*dt;
+        }
+        // Shooting star occasionally
+        if(Math.random()<0.003){
+          shooting.push({x: sky.width*rnd(1), y: sky.height*rnd(.35), vx: -6-rnd(4), vy: 2+rnd(1.5), life: 1});
+        }
+        for(const sh of shooting){
+          sh.x += sh.vx; sh.y += sh.vy; sh.life -= 0.01*dt;
+        }
+        shooting = shooting.filter(s=>s.life>0 && s.x>-50 && s.y<sky.height+50);
+      }
+
+      // Draw stars
+      for(const s of stars){
+        const tw = reduced ? 1 : (1 - s.tw + Math.abs(Math.sin(s.t))*s.tw);
+        sctx.globalAlpha = 0.5*tw + 0.5;
+        sctx.fillStyle = s.col;
+        const px = s.x + parallax.x*s.z, py = s.y + parallax.y*s.z;
+        sctx.beginPath(); sctx.arc(px, py, s.r, 0, Math.PI*2); sctx.fill();
+      }
+      sctx.globalAlpha=1;
+
+      // Shooting star trail
+      for(const sh of shooting){
+        const grd = sctx.createLinearGradient(sh.x,sh.y, sh.x-sh.vx*10, sh.y-sh.vy*10);
+        grd.addColorStop(0,'#fff8'); grd.addColorStop(1,'#fff0');
+        sctx.strokeStyle=grd; sctx.lineWidth=2; sctx.beginPath();
+        sctx.moveTo(sh.x, sh.y); sctx.lineTo(sh.x - sh.vx*12, sh.y - sh.vy*12); sctx.stroke();
+      }
+
+      // Morphing constellations
+      if(constA.length && constB.length){
+        constT += (dt/4000)*constDir;
+        if(constT>1){ constT=1; constDir=-1; } else if(constT<0){ constT=0; constDir=1; buildConstellations(); }
+        const L = Math.min(constA.length,constB.length);
+        sctx.strokeStyle = '#bfe0ff'; sctx.lineWidth = 1.4; sctx.beginPath();
+        for(let i=0;i<L;i++){
+          const ax=constA[i][0], ay=constA[i][1], bx=constB[i][0], by=constB[i][1];
+          const x = lerp(ax,bx,constT) + parallax.x*15, y = lerp(ay,by,constT) + parallax.y*15;
+          if(i===0) sctx.moveTo(x,y); else sctx.lineTo(x,y);
+          sctx.fillStyle='#e8f6ff'; sctx.globalAlpha=.85; sctx.beginPath(); sctx.arc(x,y,1.6,0,Math.PI*2); sctx.fill();
+          sctx.globalAlpha=1;
+        }
+        sctx.stroke();
+      }
+
+      requestAnimationFrame(drawSky);
+    }
+    resizeSky(); requestAnimationFrame(drawSky);
+    addEventListener('pointermove', (e)=>{
+      const rx = (e.clientX / innerWidth) - .5;
+      const ry = (e.clientY / innerHeight) - .5;
+      parallax.x = rx * 0.3; parallax.y = ry * 0.2;
+    }, {passive:true});
+
+    /* ========= IndexedDB ========= */
+    const DB_NAME = 'sovereigntyDB';
+    const DB_VER = 2;
+    function idbOpen(){
+      return new Promise((res, rej)=>{
+        const req = indexedDB.open(DB_NAME, DB_VER);
+        req.onupgradeneeded = ()=>{
+          const db = req.result;
+          if(!db.objectStoreNames.contains('settings')) db.createObjectStore('settings', {keyPath:'id'});
+          if(!db.objectStoreNames.contains('progress')) db.createObjectStore('progress', {keyPath:'id'});
+          if(!db.objectStoreNames.contains('habitica')) db.createObjectStore('habitica', {keyPath:'id'});
+          if(!db.objectStoreNames.contains('lab')) db.createObjectStore('lab', {keyPath:'id'});
+          if(!db.objectStoreNames.contains('media')) db.createObjectStore('media', {keyPath:'id'}); // {id, blob, type, createdAt}
+        };
+        req.onsuccess = ()=>res(req.result);
+        req.onerror = ()=>rej(req.error);
+      });
+    }
+    async function idbGet(store, key){
+      const db = await idbOpen(); return new Promise((res, rej)=>{
+        const tx = db.transaction(store,'readonly'); const st = tx.objectStore(store);
+        const rq = st.get(key); rq.onsuccess=()=>res(rq.result||null); rq.onerror=()=>rej(rq.error);
+      });
+    }
+    async function idbSet(store, val){
+      const db = await idbOpen(); return new Promise((res, rej)=>{
+        const tx = db.transaction(store,'readwrite'); const st = tx.objectStore(store);
+        const rq = st.put(val); rq.onsuccess=()=>res(true); rq.onerror=()=>rej(rq.error);
+      });
+    }
+    async function idbDel(store, key){
+      const db = await idbOpen(); return new Promise((res, rej)=>{
+        const tx = db.transaction(store,'readwrite'); const st = tx.objectStore(store);
+        const rq = st.delete(key); rq.onsuccess=()=>res(true); rq.onerror=()=>rej(rq.error);
+      });
+    }
+    async function idbAll(store){
+      const db = await idbOpen(); return new Promise((res, rej)=>{
+        const tx = db.transaction(store,'readonly'); const st = tx.objectStore(store);
+        const rq = st.getAll(); rq.onsuccess=()=>res(rq.result||[]); rq.onerror=()=>rej(rq.error);
+      });
+    }
+    async function idbClear(store){
+      const db = await idbOpen(); return new Promise((res, rej)=>{
+        const tx = db.transaction(store,'readwrite'); const st = tx.objectStore(store);
+        const rq = st.clear(); rq.onsuccess=()=>res(true); rq.onerror=()=>rej(rq.error);
+      });
+    }
+
+    /* ========= Quests & Score ========= */
+    const quests = [
+      { id:'BL-01', title:'Map Your Water Day', domain:'Baseline', difficulty:'Easy', points:25, tags:['baseline','journaling'],
+        description:'Document sources, storage, treatment, and uses for one day.',
+        steps:['List all sources (haul, piped, well, spring, roof).','Sketch storage with capacities & last sanitation date.','Note filters/disinfection.','Record uses: drinking, cooking, animals, plants, washing.'] },
+      { id:'BL-02', title:'Starter Test Kit', domain:'Baseline', difficulty:'Easy', points:40, tags:['testing','quality'],
+        description:'Assemble affordable kit to answer key questions fast.',
+        steps:['Turbidity tube/meter; TDS/EC pen; chlorine & pH strips.','Sterile bottles + cooler for lab metals.','Pick certified lab; store protocols in a zip bag.'] },
+      { id:'HS-01', title:'Safe Storage Upgrade', domain:'Household', difficulty:'Easy', points:35, tags:['storage','sanitation'],
+        description:'Replace non‑food containers; install spigots; schedule sanitation.',
+        steps:['Use food‑grade, light‑blocking vessels.','Add spigot to avoid dipping; label “DRINKING ONLY.”','Disinfect per protocol; log sanitation date.'] },
+      { id:'HS-02', title:'POU Filter Chain', domain:'Household', difficulty:'Medium', points:60, tags:['filtration','cartridge'],
+        description:'Sediment → GAC → RO (metals) + UV/ceramic (microbial).',
+        steps:['Measure turbidity & TDS; confirm metals via lab.','Install prefilters; select RO membrane.','Add UV post‑filter for microbes; verify via tests.'] },
+      { id:'HV-01', title:'Gutter + First‑Flush Ready', domain:'Harvest', difficulty:'Medium', points:70, tags:['rainwater','first-flush'],
+        description:'Install gutters, screens, and diverter sized for dust.',
+        steps:['Survey roof area & surface.','Install gutters (proper slope) + leaf guards.','Add standpipe first‑flush; route to opaque tank.'] },
+      { id:'TR-02', title:'RO for Arsenic/Uranium', domain:'Treatment', difficulty:'Hard', points:120, tags:['RO','arsenic','uranium'],
+        description:'Install RO and verify rejection.',
+        steps:['Confirm contaminants via lab.','Prefilter; plumb RO; manage reject.','Post‑tests and SOP binder.'] },
+      { id:'WS-01', title:'One‑Rock Dam Training', domain:'Watershed', difficulty:'Medium', points:85, tags:['erosion','runoff'],
+        description:'Practice one‑rock on safe demo; observe deposition.', steps:['Key into banks; lock rock; hose test; document.'] },
+      { id:'LAB-01', title:'Upload Your First Discovery', domain:'Lab', difficulty:'Easy', points:35, tags:['lab','images'],
+        description:'Document a local build/sourcing find with photos.', steps:['Add title, category, tags.','List materials & steps.','Upload images; save entry.'] },
+    ];
+    async function computeScore(){
+      const pm = await idbAll('progress');
+      const map = new Map(pm.map(x=>[x.id,x]));
+      let pts=0, complete=0;
+      for(const q of quests){ if(map.get(q.id)?.done){ pts+=q.points; complete++; } }
+      $('#score').textContent = pts;
+      $('#questsCompleted').textContent = complete;
+      $('#badgesCount').textContent = (map.get('BL-01') && map.get('BL-02') ? 1:0) + (map.get('LAB-01')?1:0);
+    }
+
+    /* ========= Render Lab & Quests ========= */
+    function questCard(q, progress){
+      const done = progress?.done === true;
+      const el = document.createElement('article'); el.className='quest';
+      el.innerHTML = `
+        <h4>${q.title}</h4>
+        <div class="meta">
+          <span class="tag">${q.domain}</span><span class="tag">Difficulty: ${q.difficulty}</span>
+          <span class="tag">+${q.points} pts</span>${q.tags.map(t=>`<span class="tag">#${t}</span>`).join('')}
+        </div>
+        <p class="mt8">${q.description}</p>
+        <ol class="steps">${q.steps.map(s=>`<li>${s}</li>`).join('')}</ol>
+        <div class="mt8" style="display:flex; gap:10px; flex-wrap:wrap">
+          <button class="btn small ${done?'':'accent'}" data-action="toggle">${done?'✓ Completed':'Mark Complete'}</button>
+          <button class="btn small ghost" data-action="habitica">Add to Habitica</button>
+        </div>`;
+      el.querySelector('[data-action="toggle"]').addEventListener('click', async ()=>{
+        await idbSet('progress', {id:q.id, done:!done});
+        renderQuests(); computeScore();
+      });
+      el.querySelector('[data-action="habitica"]').addEventListener('click', ()=>habiticaUpsertTask(q));
+      return el;
+    }
+    async function renderQuests(){
+      // Minimal quest list under sections; we mount examples into Household & Harvest
+      const targets = [
+        ['#household', ['HS-01','HS-02']],
+        ['#harvest',   ['HV-01']],
+        ['#baseline',  ['BL-01','BL-02']],
+        ['#treatment', ['TR-02']],
+        ['#watershed', ['WS-01']],
+        ['#lab',       ['LAB-01']]
+      ];
+      const pm = await idbAll('progress');
+      const map = new Map(pm.map(x=>[x.id,x]));
+      for(const [sel, ids] of targets){
+        const host = document.createElement('div'); host.className='mt12';
+        for(const id of ids){
+          const q = quests.find(q=>q.id===id);
+          if(q) host.appendChild(questCard(q, map.get(id)));
+        }
+        const sec = document.querySelector(sel+' .card section');
+        if(sec && !sec.querySelector('.quest')) sec.appendChild(host);
+      }
+    }
+
+    /* ========= Export / Import Progress ========= */
+    $('#exportBtn').addEventListener('click', async ()=>{
+      const data = {
+        exportedAt: new Date().toISOString(),
+        progress: await idbAll('progress'),
+        settings: await idbAll('settings'),
+        habitica: await idbAll('habitica')
+      };
+      const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob); const a = document.createElement('a');
+      a.href=url; a.download='water-sovereignty-progress.json'; a.click();
+      setTimeout(()=>URL.revokeObjectURL(url), 800);
+    });
+    $('#importFile').addEventListener('change', async (e)=>{
+      const f = e.target.files?.[0]; if(!f) return;
+      const json = JSON.parse(await f.text());
+      if(Array.isArray(json.progress)){ await idbClear('progress'); for(const p of json.progress) await idbSet('progress', p); }
+      if(Array.isArray(json.settings)){ await idbClear('settings'); for(const s of json.settings) await idbSet('settings', s); }
+      if(Array.isArray(json.habitica)){ await idbClear('habitica'); for(const h of json.habitica) await idbSet('habitica', h); }
+      alert('Imported.'); computeScore();
+    });
+
+    /* ========= Habitica Integration ========= */
+    const habiticaUserEl = $('#habiticaUser'), habiticaKeyEl = $('#habiticaKey'), syncedEl=$('#synced');
+    async function loadHabiticaKeys(){
+      const cfg = await idbGet('settings','habitica'); if(cfg){ habiticaUserEl.value=cfg.user; habiticaKeyEl.value=cfg.key; syncedEl.textContent='Connected'; }
+    }
+    loadHabiticaKeys();
+    $('#saveHabitica').addEventListener('click', async ()=>{
+      const user=habiticaUserEl.value.trim(), key=habiticaKeyEl.value.trim();
+      if(!user||!key) return alert('Enter both User ID and API Token.');
+      await idbSet('settings',{id:'habitica',user,key});
+      try{
+        const r=await fetch('https://habitica.com/api/v3/user',{headers:{'x-api-user':user,'x-api-key':key}});
+        if(!r.ok) throw new Error('Auth failed');
+        syncedEl.textContent='Connected'; alert('Habitica connection OK.');
+      }catch(e){ syncedEl.textContent='Not connected'; alert('Habitica connection failed.'); }
+    });
+    $('#clearKeys').addEventListener('click', async ()=>{
+      await idbDel('settings','habitica'); habiticaUserEl.value=''; habiticaKeyEl.value=''; syncedEl.textContent='Not connected';
+    });
+    async function habiticaUpsertTask(q){
+      const cfg = await idbGet('settings','habitica'); if(!cfg) return alert('Connect Habitica first.');
+      const existing = await idbGet('habitica', q.id);
+      try{
+        if(existing?.taskId){
+          await fetch(`https://habitica.com/api/v3/tasks/${existing.taskId}`, {
+            method:'PUT', headers:{'Content-Type':'application/json','x-api-user':cfg.user,'x-api-key':cfg.key},
+            body: JSON.stringify({notes: q.description + '\n\nSteps:\n- ' + q.steps.join('\n- ')})
+          });
+          alert('Updated Habitica task.');
+          return;
+        }
+        const resp = await fetch('https://habitica.com/api/v3/tasks/user', {
+          method:'POST', headers:{'Content-Type':'application/json','x-api-user':cfg.user,'x-api-key':cfg.key},
+          body: JSON.stringify({
+            text:`Water Sovereignty: ${q.title}`, type:'todo',
+            priority: q.difficulty==='Hard'?2:q.difficulty==='Medium'?1.5:1,
+            notes: q.description + '\n\nSteps:\n- ' + q.steps.join('\n- '), tags: q.tags
+          })
+        });
+        if(!resp.ok) throw new Error('Create failed');
+        const data = await resp.json(); const taskId = data?.data?._id;
+        if(taskId){ await idbSet('habitica',{id:q.id,taskId}); alert('Added to Habitica.'); }
+      }catch(e){ console.error(e); alert('Habitica API error (CORS/credentials).'); }
+    }
+    $('#syncHabitica').addEventListener('click', async ()=>{ for(const q of quests){ await habiticaUpsertTask(q); } alert('Sync attempted for quests.'); });
+
+    /* ========= Innovation Lab (Images + Entries) ========= */
+    const dz = $('#dropzone'), labGrid = $('#labGrid');
+    let dzCounter=0;
+    ['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev, e=>{ e.preventDefault(); dzCounter++; dz.classList.add('drag'); }));
+    ;['dragleave','drop'].forEach(ev=>dz.addEventListener(ev, e=>{ e.preventDefault(); dzCounter=Math.max(0,dzCounter-1); if(dzCounter===0) dz.classList.remove('drag'); }));
+    dz.addEventListener('drop', e=>{
+      const files = [...e.dataTransfer.files].filter(f=>/^image\//.test(f.type));
+      $('#labImages').files = new DataTransfer(); // reset
+      const dt = new DataTransfer(); files.forEach(f=>dt.items.add(f)); $('#labImages').files=dt.files;
+    });
+
+    async function storeImage(file){
+      const id = 'img_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+      await idbSet('media',{id, blob:file, type:file.type, createdAt:Date.now()});
+      return id;
+    }
+    async function getImageURL(id){
+      const rec = await idbGet('media', id); if(!rec) return null;
+      return URL.createObjectURL(rec.blob);
+    }
+    function parseLines(txt){ return txt.split('\n').map(s=>s.trim()).filter(Boolean); }
+
+    $('#saveDiscovery').addEventListener('click', async ()=>{
+      const title = $('#labTitle').value.trim(); if(!title) return alert('Add a title.');
+      const category = $('#labCategory').value; const tags = $('#labTags').value.split(',').map(s=>s.trim()).filter(Boolean);
+      const materials = parseLines($('#labMaterials').value); const steps = parseLines($('#labSteps').value);
+      const files = Array.from($('#labImages').files||[]);
+      const imageIds = [];
+      for(const f of files){ imageIds.push(await storeImage(f)); }
+      const id = 'lab_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+      await idbSet('lab', {id,title,category,tags,materials,steps,imageIds,createdAt:Date.now()});
+      await idbSet('progress', {id:'LAB-01', done:true});
+      $('#labTitle').value=''; $('#labTags').value=''; $('#labMaterials').value=''; $('#labSteps').value=''; $('#labImages').value='';
+      renderLab(); computeScore(); alert('Discovery saved locally.');
+    });
+
+    async function renderLab(){
+      const list = await idbAll('lab'); list.sort((a,b)=>b.createdAt-a.createdAt);
+      labGrid.innerHTML = '';
+      for(const item of list){
+        const card = document.createElement('div'); card.className='lab-card';
+        let thumb = '';
+        if(item.imageIds?.length){ const url = await getImageURL(item.imageIds[0]); thumb = `<img src="${url}" alt="">`; }
+        card.innerHTML = `
+          ${thumb || '<div style="height:180px; display:grid; place-items:center" class="muted">No image</div>'}
+          <div class="body">
+            <h4>${item.title}</h4>
+            <div class="muted" style="font-size:13px">${item.category}${item.tags?.length? ' — '+item.tags.map(t=>'#'+t).join(' '):''}</div>
+            <div class="mt8" style="display:flex; gap:8px; flex-wrap:wrap">
+              <button class="btn small" data-action="view">View</button>
+              <button class="btn small ghost" data-action="export">Export</button>
+              <button class="btn small danger" data-action="delete">Delete</button>
+            </div>
+          </div>`;
+        card.querySelector('[data-action="view"]').addEventListener('click', ()=>openLabItem(item));
+        card.querySelector('[data-action="export"]').addEventListener('click', ()=>exportSingle(item));
+        card.querySelector('[data-action="delete"]').addEventListener('click', async ()=>{
+          if(confirm('Delete this discovery?')){ await idbDel('lab', item.id); renderLab(); }
+        });
+        labGrid.appendChild(card);
+      }
+    }
+    async function exportSingle(item){
+      // Embed images as base64 for portability
+      const media = [];
+      for(const id of (item.imageIds||[])){
+        const rec = await idbGet('media', id);
+        if(rec){
+          const buf = await rec.blob.arrayBuffer();
+          const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+          media.push({id, type: rec.type, base64: b64});
+        }
+      }
+      const pack = {type:'water-lab-entry', version:1, item, media};
+      const blob = new Blob([JSON.stringify(pack,null,2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob); const a = document.createElement('a');
+      a.href=url; a.download=(item.title.toLowerCase().replace(/[^a-z0-9]+/g,'-')||'discovery')+'.json'; a.click();
+      setTimeout(()=>URL.revokeObjectURL(url), 800);
+    }
+    $('#exportLab').addEventListener('click', async ()=>{
+      const items = await idbAll('lab'); const media = [];
+      for(const it of items){ for(const id of (it.imageIds||[])){
+        const rec = await idbGet('media', id); if(!rec) continue;
+        const buf = await rec.blob.arrayBuffer(); const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+        media.push({id, type: rec.type, base64:b64});
+      }}
+      const pack = {type:'water-lab-collection', version:1, items, media, exportedAt:new Date().toISOString()};
+      const blob = new Blob([JSON.stringify(pack,null,2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob); const a = document.createElement('a');
+      a.href=url; a.download='water-lab-collection.json'; a.click();
+      setTimeout(()=>URL.revokeObjectURL(url), 800);
+    });
+    $('#importLab').addEventListener('change', async (e)=>{
+      const f = e.target.files?.[0]; if(!f) return;
+      const pack = JSON.parse(await f.text());
+      if(pack.type==='water-lab-entry'){ // single
+        for(const m of (pack.media||[])){
+          const bin = Uint8Array.from(atob(m.base64), c=>c.charCodeAt(0));
+          await idbSet('media',{id:m.id, blob:new Blob([bin], {type:m.type}), type:m.type, createdAt:Date.now()});
+        }
+        await idbSet('lab', pack.item);
+      }else if(pack.type==='water-lab-collection'){
+        for(const m of (pack.media||[])){
+          const bin = Uint8Array.from(atob(m.base64), c=>c.charCodeAt(0));
+          await idbSet('media',{id:m.id, blob:new Blob([bin], {type:m.type}), type:m.type, createdAt:Date.now()});
+        }
+        for(const it of (pack.items||[])) await idbSet('lab', it);
+      }
+      alert('Lab import complete.'); renderLab();
+    });
+
+    // Lightbox for viewing images in an item
+    const lightbox = document.createElement('div'); lightbox.className='lightbox'; lightbox.innerHTML='<img alt=""><div class="sr-only" aria-live="polite"></div>';
+    document.body.appendChild(lightbox); lightbox.addEventListener('click', ()=>lightbox.classList.remove('open'));
+    async function openLabItem(item){
+      // Build a simple viewer overlay
+      const viewer = document.createElement('div');
+      viewer.className='card'; viewer.style.cssText='position:fixed; inset:auto 0 0 0; max-width:820px; margin:10vh auto; z-index:210; border:1px solid #223356';
+      viewer.innerHTML = `
+        <header><h3>${item.title}</h3><button class="btn small ghost" data-x>✕</button></header>
+        <section style="max-height:62vh; overflow:auto">
+          <div class="muted">Category: ${item.category} ${item.tags?.length? '— '+item.tags.map(t=>'#'+t).join(' '):''}</div>
+          ${item.imageIds?.length? '<div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px" id="imgs"></div>':''}
+          <h4 class="mt12">Materials</h4><ul>${(item.materials||[]).map(m=>`<li>${m}</li>`).join('')}</ul>
+          <h4 class="mt12">Steps</h4><ol>${(item.steps||[]).map(s=>`<li>${s}</li>`).join('')}</ol>
+        </section>`;
+      document.body.appendChild(viewer);
+      $('[data-x]', viewer).onclick = ()=>viewer.remove();
+      const imgHost = $('#imgs', viewer);
+      if(imgHost){
+        for(const id of item.imageIds){
+          const url = await getImageURL(id);
+          const img = new Image(); img.src = url; img.alt=''; img.style.cssText='height:140px; border-radius:10px; border:1px solid #223356; cursor:pointer';
+          img.addEventListener('click', ()=>{ $('img', lightbox).src = url; lightbox.classList.add('open'); });
+          imgHost.appendChild(img);
+        }
+      }
+    }
+
+    /* ========= Calculators ========= */
+    function gallonsFromInchesOnRoof(areaSqFt, inches){ return areaSqFt * (inches/12) * 7.48052; }
+    function updateFF(){ const v = gallonsFromInchesOnRoof(+$('#ffArea').value||0, +$('#ffDust').value||0); $('#ffVol').textContent = v.toFixed(1); }
+    function updateCl(){ // mg/L = ppm ; Dose (mL) ≈ (target mg/L * L) / (bleach mg/mL). 6% bleach ~ 60,000 mg/L = 60 mg/mL
+      const gal = +$('#clVol').value||0, L = gal*3.78541, target = +$('#clTarget').value||0, pct = +$('#clPct').value||6;
+      const mgPerMl = (pct/100)*1000000/1000; const mL = (target*L)/mgPerMl; $('#clDose').textContent = mL.toFixed(1);
+    }
+    function updateSD(){ const days = (+$('#sdGal').value||0) / ((+$('#sdPeople').value||1) * (+$('#sdGppd').value||1)); $('#sdDays').textContent = days.toFixed(1); }
+    function updateRO(){ const fin=+$('#roIn').value||0, fout=+$('#roOut').value||0; const rej = fin? (1 - (fout/fin))*100 : 0; $('#roPct').textContent = rej.toFixed(1); }
+    ['ffArea','ffDust'].forEach(id=>$('#'+id).addEventListener('input', updateFF));
+    ['clVol','clTarget','clPct'].forEach(id=>$('#'+id).addEventListener('input', updateCl));
+    ['sdGal','sdPeople','sdGppd'].forEach(id=>$('#'+id).addEventListener('input', updateSD));
+    ['roIn','roOut'].forEach(id=>$('#'+id).addEventListener('input', updateRO));
+    updateFF(); updateCl(); updateSD(); updateRO();
+
+    /* ========= WebLLM Coach ========= */
+    let engine = null;
+    const coachLog = $('#coachLog'), coachInput = $('#coachInput'), askBtn=$('#askCoach'), modelSelect=$('#modelSelect'), coachModel=$('#coachModel'), llmStatus=$('#llmStatus');
+    function addMsg(role, text){ const d=document.createElement('div'); d.style.margin='8px 0'; d.innerHTML=`<div class="tag">${role}</div><div style="white-space:pre-wrap; margin-top:6px">${text}</div>`; coachLog.appendChild(d); coachLog.scrollTop = coachLog.scrollHeight; }
+    $('#initLLM').addEventListener('click', async ()=>{
+      llmStatus.textContent='Loading…'; coachModel.textContent='Model: loading…';
+      try{
+        const { CreateMLCEngine } = await import('https://esm.run/@mlc-ai/web-llm');
+        engine = await CreateMLCEngine(modelSelect.value, { initProgressCallback: (info)=>{ llmStatus.textContent = `${info.text} ${Math.round((info.progress||0)*100)}%`; }});
+        coachModel.textContent=`Model: ${modelSelect.value}`; llmStatus.textContent='Ready';
+        addMsg('coach','WebLLM ready. Ask about RO sizing, chlorine dosing, rain catchment, or erosion control patterns. Data stays in this browser.');
+      }catch(e){ console.error(e); llmStatus.textContent='Unavailable'; addMsg('coach','WebLLM could not load (blocked or offline). You can still use the guide.'); }
+    });
+    askBtn.addEventListener('click', async ()=>{
+      const q = coachInput.value.trim(); if(!q) return; coachInput.value=''; addMsg('you', q);
+      const sys = `You are Water Coach for Diné water sovereignty. Answer with stepwise actions, safety cautions, and formulas. Avoid legal advice. If uncertain, say what to verify.`;
+      if(!engine){ addMsg('coach','Model not loaded. Click “Load Model”.'); return; }
+      try{
+        const chunks = await engine.chat.completions.create({ messages:[{role:'system',content:sys},{role:'user',content:q}], stream:true });
+        let reply=''; for await (const part of chunks){ reply += part.choices?.[0]?.delta?.content ?? ''; } addMsg('coach', reply.trim());
+      }catch(e){ console.error(e); addMsg('coach','Trouble generating response. Try reloading the model.'); }
+    });
+
+    /* ========= PWA Install (inline SW via Blob) ========= */
+    $('#installPWA').addEventListener('click', async ()=>{
+      const swCode = `
+        self.addEventListener('install',e=>{ e.waitUntil(caches.open('water-v1').then(c=>c.addAll(['./']))); self.skipWaiting(); });
+        self.addEventListener('activate',e=>{ e.waitUntil(self.clients.claim()); });
+        self.addEventListener('fetch',e=>{ e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>caches.match('./')))); });
+      `;
+      const blob = new Blob([swCode], {type:'text/javascript'}); const url = URL.createObjectURL(blob);
+      try{
+        const reg = await navigator.serviceWorker.register(url, {scope:'./'}); alert('Installed for offline use.');
+        setTimeout(()=>URL.revokeObjectURL(url), 1200);
+      }catch(e){ console.error(e); alert('Service worker failed to register.'); }
+    });
+
+    /* ========= Init ========= */
+    renderQuests(); computeScore(); renderLab();
+    document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='visible') computeScore(); });
+
+  </script>
+<noscript>
+    <div style="position:fixed; inset:0; display:grid; place-items:center; background:#0a1326; color:#e7f2ff; z-index:9999">
+      <div style="max-width:700px; padding:22px; border:1px solid #21314e; border-radius:12px; background:#0c1532">
+        <h2>JavaScript required</h2>
+        <p>This guide uses offline storage (IndexedDB), image uploads, calculators, constellation rendering, and a local coach. Enable JavaScript to use it.</p>
+      </div>
+    </div>
+  </noscript>
+</body>
+</html>

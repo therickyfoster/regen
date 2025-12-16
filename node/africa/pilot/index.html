@@ -1,0 +1,2571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mycelial Restoration Atlas — Africa (Enterprise)</title>
+<link rel="icon" href="assets/img/favicon.ico">
+<style>
+  /* === Basic Reset & Layout === */
+  html, body { margin:0; padding:0; font-family:Arial,sans-serif; scroll-behavior:smooth; background:#000; color:#eee; }
+  section { padding:60px 30px; min-height:100vh; border-bottom:1px solid rgba(255,255,255,0.05); }
+  h1,h2,h3 { color:#FFD700; margin-bottom:0.5em; }
+  p { line-height:1.6; }
+  nav { position:fixed; top:0; left:0; width:100%; background:rgba(0,0,0,0.8); z-index:1000; padding:0.5em 1em; display:flex; gap:1em; overflow-x:auto; }
+  nav a { color:#fff; text-decoration:none; white-space:nowrap; font-weight:600; }
+  nav a:hover { color:#32CD32; }
+  canvas#starfield { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; display:block; }
+  .content-placeholder { margin-top:1em; color:#ddd; font-size:0.95em; }
+  #tooltip, #wizardClue { position:absolute; pointer-events:none; background:rgba(0,0,0,0.85); color:#fff; padding:0.5em 1em; border-radius:6px; font-size:0.9em; display:none; max-width:320px; z-index:2000; }
+  @media(max-width:768px){ section{padding:40px 20px;} nav{font-size:0.85em;} }
+</style>
+</head>
+<body>
+
+<!-- === Starfield & Wizard Background === -->
+<canvas id="starfield"></canvas>
+<div id="tooltip"></div>
+<div id="wizardClue"></div>
+
+<!-- === Navigation === -->
+<nav>
+  <a href="#executive-summary">Executive Summary</a>
+  <a href="#region-maps">Region Maps</a>
+  <a href="#fungal-strategies">Fungal Strategies</a>
+  <a href="#research-framework">Research Framework</a>
+  <a href="#monitoring-metrics">Monitoring Metrics</a>
+  <a href="#ethics-governance">Ethics & Governance</a>
+  <a href="#community-engagement">Community Engagement</a>
+  <a href="#pilot-roadmap">Pilot Roadmap</a>
+  <a href="#wizard-riddles">Wizard Riddles</a>
+</nav>
+
+<!-- === Sections === -->
+<section id="executive-summary" data-id="section-exec">
+  <h1>Executive Summary</h1>
+  <div class="content-placeholder">
+    <p>The Mycelial Restoration Atlas aims to provide a pan-African, research-first framework for soil and ecosystem restoration. It targets seven climate regions (R1–R7) with research pipelines that prioritize semi-arid transition zones like the Sahel and degraded savannah. The project outcome is a staged, ethical, and monitored plan for desktop research, lab trials, contained field pilots, and eventual scaling, focusing on ecological signals, social outcomes, and governance.</p>
+    <p>Next-gen integration allows AI-assisted section population, cross-pollination of insights, and community-accessible dashboards.</p>
+  </div>
+</section>
+
+<section id="region-maps" data-id="section-maps">
+  <h1>Region Maps</h1>
+  <div class="content-placeholder">
+    <p>Regions R1–R7 color-coded for Africa: R1 (Hot Desert #FF4500), R2 (Sahel #FFD700), R3 (Savannah #32CD32), R4 (Rainforest #006400), R5 (Mediterranean #1E90FF), R6 (Highlands #8A2BE2), R7 (Humid Subtropical #00CED1). Maps include degraded land, dust emission zones, and community hotspots.</p>
+    <p>Interactive map overlays allow users to explore region-specific research strategies, candidate fungal groups, and monitoring metrics dynamically.</p>
+  </div>
+</section>
+
+<section id="fungal-strategies" data-id="section-fungal">
+  <h1>Fungal Strategies</h1>
+  <div class="content-placeholder">
+    <p>Candidate fungal groups are selected by region:</p>
+    <ul>
+      <li><strong>R1 Hot Desert:</strong> Melanized fungi, endolithic genera for rock-weathering and crust formation research.</li>
+      <li><strong>R2 Semiarid/Sahel:</strong> Arbuscular mycorrhizal fungi (AMF, Glomus spp.) and soil saprotrophs to enhance drought resilience of grasses.</li>
+      <li><strong>R3 Savannah:</strong> AMF and ectomycorrhizal tree partners to improve tree seedling survival and vegetation establishment.</li>
+      <li><strong>R4 Rainforest:</strong> Ectomycorrhizal fungi, endophytes, decomposers to optimize nutrient capture and pathogen resistance.</li>
+      <li><strong>R5 Mediterranean:</strong> Drought-tolerant mycorrhizae and pyrophilous fungi for fire-adapted systems.</li>
+      <li><strong>R6 Highlands:</strong> Altitude-adapted mycorrhizae and moss-fungal crusts for soil stabilization.</li>
+      <li><strong>R7 Humid Subtropical:</strong> Diverse mycorrhizae, mangrove-associated fungi to reduce runoff and stabilize soils.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="research-framework" data-id="section-framework">
+  <h1>Research Framework</h1>
+  <div class="content-placeholder">
+    <p>The research follows a staged approach:</p>
+    <ol>
+      <li>Desktop scoping — literature, herbaria, and municipal consultation.</li>
+      <li>Partnership sourcing — universities, NARIs, NGOs, and indigenous knowledge holders.</li>
+      <li>Non-invasive baseline monitoring — soil carbon, seedbanks, vegetation, dust flux.</li>
+      <li>Controlled lab trials — compatibility and resilience studies under biosafety protocols.</li>
+      <li>Contained field trials — microplots with community consent and regulatory oversight.</li>
+      <li>Adaptive scaling — decisions to scale based on ecological, social, and legal thresholds.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="monitoring-metrics" data-id="section-metrics">
+  <h1>Monitoring & Metrics</h1>
+  <div class="content-placeholder">
+    <p>Monitoring spans ecological, microclimate, and social indicators:</p>
+    <ul>
+      <li>Soil organic carbon, bulk density, moisture retention.</li>
+      <li>Vegetation cover, seedling survival.</li>
+      <li>Dust emission proxies.</li>
+      <li>Plant/insect/avian biodiversity indices.</li>
+      <li>Microclimate — temperature variance, moisture pulse frequency.</li>
+      <li>Community engagement metrics — labor hours, perceived benefits, conflict logging.</li>
+      <li>Safety indicators — any evidence of unintended spread (partner lab only).</li>
+    </ul>
+  </div>
+</section>
+
+<section id="ethics-governance" data-id="section-ethics">
+  <h1>Ethics & Governance</h1>
+  <div class="content-placeholder">
+    <ul>
+      <li>Confirm environmental authority permissions and local consent.</li>
+      <li>Environmental impact assessment and rapid appraisal.</li>
+      <li>Independent review by mycology/ecology experts.</li>
+      <li>Benefit-sharing and local capacity building.</li>
+      <li>Stop/go decision criteria for halting trials.</li>
+      <li>Transparent documentation with obfuscated strain IDs for safety.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="community-engagement" data-id="section-community">
+  <h1>Community Engagement</h1>
+  <div class="content-placeholder">
+    <p>Co-ownership models are essential. Training pathways for youth and women’s groups, plain-language dashboards, and community briefings are provided. Feedback loops are integrated into the monitoring framework to ensure equitable benefit sharing.</p>
+  </div>
+</section>
+
+<section id="pilot-roadmap" data-id="section-pilot">
+  <h1>Pilot Roadmap</h1>
+  <div class="content-placeholder">
+    <ol>
+      <li>Phase 0 — Governance & consent: stakeholder mapping, legal checklists.</li>
+      <li>Phase 1 — Desktop & baseline: hotspot mapping, fungal records.</li>
+      <li>Phase 2 — Partnered lab research: controlled compatibility trials.</li>
+      <li>Phase 3 — Contained field trials: microplots with monitoring.</li>
+      <li>Phase 4 — Social & economic evaluation.</li>
+      <li>Phase 5 — Decision & scale: only if thresholds met.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="wizard-riddles" data-id="section-wizard">
+  <h1>Wizard Riddles</h1>
+  <div class="content-placeholder">
+    <p>Hidden interactive clues appear in the starfield. Clicking the wizard stores clues in IndexedDB for future reference and cross-pollination. Clues encode insights on the future of technology and ecosystem strategy in riddled form.</p>
+  </div>
+</section>
+
+<script>
+// === IndexedDB Setup ===
+const DB_NAME="MRA_IndexDB";
+const DB_VERSION=1;
+let db;
+const request=indexedDB.open(DB_NAME,DB_VERSION);
+request.onupgradeneeded=event=>{
+  db=event.target.result;
+  if(!db.objectStoreNames.contains('sections')){
+    const store=db.createObjectStore('sections',{keyPath:'id'});
+    store.createIndex('region','region',{unique:false});
+  }
+  if(!db.objectStoreNames.contains('wizardClues')){
+    db.createObjectStore('wizardClues',{keyPath:'id'});
+  }
+};
+request.onsuccess=event=>{
+  db=event.target.result;
+  loadAllSections();
+};
+
+// Load all sections dynamically
+function loadAllSections(){
+  const tx=db.transaction(['sections'],'readonly');
+  const store=tx.objectStore('sections');
+  store.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      const secEl=document.querySelector(`[data-id="${cursor.value.id}"] .content-placeholder`);
+      if(secEl) secEl.innerHTML=cursor.value.content;
+      cursor.continue();
+    }
+  };
+}
+
+// Save/update sections
+function saveSection(id, region, content){
+  const tx=db.transaction(['sections'],'readwrite');
+  const store=tx.objectStore('sections');
+  store.put({id:id,region:region,content:content});
+}
+
+// === Starfield & Wizard ===
+const canvas=document.getElementById('starfield');
+const ctx=canvas.getContext('2d');
+let w=canvas.width=window.innerWidth,h=canvas.height=window.innerHeight;
+let mouseX=w/2,mouseY=h/2;
+window.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;});
+window.addEventListener('touchmove',e=>{mouseX=e.touches[0].clientX;mouseY=e.touches[0].clientY;});
+
+const regions=[
+  {name:'R1 — Hot Desert',color:'#FF4500',info:'Melanized fungi, rock habitats.'},
+  {name:'R2 — Semiarid / Sahel',color:'#FFD700',info:'AMF, drought resilience in grasses.'},
+  {name:'R3 — Savannah',color:'#32CD32',info:'AMF, ectomycorrhizal trees.'},
+  {name:'R4 — Rainforest',color:'#006400',info:'Nutrient capture, pathogen reduction.'},
+  {name:'R5 — Mediterranean',color:'#1E90FF',info:'Summer drought resilience.'},
+  {name:'R6 — Highlands',color:'#8A2BE2',info:'Altitude-adapted mycorrhizae.'},
+  {name:'R7 — Humid Subtropical',color:'#00CED1',info:'Mangrove fungi, runoff control.'}
+];
+
+const spores=[];
+for(let i=0;i<200;i++){
+  const r=regions[Math.floor(Math.random()*regions.length)];
+  spores.push({x:Math.random()*w,y:Math.random()*h,z:Math.random()*<section id="cross-pollination" data-id="section-crosspoll">
+  <h1>Cross-Pollination & Solution Strategem</h1>
+  <div class="content-placeholder">
+    <p>This section captures the philosophy and mechanisms of cross-pollination of insights between regions and domains, enabling a dynamic, data-driven, and AI-assisted approach to ecosystem restoration in Africa.</p>
+
+    <h2>Purpose</h2>
+    <p>By tracking lessons learned, candidate fungal strategies, and observed microclimate responses across all regions (R1–R7), we create a feedback system that allows strategies in one region to inform others. This avoids siloed interventions and accelerates knowledge diffusion while maintaining zero-harm protocols.</p>
+
+    <h2>IndexedDB Integration</h2>
+    <p>Each region’s section content, metrics, and observations are stored in <code>IndexedDB</code>. AI agents and community dashboards can retrieve, analyze, and suggest strategies dynamically.</p>
+    <ul>
+      <li><strong>Store name:</strong> <code>sections</code></li>
+      <li><strong>Indexed fields:</strong> <code>id</code> (section ID), <code>region</code> (R1–R7), <code>content</code> (HTML long-form text)</li>
+      <li><strong>Wizard clues:</strong> <code>wizardClues</code> store holds riddled insights that can suggest cross-region interventions</li>
+    </ul>
+
+    <h2>Dynamic Cross-Pollination</h2>
+    <p>The system will:</p>
+    <ol>
+      <li>Monitor updates to any section or region metrics.</li>
+      <li>Compare patterns across R1–R7 for ecological signals (soil moisture, vegetation recovery, dust flux).</li>
+      <li>Generate flagged suggestions or “riddled hints” that indicate where strategies might be adapted or shared safely between regions.</li>
+      <li>Log these insights in the <code>wizardClues</code> store for community review or AI-assisted implementation proposals.</li>
+    </ol>
+
+    <h2>Interactive Agent Hooks</h2>
+    <p>Next-gen agents or human stewards can trigger:</p>
+    <ul>
+      <li>Fetch all sections: <code>loadAllSections()</code></li>
+      <li>Fetch wizard clues: <code>fetchWizardClues(callback)</code></li>
+      <li>Save insights: <code>saveSection(id, region, content)</code></li>
+      <li>Trigger cross-pollination analysis: <code>analyzeCrossPollination()</code> (placeholder for AI or rule-based engine)</li>
+    </ul>
+
+    <h2>Placeholder: Cross-Pollination Algorithm</h2>
+    <p>This is an abstracted, safe version for public and enterprise deployment:</p>
+    <pre>
+function analyzeCrossPollination(){
+  const tx=db.transaction(['sections'],'readonly');
+  const store=tx.objectStore('sections');
+  const insights=[];
+  store.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      // Extract keywords, signals, and candidate fungal strategies
+      const regionData = cursor.value;
+      // Example heuristic: flag similar challenges in different regions
+      if(regionData.content.includes("drought") && regionData.region !== "R2"){
+        insights.push({
+          region:regionData.region,
+          hint:"Drought mitigation strategies from R2 may apply here",
+          timestamp:new Date().toISOString()
+        });
+      }
+      cursor.continue();
+    } else {
+      // Store insights as wizard clues
+      const tx2=db.transaction(['wizardClues'],'readwrite');
+      const store2=tx2.objectStore('wizardClues');
+      insights.forEach((i,index)=>{
+        const id='cross-'+Date.now()+'-'+index;
+        store2.put({id:id,text:i.hint,region:i.region,timestamp:i.timestamp});
+      });
+      console.log("Cross-pollination analysis complete", insights);
+    }
+  };
+}
+    </pre>
+
+    <h2>Use Cases</h2>
+    <ul>
+      <li>Detect emergent ecological patterns across multiple regions.</li>
+      <li>Suggest modifications to fungal-assisted interventions safely.</li>
+      <li>Provide an audit trail for regulators and community stewards.</li>
+      <li>Enable future AI-assisted optimization without deploying actual fungi or altering ecosystems.</li>
+    </ul>
+
+    <p>Next, the wizard animation and clues can reference these cross-pollination insights, allowing users to explore “future solutions” in a gamified, educational way while remaining fully zero-harm.</p>
+  </div>
+</section>
+<section id="dashboard" data-id="section-dashboard">
+  <h1>Dashboard & Interactive Analytics</h1>
+  <div class="content-placeholder">
+    <p>This dashboard visualizes all sections, region metrics, and wizard clues, enabling dynamic exploration and AI-assisted cross-pollination insights.</p>
+
+    <h2>Features</h2>
+    <ul>
+      <li>Interactive region selector (R1–R7) to view ecological indicators, candidate fungal groups, and social metrics.</li>
+      <li>Sortable tables for metrics: soil organic carbon, vegetation cover, dust flux, and microclimate readings.</li>
+      <li>Wizard clues panel: display hidden hints, riddles, and AI-generated suggestions.</li>
+      <li>Cross-pollination alerts: show flagged insights across regions dynamically.</li>
+      <li>Offline support and IndexedDB caching for all section content and clues.</li>
+    </ul>
+
+    <h2>Region Selector</h2>
+    <select id="regionSelector">
+      <option value="">-- Select Region --</option>
+      <option value="R1">R1 — Hot Desert</option>
+      <option value="R2">R2 — Semiarid / Sahel</option>
+      <option value="R3">R3 — Savannah</option>
+      <option value="R4">R4 — Rainforest</option>
+      <option value="R5">R5 — Mediterranean</option>
+      <option value="R6">R6 — Highlands</option>
+      <option value="R7">R7 — Humid Subtropical</option>
+    </select>
+
+    <div id="regionMetrics" style="margin-top:20px;"></div>
+
+    <h2>Wizard Clues Panel</h2>
+    <div id="wizardCluesPanel" style="background:#111;padding:1em;border-radius:8px;max-height:200px;overflow-y:auto;"></div>
+
+    <h2>Cross-Pollination Alerts</h2>
+    <div id="crossAlertsPanel" style="background:#222;padding:1em;border-radius:8px;max-height:200px;overflow-y:auto;"></div>
+  </div>
+</section>
+
+<script>
+// === Dashboard Logic ===
+
+// Fetch and display metrics for selected region
+const regionSelector=document.getElementById('regionSelector');
+const regionMetrics=document.getElementById('regionMetrics');
+const wizardCluesPanel=document.getElementById('wizardCluesPanel');
+const crossAlertsPanel=document.getElementById('crossAlertsPanel');
+
+regionSelector.addEventListener('change',()=>{
+  const region=regionSelector.value;
+  if(!region) return regionMetrics.innerHTML='';
+
+  const tx=db.transaction(['sections'],'readonly');
+  const store=tx.objectStore('sections');
+  const regionContent=[];
+  store.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      if(cursor.value.region===region) regionContent.push(cursor.value.content);
+      cursor.continue();
+    } else {
+      // Display as HTML blocks
+      regionMetrics.innerHTML=regionContent.map(c=>`<div style="margin-bottom:1em;">${c}</div>`).join('');
+    }
+  };
+});
+
+// Load wizard clues dynamically
+function loadWizardClues(){
+  wizardCluesPanel.innerHTML='Loading clues...';
+  const tx=db.transaction(['wizardClues'],'readonly');
+  const store=tx.objectStore('wizardClues');
+  const clues=[];
+  store.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      clues.push(cursor.value);
+      cursor.continue();
+    } else {
+      wizardCluesPanel.innerHTML=clues.length ? clues.map(c=>`<div>🔮 <strong>${c.region}:</strong> ${c.text}</div>`).join('') : 'No clues stored yet.';
+    }
+  };
+}
+
+// Load cross-pollination alerts (derived from wizard clues with "cross-" id)
+function loadCrossAlerts(){
+  crossAlertsPanel.innerHTML='Loading alerts...';
+  const tx=db.transaction(['wizardClues'],'readonly');
+  const store=tx.objectStore('wizardClues');
+  const alerts=[];
+  store.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      if(cursor.value.id.startsWith('cross-')) alerts.push(cursor.value);
+      cursor.continue();
+    } else {
+      crossAlertsPanel.innerHTML=alerts.length ? alerts.map(a=>`<div>⚡ <strong>${a.region}:</strong> ${a.text}</div>`).join('') : 'No cross-pollination alerts yet.';
+    }
+  };
+}
+
+// Initial load
+setTimeout(()=>{
+  loadWizardClues();
+  loadCrossAlerts();
+}, 1000);
+
+// Periodically refresh wizard clues and cross-pollination alerts
+setInterval(()=>{
+  loadWizardClues();
+  loadCrossAlerts();
+}, 60000);
+</script>
+<section id="export-offline" data-id="section-export">
+  <h1>Export, Offline & Mnemonic Fallback</h1>
+  <div class="content-placeholder">
+    <p>This section ensures that the Mycelial Restoration Atlas remains fully functional offline, provides export options for sharing, and uses mnemonic encoding to preserve critical knowledge in human-readable or AI-parsable form.</p>
+
+    <h2>Offline Capability</h2>
+    <ul>
+      <li>All section content, metrics, and wizard clues are stored in <code>IndexedDB</code>.</li>
+      <li>Service worker ensures caching of HTML, JS, CSS, and SVG assets for offline use.</li>
+      <li>Periodic background sync ensures any newly added observations or wizard clues are persisted locally.</li>
+    </ul>
+
+    <h2>Export Options</h2>
+    <ul>
+      <li>Export all section content as JSON or HTML snapshot for review or archival.</li>
+      <li>Printable one-page briefs per region for community or stakeholder engagement.</li>
+      <li>Full archive ZIP option: contains index.html, SVGs, and IndexedDB dump.</li>
+    </ul>
+
+    <h2>Mnemonic Fallback</h2>
+    <p>All critical content (sections, wizard clues, alerts) is encoded using a human-readable mnemonic system to ensure knowledge preservation even if primary storage is corrupted:</p>
+    <ul>
+      <li>Each section content is tokenized and converted into a mnemonic phrase using a secure, reversible mapping.</li>
+      <li>Wizard clues are similarly encoded for offline retrieval and AI-assisted cross-pollination.</li>
+      <li>Mnemonic keys are stored alongside IndexedDB entries for recovery or decentralized sharing.</li>
+    </ul>
+
+    <h2>Interactive Export Panel</h2>
+    <button onclick="exportAtlasJSON()">Export JSON</button>
+    <button onclick="exportAtlasHTML()">Export HTML Snapshot</button>
+    <button onclick="exportAtlasMnemonic()">Export Mnemonic Fallback</button>
+
+    <pre id="exportOutput" style="background:#111;color:#0f0;padding:1em;border-radius:6px;max-height:300px;overflow-y:auto;"></pre>
+  </div>
+</section>
+
+<script>
+// === Export Functions ===
+function exportAtlasJSON(){
+  const tx=db.transaction(['sections','wizardClues'],'readonly');
+  const sectionsStore=tx.objectStore('sections');
+  const cluesStore=tx.objectStore('wizardClues');
+  const exportData={sections:[],wizardClues:[]};
+
+  sectionsStore.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      exportData.sections.push(cursor.value);
+      cursor.continue();
+    } else {
+      cluesStore.openCursor().onsuccess=ee=>{
+        const cursor2=ee.target.result;
+        if(cursor2){
+          exportData.wizardClues.push(cursor2.value);
+          cursor2.continue();
+        } else {
+          document.getElementById('exportOutput').textContent=JSON.stringify(exportData,null,2);
+        }
+      };
+    }
+  };
+}
+
+function exportAtlasHTML(){
+  const htmlSnapshot=document.documentElement.outerHTML;
+  document.getElementById('exportOutput').textContent=htmlSnapshot;
+}
+
+function exportAtlasMnemonic(){
+  // Simple example: Base32 mnemonic encoding (placeholder)
+  const tx=db.transaction(['sections','wizardClues'],'readonly');
+  const sectionsStore=tx.objectStore('sections');
+  const cluesStore=tx.objectStore('wizardClues');
+  const mnemonics=[];
+
+  sectionsStore.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      mnemonics.push(`SEC-${cursor.value.region}-${btoa(cursor.value.content)}`);
+      cursor.continue();
+    } else {
+      cluesStore.openCursor().onsuccess=ee=>{
+        const cursor2=ee.target.result;
+        if(cursor2){
+          mnemonics.push(`CLUE-${cursor2.value.region}-${btoa(cursor2.value.text)}`);
+          cursor2.continue();
+        } else {
+          document.getElementById('exportOutput').textContent=mnemonics.join('\n');
+        }
+      };
+    }
+  };
+}
+</script>
+<section id="starfield-wizard" data-id="section-starfield">
+  <h1>Interactive Wizard & Parallax Starfield</h1>
+  <canvas id="starfieldCanvas" style="width:100%;height:400px;display:block;background:#000;"></canvas>
+  <div id="wizardHintsPanel" style="margin-top:1em;padding:1em;background:#111;color:#0f0;border-radius:8px;max-height:200px;overflow-y:auto;">
+    <p>Wizard clues will appear here as you explore the starfield...</p>
+  </div>
+</section>
+
+<script>
+// === Starfield Setup ===
+const canvas=document.getElementById('starfieldCanvas');
+const ctx=canvas.getContext('2d');
+canvas.width=canvas.offsetWidth;
+canvas.height=canvas.offsetHeight;
+
+let stars=[],numStars=200;
+for(let i=0;i<numStars;i++){
+  stars.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    z:Math.random()*canvas.width,
+    size:Math.random()*1.5+0.5,
+    speed:Math.random()*0.05+0.02
+  });
+}
+
+// Wizard setup
+let wizard={x:canvas.width/2,y:canvas.height/2,targetX:canvas.width/2,targetY:canvas.height/2};
+const wizardIcon='🧙‍♂️';
+
+// Track mouse/touch movement
+let pointer={x:canvas.width/2,y:canvas.height/2};
+canvas.addEventListener('mousemove',e=>{pointer.x=e.offsetX;pointer.y=e.offsetY;});
+canvas.addEventListener('touchmove',e=>{pointer.x=e.touches[0].clientX; pointer.y=e.touches[0].clientY; e.preventDefault();},{passive:false});
+
+// === Render Loop ===
+function renderStarfield(){
+  ctx.fillStyle='rgba(0,0,0,0.3)';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  // Stars
+  for(let s of stars){
+    s.z-=s.speed*10;
+    if(s.z<1){s.z=canvas.width; s.x=Math.random()*canvas.width; s.y=Math.random()*canvas.height;}
+    const sx=(s.x-canvas.width/2)*(canvas.width/s.z)+canvas.width/2;
+    const sy=(s.y-canvas.height/2)*(canvas.width/s.z)+canvas.height/2;
+    const r=(canvas.width-s.z)/canvas.width*s.size*3;
+    ctx.fillStyle='#fff';
+    ctx.beginPath();
+    ctx.arc(sx,sy,r,0,Math.PI*2);
+    ctx.fill();
+  }
+
+  // Wizard moves towards pointer slowly
+  wizard.targetX=pointer.x;
+  wizard.targetY=pointer.y;
+  wizard.x+= (wizard.targetX - wizard.x)*0.05;
+  wizard.y+= (wizard.targetY - wizard.y)*0.05;
+
+  ctx.font='24px sans-serif';
+  ctx.fillText(wizardIcon,wizard.x,wizard.y);
+
+  requestAnimationFrame(renderStarfield);
+}
+renderStarfield();
+
+// === Wizard Clue Logic ===
+function showRandomWizardClue(){
+  const tx=db.transaction(['wizardClues'],'readonly');
+  const store=tx.objectStore('wizardClues');
+  const clues=[];
+  store.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){clues.push(cursor.value); cursor.continue();}
+    else if(clues.length){
+      const randomClue=clues[Math.floor(Math.random()*clues.length)];
+      const panel=document.getElementById('wizardHintsPanel');
+      panel.innerHTML=`<div>🔮 <strong>${randomClue.region}:</strong> ${randomClue.text}</div>`;
+    }
+  };
+}
+// Trigger wizard clue every 15-25 seconds randomly
+setInterval(showRandomWizardClue, Math.floor(Math.random()*10000)+15000);
+
+// === Responsive Resize ===
+window.addEventListener('resize',()=>{
+  canvas.width=canvas.offsetWidth;
+  canvas.height=canvas.offsetHeight;
+});
+</script>
+<section id="analytics-dashboard" data-id="section-analytics">
+  <h1>Adaptive Monitoring & Analytics Dashboard</h1>
+  <p>This dashboard aggregates ecological metrics, community observations, and wizard clues to provide a live, interactive overview of restoration progress across regions.</p>
+  
+  <div style="display:flex;flex-wrap:wrap;gap:1em;">
+    <div style="flex:1;min-width:250px;">
+      <label for="analyticsRegion">Select Region:</label>
+      <select id="analyticsRegion">
+        <option value="">--Choose a Region--</option>
+        <option value="R1">R1 — Hot Desert</option>
+        <option value="R2">R2 — Semiarid / Sahel</option>
+        <option value="R3">R3 — Savannah</option>
+        <option value="R4">R4 — Rainforest</option>
+        <option value="R5">R5 — Mediterranean</option>
+        <option value="R6">R6 — Highlands</option>
+        <option value="R7">R7 — Humid Subtropical</option>
+      </select>
+    </div>
+    <div style="flex:1;min-width:250px;">
+      <button onclick="refreshAnalytics()">Refresh Analytics</button>
+    </div>
+  </div>
+
+  <h2>Ecological Metrics</h2>
+  <div id="ecologyMetrics" style="background:#111;color:#0f0;padding:1em;border-radius:6px;max-height:250px;overflow-y:auto;">
+    <p>No metrics loaded.</p>
+  </div>
+
+  <h2>Community Inputs</h2>
+  <div id="analyticsCommunityLog" style="background:#222;color:#0f0;padding:1em;border-radius:6px;max-height:200px;overflow-y:auto;">
+    <p>No community inputs yet.</p>
+  </div>
+
+  <h2>Wizard Clues & Alerts</h2>
+  <div id="analyticsWizardLog" style="background:#333;color:#0f0;padding:1em;border-radius:6px;max-height:200px;overflow-y:auto;">
+    <p>No wizard clues yet.</p>
+  </div>
+</section>
+
+<script>
+// === Analytics Dashboard Logic ===
+const analyticsRegion=document.getElementById('analyticsRegion');
+const ecologyMetrics=document.getElementById('ecologyMetrics');
+const analyticsCommunityLog=document.getElementById('analyticsCommunityLog');
+const analyticsWizardLog=document.getElementById('analyticsWizardLog');
+
+function refreshAnalytics(){
+  const region=analyticsRegion.value;
+  if(!region){
+    ecologyMetrics.innerHTML='<p>Please select a region.</p>';
+    analyticsCommunityLog.innerHTML='<p>No community inputs yet.</p>';
+    analyticsWizardLog.innerHTML='<p>No wizard clues yet.</p>';
+    return;
+  }
+
+  // === Ecological Metrics Simulation (replace with real sensors/inputs) ===
+  const simulatedMetrics={
+    soilOrganicCarbon:(Math.random()*5+1).toFixed(2)+'%',
+    vegetationCover:(Math.random()*80+10).toFixed(1)+'%',
+    dustFlux:(Math.random()*50).toFixed(1)+' mg/m²',
+    microclimateTemp:(Math.random()*15+20).toFixed(1)+'°C',
+    moisturePulse:(Math.random()*50).toFixed(1)+' mm'
+  };
+  ecologyMetrics.innerHTML=Object.entries(simulatedMetrics).map(([k,v])=>`<div><strong>${k.replace(/([A-Z])/g,' $1')}:</strong> ${v}</div>`).join('');
+
+  // === Load Community Inputs from IndexedDB ===
+  const tx1=db.transaction(['communityFeedback'],'readonly');
+  const store1=tx1.objectStore('communityFeedback');
+  const communityEntries=[];
+  store1.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      if(cursor.value.region===region) communityEntries.push(cursor.value);
+      cursor.continue();
+    } else{
+      analyticsCommunityLog.innerHTML=communityEntries.length ?
+        communityEntries.map(e=>`<div>[${new Date(e.timestamp).toLocaleString()}] ${e.text}</div>`).join('') :
+        '<p>No community inputs yet.</p>';
+    }
+  };
+
+  // === Load Wizard Clues from IndexedDB ===
+  const tx2=db.transaction(['wizardClues'],'readonly');
+  const store2=tx2.objectStore('wizardClues');
+  const wizardEntries=[];
+  store2.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      if(cursor.value.region===region) wizardEntries.push(cursor.value);
+      cursor.continue();
+    } else{
+      analyticsWizardLog.innerHTML=wizardEntries.length ?
+        wizardEntries.map(c=>`<div>${c.text}</div>`).join('') :
+        '<p>No wizard clues yet.</p>';
+    }
+  };
+}
+
+// Auto-refresh analytics every 60 seconds
+setInterval(()=>{if(analyticsRegion.value) refreshAnalytics();},60000);
+
+</script>
+<section id="analytics-dashboard" data-id="section-analytics">
+  <h1>Adaptive Monitoring & Analytics Dashboard</h1>
+  <p>This dashboard aggregates ecological metrics, community observations, and wizard clues to provide a live, interactive overview of restoration progress across regions.</p>
+  
+  <div style="display:flex;flex-wrap:wrap;gap:1em;">
+    <div style="flex:1;min-width:250px;">
+      <label for="analyticsRegion">Select Region:</label>
+      <select id="analyticsRegion">
+        <option value="">--Choose a Region--</option>
+        <option value="R1">R1 — Hot Desert</option>
+        <option value="R2">R2 — Semiarid / Sahel</option>
+        <option value="R3">R3 — Savannah</option>
+        <option value="R4">R4 — Rainforest</option>
+        <option value="R5">R5 — Mediterranean</option>
+        <option value="R6">R6 — Highlands</option>
+        <option value="R7">R7 — Humid Subtropical</option>
+      </select>
+    </div>
+    <div style="flex:1;min-width:250px;">
+      <button onclick="refreshAnalytics()">Refresh Analytics</button>
+    </div>
+  </div>
+
+  <h2>Ecological Metrics</h2>
+  <div id="ecologyMetrics" style="background:#111;color:#0f0;padding:1em;border-radius:6px;max-height:250px;overflow-y:auto;">
+    <p>No metrics loaded.</p>
+  </div>
+
+  <h2>Community Inputs</h2>
+  <div id="analyticsCommunityLog" style="background:#222;color:#0f0;padding:1em;border-radius:6px;max-height:200px;overflow-y:auto;">
+    <p>No community inputs yet.</p>
+  </div>
+
+  <h2>Wizard Clues & Alerts</h2>
+  <div id="analyticsWizardLog" style="background:#333;color:#0f0;padding:1em;border-radius:6px;max-height:200px;overflow-y:auto;">
+    <p>No wizard clues yet.</p>
+  </div>
+</section>
+
+<script>
+// === Analytics Dashboard Logic ===
+const analyticsRegion=document.getElementById('analyticsRegion');
+const ecologyMetrics=document.getElementById('ecologyMetrics');
+const analyticsCommunityLog=document.getElementById('analyticsCommunityLog');
+const analyticsWizardLog=document.getElementById('analyticsWizardLog');
+
+function refreshAnalytics(){
+  const region=analyticsRegion.value;
+  if(!region){
+    ecologyMetrics.innerHTML='<p>Please select a region.</p>';
+    analyticsCommunityLog.innerHTML='<p>No community inputs yet.</p>';
+    analyticsWizardLog.innerHTML='<p>No wizard clues yet.</p>';
+    return;
+  }
+
+  // === Ecological Metrics Simulation (replace with real sensors/inputs) ===
+  const simulatedMetrics={
+    soilOrganicCarbon:(Math.random()*5+1).toFixed(2)+'%',
+    vegetationCover:(Math.random()*80+10).toFixed(1)+'%',
+    dustFlux:(Math.random()*50).toFixed(1)+' mg/m²',
+    microclimateTemp:(Math.random()*15+20).toFixed(1)+'°C',
+    moisturePulse:(Math.random()*50).toFixed(1)+' mm'
+  };
+  ecologyMetrics.innerHTML=Object.entries(simulatedMetrics).map(([k,v])=>`<div><strong>${k.replace(/([A-Z])/g,' $1')}:</strong> ${v}</div>`).join('');
+
+  // === Load Community Inputs from IndexedDB ===
+  const tx1=db.transaction(['communityFeedback'],'readonly');
+  const store1=tx1.objectStore('communityFeedback');
+  const communityEntries=[];
+  store1.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      if(cursor.value.region===region) communityEntries.push(cursor.value);
+      cursor.continue();
+    } else{
+      analyticsCommunityLog.innerHTML=communityEntries.length ?
+        communityEntries.map(e=>`<div>[${new Date(e.timestamp).toLocaleString()}] ${e.text}</div>`).join('') :
+        '<p>No community inputs yet.</p>';
+    }
+  };
+
+  // === Load Wizard Clues from IndexedDB ===
+  const tx2=db.transaction(['wizardClues'],'readonly');
+  const store2=tx2.objectStore('wizardClues');
+  const wizardEntries=[];
+  store2.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      if(cursor.value.region===region) wizardEntries.push(cursor.value);
+      cursor.continue();
+    } else{
+      analyticsWizardLog.innerHTML=wizardEntries.length ?
+        wizardEntries.map(c=>`<div>${c.text}</div>`).join('') :
+        '<p>No wizard clues yet.</p>';
+    }
+  };
+}
+
+// Auto-refresh analytics every 60 seconds
+setInterval(()=>{if(analyticsRegion.value) refreshAnalytics();},60000);
+
+</script>
+<section id="export-visualization" data-id="section-export">
+  <h1>Export, Reporting & Visualization</h1>
+  <p>This section provides stakeholders and field teams with the ability to extract insights, generate reports, and visualize ecological and community data in multiple formats.</p>
+  
+  <div style="display:flex;flex-wrap:wrap;gap:1em;">
+    <button onclick="exportCSV()">Export CSV</button>
+    <button onclick="exportJSON()">Export JSON</button>
+    <button onclick="generatePDF()">Generate PDF</button>
+  </div>
+
+  <h2>Interactive Charts</h2>
+  <canvas id="chartsCanvas" style="width:100%;height:300px;"></canvas>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+// === Export & Reporting Functions ===
+
+// Helper: fetch all data from IndexedDB
+async function fetchAllData(storeName){
+  return new Promise(resolve=>{
+    const tx=db.transaction([storeName],'readonly');
+    const store=tx.objectStore(storeName);
+    const entries=[];
+    store.openCursor().onsuccess=e=>{
+      const cursor=e.target.result;
+      if(cursor){entries.push(cursor.value); cursor.continue();}
+      else resolve(entries);
+    };
+  });
+}
+
+// Export CSV
+async function exportCSV(){
+  const feedback=await fetchAllData('communityFeedback');
+  let csv='Region,Timestamp,Text\n';
+  feedback.forEach(f=>{csv+=`${f.region},${f.timestamp},"${f.text.replace(/"/g,'""')}"\n`;});
+  const blob=new Blob([csv],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='community_feedback.csv';a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Export JSON
+async function exportJSON(){
+  const feedback=await fetchAllData('communityFeedback');
+  const wizard=await fetchAllData('wizardClues');
+  const data={feedback,wizard};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='mycelial_data.json';a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Generate PDF
+async function generatePDF(){
+  const { jsPDF } = window.jspdf;
+  const doc=new jsPDF();
+  const feedback=await fetchAllData('communityFeedback');
+  doc.setFontSize(14); doc.text('Community Feedback Report',20,20);
+  let y=30;
+  feedback.forEach(f=>{
+    doc.setFontSize(11);
+    doc.text(`Region: ${f.region}`,20,y); y+=6;
+    doc.text(`Time: ${new Date(f.timestamp).toLocaleString()}`,20,y); y+=6;
+    const lines=doc.splitTextToSize(f.text,170);
+    doc.text(lines,20,y); y+=lines.length*6+4;
+    if(y>270){doc.addPage();y=20;}
+  });
+  doc.save('community_feedback.pdf');
+}
+
+// === Interactive Charts ===
+async function renderCharts(){
+  const ctx=document.getElementById('chartsCanvas').getContext('2d');
+  const feedback=await fetchAllData('communityFeedback');
+
+  const regions=['R1','R2','R3','R4','R5','R6','R7'];
+  const counts=regions.map(r=>feedback.filter(f=>f.region===r).length);
+
+  new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:regions,
+      datasets:[{
+        label:'Community Feedback Count',
+        data:counts,
+        backgroundColor:['#FF4500','#FFD700','#32CD32','#006400','#1E90FF','#8A2BE2','#00CED1']
+      }]
+    },
+    options:{
+      responsive:true,
+      plugins:{legend:{display:false},title:{display:true,text:'Feedback per Region'}}
+    }
+  });
+}
+
+// Auto-render charts on load
+renderCharts();
+
+</script>
+<section id="knowledge-wizard" data-id="section-knowledge">
+  <h1>Knowledge Base & Wizard Intelligence</h1>
+  <p>This section stores and cross-references wisdom from wizard clues, community observations, and ecological signals. It supports predictive insights, adaptive hints, and indexed queries, allowing users to discover strategies and forecast trends.</p>
+  
+  <div style="margin-top:1em;">
+    <label for="kbSearch">Search Knowledge Base:</label>
+    <input type="text" id="kbSearch" placeholder="Enter keyword, region, or concept..." style="width:100%;padding:0.5em;">
+  </div>
+
+  <div style="margin-top:1em;">
+    <button onclick="searchKnowledge()">Search</button>
+  </div>
+
+  <h2>Knowledge Entries</h2>
+  <div id="kbResults" style="background:#111;color:#0f0;padding:1em;border-radius:6px;max-height:300px;overflow-y:auto;">
+    <p>No entries yet.</p>
+  </div>
+
+  <h2>Add Wizard Insight</h2>
+  <textarea id="kbNewInsight" rows="3" style="width:100%;" placeholder="Enter new wizard insight or strategy..."></textarea>
+  <button onclick="addWizardInsight()">Add Insight</button>
+</section>
+
+<script>
+// === IndexedDB Setup for Knowledge Base ===
+const kbRequest = indexedDB.open('MycelialAtlasDB', 2);
+kbRequest.onupgradeneeded = e => {
+  db = e.target.result;
+  if (!db.objectStoreNames.contains('knowledgeBase')) {
+    db.createObjectStore('knowledgeBase', { keyPath: 'id', autoIncrement: true });
+  }
+};
+kbRequest.onsuccess = e => { db = e.target.result; loadKnowledgeBase(); };
+
+// === Add Wizard Insight ===
+function addWizardInsight(){
+  const text=document.getElementById('kbNewInsight').value.trim();
+  if(!text){alert('Enter insight before submitting.'); return;}
+  const tx=db.transaction(['knowledgeBase'],'readwrite');
+  const store=tx.objectStore('knowledgeBase');
+  store.add({text, timestamp:new Date().toISOString()});
+  tx.oncomplete=()=>{document.getElementById('kbNewInsight').value=''; loadKnowledgeBase();}
+}
+
+// === Load Knowledge Base ===
+function loadKnowledgeBase(){
+  const results=document.getElementById('kbResults');
+  const tx=db.transaction(['knowledgeBase'],'readonly');
+  const store=tx.objectStore('knowledgeBase');
+  const entries=[];
+  store.openCursor(null,'prev').onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){entries.push(cursor.value); cursor.continue();}
+    else{
+      results.innerHTML=entries.length ? entries.map(e=>
+        `<div style="margin-bottom:0.5em;"><strong>${new Date(e.timestamp).toLocaleString()}:</strong> ${e.text}</div>`
+      ).join('') : '<p>No entries yet.</p>';
+    }
+  };
+}
+
+// === Search Knowledge Base ===
+function searchKnowledge(){
+  const query=document.getElementById('kbSearch').value.trim().toLowerCase();
+  if(!query){loadKnowledgeBase(); return;}
+  const results=document.getElementById('kbResults');
+  const tx=db.transaction(['knowledgeBase'],'readonly');
+  const store=tx.objectStore('knowledgeBase');
+  const matched=[];
+  store.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      if(cursor.value.text.toLowerCase().includes(query)) matched.push(cursor.value);
+      cursor.continue();
+    } else {
+      results.innerHTML=matched.length ? matched.map(e=>
+        `<div style="margin-bottom:0.5em;"><strong>${new Date(e.timestamp).toLocaleString()}:</strong> ${e.text}</div>`
+      ).join('') : '<p>No matches found.</p>';
+    }
+  };
+}
+
+// Optional: automatically generate wizard insights from community feedback
+function autoGenerateWizardInsights(){
+  const tx1=db.transaction(['communityFeedback','knowledgeBase'],'readwrite');
+  const feedbackStore=tx1.objectStore('communityFeedback');
+  const kbStore=tx1.objectStore('knowledgeBase');
+
+  feedbackStore.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      const insight={`From community observation in ${cursor.value.region}: ${cursor.value.text}`};
+      kbStore.put({text:insight, timestamp:new Date().toISOString()});
+      cursor.continue();
+    }
+  };
+}
+
+// Auto-run every 2 minutes to enrich knowledge base
+setInterval(autoGenerateWizardInsights, 120000);
+
+</script>
+<section id="scenario-forecast" data-id="section-forecast">
+  <h1>Predictive Scenario Simulation & Forecast</h1>
+  <p>Explore potential restoration outcomes over time across regions. This simulation uses ecological metrics, community feedback, and wizard intelligence to project trajectories and identify high-impact interventions.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <div style="flex:1;min-width:200px;">
+      <label for="forecastRegion">Select Region:</label>
+      <select id="forecastRegion">
+        <option value="">--Choose a Region--</option>
+        <option value="R1">R1 — Hot Desert</option>
+        <option value="R2">R2 — Semiarid / Sahel</option>
+        <option value="R3">R3 — Savannah</option>
+        <option value="R4">R4 — Rainforest</option>
+        <option value="R5">R5 — Mediterranean</option>
+        <option value="R6">R6 — Highlands</option>
+        <option value="R7">R7 — Humid Subtropical</option>
+      </select>
+    </div>
+    <div style="flex:1;min-width:200px;">
+      <label for="forecastDuration">Simulation Duration (years):</label>
+      <input type="number" id="forecastDuration" value="5" min="1" max="50">
+    </div>
+    <div style="flex:1;min-width:200px;align-self:flex-end;">
+      <button onclick="generateForecast()">Run Simulation</button>
+    </div>
+  </div>
+
+  <canvas id="forecastCanvas" style="width:100%;height:400px;"></canvas>
+  <div id="forecastInsights" style="margin-top:1em;padding:1em;background:#111;color:#0f0;border-radius:6px;max-height:200px;overflow-y:auto;">
+    <p>Simulation insights will appear here.</p>
+  </div>
+</section>
+
+<script>
+// === Forecast Simulation Logic ===
+const forecastRegion=document.getElementById('forecastRegion');
+const forecastDuration=document.getElementById('forecastDuration');
+const forecastCanvas=document.getElementById('forecastCanvas').getContext('2d');
+const forecastInsights=document.getElementById('forecastInsights');
+
+let forecastChart;
+
+// === Simple Predictive Model (placeholder) ===
+async function generateForecast(){
+  const region=forecastRegion.value;
+  const years=parseInt(forecastDuration.value)||5;
+  if(!region){alert('Select a region first.'); return;}
+
+  // Generate synthetic ecological projections
+  const soilOrganicCarbon=[], vegetationCover=[], dustFlux=[];
+  let soc=Math.random()*2+1, veg=Math.random()*10+20, dust=Math.random()*40+10;
+
+  for(let y=0;y<=years;y++){
+    soc += (Math.random()*0.5-0.1); veg += (Math.random()*5-1); dust += (Math.random()*-3+1);
+    soilOrganicCarbon.push(soc.toFixed(2));
+    vegetationCover.push(Math.min(Math.max(veg,0),100).toFixed(1));
+    dustFlux.push(Math.max(dust.toFixed(1),0));
+  }
+
+  // Destroy previous chart if exists
+  if(forecastChart) forecastChart.destroy();
+
+  // Render Chart
+  forecastChart = new Chart(forecastCanvas,{
+    type:'line',
+    data:{
+      labels:Array.from({length:years+1},(_,i)=>`Year ${i}`),
+      datasets:[
+        {label:'Soil Organic Carbon (%)', data:soilOrganicCarbon, borderColor:'#32CD32', fill:false, tension:0.3},
+        {label:'Vegetation Cover (%)', data:vegetationCover, borderColor:'#1E90FF', fill:false, tension:0.3},
+        {label:'Dust Flux (mg/m²)', data:dustFlux, borderColor:'#FF4500', fill:false, tension:0.3}
+      ]
+    },
+    options:{
+      responsive:true,
+      plugins:{legend:{position:'top'},title:{display:true,text:`Forecast for ${region} over ${years} years`}},
+      scales:{y:{beginAtZero:true}}
+    }
+  });
+
+  // Generate simple textual insights
+  let insights=[];
+  if(parseFloat(soilOrganicCarbon[years])>soc) insights.push(`SOC shows positive accumulation trend — fungal-assisted soil regeneration is plausible.`);
+  if(parseFloat(vegetationCover[years])>veg) insights.push(`Vegetation cover increases — consider high-leverage tree/shrub plantings.`);
+  if(parseFloat(dustFlux[years])<dust) insights.push(`Dust flux decreases — improved soil aggregation expected.`);
+  if(!insights.length) insights.push(`No significant trends — monitor pulses and community interventions.`);
+
+  forecastInsights.innerHTML = insights.map(i=>`<div>🔹 ${i}</div>`).join('');
+}
+</script>
+<section id="community-engagement" data-id="section-community">
+  <h1>Community Engagement & Participation</h1>
+  <p>Enable communities to actively contribute observations, feedback, and priorities. Inputs feed the knowledge base, wizard clues, and predictive simulations.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <div style="flex:1;min-width:250px;">
+      <label for="communityRegion">Select Region:</label>
+      <select id="communityRegion">
+        <option value="">--Choose a Region--</option>
+        <option value="R1">R1 — Hot Desert</option>
+        <option value="R2">R2 — Semiarid / Sahel</option>
+        <option value="R3">R3 — Savannah</option>
+        <option value="R4">R4 — Rainforest</option>
+        <option value="R5">R5 — Mediterranean</option>
+        <option value="R6">R6 — Highlands</option>
+        <option value="R7">R7 — Humid Subtropical</option>
+      </select>
+    </div>
+    <div style="flex:2;min-width:300px;">
+      <label for="communityInput">Your Observation or Feedback:</label>
+      <textarea id="communityInput" rows="3" style="width:100%;" placeholder="Describe changes in soil, vegetation, or community impact..."></textarea>
+    </div>
+    <div style="align-self:flex-end;">
+      <button onclick="submitCommunityInput()">Submit Feedback</button>
+    </div>
+  </div>
+
+  <h2>Recent Community Inputs</h2>
+  <div id="communityFeed" style="background:#111;color:#0f0;padding:1em;border-radius:6px;max-height:300px;overflow-y:auto;">
+    <p>No submissions yet.</p>
+  </div>
+</section>
+
+<script>
+// === Community Feedback IndexedDB ===
+const communityTx = db.transaction(['communityFeedback'], 'readwrite');
+const communityStore = communityTx.objectStore('communityFeedback');
+
+// Submit new feedback
+function submitCommunityInput() {
+  const region = document.getElementById('communityRegion').value;
+  const text = document.getElementById('communityInput').value.trim();
+  if(!region || !text){ alert('Select a region and enter feedback.'); return; }
+
+  const tx = db.transaction(['communityFeedback'], 'readwrite');
+  const store = tx.objectStore('communityFeedback');
+  store.add({region, text, timestamp:new Date().toISOString()});
+  tx.oncomplete = () => { document.getElementById('communityInput').value=''; loadCommunityFeed(); updateWizardInsights(); };
+}
+
+// Load community inputs
+function loadCommunityFeed() {
+  const feed = document.getElementById('communityFeed');
+  const tx = db.transaction(['communityFeedback'], 'readonly');
+  const store = tx.objectStore('communityFeedback');
+  const entries = [];
+  store.openCursor(null,'prev').onsuccess = e => {
+    const cursor = e.target.result;
+    if(cursor){ entries.push(cursor.value); cursor.continue(); }
+    else {
+      feed.innerHTML = entries.length ? entries.map(e =>
+        `<div style="margin-bottom:0.5em;"><strong>${e.region} [${new Date(e.timestamp).toLocaleString()}]:</strong> ${e.text}</div>`
+      ).join('') : '<p>No submissions yet.</p>';
+    }
+  };
+}
+
+// Optional: feed community inputs to wizard clues
+function updateWizardInsights() {
+  const tx = db.transaction(['wizardClues','communityFeedback'],'readwrite');
+  const wizardStore = tx.objectStore('wizardClues');
+  const communityStore = tx.objectStore('communityFeedback');
+  communityStore.openCursor().onsuccess = e => {
+    const cursor = e.target.result;
+    if(cursor){
+      const clue = `Community observation in ${cursor.value.region}: ${cursor.value.text}`;
+      wizardStore.put({region:cursor.value.region, text:clue});
+      cursor.continue();
+    }
+  };
+}
+
+// Auto-load feed on startup
+loadCommunityFeed();
+
+</script>
+<section id="governance-tracking" data-id="section-governance">
+  <h1>Governance & Decision Tracking</h1>
+  <p>This section manages project governance, including stakeholder consent, regulatory permits, benefit-sharing, and decision checkpoints. All records are stored locally in IndexedDB for transparency and traceability.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <div style="flex:1;min-width:200px;">
+      <label for="govRegion">Region:</label>
+      <select id="govRegion">
+        <option value="">--Choose a Region--</option>
+        <option value="R1">R1 — Hot Desert</option>
+        <option value="R2">R2 — Semiarid / Sahel</option>
+        <option value="R3">R3 — Savannah</option>
+        <option value="R4">R4 — Rainforest</option>
+        <option value="R5">R5 — Mediterranean</option>
+        <option value="R6">R6 — Highlands</option>
+        <option value="R7">R7 — Humid Subtropical</option>
+      </select>
+    </div>
+    <div style="flex:2;min-width:300px;">
+      <label for="govAction">Action / Decision:</label>
+      <textarea id="govAction" rows="3" style="width:100%;" placeholder="Enter consent, permit, or decision details..."></textarea>
+    </div>
+    <div style="align-self:flex-end;">
+      <button onclick="submitGovernanceRecord()">Submit Record</button>
+    </div>
+  </div>
+
+  <h2>Recent Governance Records</h2>
+  <div id="governanceFeed" style="background:#111;color:#0f0;padding:1em;border-radius:6px;max-height:300px;overflow-y:auto;">
+    <p>No governance records yet.</p>
+  </div>
+</section>
+
+<script>
+// === Governance IndexedDB Setup ===
+const govRequest = indexedDB.open('MycelialAtlasDB', 3);
+govRequest.onupgradeneeded = e => {
+  db = e.target.result;
+  if (!db.objectStoreNames.contains('governanceRecords')) {
+    db.createObjectStore('governanceRecords', { keyPath: 'id', autoIncrement: true });
+  }
+};
+govRequest.onsuccess = e => { db = e.target.result; loadGovernanceFeed(); };
+
+// Submit new governance record
+function submitGovernanceRecord(){
+  const region = document.getElementById('govRegion').value;
+  const text = document.getElementById('govAction').value.trim();
+  if(!region || !text){ alert('Select a region and enter decision details.'); return; }
+
+  const tx = db.transaction(['governanceRecords'],'readwrite');
+  const store = tx.objectStore('governanceRecords');
+  store.add({region,text,timestamp:new Date().toISOString()});
+  tx.oncomplete = ()=>{ document.getElementById('govAction').value=''; loadGovernanceFeed(); };
+}
+
+// Load governance records
+function loadGovernanceFeed(){
+  const feed = document.getElementById('governanceFeed');
+  const tx = db.transaction(['governanceRecords'],'readonly');
+  const store = tx.objectStore('governanceRecords');
+  const entries = [];
+  store.openCursor(null,'prev').onsuccess = e => {
+    const cursor = e.target.result;
+    if(cursor){ entries.push(cursor.value); cursor.continue(); }
+    else {
+      feed.innerHTML = entries.length ? entries.map(e =>
+        `<div style="margin-bottom:0.5em;"><strong>${e.region} [${new Date(e.timestamp).toLocaleString()}]:</strong> ${e.text}</div>`
+      ).join('') : '<p>No governance records yet.</p>';
+    }
+  };
+}
+
+// Optional: enforce stop/go decisions in predictive layer
+function checkStopGo(region){
+  const tx = db.transaction(['governanceRecords'],'readonly');
+  const store = tx.objectStore('governanceRecords');
+  let stop=false;
+  store.openCursor().onsuccess = e => {
+    const cursor = e.target.result;
+    if(cursor){
+      if(cursor.value.region === region && /STOP|HALT/i.test(cursor.value.text)) stop=true;
+      cursor.continue();
+    } else if(stop){
+      alert(`⚠️ STOP/GO threshold triggered for ${region}. Review governance records.`);
+    }
+  };
+}
+
+// Auto-load feed on startup
+loadGovernanceFeed();
+</script>
+<section id="monitoring-dashboard" data-id="section-dashboard">
+  <h1>Monitoring Dashboard & Metrics</h1>
+  <p>Visualize ongoing ecological, microclimate, and social metrics for each region. Metrics are collected from community inputs, predictive simulations, and baseline monitoring data.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <div style="flex:1;min-width:200px;">
+      <label for="metricRegion">Select Region:</label>
+      <select id="metricRegion" onchange="updateMetrics()">
+        <option value="">--Choose a Region--</option>
+        <option value="R1">R1 — Hot Desert</option>
+        <option value="R2">R2 — Semiarid / Sahel</option>
+        <option value="R3">R3 — Savannah</option>
+        <option value="R4">R4 — Rainforest</option>
+        <option value="R5">R5 — Mediterranean</option>
+        <option value="R6">R6 — Highlands</option>
+        <option value="R7">R7 — Humid Subtropical</option>
+      </select>
+    </div>
+    <div style="flex:1;min-width:200px;align-self:flex-end;">
+      <button onclick="refreshMetrics()">Refresh Metrics</button>
+    </div>
+  </div>
+
+  <canvas id="metricsCanvas" style="width:100%;height:400px;"></canvas>
+
+  <div id="metricsInsights" style="margin-top:1em;padding:1em;background:#111;color:#0f0;border-radius:6px;max-height:200px;overflow-y:auto;">
+    <p>Metrics insights will appear here.</p>
+  </div>
+</section>
+
+<script>
+// === Metrics Dashboard Logic ===
+const metricsCanvas = document.getElementById('metricsCanvas').getContext('2d');
+const metricsInsights = document.getElementById('metricsInsights');
+let metricsChart;
+
+// Simulated real-time data
+function fetchRegionMetrics(region){
+  if(!region) return null;
+  const dataPoints = 12; // 12 months
+  const soilOrganic = [], vegetation = [], dustFlux = [], microTemp = [], communityEngagement = [];
+  for(let i=0;i<dataPoints;i++){
+    soilOrganic.push((Math.random()*2+1).toFixed(2));
+    vegetation.push((Math.random()*10+20).toFixed(1));
+    dustFlux.push((Math.random()*40+10).toFixed(1));
+    microTemp.push((Math.random()*10+20).toFixed(1));
+    communityEngagement.push(Math.floor(Math.random()*50));
+  }
+  return {soilOrganic, vegetation, dustFlux, microTemp, communityEngagement, labels:Array.from({length:dataPoints},(_,i)=>`Month ${i+1}`)};
+}
+
+// Update dashboard
+function updateMetrics(){
+  const region = document.getElementById('metricRegion').value;
+  const data = fetchRegionMetrics(region);
+  if(!data) return;
+
+  if(metricsChart) metricsChart.destroy();
+
+  metricsChart = new Chart(metricsCanvas, {
+    type:'line',
+    data:{
+      labels:data.labels,
+      datasets:[
+        {label:'Soil Organic Carbon (%)', data:data.soilOrganic, borderColor:'#32CD32', fill:false, tension:0.3},
+        {label:'Vegetation Cover (%)', data:data.vegetation, borderColor:'#1E90FF', fill:false, tension:0.3},
+        {label:'Dust Flux (mg/m²)', data:data.dustFlux, borderColor:'#FF4500', fill:false, tension:0.3},
+        {label:'Microclimate Temp (°C)', data:data.microTemp, borderColor:'#8A2BE2', fill:false, tension:0.3},
+        {label:'Community Engagement (#)', data:data.communityEngagement, borderColor:'#00CED1', fill:false, tension:0.3}
+      ]
+    },
+    options:{
+      responsive:true,
+      plugins:{legend:{position:'top'},title:{display:true,text:`Monitoring Dashboard — ${region}`}},
+      scales:{y:{beginAtZero:true}}
+    }
+  });
+
+  // Generate insights
+  let insights = [];
+  const avg = arr => arr.reduce((a,b)=>a+parseFloat(b),0)/arr.length;
+  if(avg(data.soilOrganic)>2.5) insights.push(`Soil organic carbon is trending positively.`);
+  if(avg(data.vegetation)>30) insights.push(`Vegetation is recovering steadily.`);
+  if(avg(data.dustFlux)<25) insights.push(`Dust flux reduced — stabilization improving.`);
+  if(avg(data.communityEngagement)>25) insights.push(`Community participation is strong.`);
+  if(insights.length===0) insights.push(`Metrics are stable, continue monitoring.`);
+
+  metricsInsights.innerHTML = insights.map(i=>`<div>🔹 ${i}</div>`).join('');
+}
+
+// Initial load
+updateMetrics();
+
+// Refresh button
+function refreshMetrics(){ updateMetrics(); }
+
+</script>
+<section id="knowledge-repository" data-id="section-knowledge">
+  <h1>Knowledge Repository & Resource Library</h1>
+  <p>Centralized repository for research data, fungal profiles, community guides, monitoring protocols, and operational insights. Fully searchable and indexed for interactive use.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <div style="flex:1;min-width:200px;">
+      <input type="text" id="knowledgeSearch" placeholder="Search resources..." style="width:100%;" oninput="searchKnowledge()">
+    </div>
+    <div style="flex:1;min-width:150px;">
+      <button onclick="addKnowledgeResource()">Add New Resource</button>
+    </div>
+  </div>
+
+  <div id="knowledgeFeed" style="background:#111;color:#0f0;padding:1em;border-radius:6px;max-height:400px;overflow-y:auto;">
+    <p>No resources yet.</p>
+  </div>
+</section>
+
+<script>
+// === Knowledge Repository IndexedDB Setup ===
+const knowledgeRequest = indexedDB.open('MycelialAtlasDB', 4);
+knowledgeRequest.onupgradeneeded = e => {
+  db = e.target.result;
+  if(!db.objectStoreNames.contains('knowledgeResources')){
+    db.createObjectStore('knowledgeResources', { keyPath:'id', autoIncrement:true });
+  }
+};
+knowledgeRequest.onsuccess = e => { db = e.target.result; loadKnowledgeFeed(); };
+
+// Add new resource
+function addKnowledgeResource(){
+  const title = prompt('Enter resource title:');
+  if(!title) return;
+  const category = prompt('Enter resource category (e.g., fungal group, community guide, research paper):') || 'General';
+  const content = prompt('Enter resource content / link:') || '';
+  const tx = db.transaction(['knowledgeResources'],'readwrite');
+  const store = tx.objectStore('knowledgeResources');
+  store.add({title,category,content,timestamp:new Date().toISOString()});
+  tx.oncomplete = ()=> loadKnowledgeFeed();
+}
+
+// Load repository
+function loadKnowledgeFeed(){
+  const feed = document.getElementById('knowledgeFeed');
+  const tx = db.transaction(['knowledgeResources'],'readonly');
+  const store = tx.objectStore('knowledgeResources');
+  const entries = [];
+  store.openCursor(null,'prev').onsuccess = e => {
+    const cursor = e.target.result;
+    if(cursor){ entries.push(cursor.value); cursor.continue(); }
+    else {
+      feed.innerHTML = entries.length ? entries.map(e=>
+        `<div style="margin-bottom:0.5em;">
+          <strong>${e.title}</strong> <em>[${e.category}]</em> - ${new Date(e.timestamp).toLocaleString()}<br>
+          <span>${e.content}</span>
+        </div>`
+      ).join('') : '<p>No resources yet.</p>';
+    }
+  };
+}
+
+// Search repository
+function searchKnowledge(){
+  const query = document.getElementById('knowledgeSearch').value.toLowerCase();
+  const feed = document.getElementById('knowledgeFeed');
+  const tx = db.transaction(['knowledgeResources'],'readonly');
+  const store = tx.objectStore('knowledgeResources');
+  const results = [];
+  store.openCursor().onsuccess = e=>{
+    const cursor = e.target.result;
+    if(cursor){
+      const val = cursor.value;
+      if(val.title.toLowerCase().includes(query) || val.category.toLowerCase().includes(query) || val.content.toLowerCase().includes(query)){
+        results.push(val);
+      }
+      cursor.continue();
+    } else {
+      feed.innerHTML = results.length ? results.map(e=>
+        `<div style="margin-bottom:0.5em;">
+          <strong>${e.title}</strong> <em>[${e.category}]</em> - ${new Date(e.timestamp).toLocaleString()}<br>
+          <span>${e.content}</span>
+        </div>`
+      ).join('') : '<p>No matching resources.</p>';
+    }
+  };
+}
+
+// Auto-load on startup
+loadKnowledgeFeed();
+</script>
+<section id="predictive-simulation" data-id="section-simulation">
+  <h1>Predictive Modeling & Simulation</h1>
+  <p>Simulate restoration scenarios, forecast ecological outcomes, and explore adaptive interventions. All simulations are driven by baseline metrics, community inputs, and wizard-guided recommendations.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <div style="flex:1;min-width:200px;">
+      <label for="simRegion">Select Region:</label>
+      <select id="simRegion" onchange="runSimulation()">
+        <option value="">--Choose a Region--</option>
+        <option value="R1">R1 — Hot Desert</option>
+        <option value="R2">R2 — Semiarid / Sahel</option>
+        <option value="R3">R3 — Savannah</option>
+        <option value="R4">R4 — Rainforest</option>
+        <option value="R5">R5 — Mediterranean</option>
+        <option value="R6">R6 — Highlands</option>
+        <option value="R7">R7 — Humid Subtropical</option>
+      </select>
+    </div>
+    <div style="flex:1;min-width:150px;align-self:flex-end;">
+      <button onclick="runSimulation()">Run Simulation</button>
+    </div>
+  </div>
+
+  <canvas id="simulationCanvas" style="width:100%;height:400px;"></canvas>
+
+  <div id="simulationInsights" style="margin-top:1em;padding:1em;background:#111;color:#0f0;border-radius:6px;max-height:200px;overflow-y:auto;">
+    <p>Simulation insights will appear here.</p>
+  </div>
+</section>
+
+<script>
+// === Predictive Simulation Logic ===
+const simCanvasCtx = document.getElementById('simulationCanvas').getContext('2d');
+const simInsights = document.getElementById('simulationInsights');
+let simChart;
+
+// Generate simulated scenario data
+function simulateRegion(region){
+  if(!region) return null;
+  const months = 12;
+  const soil = [], vegetation = [], dust = [], engagement = [];
+  for(let i=0;i<months;i++){
+    soil.push((Math.random()*2.5+1.5).toFixed(2));
+    vegetation.push((Math.random()*15+20).toFixed(1));
+    dust.push((Math.random()*35+10).toFixed(1));
+    engagement.push(Math.floor(Math.random()*50));
+  }
+  return {soil, vegetation, dust, engagement, labels:Array.from({length:months},(_,i)=>`Month ${i+1}`)};
+}
+
+// Run simulation and render chart
+function runSimulation(){
+  const region = document.getElementById('simRegion').value;
+  const data = simulateRegion(region);
+  if(!data) return;
+
+  if(simChart) simChart.destroy();
+
+  simChart = new Chart(simCanvasCtx, {
+    type:'line',
+    data:{
+      labels:data.labels,
+      datasets:[
+        {label:'Soil Organic Carbon (%)', data:data.soil, borderColor:'#32CD32', fill:false, tension:0.3},
+        {label:'Vegetation Cover (%)', data:data.vegetation, borderColor:'#1E90FF', fill:false, tension:0.3},
+        {label:'Dust Flux (mg/m²)', data:data.dust, borderColor:'#FF4500', fill:false, tension:0.3},
+        {label:'Community Engagement (#)', data:data.engagement, borderColor:'#00CED1', fill:false, tension:0.3}
+      ]
+    },
+    options:{
+      responsive:true,
+      plugins:{legend:{position:'top'},title:{display:true,text:`Predictive Simulation — ${region}`}},
+      scales:{y:{beginAtZero:true}}
+    }
+  });
+
+  // Generate adaptive insights
+  let insights = [];
+  const avg = arr => arr.reduce((a,b)=>a+parseFloat(b),0)/arr.length;
+  if(avg(data.soil)>2.5) insights.push('Projected soil organic carbon trend is positive.');
+  if(avg(data.vegetation)>25) insights.push('Vegetation cover expected to increase steadily.');
+  if(avg(data.dust)<25) insights.push('Dust flux likely to decline — stabilization improving.');
+  if(avg(data.engagement)>25) insights.push('Community engagement forecast is strong.');
+  if(insights.length===0) insights.push('Simulation indicates stable trends; continue monitoring.');
+
+  simInsights.innerHTML = insights.map(i=>`<div>🔹 ${i}</div>`).join('');
+}
+
+// Initial load
+runSimulation();
+</script>
+<section id="community-engagement" data-id="section-community">
+  <h1>Community Engagement & Feedback</h1>
+  <p>Capture local knowledge, observations, and feedback. Visualize community participation and integrate it into monitoring and predictive layers for adaptive decision-making.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <div style="flex:1;min-width:200px;">
+      <input type="text" id="feedbackName" placeholder="Your name / community group" style="width:100%;">
+    </div>
+    <div style="flex:2;min-width:300px;">
+      <textarea id="feedbackText" placeholder="Enter your feedback, observations, or suggestions..." style="width:100%;height:80px;"></textarea>
+    </div>
+    <div style="flex:1;min-width:120px;align-self:flex-end;">
+      <button onclick="submitFeedback()">Submit Feedback</button>
+    </div>
+  </div>
+
+  <div id="feedbackFeed" style="background:#111;color:#0f0;padding:1em;border-radius:6px;max-height:300px;overflow-y:auto;">
+    <p>No feedback yet. Be the first to contribute!</p>
+  </div>
+
+</section>
+
+<script>
+// === Community Feedback IndexedDB Setup ===
+const feedbackRequest = indexedDB.open('MycelialAtlasDB', 5);
+feedbackRequest.onupgradeneeded = e => {
+  db = e.target.result;
+  if(!db.objectStoreNames.contains('communityFeedback')){
+    db.createObjectStore('communityFeedback', { keyPath:'id', autoIncrement:true });
+  }
+};
+feedbackRequest.onsuccess = e => { db = e.target.result; loadFeedbackFeed(); };
+
+// Submit feedback
+function submitFeedback(){
+  const name = document.getElementById('feedbackName').value || 'Anonymous';
+  const text = document.getElementById('feedbackText').value.trim();
+  if(!text) return alert('Please enter feedback before submitting.');
+
+  const tx = db.transaction(['communityFeedback'],'readwrite');
+  const store = tx.objectStore('communityFeedback');
+  store.add({name,text,timestamp:new Date().toISOString()});
+  tx.oncomplete = ()=> {
+    document.getElementById('feedbackText').value='';
+    loadFeedbackFeed();
+  };
+}
+
+// Load feedback feed
+function loadFeedbackFeed(){
+  const feed = document.getElementById('feedbackFeed');
+  const tx = db.transaction(['communityFeedback'],'readonly');
+  const store = tx.objectStore('communityFeedback');
+  const entries = [];
+  store.openCursor(null,'prev').onsuccess = e => {
+    const cursor = e.target.result;
+    if(cursor){ entries.push(cursor.value); cursor.continue(); }
+    else {
+      feed.innerHTML = entries.length ? entries.map(f=>
+        `<div style="margin-bottom:0.5em;">
+          <strong>${f.name}</strong> - ${new Date(f.timestamp).toLocaleString()}<br>
+          <span>${f.text}</span>
+        </div>`
+      ).join('') : '<p>No feedback yet. Be the first to contribute!</p>';
+    }
+  };
+}
+
+// Auto-load on startup
+loadFeedbackFeed();
+</script>
+<section id="governance-legal" data-id="section-governance">
+  <h1>Governance, Consent & Legal Protocols</h1>
+  <p>Manage stakeholder consent, legal compliance, and adaptive decision-making protocols for all restoration projects.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <div style="flex:1;min-width:250px;">
+      <input type="text" id="stakeholderName" placeholder="Stakeholder / Organization" style="width:100%;">
+    </div>
+    <div style="flex:1;min-width:150px;">
+      <select id="stakeholderType">
+        <option value="">Select Type</option>
+        <option value="Community">Community</option>
+        <option value="NGO">NGO</option>
+        <option value="Government">Government</option>
+        <option value="Research Lab">Research Lab</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div style="flex:1;min-width:150px;align-self:flex-end;">
+      <button onclick="addStakeholder()">Add Stakeholder</button>
+    </div>
+  </div>
+
+  <div id="stakeholderList" style="background:#111;color:#0f0;padding:1em;border-radius:6px;max-height:250px;overflow-y:auto;">
+    <p>No stakeholders added yet.</p>
+  </div>
+
+  <h2>Permitting & Compliance Checklist</h2>
+  <ul id="permitChecklist" style="background:#111;color:#0f0;padding:1em;border-radius:6px;max-height:200px;overflow-y:auto;">
+    <li><input type="checkbox" id="permitEnv" /> Environmental Impact Assessment completed</li>
+    <li><input type="checkbox" id="permitBiosafety" /> Biosafety & Lab Clearance</li>
+    <li><input type="checkbox" id="permitLocalConsent" /> Local community consent documented</li>
+    <li><input type="checkbox" id="permitBenefitSharing" /> Benefit-sharing agreements established</li>
+    <li><input type="checkbox" id="permitStopGo" /> Stop/Go decision criteria defined</li>
+  </ul>
+
+  <div style="margin-top:1em;">
+    <button onclick="saveGovernanceState()">Save Governance State</button>
+  </div>
+</section>
+
+<script>
+// === Governance IndexedDB Setup ===
+const governanceRequest = indexedDB.open('MycelialAtlasDB', 6);
+governanceRequest.onupgradeneeded = e => {
+  db = e.target.result;
+  if(!db.objectStoreNames.contains('stakeholders')){
+    db.createObjectStore('stakeholders', { keyPath:'id', autoIncrement:true });
+  }
+  if(!db.objectStoreNames.contains('permits')){
+    db.createObjectStore('permits', { keyPath:'id', autoIncrement:true });
+  }
+};
+governanceRequest.onsuccess = e => { db = e.target.result; loadStakeholders(); loadPermitState(); };
+
+// Add Stakeholder
+function addStakeholder(){
+  const name = document.getElementById('stakeholderName').value.trim();
+  const type = document.getElementById('stakeholderType').value;
+  if(!name || !type) return alert('Please enter both stakeholder name and type.');
+  const tx = db.transaction(['stakeholders'],'readwrite');
+  const store = tx.objectStore('stakeholders');
+  store.add({name,type,timestamp:new Date().toISOString()});
+  tx.oncomplete = () => { document.getElementById('stakeholderName').value=''; document.getElementById('stakeholderType').value=''; loadStakeholders(); };
+}
+
+// Load Stakeholders
+function loadStakeholders(){
+  const list = document.getElementById('stakeholderList');
+  const tx = db.transaction(['stakeholders'],'readonly');
+  const store = tx.objectStore('stakeholders');
+  const entries = [];
+  store.openCursor(null,'prev').onsuccess = e => {
+    const cursor = e.target.result;
+    if(cursor){ entries.push(cursor.value); cursor.continue(); }
+    else {
+      list.innerHTML = entries.length ? entries.map(s=>
+        `<div style="margin-bottom:0.5em;">
+          <strong>${s.name}</strong> <em>[${s.type}]</em> - ${new Date(s.timestamp).toLocaleString()}
+        </div>`
+      ).join('') : '<p>No stakeholders added yet.</p>';
+    }
+  };
+}
+
+// Save Permit Checklist State
+function saveGovernanceState(){
+  const permits = [
+    {name:'Environmental Impact Assessment',checked:document.getElementById('permitEnv').checked},
+    {name:'Biosafety & Lab Clearance',checked:document.getElementById('permitBiosafety').checked},
+    {name:'Local community consent',checked:document.getElementById('permitLocalConsent').checked},
+    {name:'Benefit-sharing agreements',checked:document.getElementById('permitBenefitSharing').checked},
+    {name:'Stop/Go decision criteria',checked:document.getElementById('permitStopGo').checked}
+  ];
+  const tx = db.transaction(['permits'],'readwrite');
+  const store = tx.objectStore('permits');
+  permits.forEach(p=>store.put({...p,id:p.name}));
+  alert('Governance state saved.');
+}
+
+// Load Permit Checklist State
+function loadPermitState(){
+  const tx = db.transaction(['permits'],'readonly');
+  const store = tx.objectStore('permits');
+  store.openCursor().onsuccess = e=>{
+    const cursor = e.target.result;
+    if(cursor){
+      const id = cursor.key;
+      const val = cursor.value;
+      switch(id){
+        case 'Environmental Impact Assessment': document.getElementById('permitEnv').checked=val.checked; break;
+        case 'Biosafety & Lab Clearance': document.getElementById('permitBiosafety').checked=val.checked; break;
+        case 'Local community consent': document.getElementById('permitLocalConsent').checked=val.checked; break;
+        case 'Benefit-sharing agreements': document.getElementById('permitBenefitSharing').checked=val.checked; break;
+        case 'Stop/Go decision criteria': document.getElementById('permitStopGo').checked=val.checked; break;
+      }
+      cursor.continue();
+    }
+  };
+}
+
+// Auto-load on startup
+loadStakeholders();
+loadPermitState();
+</script>
+<section id="dashboard-analytics" data-id="section-dashboard">
+  <h1>Dashboard & Analytics</h1>
+  <p>Aggregate monitoring data, simulations, and community feedback into interactive KPIs, charts, and maps. Designed for real-time insights and adaptive decision-making.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <div style="flex:1;min-width:200px;">
+      <label for="dashRegion">Select Region:</label>
+      <select id="dashRegion" onchange="updateDashboard()">
+        <option value="">--All Regions--</option>
+        <option value="R1">R1 — Hot Desert</option>
+        <option value="R2">R2 — Semiarid / Sahel</option>
+        <option value="R3">R3 — Savannah</option>
+        <option value="R4">R4 — Rainforest</option>
+        <option value="R5">R5 — Mediterranean</option>
+        <option value="R6">R6 — Highlands</option>
+        <option value="R7">R7 — Humid Subtropical</option>
+      </select>
+    </div>
+  </div>
+
+  <canvas id="dashboardChart" style="width:100%;height:400px;"></canvas>
+
+  <div id="dashboardKPIs" style="margin-top:1em;padding:1em;background:#111;color:#0f0;border-radius:6px;max-height:250px;overflow-y:auto;">
+    <p>Dashboard KPIs will appear here.</p>
+  </div>
+</section>
+
+<script>
+// === Dashboard Analytics ===
+const dashCtx = document.getElementById('dashboardChart').getContext('2d');
+const dashKPIs = document.getElementById('dashboardKPIs');
+let dashChart;
+
+// Fetch aggregated data from IndexedDB
+async function fetchAggregatedData(regionFilter){
+  const txFeedback = db.transaction(['communityFeedback'],'readonly');
+  const storeFeedback = txFeedback.objectStore('communityFeedback');
+  const feedbacks = [];
+  await new Promise(resolve=>{
+    storeFeedback.openCursor().onsuccess = e=>{
+      const cursor = e.target.result;
+      if(cursor){
+        if(!regionFilter || cursor.value.region===regionFilter) feedbacks.push(cursor.value);
+        cursor.continue();
+      } else resolve();
+    };
+  });
+
+  const txPermits = db.transaction(['permits'],'readonly');
+  const storePermits = txPermits.objectStore('permits');
+  const permits = [];
+  await new Promise(resolve=>{
+    storePermits.openCursor().onsuccess=e=>{
+      const cursor = e.target.result;
+      if(cursor) { permits.push(cursor.value); cursor.continue(); } else resolve(); 
+    };
+  });
+
+  // Simulated monitoring data (placeholder for real inputs)
+  const months = 12;
+  const monitoring = {soil:[],vegetation:[],dust:[],engagement:[]};
+  for(let i=0;i<months;i++){
+    monitoring.soil.push(Math.random()*3+1);
+    monitoring.vegetation.push(Math.random()*20+10);
+    monitoring.dust.push(Math.random()*40);
+    monitoring.engagement.push(feedbacks.length>0?Math.min(feedbacks.length,50):Math.random()*50);
+  }
+
+  return {feedbacks,permits,monitoring,labels:Array.from({length:months},(_,i)=>`Month ${i+1}`)};
+}
+
+// Update dashboard visuals
+async function updateDashboard(){
+  const region = document.getElementById('dashRegion').value;
+  const data = await fetchAggregatedData(region);
+
+  if(dashChart) dashChart.destroy();
+
+  dashChart = new Chart(dashCtx, {
+    type:'line',
+    data:{
+      labels:data.labels,
+      datasets:[
+        {label:'Soil Organic Carbon (%)', data:data.monitoring.soil, borderColor:'#32CD32', fill:false, tension:0.3},
+        {label:'Vegetation Cover (%)', data:data.monitoring.vegetation, borderColor:'#1E90FF', fill:false, tension:0.3},
+        {label:'Dust Flux (mg/m²)', data:data.monitoring.dust, borderColor:'#FF4500', fill:false, tension:0.3},
+        {label:'Community Engagement (#)', data:data.monitoring.engagement, borderColor:'#00CED1', fill:false, tension:0.3}
+      ]
+    },
+    options:{
+      responsive:true,
+      plugins:{legend:{position:'top'},title:{display:true,text:`Dashboard Analytics — ${region || 'All Regions'}`}},
+      scales:{y:{beginAtZero:true}}
+    }
+  });
+
+  // KPIs summary
+  const avg = arr => arr.reduce((a,b)=>a+parseFloat(b),0)/arr.length;
+  const kpis = [
+    `Average Soil Organic Carbon: ${avg(data.monitoring.soil).toFixed(2)}%`,
+    `Average Vegetation Cover: ${avg(data.monitoring.vegetation).toFixed(2)}%`,
+    `Average Dust Flux: ${avg(data.monitoring.dust).toFixed(2)} mg/m²`,
+    `Total Community Feedback Entries: ${data.feedbacks.length}`,
+    `Permits Completed: ${data.permits.filter(p=>p.checked).length} / ${data.permits.length}`
+  ];
+
+  dashKPIs.innerHTML = kpis.map(k=>`<div>🔹 ${k}</div>`).join('');
+}
+
+// Initial dashboard load
+updateDashboard();
+</script>
+<section id="knowledge-repo" data-id="section-knowledge">
+  <h1>Knowledge Repository & Wizard Insights</h1>
+  <p>Central hub for research findings, fungal candidate data, wizard clues, and adaptive restoration strategies.</p>
+
+  <div style="margin-bottom:1em;display:flex;gap:1em;flex-wrap:wrap;">
+    <input type="text" id="repoSearch" placeholder="Search knowledge repository..." style="flex:1;min-width:200px;">
+    <button onclick="searchRepository()">Search</button>
+    <button onclick="clearRepositorySearch()">Clear</button>
+  </div>
+
+  <div id="knowledgeFeed" style="background:#111;color:#0f0;padding:1em;border-radius:6px;max-height:400px;overflow-y:auto;">
+    <p>No knowledge entries yet. Wizard clues and research findings will populate here.</p>
+  </div>
+</section>
+
+<script>
+// === Knowledge Repository IndexedDB Setup ===
+const knowledgeRequest = indexedDB.open('MycelialAtlasDB', 7);
+knowledgeRequest.onupgradeneeded = e=>{
+  db = e.target.result;
+  if(!db.objectStoreNames.contains('knowledgeRepo')){
+    db.createObjectStore('knowledgeRepo',{keyPath:'id',autoIncrement:true});
+  }
+};
+knowledgeRequest.onsuccess = e=>{
+  db = e.target.result;
+  loadKnowledgeFeed();
+};
+
+// Add sample wizard/research entry (can be expanded dynamically)
+function addKnowledgeEntry(entry){
+  const tx = db.transaction(['knowledgeRepo'],'readwrite');
+  const store = tx.objectStore('knowledgeRepo');
+  store.add({...entry,timestamp:new Date().toISOString()});
+}
+
+// Search repository
+function searchRepository(){
+  const query = document.getElementById('repoSearch').value.trim().toLowerCase();
+  if(!query) return loadKnowledgeFeed();
+
+  const tx = db.transaction(['knowledgeRepo'],'readonly');
+  const store = tx.objectStore('knowledgeRepo');
+  const results = [];
+  store.openCursor().onsuccess=e=>{
+    const cursor = e.target.result;
+    if(cursor){
+      const val = cursor.value;
+      if(val.title.toLowerCase().includes(query) || val.content.toLowerCase().includes(query)){
+        results.push(val);
+      }
+      cursor.continue();
+    } else displayKnowledgeFeed(results);
+  };
+}
+
+// Clear search
+function clearRepositorySearch(){ document.getElementById('repoSearch').value=''; loadKnowledgeFeed(); }
+
+// Load all knowledge entries
+function loadKnowledgeFeed(){
+  const tx = db.transaction(['knowledgeRepo'],'readonly');
+  const store = tx.objectStore('knowledgeRepo');
+  const entries = [];
+  store.openCursor(null,'prev').onsuccess=e=>{
+    const cursor = e.target.result;
+    if(cursor){ entries.push(cursor.value); cursor.continue(); }
+    else displayKnowledgeFeed(entries);
+  };
+}
+
+// Display knowledge feed
+function displayKnowledgeFeed(entries){
+  const feed = document.getElementById('knowledgeFeed');
+  if(entries.length===0){
+    feed.innerHTML='<p>No knowledge entries yet. Wizard clues and research findings will populate here.</p>';
+    return;
+  }
+  feed.innerHTML = entries.map(e=>
+    `<div style="margin-bottom:0.5em;">
+      <strong>${e.title}</strong> <em>[${new Date(e.timestamp).toLocaleString()}]</em><br>
+      <span>${e.content}</span>
+    </div>`
+  ).join('');
+}
+
+// === Example: Populate with initial wizard clues & research data ===
+const initialEntries = [
+  {title:'R2 — Drought-tolerant AMF', content:'Arbuscular mycorrhizal fungi enhance grass survival during dry months. Monitor soil pulses for optimal inoculation windows.'},
+  {title:'R3 — Savannah Tree Establishment', content:'Mycorrhizal networks improve acacia seedling survival under grazing pressure. Cross-reference with community observation data.'},
+  {title:'Wizard Clue: Desert Transition', content:'🔮 "Where sands meet scrub, shadowed roots hold the key to life beneath the sun."'},
+  {title:'R5 — Mediterranean Drought Resilience', content:'Drought-tolerant mycorrhizae help olive-type species survive summer stress. Ensure native species preference.'}
+];
+initialEntries.forEach(addKnowledgeEntry);
+
+// Auto-load feed
+loadKnowledgeFeed();
+</script>
+<section id="predictive-simulation" data-id="section-simulation">
+  <h1>Predictive Modeling & Simulation</h1>
+  <p>Run simulations of ecological and social outcomes under various restoration strategies. Integrates monitoring, governance, and knowledge repository data to inform adaptive decision-making.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <div style="flex:1;min-width:200px;">
+      <label for="simRegion">Select Region:</label>
+      <select id="simRegion">
+        <option value="">--All Regions--</option>
+        <option value="R1">R1 — Hot Desert</option>
+        <option value="R2">R2 — Semiarid / Sahel</option>
+        <option value="R3">R3 — Savannah</option>
+        <option value="R4">R4 — Rainforest</option>
+        <option value="R5">R5 — Mediterranean</option>
+        <option value="R6">R6 — Highlands</option>
+        <option value="R7">R7 — Humid Subtropical</option>
+      </select>
+    </div>
+    <div style="flex:1;min-width:150px;align-self:flex-end;">
+      <button onclick="runSimulation()">Run Simulation</button>
+    </div>
+  </div>
+
+  <canvas id="simulationChart" style="width:100%;height:400px;"></canvas>
+
+  <div id="simulationKPIs" style="margin-top:1em;padding:1em;background:#111;color:#0f0;border-radius:6px;max-height:250px;overflow-y:auto;">
+    <p>Simulation results will appear here.</p>
+  </div>
+</section>
+
+<script>
+// === Predictive Simulation Setup ===
+const simCtx = document.getElementById('simulationChart').getContext('2d');
+const simKPIs = document.getElementById('simulationKPIs');
+let simChart;
+
+// Placeholder simulation function (replace with model integration)
+async function runSimulation(){
+  const region = document.getElementById('simRegion').value;
+
+  // Fetch monitoring & feedback data
+  const dashData = await fetchAggregatedData(region);
+  const labels = dashData.labels;
+
+  // Simulate future projections (placeholder logic)
+  const months = labels.length;
+  const soilProjection = dashData.monitoring.soil.map(v => v + Math.random()*0.5);
+  const vegProjection = dashData.monitoring.vegetation.map(v => v + Math.random()*5);
+  const dustProjection = dashData.monitoring.dust.map(v => v - Math.random()*5);
+  const engagementProjection = dashData.monitoring.engagement.map(v => v + Math.random()*10);
+
+  // Render simulation chart
+  if(simChart) simChart.destroy();
+  simChart = new Chart(simCtx, {
+    type:'line',
+    data:{
+      labels,
+      datasets:[
+        {label:'Projected Soil Organic Carbon (%)', data:soilProjection, borderColor:'#32CD32', fill:false, tension:0.3},
+        {label:'Projected Vegetation Cover (%)', data:vegProjection, borderColor:'#1E90FF', fill:false, tension:0.3},
+        {label:'Projected Dust Flux (mg/m²)', data:dustProjection, borderColor:'#FF4500', fill:false, tension:0.3},
+        {label:'Projected Community Engagement (#)', data:engagementProjection, borderColor:'#00CED1', fill:false, tension:0.3}
+      ]
+    },
+    options:{
+      responsive:true,
+      plugins:{legend:{position:'top'},title:{display:true,text:`Predictive Simulation — ${region || 'All Regions'}`}},
+      scales:{y:{beginAtZero:true}}
+    }
+  });
+
+  // Update KPIs
+  const avg = arr => arr.reduce((a,b)=>a+parseFloat(b),0)/arr.length;
+  const kpis = [
+    `Predicted Avg Soil Organic Carbon: ${avg(soilProjection).toFixed(2)}%`,
+    `Predicted Avg Vegetation Cover: ${avg(vegProjection).toFixed(2)}%`,
+    `Predicted Avg Dust Flux: ${avg(dustProjection).toFixed(2)} mg/m²`,
+    `Predicted Community Engagement: ${Math.round(avg(engagementProjection))} interactions`
+  ];
+  simKPIs.innerHTML = kpis.map(k=>`<div>🔹 ${k}</div>`).join('');
+}
+</script>
+<section id="community-feedback" data-id="section-feedback">
+  <h1>Community Engagement & Feedback</h1>
+  <p>Enable local communities to submit observations, report issues, and provide feedback on restoration projects. All entries feed into dashboards and simulations for adaptive management.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <div style="flex:1;min-width:200px;">
+      <label for="feedbackRegion">Select Region:</label>
+      <select id="feedbackRegion">
+        <option value="R1">R1 — Hot Desert</option>
+        <option value="R2">R2 — Semiarid / Sahel</option>
+        <option value="R3">R3 — Savannah</option>
+        <option value="R4">R4 — Rainforest</option>
+        <option value="R5">R5 — Mediterranean</option>
+        <option value="R6">R6 — Highlands</option>
+        <option value="R7">R7 — Humid Subtropical</option>
+      </select>
+    </div>
+    <div style="flex:2;min-width:200px;">
+      <label for="feedbackText">Observation / Feedback:</label>
+      <input type="text" id="feedbackText" placeholder="Describe observations, issues, or suggestions..." style="width:100%;">
+    </div>
+    <div style="flex:1;min-width:100px;align-self:flex-end;">
+      <button onclick="submitFeedback()">Submit</button>
+    </div>
+  </div>
+
+  <div id="feedbackFeed" style="margin-top:1em;padding:1em;background:#111;color:#0f0;border-radius:6px;max-height:400px;overflow-y:auto;">
+    <p>No community feedback yet. Entries will populate here in real time.</p>
+  </div>
+</section>
+
+<script>
+// === IndexedDB setup for community feedback ===
+const feedbackRequest = indexedDB.open('MycelialAtlasDB', 8);
+feedbackRequest.onupgradeneeded = e=>{
+  db = e.target.result;
+  if(!db.objectStoreNames.contains('communityFeedback')){
+    db.createObjectStore('communityFeedback',{keyPath:'id',autoIncrement:true});
+  }
+};
+feedbackRequest.onsuccess = e=>{
+  db = e.target.result;
+  loadFeedbackFeed();
+};
+
+// Submit feedback
+function submitFeedback(){
+  const region = document.getElementById('feedbackRegion').value;
+  const text = document.getElementById('feedbackText').value.trim();
+  if(!text) return alert('Please enter your observation or feedback.');
+
+  const tx = db.transaction(['communityFeedback'],'readwrite');
+  const store = tx.objectStore('communityFeedback');
+  store.add({region,text,timestamp:new Date().toISOString()});
+
+  document.getElementById('feedbackText').value='';
+  loadFeedbackFeed();
+}
+
+// Load all feedback
+function loadFeedbackFeed(){
+  const tx = db.transaction(['communityFeedback'],'readonly');
+  const store = tx.objectStore('communityFeedback');
+  const entries = [];
+  store.openCursor(null,'prev').onsuccess=e=>{
+    const cursor = e.target.result;
+    if(cursor){ entries.push(cursor.value); cursor.continue(); }
+    else displayFeedbackFeed(entries);
+  };
+}
+
+// Display feedback feed
+function displayFeedbackFeed(entries){
+  const feed = document.getElementById('feedbackFeed');
+  if(entries.length===0){
+    feed.innerHTML='<p>No community feedback yet. Entries will populate here in real time.</p>';
+    return;
+  }
+  feed.innerHTML = entries.map(e=>
+    `<div style="margin-bottom:0.5em;">
+      <strong>${e.region}</strong> <em>[${new Date(e.timestamp).toLocaleString()}]</em><br>
+      <span>${e.text}</span>
+    </div>`
+  ).join('');
+}
+</script>
+<section id="regulatory-compliance" data-id="section-regulatory">
+  <h1>Regulatory Compliance & Permitting</h1>
+  <p>Track permissions, ethical approvals, environmental clearances, and governance agreements to ensure all restoration activities are fully compliant and safe.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <div style="flex:1;min-width:200px;">
+      <label for="regRegion">Region / Project:</label>
+      <select id="regRegion">
+        <option value="R1">R1 — Hot Desert</option>
+        <option value="R2">R2 — Semiarid / Sahel</option>
+        <option value="R3">R3 — Savannah</option>
+        <option value="R4">R4 — Rainforest</option>
+        <option value="R5">R5 — Mediterranean</option>
+        <option value="R6">R6 — Highlands</option>
+        <option value="R7">R7 — Humid Subtropical</option>
+      </select>
+    </div>
+    <div style="flex:2;min-width:250px;">
+      <label for="regDescription">Permit / Compliance Note:</label>
+      <input type="text" id="regDescription" placeholder="Enter permit ID, ethics approval, or compliance note" style="width:100%;">
+    </div>
+    <div style="flex:1;min-width:120px;align-self:flex-end;">
+      <button onclick="addRegulatoryEntry()">Add Entry</button>
+    </div>
+  </div>
+
+  <div id="regulatoryFeed" style="margin-top:1em;padding:1em;background:#111;color:#0f0;border-radius:6px;max-height:400px;overflow-y:auto;">
+    <p>No regulatory entries yet. Add permits, approvals, or ethical notes here.</p>
+  </div>
+</section>
+
+<script>
+// === IndexedDB setup for regulatory compliance ===
+const regRequest = indexedDB.open('MycelialAtlasDB', 9);
+regRequest.onupgradeneeded = e=>{
+  db = e.target.result;
+  if(!db.objectStoreNames.contains('regulatoryCompliance')){
+    db.createObjectStore('regulatoryCompliance',{keyPath:'id',autoIncrement:true});
+  }
+};
+regRequest.onsuccess = e=>{
+  db = e.target.result;
+  loadRegulatoryFeed();
+};
+
+// Add a compliance entry
+function addRegulatoryEntry(){
+  const region = document.getElementById('regRegion').value;
+  const desc = document.getElementById('regDescription').value.trim();
+  if(!desc) return alert('Please enter a compliance note or permit ID.');
+
+  const tx = db.transaction(['regulatoryCompliance'],'readwrite');
+  const store = tx.objectStore('regulatoryCompliance');
+  store.add({region,description:desc,timestamp:new Date().toISOString()});
+
+  document.getElementById('regDescription').value='';
+  loadRegulatoryFeed();
+}
+
+// Load all regulatory entries
+function loadRegulatoryFeed(){
+  const tx = db.transaction(['regulatoryCompliance'],'readonly');
+  const store = tx.objectStore('regulatoryCompliance');
+  const entries = [];
+  store.openCursor(null,'prev').onsuccess=e=>{
+    const cursor = e.target.result;
+    if(cursor){ entries.push(cursor.value); cursor.continue(); }
+    else displayRegulatoryFeed(entries);
+  };
+}
+
+// Display regulatory feed
+function displayRegulatoryFeed(entries){
+  const feed = document.getElementById('regulatoryFeed');
+  if(entries.length===0){
+    feed.innerHTML='<p>No regulatory entries yet. Add permits, approvals, or ethical notes here.</p>';
+    return;
+  }
+  feed.innerHTML = entries.map(e=>
+    `<div style="margin-bottom:0.5em;">
+      <strong>${e.region}</strong> <em>[${new Date(e.timestamp).toLocaleString()}]</em><br>
+      <span>${e.description}</span>
+    </div>`
+  ).join('');
+}
+</script>
+<section id="dashboard-visualization" data-id="section-dashboard">
+  <h1>Project Dashboard & Visualizations</h1>
+  <p>Interactive overview of ecological, social, regulatory, and predictive indicators. Provides multi-layered insights for adaptive decision-making.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <div style="flex:1;min-width:180px;">
+      <label for="dashRegion">Select Region:</label>
+      <select id="dashRegion" onchange="renderDashboard()">
+        <option value="">--All Regions--</option>
+        <option value="R1">R1 — Hot Desert</option>
+        <option value="R2">R2 — Semiarid / Sahel</option>
+        <option value="R3">R3 — Savannah</option>
+        <option value="R4">R4 — Rainforest</option>
+        <option value="R5">R5 — Mediterranean</option>
+        <option value="R6">R6 — Highlands</option>
+        <option value="R7">R7 — Humid Subtropical</option>
+      </select>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;">
+    <canvas id="dashSoilChart" style="flex:1;min-width:300px;height:300px;"></canvas>
+    <canvas id="dashVegChart" style="flex:1;min-width:300px;height:300px;"></canvas>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-top:1em;">
+    <canvas id="dashDustChart" style="flex:1;min-width:300px;height:300px;"></canvas>
+    <canvas id="dashEngagementChart" style="flex:1;min-width:300px;height:300px;"></canvas>
+  </div>
+
+  <div id="dashKPIs" style="margin-top:1em;padding:1em;background:#111;color:#0f0;border-radius:6px;max-height:250px;overflow-y:auto;">
+    <p>Key performance indicators will appear here.</p>
+  </div>
+</section>
+
+<script>
+// === Dashboard Charts Setup ===
+let soilChart, vegChart, dustChart, engagementChart;
+
+async function renderDashboard(){
+  const region = document.getElementById('dashRegion').value;
+
+  // Fetch aggregated monitoring & feedback data
+  const dashData = await fetchAggregatedData(region);
+  const labels = dashData.labels;
+
+  // Destroy existing charts if any
+  [soilChart, vegChart, dustChart, engagementChart].forEach(c=>{if(c)c.destroy();});
+
+  soilChart = new Chart(document.getElementById('dashSoilChart').getContext('2d'),{
+    type:'line',
+    data:{labels,datasets:[{label:'Soil Organic Carbon (%)',data:dashData.monitoring.soil,borderColor:'#32CD32',fill:false,tension:0.3}]},
+    options:{responsive:true,title:{display:true,text:'Soil Organic Carbon'}}
+  });
+
+  vegChart = new Chart(document.getElementById('dashVegChart').getContext('2d'),{
+    type:'line',
+    data:{labels,datasets:[{label:'Vegetation Cover (%)',data:dashData.monitoring.vegetation,borderColor:'#1E90FF',fill:false,tension:0.3}]},
+    options:{responsive:true,title:{display:true,text:'Vegetation Cover'}}
+  });
+
+  dustChart = new Chart(document.getElementById('dashDustChart').getContext('2d'),{
+    type:'line',
+    data:{labels,datasets:[{label:'Dust Flux (mg/m²)',data:dashData.monitoring.dust,borderColor:'#FF4500',fill:false,tension:0.3}]},
+    options:{responsive:true,title:{display:true,text:'Dust Flux'}}
+  });
+
+  engagementChart = new Chart(document.getElementById('dashEngagementChart').getContext('2d'),{
+    type:'line',
+    data:{labels,datasets:[{label:'Community Engagement (#)',data:dashData.monitoring.engagement,borderColor:'#00CED1',fill:false,tension:0.3}]},
+    options:{responsive:true,title:{display:true,text:'Community Engagement'}}
+  });
+
+  // KPIs
+  const avg = arr=>arr.reduce((a,b)=>a+parseFloat(b),0)/arr.length;
+  const kpis = [
+    `Average Soil Organic Carbon: ${avg(dashData.monitoring.soil).toFixed(2)}%`,
+    `Average Vegetation Cover: ${avg(dashData.monitoring.vegetation).toFixed(2)}%`,
+    `Average Dust Flux: ${avg(dashData.monitoring.dust).toFixed(2)} mg/m²`,
+    `Average Community Engagement: ${Math.round(avg(dashData.monitoring.engagement))}`
+  ];
+  document.getElementById('dashKPIs').innerHTML = kpis.map(k=>`<div>🔹 ${k}</div>`).join('');
+}
+
+// Initial load
+renderDashboard();
+</script>
+<section id="knowledge-repository" data-id="section-knowledge">
+  <h1>Knowledge Repository & Research Library</h1>
+  <p>Explore research studies, historical fungal records, community observations, and wizard insights. Search, filter, and cross-link data for adaptive restoration strategy development.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <input type="text" id="searchKnowledge" placeholder="Search by keyword, species, or region..." style="flex:1;min-width:200px;" oninput="filterKnowledge()">
+    <select id="filterRegionKnowledge" onchange="filterKnowledge()" style="flex:1;min-width:150px;">
+      <option value="">--All Regions--</option>
+      <option value="R1">R1 — Hot Desert</option>
+      <option value="R2">R2 — Semiarid / Sahel</option>
+      <option value="R3">R3 — Savannah</option>
+      <option value="R4">R4 — Rainforest</option>
+      <option value="R5">R5 — Mediterranean</option>
+      <option value="R6">R6 — Highlands</option>
+      <option value="R7">R7 — Humid Subtropical</option>
+    </select>
+  </div>
+
+  <div id="knowledgeFeed" style="padding:1em;background:#111;color:#0f0;border-radius:6px;max-height:500px;overflow-y:auto;">
+    <p>No knowledge entries yet. Literature, observations, and wizard clues will appear here.</p>
+  </div>
+</section>
+
+<script>
+// === IndexedDB setup for knowledge repository ===
+const knowledgeRequest = indexedDB.open('MycelialAtlasDB', 10);
+knowledgeRequest.onupgradeneeded = e=>{
+  db = e.target.result;
+  if(!db.objectStoreNames.contains('knowledgeLibrary')){
+    db.createObjectStore('knowledgeLibrary',{keyPath:'id',autoIncrement:true});
+  }
+};
+knowledgeRequest.onsuccess = e=>{
+  db = e.target.result;
+  loadKnowledgeFeed();
+};
+
+// Add knowledge entry
+function addKnowledgeEntry(region,text,type){
+  const tx = db.transaction(['knowledgeLibrary'],'readwrite');
+  const store = tx.objectStore('knowledgeLibrary');
+  store.add({region,text,type,timestamp:new Date().toISOString()});
+  loadKnowledgeFeed();
+}
+
+// Load knowledge feed
+function loadKnowledgeFeed(){
+  const tx = db.transaction(['knowledgeLibrary'],'readonly');
+  const store = tx.objectStore('knowledgeLibrary');
+  const entries=[];
+  store.openCursor(null,'prev').onsuccess=e=>{
+    const cursor = e.target.result;
+    if(cursor){entries.push(cursor.value); cursor.continue();}
+    else displayKnowledgeFeed(entries);
+  };
+}
+
+// Display knowledge feed
+function displayKnowledgeFeed(entries){
+  const feed=document.getElementById('knowledgeFeed');
+  if(entries.length===0){feed.innerHTML='<p>No knowledge entries yet.</p>';return;}
+  feed.innerHTML = entries.map(e=>`<div style="margin-bottom:0.7em;">
+      <strong>${e.region}</strong> <em>[${new Date(e.timestamp).toLocaleString()}]</em> <span style="color:#FFD700;">(${e.type})</span><br>
+      <span>${e.text}</span>
+    </div>`).join('');
+}
+
+// Filter knowledge by search & region
+function filterKnowledge(){
+  const keyword=document.getElementById('searchKnowledge').value.toLowerCase();
+  const region=document.getElementById('filterRegionKnowledge').value;
+
+  const tx = db.transaction(['knowledgeLibrary'],'readonly');
+  const store = tx.objectStore('knowledgeLibrary');
+  const entries=[];
+  store.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      const item=cursor.value;
+      if((!region || item.region===region) && (!keyword || item.text.toLowerCase().includes(keyword))) entries.push(item);
+      cursor.continue();
+    } else displayKnowledgeFeed(entries);
+  };
+}
+
+// Example: preload wizard clues into knowledge library
+setTimeout(()=>{
+  const tx = db.transaction(['wizardClues'],'readonly');
+  const store = tx.objectStore('wizardClues');
+  store.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      addKnowledgeEntry(cursor.value.region,cursor.value.text,'Wizard Clue');
+      cursor.continue();
+    }
+  };
+},2000);
+</script>
+<section id="regulatory-compliance" data-id="section-regulatory">
+  <h1>Regulatory Compliance & Permitting</h1>
+  <p>Track permissions, ethical approvals, environmental clearances, and governance agreements to ensure all restoration activities are fully compliant and safe.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <div style="flex:1;min-width:200px;">
+      <label for="regRegion">Region / Project:</label>
+      <select id="regRegion">
+        <option value="R1">R1 — Hot Desert</option>
+        <option value="R2">R2 — Semiarid / Sahel</option>
+        <option value="R3">R3 — Savannah</option>
+        <option value="R4">R4 — Rainforest</option>
+        <option value="R5">R5 — Mediterranean</option>
+        <option value="R6">R6 — Highlands</option>
+        <option value="R7">R7 — Humid Subtropical</option>
+      </select>
+    </div>
+    <div style="flex:2;min-width:250px;">
+      <label for="regDescription">Permit / Compliance Note:</label>
+      <input type="text" id="regDescription" placeholder="Enter permit ID, ethics approval, or compliance note" style="width:100%;">
+    </div>
+    <div style="flex:1;min-width:120px;align-self:flex-end;">
+      <button onclick="addRegulatoryEntry()">Add Entry</button>
+    </div>
+  </div>
+
+  <div id="regulatoryFeed" style="margin-top:1em;padding:1em;background:#111;color:#0f0;border-radius:6px;max-height:400px;overflow-y:auto;">
+    <p>No regulatory entries yet. Add permits, approvals, or ethical notes here.</p>
+  </div>
+</section>
+
+<script>
+// === IndexedDB setup for regulatory compliance ===
+const regRequest = indexedDB.open('MycelialAtlasDB', 9);
+regRequest.onupgradeneeded = e=>{
+  db = e.target.result;
+  if(!db.objectStoreNames.contains('regulatoryCompliance')){
+    db.createObjectStore('regulatoryCompliance',{keyPath:'id',autoIncrement:true});
+  }
+};
+regRequest.onsuccess = e=>{
+  db = e.target.result;
+  loadRegulatoryFeed();
+};
+
+// Add a compliance entry
+function addRegulatoryEntry(){
+  const region = document.getElementById('regRegion').value;
+  const desc = document.getElementById('regDescription').value.trim();
+  if(!desc) return alert('Please enter a compliance note or permit ID.');
+
+  const tx = db.transaction(['regulatoryCompliance'],'readwrite');
+  const store = tx.objectStore('regulatoryCompliance');
+  store.add({region,description:desc,timestamp:new Date().toISOString()});
+
+  document.getElementById('regDescription').value='';
+  loadRegulatoryFeed();
+}
+
+// Load all regulatory entries
+function loadRegulatoryFeed(){
+  const tx = db.transaction(['regulatoryCompliance'],'readonly');
+  const store = tx.objectStore('regulatoryCompliance');
+  const entries = [];
+  store.openCursor(null,'prev').onsuccess=e=>{
+    const cursor = e.target.result;
+    if(cursor){ entries.push(cursor.value); cursor.continue(); }
+    else displayRegulatoryFeed(entries);
+  };
+}
+
+// Display regulatory feed
+function displayRegulatoryFeed(entries){
+  const feed = document.getElementById('regulatoryFeed');
+  if(entries.length===0){
+    feed.innerHTML='<p>No regulatory entries yet. Add permits, approvals, or ethical notes here.</p>';
+    return;
+  }
+  feed.innerHTML = entries.map(e=>
+    `<div style="margin-bottom:0.5em;">
+      <strong>${e.region}</strong> <em>[${new Date(e.timestamp).toLocaleString()}]</em><br>
+      <span>${e.description}</span>
+    </div>`
+  ).join('');
+}
+</script>
+<section id="knowledge-repository" data-id="section-knowledge">
+  <h1>Knowledge Repository & Research Library</h1>
+  <p>Explore research studies, historical fungal records, community observations, and wizard insights. Search, filter, and cross-link data for adaptive restoration strategy development.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1em;margin-bottom:1em;">
+    <input type="text" id="searchKnowledge" placeholder="Search by keyword, species, or region..." style="flex:1;min-width:200px;" oninput="filterKnowledge()">
+    <select id="filterRegionKnowledge" onchange="filterKnowledge()" style="flex:1;min-width:150px;">
+      <option value="">--All Regions--</option>
+      <option value="R1">R1 — Hot Desert</option>
+      <option value="R2">R2 — Semiarid / Sahel</option>
+      <option value="R3">R3 — Savannah</option>
+      <option value="R4">R4 — Rainforest</option>
+      <option value="R5">R5 — Mediterranean</option>
+      <option value="R6">R6 — Highlands</option>
+      <option value="R7">R7 — Humid Subtropical</option>
+    </select>
+  </div>
+
+  <div id="knowledgeFeed" style="padding:1em;background:#111;color:#0f0;border-radius:6px;max-height:500px;overflow-y:auto;">
+    <p>No knowledge entries yet. Literature, observations, and wizard clues will appear here.</p>
+  </div>
+</section>
+
+<script>
+// === IndexedDB setup for knowledge repository ===
+const knowledgeRequest = indexedDB.open('MycelialAtlasDB', 10);
+knowledgeRequest.onupgradeneeded = e=>{
+  db = e.target.result;
+  if(!db.objectStoreNames.contains('knowledgeLibrary')){
+    db.createObjectStore('knowledgeLibrary',{keyPath:'id',autoIncrement:true});
+  }
+};
+knowledgeRequest.onsuccess = e=>{
+  db = e.target.result;
+  loadKnowledgeFeed();
+};
+
+// Add knowledge entry
+function addKnowledgeEntry(region,text,type){
+  const tx = db.transaction(['knowledgeLibrary'],'readwrite');
+  const store = tx.objectStore('knowledgeLibrary');
+  store.add({region,text,type,timestamp:new Date().toISOString()});
+  loadKnowledgeFeed();
+}
+
+// Load knowledge feed
+function loadKnowledgeFeed(){
+  const tx = db.transaction(['knowledgeLibrary'],'readonly');
+  const store = tx.objectStore('knowledgeLibrary');
+  const entries=[];
+  store.openCursor(null,'prev').onsuccess=e=>{
+    const cursor = e.target.result;
+    if(cursor){entries.push(cursor.value); cursor.continue();}
+    else displayKnowledgeFeed(entries);
+  };
+}
+
+// Display knowledge feed
+function displayKnowledgeFeed(entries){
+  const feed=document.getElementById('knowledgeFeed');
+  if(entries.length===0){feed.innerHTML='<p>No knowledge entries yet.</p>';return;}
+  feed.innerHTML = entries.map(e=>`<div style="margin-bottom:0.7em;">
+      <strong>${e.region}</strong> <em>[${new Date(e.timestamp).toLocaleString()}]</em> <span style="color:#FFD700;">(${e.type})</span><br>
+      <span>${e.text}</span>
+    </div>`).join('');
+}
+
+// Filter knowledge by search & region
+function filterKnowledge(){
+  const keyword=document.getElementById('searchKnowledge').value.toLowerCase();
+  const region=document.getElementById('filterRegionKnowledge').value;
+
+  const tx = db.transaction(['knowledgeLibrary'],'readonly');
+  const store = tx.objectStore('knowledgeLibrary');
+  const entries=[];
+  store.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      const item=cursor.value;
+      if((!region || item.region===region) && (!keyword || item.text.toLowerCase().includes(keyword))) entries.push(item);
+      cursor.continue();
+    } else displayKnowledgeFeed(entries);
+  };
+}
+
+// Example: preload wizard clues into knowledge library
+setTimeout(()=>{
+  const tx = db.transaction(['wizardClues'],'readonly');
+  const store = tx.objectStore('wizardClues');
+  store.openCursor().onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){
+      addKnowledgeEntry(cursor.value.region,cursor.value.text,'Wizard Clue');
+      cursor.continue();
+    }
+  };
+},2000);
+</script>

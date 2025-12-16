@@ -1,0 +1,1193 @@
+<!doctype html>
+<html lang="en" data-theme="void">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Planetary Restoration Archive — Mali Sovereignty (Food + Water, Extended)</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Ultra long-form, Mali-focused food & water sovereignty blueprint with morphing photorealistic starfield. Field playbooks by region, costed BOM calculator, phasing plans, risk dashboards, IndexedDB saves, Habitica sync, WebLLM co-pilot.">
+  <meta name="keywords" content="Mali, Sahel, food sovereignty, water sovereignty, FMNR, zaï pits, demi-lunes, seed banks, cisterns, solar pump, drip irrigation, Inner Niger Delta, Kayes, Koulikoro, Sikasso, Ségou, Mopti, Tombouctou, Gao, Kidal, Ménaka">
+  <meta name="theme-color" content="#0b0f1a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Mali Sovereignty Blueprint — Food & Water (Extended)" />
+  <meta property="og:description" content="Morphing constellations, particle trim, local-first storage. Region playbooks, BOM, phasing, risk. Habitica + WebLLM." />
+
+  <!-- PRA Presentation Schema -->
+  <link rel="schema.prs" href="https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid" />
+
+  <!-- Minimal PWA manifest (online-centric, but installable) -->
+  <link rel="manifest" href="data:application/manifest+json,{&quot;name&quot;:&quot;PRA Mali Sovereignty Extended&quot;,&quot;short_name&quot;:&quot;PRA-Mali&quot;,&quot;start_url&quot;:&quot;.&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#0b0f1a&quot;,&quot;theme_color&quot;:&quot;#0b0f1a&quot;}" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Ccircle cx='64' cy='64' r='62' fill='%230b0f1a'/%3E%3Cpath d='M64 16l12 24 26 4-19 18 5 26-24-13-24 13 5-26-19-18 26-4z' fill='%23b3e5ff'/%3E%3C/svg%3E" />
+
+  <!-- Online-centric scripts (no build step) -->
+  <script src="https://cdn.jsdelivr.net/npm/idb-keyval@6/dist/idb-keyval.iife.min.js" defer></script>
+  <script src="https://unpkg.com/@mlc-ai/web-llm/dist/web-llm.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+
+  <style>
+    :root{
+      --bg:#0b0f1a; --ink:#eaf6ff; --muted:#a9bed1; --accent:#9be7ff; --accent2:#ffd166;
+      --panel:#0f1422; --glass:rgba(255,255,255,0.06); --trim:#232a40; --good:#5bf7a1; --warn:#ffd166; --bad:#ff6b6b;
+    }
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:16px/1.58 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+    a{color:var(--accent)} a:hover{filter:brightness(1.15)}
+    #bg-wrap{position:fixed;inset:0;z-index:-3;background:radial-gradient(1200px 800px at 60% 10%, #0f172a 0%, #0b0f1a 60%, #070a11 100%)}
+    canvas#stars, canvas#trim {position:fixed;inset:0;z-index:-2;display:block}
+    #glowgrid{position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+      radial-gradient(800px 800px at 80% 20%, rgba(155,231,255,0.12), transparent 60%),
+      radial-gradient(1200px 800px at 10% 80%, rgba(255,209,102,0.06), transparent 60%); mix-blend-mode:screen}
+
+    header{position:sticky;top:0;z-index:5;background:linear-gradient(180deg, rgba(11,15,26,0.9), rgba(11,15,26,0.4));backdrop-filter:blur(6px);border-bottom:1px solid var(--trim)}
+    .wrap{max-width:1280px;margin:0 auto;padding:14px 18px}
+    .brand{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--trim);background:var(--glass);padding:6px 10px;border-radius:999px;color:var(--muted);font-size:.82rem}
+    nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    nav button{border:1px solid var(--trim);background:var(--glass);color:var(--ink);padding:8px 12px;border-radius:10px;cursor:pointer}
+    nav button.active{border-color:var(--accent);box-shadow:0 0 0 1px rgba(155,231,255,0.35) inset}
+
+    main{max-width:1280px;margin:24px auto 120px auto;padding:0 18px;display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
+    @media (max-width:1080px){main{grid-template-columns:1fr}}
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));border:1px solid var(--trim);border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.35);overflow:hidden}
+    .panel .head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--trim);background:rgba(15,20,34,.5)}
+    .panel .head h2{margin:0;font-size:1rem;letter-spacing:.2px}
+    .panel .body{padding:16px}
+    .section{padding:12px 14px;border:1px dashed var(--trim);border-radius:14px;margin:14px 0;background:rgba(255,255,255,0.02)}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media (max-width:900px){.grid2{grid-template-columns:1fr}}
+    h3{margin:8px 0 6px 0}
+    h4{margin:10px 0 6px 0;color:var(--accent)}
+    ul{margin:8px 0 8px 18px}
+    label{font-size:.85rem;color:var(--muted)}
+    input,select,textarea{width:100%;background:#0c1322;border:1px solid var(--trim);border-radius:10px;color:var(--ink);padding:10px}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    .row > *{flex:1 1 260px}
+    .btn{cursor:pointer;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--trim);background:#10182b;padding:10px 12px;border-radius:10px}
+    .btn.primary{border-color:var(--accent);background:#0c1a26}
+    .btn:disabled{opacity:.6;cursor:not-allowed}
+    .badge{font-size:.72rem;color:var(--muted);border:1px solid var(--trim);padding:2px 8px;border-radius:999px}
+    .good{color:var(--good)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+    .glow-trim{position:relative}
+    .glow-trim::after{content:"";position:absolute;inset:0;border-radius:16px;padding:1px;background:linear-gradient(90deg, rgba(155,231,255,.0), rgba(155,231,255,.55), rgba(255,209,102,.0));
+      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; animation:trimflow 6s linear infinite}
+    @keyframes trimflow {0%{background-position:0%}100%{background-position:200%}}
+
+    /* Tables */
+    table{width:100%;border-collapse:collapse}
+    th,td{border:1px solid var(--trim);padding:8px;vertical-align:top}
+    th{background:rgba(255,255,255,0.03);text-align:left}
+
+    /* HUD */
+    #hud{position:fixed;right:12px;bottom:12px;display:flex;flex-direction:column;gap:8px;z-index:9}
+    #hud .chip{background:#0e1628;border:1px solid var(--trim);color:var(--muted);padding:6px 10px;border-radius:999px}
+  </style>
+</head>
+
+<body>
+  <div id="bg-wrap"></div>
+  <canvas id="stars"></canvas>
+  <canvas id="trim"></canvas>
+  <div id="glowgrid" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <div class="pill">🌍 PRA Node — <strong>Mali (West Africa)</strong></div>
+        <div class="pill">🛡 Zero‑Harm Protocol</div>
+        <div class="pill">🧰 IndexedDB</div>
+        <div class="pill">🧠 WebLLM</div>
+      </div>
+      <nav id="nav">
+        <button data-tab="overview" class="active">Overview</button>
+        <button data-tab="food">Food</button>
+        <button data-tab="water">Water</button>
+        <button data-tab="regions">Regions</button>
+        <button data-tab="bom">BOM & Costs</button>
+        <button data-tab="training">Training</button>
+        <button data-tab="phasing">Phasing</button>
+        <button data-tab="risk">Risk</button>
+        <button data-tab="habitica">Habitica</button>
+        <button data-tab="ai">AI Co‑Pilot</button>
+        <button data-tab="settings">Settings</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- LEFT: Content -->
+    <section class="panel glow-trim" id="content">
+      <div class="head">
+        <h2 id="tab-title">Overview — Mali Sovereignty Blueprint (Extended)</h2>
+        <span class="badge" id="saved-indicator" title="Autosaves to your browser via IndexedDB.">local-save</span>
+      </div>
+      <div class="body" id="tab-body" role="region" aria-live="polite">
+
+        <!-- Overview -->
+        <div data-page="overview">
+          <div class="section">
+            <h3>Orientation</h3>
+            <p>
+              Mali’s sovereignty equation balances three stubborn variables: water that arrives in a hurry, soils that forget,
+              and markets that swing. This blueprint couples dryland agronomy (<em>zaï</em>, <em>demi‑lunes</em>, stone lines), seed sovereignty
+              and tree guilds with community storage, solar delivery, and pragmatic safety at point‑of‑use. The Inner Niger Delta’s pulse is treated
+              as a seasonal bank, not a surprise. What follows is deliberately field‑level and crew‑ready.
+            </p>
+            <ul>
+              <li><strong>Core crops:</strong> millet, sorghum, fonio; companions: cowpea, bambara groundnut, pigeon pea; nutrient trees: moringa, faidherbia, ziziphus, balanites.</li>
+              <li><strong>Water spine:</strong> half‑moons, trench‑checks, micro sand‑dams, ferrocement cisterns, PV pump → elevated tank → gravity taps.</li>
+              <li><strong>Governance:</strong> women‑led seed/grain vaults, youth micro‑works crews, transparent ledgers, simple risk triggers.</li>
+            </ul>
+          </div>
+          <div class="grid2">
+            <div class="section">
+              <h3>Design Rules</h3>
+              <ul>
+                <li><strong>Slow → spread → sink:</strong> no hard dams without keyed spillways.</li>
+                <li><strong>Low‑tech first:</strong> shovels, stone, brush; scale only after proof and ledgers.</li>
+                <li><strong>Native advantage:</strong> FMNR (farmer‑managed natural regeneration) before mass planting.</li>
+                <li><strong>Redundancy:</strong> 3× seed backups, 2× water sources, 2× distribution paths.</li>
+              </ul>
+            </div>
+            <div class="section">
+              <h3>Quick Wins (90–120 days)</h3>
+              <ul>
+                <li>Map run‑on and contour belts; start 2–3 pilot ha of <em>demi‑lunes</em> + 200 <em>zaï</em> pits.</li>
+                <li>Seed circle + clay‑lined grain vault; public ledger for lean‑season withdrawals.</li>
+                <li>10–20 m³ cistern + gravity spine; 1 ha drip for dry‑season greens.</li>
+                <li>Plant/protect 300 FMNR stems; 100 nursery trees; 3‑stone guards.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Food -->
+        <div data-page="food" hidden>
+          <div class="section"><h3>Food Sovereignty — Field Methods</h3>
+            <p>
+              The food plan is a soil‑moisture plan in disguise. Micro‑works create pockets of living sponge; guilds add shade,
+              nitrogen and edible leaves; seed vaults keep culture and calories close. Keep records like rainfall: consistent and honest.
+            </p>
+          </div>
+          <div class="section">
+            <h4>Micro‑Works</h4>
+            <ul>
+              <li><strong>Zaï pits</strong> 20–40 cm ⌀ × 10–20 cm deep, 80–100 cm spacing. 0.5–1 kg compost/manure + biochar per pit; sow 3–5 seeds, thin to 2.</li>
+              <li><strong>Demi‑lunes</strong> radius 2–4 m on contour; lip 25–35 cm; mulch basin; interplant <em>Faidherbia albida</em> seedlings (summer‑light tree).</li>
+              <li><strong>Stone lines</strong> every 20–40 m; spillways at 1–2% grade armored with brush. Purpose: slow sheet flow, trap silt.</li>
+            </ul>
+            <p class="badge">Rule: never send fast water into soft soil without a planned exit.</p>
+          </div>
+          <div class="section">
+            <h4>Seed & Grain Sovereignty</h4>
+            <ul>
+              <li><strong>Village seed circles:</strong> landrace registry; 3× redundancy across households; annual taste + yield fair.</li>
+              <li><strong>Clay‑lined vaults:</strong> raised floors; rodent guards; desiccants; humidity log; first‑in first‑out.</li>
+              <li><strong>Legume ladders:</strong> cowpea/pigeon‑pea/bambara in rotation to bank nitrogen (~20–30 kg/ha credit over a season).</li>
+            </ul>
+          </div>
+          <div class="section">
+            <h4>Tree‑Crop Guilds</h4>
+            <ul>
+              <li><em>Faidherbia</em> over millet/sorghum (drops leaves in wet season → light passes). Prune high; protect trunks.</li>
+              <li><em>Ziziphus</em>, <em>Balanites</em> for fruit/oil/browse; moringa for leaf protein; capture graywater in basins.</li>
+              <li><strong>FMNR:</strong> select 3–4 shoots, prune to single leader; rotate grazing to prevent bark damage.</li>
+            </ul>
+          </div>
+          <div class="section">
+            <h4>Nutrition & Markets</h4>
+            <ul>
+              <li>Kitchen blends: fonio + moringa leaf + groundnut paste; solar‑dry leafy greens and mango.</li>
+              <li>Women’s co‑ops: shea butter, baobab powder, moringa tea; publish grades & prices.</li>
+              <li>Lean‑season box: revolving fund from post‑harvest premiums for 8–10 critical weeks.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Water -->
+        <div data-page="water" hidden>
+          <div class="section"><h3>Water Sovereignty — Catch, Store, Serve, Safeguard</h3>
+            <p>
+              Gravity is your banker and sand your vault. We convert fast pulses into slow reserves via contour belts, trenches,
+              micro sand‑dams and cisterns; then deliver by solar to elevated tanks and gravity taps; and secure at the cup with
+              filtration + disinfectant windows.
+            </p>
+          </div>
+          <div class="section">
+            <h4>Catchment → Soil</h4>
+            <ul>
+              <li>Chain <em>demi‑lunes</em> across slopes; add 40–60 cm infiltration trenches with brush checks every 20–30 m.</li>
+              <li>Micro sand‑dams in ephemeral gullies (stone + geo‑fabric); tap by seep well downstream.</li>
+              <li>Road‑runoff off‑takes feeding basins; harvest the first dirty pulse with silt traps.</li>
+            </ul>
+          </div>
+          <div class="section">
+            <h4>Storage & Delivery</h4>
+            <ul>
+              <li>Ferrocement cisterns (10–50 m³), first‑flush diverters, silt traps, screened vents.</li>
+              <li>PV pump → elevated poly tank (5–20 m³) → 32–50 mm mainline → village spigots; chlorination window during outbreaks.</li>
+              <li>Drip blocks (1–5 ha) for off‑season vegetables; flush weekly; mulch heavy; 1.2–2.5 L/hr emitters.</li>
+            </ul>
+          </div>
+          <div class="section">
+            <h4>Potable Safety</h4>
+            <ul>
+              <li>Biosand/ceramic household filters; chlorine tabs in risk weeks.</li>
+              <li>SODIS (solar disinfection) as backup; mind turbidity (&lt;~30 NTU).</li>
+              <li>Salt watch on Saharan fringe: track EC; rotate abstractions; avoid salinization via controlled draw.</li>
+            </ul>
+          </div>
+          <div class="section">
+            <h4>Wetlands & Pastures</h4>
+            <ul>
+              <li>Inner Niger Delta: protect dry‑season grazing corridors; time cuts to bird nesting + fish recruitment windows.</li>
+              <li>Seasonal troughs at transhumance nodes; fence to prevent bank collapse.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Regions -->
+        <div data-page="regions" hidden>
+          <div class="section">
+            <h3>Region‑by‑Region Playbooks</h3>
+            <p class="note">
+              These are working playbooks: tune to micro‑topography, soils, and local knowledge. Use the add‑to‑Habitica buttons to queue deployments.
+            </p>
+            <div class="row">
+              <select id="region-select">
+                <option value="Kayes">Kayes (West)</option>
+                <option value="Koulikoro">Koulikoro (Bamako hinterland)</option>
+                <option value="Sikasso">Sikasso (South)</option>
+                <option value="Ségou">Ségou (Center‑South)</option>
+                <option value="Mopti">Mopti (Inner Niger Delta)</option>
+                <option value="Tombouctou">Tombouctou (North)</option>
+                <option value="Gao">Gao (North‑East)</option>
+                <option value="Kidal">Kidal (Far North‑East)</option>
+                <option value="Ménaka">Ménaka (East)</option>
+              </select>
+              <button class="btn" id="region-add-habit">Queue Region Tasks → Habitica</button>
+            </div>
+          </div>
+
+          <div class="section" id="region-body">
+            <!-- dynamic region content inserted by script -->
+          </div>
+        </div>
+
+        <!-- BOM & Costs -->
+        <div data-page="bom" hidden>
+          <div class="section">
+            <h3>Costed Bill of Materials (BOM)</h3>
+            <p class="note">
+              Enter your local unit prices (XOF or USD). Quantities are scalable presets for pilot (2 ha) and scale (10 ha). Results are estimates; always confirm with local quotes.
+            </p>
+          </div>
+
+          <div class="section">
+            <div class="row">
+              <div>
+                <label for="bom-scope">Scope</label>
+                <select id="bom-scope">
+                  <option value="pilot">Pilot — 2 ha micro‑works + 10 m³ cistern + 1 ha drip</option>
+                  <option value="scale">Scale — 10 ha micro‑works + 20 m³ cistern + 3 ha drip</option>
+                </select>
+              </div>
+              <div>
+                <label for="bom-currency">Currency</label>
+                <select id="bom-currency">
+                  <option value="XOF">XOF (CFA franc)</option>
+                  <option value="USD">USD</option>
+                </select>
+              </div>
+            </div>
+
+            <table id="bom-table">
+              <thead>
+                <tr><th>Category</th><th>Item</th><th>Qty</th><th>Unit</th><th>Unit Price</th><th>Subtotal</th></tr>
+              </thead>
+              <tbody></tbody>
+              <tfoot>
+                <tr><th colspan="5" style="text-align:right">Total</th><th id="bom-total">—</th></tr>
+              </tfoot>
+            </table>
+
+            <div class="row" style="margin-top:10px">
+              <button class="btn primary" id="bom-save">Save Prices</button>
+              <button class="btn" id="bom-reset">Reset to Example</button>
+              <button class="btn" id="bom-chart-btn">Show Cost Breakdown</button>
+            </div>
+            <canvas id="bom-chart" style="max-height:320px;margin-top:14px;display:none"></canvas>
+          </div>
+
+          <div class="section">
+            <h4>Included Categories & Assumptions</h4>
+            <ul>
+              <li><strong>Micro‑works:</strong> string reels, line levels, shovels/picks, stone/brush transport, local crew stipends.</li>
+              <li><strong>Cistern:</strong> cement, sand, rebar/mesh, food‑grade liner (where used), first‑flush, silt‑trap fittings.</li>
+              <li><strong>Solar spine:</strong> PV array, controller, pump (0.5–2 kW), elevated tank (5–20 m³), mainline + valves.</li>
+              <li><strong>Drip block:</strong> filter, pressure regulator, mainline/submain, drip tape, flush valves, stakes.</li>
+              <li><strong>Nursery:</strong> polytubes, shade net, potting mix, watering cans; FMNR largely labor + protection.</li>
+              <li><strong>Filters & safety:</strong> biosand/ceramic molds + media; chlorine tabs stocked for outbreak windows.</li>
+              <li><strong>Transport + training:</strong> local hire of carts/pickups; crew training days, PPE basics.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Training -->
+        <div data-page="training" hidden>
+          <div class="section">
+            <h3>Crew Training Drills (Dryland Ops)</h3>
+            <p class="note">Mark a drill done to store it locally. Add drills to Habitica for gamified roll‑out.</p>
+            <ul id="training-list">
+              <li><input type="checkbox" data-drill="contour-mapping"> Contour mapping with line‑level & A‑frame; mark spillways.</li>
+              <li><input type="checkbox" data-drill="zai-standard"> Standardize <em>zaï</em> pit spacing, depth and amendments.</li>
+              <li><input type="checkbox" data-drill="demi-lune-crew"> Half‑moon crew choreography (dig, lip, mulch, plant, spillway).</li>
+              <li><input type="checkbox" data-drill="stone-bund"> Build stone bund with keyed spillway; brush armor practice.</li>
+              <li><input type="checkbox" data-drill="nursery-setup"> Nursery setup: potting mix, shade net, watering schedule.</li>
+              <li><input type="checkbox" data-drill="cistern-hygiene"> Cistern hygiene: first‑flush, silt trap cleanout, vent screens.</li>
+              <li><input type="checkbox" data-drill="drip-flush"> Drip system flushing, filter clean, pressure checks.</li>
+              <li><input type="checkbox" data-drill="biosand-ops"> Biosand filter build, start‑up, maintenance & chlorine window.</li>
+              <li><input type="checkbox" data-drill="fmnr-guard"> FMNR selection, pruning, guarding, rotational grazing.</li>
+            </ul>
+            <div class="row" style="margin-top:10px">
+              <button class="btn" id="training-add-habit">Push Checked Drills → Habitica</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phasing -->
+        <div data-page="phasing" hidden>
+          <div class="section">
+            <h3>Phasing Plan (24 Months)</h3>
+            <p class="note">Use the sliders to rough‑in dates; we render a simple timeline and save locally.</p>
+            <div class="row">
+              <div>
+                <label>Phase 1 — Baseline & Quick Wins (days)</label>
+                <input id="phase1" type="range" min="15" max="120" value="90">
+              </div>
+              <div>
+                <label>Phase 2 — Scale Field Works (days)</label>
+                <input id="phase2" type="range" min="60" max="240" value="180">
+              </div>
+              <div>
+                <label>Phase 3 — Water Spine & Drip (days)</label>
+                <input id="phase3" type="range" min="60" max="240" value="150">
+              </div>
+              <div>
+                <label>Phase 4 — Consolidate & Markets (days)</label>
+                <input id="phase4" type="range" min="30" max="180" value="120">
+              </div>
+            </div>
+            <div id="timeline" class="section" style="height:120px; position:relative; background:rgba(255,255,255,0.02)"></div>
+            <div class="row" style="margin-top:10px">
+              <button class="btn primary" id="phasing-save">Save Phasing</button>
+              <button class="btn" id="phasing-reset">Reset</button>
+            </div>
+          </div>
+          <div class="section">
+            <h4>Milestones by Phase</h4>
+            <ul>
+              <li><strong>P1:</strong> mapping, seed circle, pilot micro‑works, 10 m³ cistern.</li>
+              <li><strong>P2:</strong> expand micro‑works 10 ha; FMNR protection; nursery outplanting.</li>
+              <li><strong>P3:</strong> PV pump + elevated tanks; 1–3 ha drip; household filters distributed.</li>
+              <li><strong>P4:</strong> market standards, co‑op packaging, ledger audits, lessons learned.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Risk -->
+        <div data-page="risk" hidden>
+          <div class="section">
+            <h3>Risk Dashboard</h3>
+            <p class="note">Score 0–5 (low → high). We compute a weighted index and show a traffic light. Save per‑region if you like.</p>
+            <div class="grid2">
+              <div>
+                <label>Climate (rain variability, heat, dust)</label>
+                <input id="risk-climate" type="range" min="0" max="5" value="3">
+                <label>Hydro (salinity, groundwater depth)</label>
+                <input id="risk-hydro" type="range" min="0" max="5" value="2">
+                <label>Supply (materials, transport)</label>
+                <input id="risk-supply" type="range" min="0" max="5" value="2">
+              </div>
+              <div>
+                <label>Social (conflict, displacement)</label>
+                <input id="risk-social" type="range" min="0" max="5" value="3">
+                <label>Ops (crew skills, governance)</label>
+                <input id="risk-ops" type="range" min="0" max="5" value="1">
+                <div class="row" style="margin-top:10px">
+                  <button class="btn primary" id="risk-save">Save Risk</button>
+                  <button class="btn" id="risk-reset">Reset</button>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <h4>Risk Index</h4>
+              <div id="risk-index" style="font-size:1.2rem">—</div>
+              <ul id="risk-mit" style="margin-top:8px"></ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Habitica -->
+        <div data-page="habitica" hidden>
+          <div class="section">
+            <h3>Habitica Sync</h3>
+            <p class="note">Credentials are stored locally (IndexedDB). Use the preload button only if you accept embedding keys in this file.</p>
+            <div class="row">
+              <div>
+                <label for="habit-user">Habitica User ID</label>
+                <input id="habit-user" type="text" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+              </div>
+              <div>
+                <label for="habit-token">Habitica API Token</label>
+                <input id="habit-token" type="password" placeholder="••••••••••••••••••••••" />
+              </div>
+            </div>
+            <div class="row" style="margin-top:10px">
+              <button class="btn" id="habit-load-embedded">Load Provided Keys</button>
+              <button class="btn primary" id="habit-save">Save to device</button>
+              <button class="btn" id="habit-test">Create sample To‑Do</button>
+            </div>
+            <p id="habit-status" class="note">Status: not connected.</p>
+            <div class="section">
+              <h4>One‑Click Task Queue</h4>
+              <div class="row" id="habit-tasks">
+                <!-- populated from playbooks for convenience -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Co-Pilot -->
+        <div data-page="ai" hidden>
+          <div class="section">
+            <h3>WebLLM Co‑Pilot</h3>
+            <p class="note">Models load in‑browser from CDN. If loading fails, we provide a simple heuristic fallback.</p>
+            <div class="row">
+              <div>
+                <label for="model-select">Model</label>
+                <select id="model-select">
+                  <option value="Llama-3.1-8B-Instruct-q4f32_1-MLC">Llama‑3.1‑8B‑Instruct (q4f32_1)</option>
+                  <option value="Qwen2-7B-Instruct-q4f32_1-MLC">Qwen2‑7B‑Instruct (q4f32_1)</option>
+                </select>
+              </div>
+              <div>
+                <label>&nbsp;</label>
+                <button id="model-load" class="btn primary">Load Model</button>
+              </div>
+            </div>
+            <div style="margin-top:10px">
+              <textarea id="ai-input" rows="4" placeholder="Draft a 3% slope half‑moon layout for Koulikoro…"></textarea>
+              <div style="margin-top:8px" class="row">
+                <button class="btn primary" id="ai-send">Ask</button>
+                <button class="btn" id="ai-clear">Clear</button>
+              </div>
+              <div id="ai-log" class="section" style="max-height:320px;overflow:auto"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings -->
+        <div data-page="settings" hidden>
+          <div class="section">
+            <h3>Settings & Integrity</h3>
+            <div class="row">
+              <div>
+                <label for="theme">Theme</label>
+                <select id="theme">
+                  <option value="void">Void (default)</option>
+                  <option value="dawn">Dawn</option>
+                  <option value="sahara">Sahara</option>
+                </select>
+              </div>
+              <div>
+                <label for="loc">Localization Note</label>
+                <input id="loc" placeholder="e.g., Kayes / Koulikoro / Sikasso / Ségou / Mopti / Tombouctou / Gao / Kidal / Ménaka" />
+              </div>
+            </div>
+            <p class="note" style="margin-top:8px">
+              This page is self‑contained and stores your preferences locally. Keep secrets out of public forks.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: Progress & Tools -->
+    <aside class="panel" id="tools">
+      <div class="head">
+        <h2>Progress & Tools</h2>
+        <span class="badge">IndexedDB</span>
+      </div>
+      <div class="body">
+        <div class="section">
+          <h4>Milestones</h4>
+          <ul id="milestones">
+            <li><input type="checkbox" data-ms="baseline-map" /> Baseline map with run‑on zones & contours</li>
+            <li><input type="checkbox" data-ms="pilot-works" /> Pilot: 2 ha <em>demi‑lunes</em> + 200 <em>zaï</em> pits</li>
+            <li><input type="checkbox" data-ms="seed-vault" /> Seed vault launched (≥ 20 landraces)</li>
+            <li><input type="checkbox" data-ms="cistern" /> 10–20 m³ cistern installed & plumbed</li>
+            <li><input type="checkbox" data-ms="drip-block" /> 1 ha drip block producing greens</li>
+          </ul>
+        </div>
+        <div class="section">
+          <h4>Data Locker</h4>
+          <div class="row">
+            <button class="btn" id="export">Export Progress</button>
+            <button class="btn" id="import">Import</button>
+          </div>
+          <input type="file" id="import-file" accept="application/json" hidden />
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- HUD -->
+  <div id="hud">
+    <div class="chip" id="hud-clock">⏱️ …</div>
+    <div class="chip">⚡ PRA — Foster + Navi</div>
+  </div>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"PRA Mali Sovereignty (Extended)",
+    "applicationCategory":"SustainabilityTool",
+    "about":[{"@type":"Thing","name":"Food Sovereignty"},{"@type":"Thing","name":"Water Sovereignty"},{"@type":"Place","name":"Mali, West Africa"}],
+    "creator":{"@type":"Organization","name":"Planetary Restoration Archive"},
+    "operatingSystem":"Any",
+    "offers":{"@type":"Offer","price":"0"},
+    "hasPart":[
+      {"@type":"HowTo","name":"Build half-moons on contour"},
+      {"@type":"HowTo","name":"Install ferrocement cistern"},
+      {"@type":"HowTo","name":"Set up drip irrigation block"}
+    ]
+  }
+  </script>
+
+  <!-- App Logic -->
+  <script>
+  (function(){
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
+
+    // ---------- IndexedDB ----------
+    const KV = window.idbKeyval || null;
+    const save = async (k,v)=>{ try{ return KV?KV.set(k,v):null }catch(e){} }
+    const load = async (k,f=null)=>{ try{ return KV? (await KV.get(k)) ?? f : f }catch(e){ return f } }
+
+    // ---------- Theme ----------
+    async function applyTheme(name){
+      document.documentElement.setAttribute('data-theme', name);
+      const pal = {void:['#0b0f1a','#9be7ff','#ffd166'], dawn:['#0f0d1a','#ffdf9b','#9be7ff'], sahara:['#12100e','#ffd166','#9be7ff']}[name] || ['#0b0f1a','#9be7ff','#ffd166'];
+      document.documentElement.style.setProperty('--bg', pal[0]);
+      await save('theme', name);
+    }
+
+    // ---------- Navigation ----------
+    const tabs = $$('#nav button');
+    function showPage(name){
+      $$('#tab-body > div[data-page]').forEach(el => el.hidden = (el.getAttribute('data-page')!==name));
+      tabs.forEach(b => b.classList.toggle('active', b.dataset.tab===name));
+      $('#tab-title').textContent =
+        name==='food' ? 'Food Sovereignty — Mali' :
+        name==='water' ? 'Water Sovereignty — Mali' :
+        name==='regions' ? 'Region Playbooks — Mali' :
+        name==='bom' ? 'BOM & Costs — Mali' :
+        name==='training' ? 'Training Drills — Mali' :
+        name==='phasing' ? 'Phasing Plan — Mali' :
+        name==='risk' ? 'Risk Dashboard — Mali' :
+        name==='habitica' ? 'Habitica Sync — Mali' :
+        name==='ai' ? 'AI Co‑Pilot' :
+        name==='settings' ? 'Settings & Integrity' :
+        'Overview — Mali Sovereignty Blueprint (Extended)';
+    }
+    tabs.forEach(b => b.addEventListener('click', ()=> showPage(b.dataset.tab)));
+
+    // ---------- HUD Clock ----------
+    function tick(){ $('#hud-clock').textContent = '⏱️ ' + (window.dayjs? dayjs().format('YYYY-MM-DD HH:mm') : new Date().toLocaleString()) }
+    setInterval(tick, 1000); tick();
+
+    // ---------- Milestones ----------
+    const msBoxes = $$('#milestones input[type=checkbox]');
+    (async () => {
+      const saved = await load('milestones', {});
+      msBoxes.forEach(box => { box.checked = !!saved[box.dataset.ms]; box.addEventListener('change', async () => { saved[box.dataset.ms]=box.checked; await save('milestones', saved) }) })
+    })();
+
+    // ---------- Settings ----------
+    (async () => {
+      const themeSel = $('#theme'), loc = $('#loc');
+      themeSel.value = await load('theme','void'); await applyTheme(themeSel.value);
+      themeSel.addEventListener('change', e => applyTheme(e.target.value));
+      loc.value = await load('loc',''); loc.addEventListener('input', e => save('loc', e.target.value));
+    })();
+
+    // ---------- Export / Import ----------
+    $('#export').addEventListener('click', async ()=>{
+      const dump = {
+        ts: Date.now(),
+        theme: await load('theme','void'),
+        loc: await load('loc',''),
+        milestones: await load('milestones',{}),
+        habitica: await load('habitica',{}),
+        bomPrices: await load('bomPrices',null),
+        phasing: {
+          p1: $('#phase1').value, p2: $('#phase2').value, p3: $('#phase3').value, p4: $('#phase4').value
+        },
+        risk: {
+          climate: $('#risk-climate').value, hydro: $('#risk-hydro').value, supply: $('#risk-supply').value, social: $('#risk-social').value, ops: $('#risk-ops').value
+        }
+      };
+      const blob = new Blob([JSON.stringify(dump,null,2)], {type:'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'pra-mali-extended-export.json';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+    $('#import').addEventListener('click', ()=> $('#import-file').click());
+    $('#import-file').addEventListener('change', async (e)=>{
+      const f = e.target.files[0]; if(!f) return;
+      try{
+        const j = JSON.parse(await f.text());
+        if(j.theme) await save('theme', j.theme);
+        if(j.loc!==undefined) await save('loc', j.loc);
+        if(j.milestones) await save('milestones', j.milestones);
+        if(j.habitica) await save('habitica', j.habitica);
+        if(j.bomPrices) await save('bomPrices', j.bomPrices);
+        location.reload();
+      }catch(err){ alert('Import failed: '+err.message) }
+    });
+
+    // ---------- Habitica ----------
+    const habit = {
+      async saveCreds(){
+        const creds = {user: $('#habit-user').value.trim(), token: $('#habit-token').value.trim()};
+        await save('habitica', creds);
+        $('#habit-status').textContent = 'Status: credentials saved locally.';
+      },
+      async loadCreds(){
+        const creds = await load('habitica', {}); $('#habit-user').value = creds.user||''; $('#habit-token').value = creds.token||'';
+        $('#habit-status').textContent = creds.user && creds.token ? 'Status: ready.' : 'Status: not connected.';
+      },
+      async postTask(text){
+        const creds = await load('habitica', {});
+        if(!creds.user || !creds.token){ alert('Add Habitica credentials first.'); return }
+        try{
+          const res = await fetch('https://habitica.com/api/v3/tasks/user', {
+            method:'POST',
+            headers:{
+              'Content-Type':'application/json',
+              'x-api-user':creds.user,
+              'x-api-key':creds.token,
+              'x-client':'pra-mali-ext'
+            },
+            body: JSON.stringify({type:'todo', text})
+          });
+          const j = await res.json();
+          $('#habit-status').textContent = res.ok? 'Task created ✅' : ('Habitica error: ' + (j?.message||res.status));
+        }catch(e){ $('#habit-status').textContent = 'Network error.' }
+      },
+      preloadFromEmbedded(){
+        // base64 for: USERID:TOKEN (values supplied by you)
+        const b64 = 'N2NjODAzNzEtOWQ1Yy00MDgwLTgxZGUtNzg0ZTliZTRkM2MyOmVmMzQwNGY1LWE2ODctNDlmYi1iZGEwLTYyMzI3YmE2MDZiNA==';
+        const [user, token] = atob(b64).split(':');
+        $('#habit-user').value = user;
+        $('#habit-token').value = token;
+        $('#habit-status').textContent = 'Keys loaded (not saved yet). Click "Save to device" to store locally.';
+      }
+    };
+    $('#habit-save').addEventListener('click', ()=>habit.saveCreds());
+    $('#habit-test').addEventListener('click', ()=>habit.postTask('PRA Mali — Sample To‑Do'));
+    $('#habit-load-embedded').addEventListener('click', ()=> habit.preloadFromEmbedded());
+    habit.loadCreds();
+
+    // Seed popular tasks into Habitica panel for convenience
+    const quickTasks = [
+      'Map contour lines (2 ha)', 'Dig 200 zaï pits', 'Build 50 half‑moons',
+      'Seed vault: catalog 30 landraces', 'Install 10 m³ cistern', 'PV pump + elevated tank',
+      'Set 1 ha drip block', 'Distribute 10 biosand filters', 'Protect 300 FMNR stems'
+    ];
+    const taskWrap = $('#habit-tasks');
+    quickTasks.forEach(t => {
+      const b = document.createElement('button'); b.className='btn'; b.textContent='➕ '+t;
+      b.addEventListener('click', ()=> habit.postTask(t));
+      taskWrap.appendChild(b);
+    });
+
+    // ---------- WebLLM ----------
+    let engine = null, currentModel = 'Llama-3.1-8B-Instruct-q4f32_1-MLC';
+    $('#model-select').addEventListener('change', e => currentModel = e.target.value);
+    $('#model-load').addEventListener('click', async ()=>{
+      const log = msg => { const div=document.createElement('div'); div.textContent = '• ' + msg; $('#ai-log').appendChild(div); $('#ai-log').scrollTop=99999; }
+      try{
+        log('Loading model: ' + currentModel);
+        engine = await window.webllm?.CreateMLCEngine?.(currentModel, {logLevel:'info'});
+        log('Model ready.');
+      }catch(e){ log('Failed to load model. Fallback active.')}
+    });
+    $('#ai-send').addEventListener('click', async ()=>{
+      const txt = $('#ai-input').value.trim(); if(!txt) return;
+      const out = document.createElement('div'); out.innerHTML = '<strong>you:</strong> ' + txt; $('#ai-log').appendChild(out);
+      if(engine){
+        const resp = await engine.chat.completions.create({messages:[{role:'user', content: txt}], temperature:0.4, max_tokens:500});
+        const ans = resp?.choices?.[0]?.message?.content || '(no output)';
+        const div = document.createElement('div'); div.innerHTML = '<strong>ai:</strong> ' + ans; $('#ai-log').appendChild(div);
+      }else{
+        const div = document.createElement('div'); div.innerHTML = '<strong>ai:</strong> (model not loaded) Heuristic: chain half‑moons every ~25 m across contour on a 3% slope; basins R=3 m, lip 25–35 cm, armored spillways.'; $('#ai-log').appendChild(div);
+      }
+      $('#ai-log').scrollTop=99999;
+    });
+    $('#ai-clear').addEventListener('click', ()=> $('#ai-log').innerHTML='');
+
+    // ---------- Background: Photorealistic Starfield + Morphing Constellations + Trim ----------
+    const starCanvas = $('#stars'), trimCanvas = $('#trim');
+    const sctx = starCanvas.getContext('2d'), tctx = trimCanvas.getContext('2d');
+    let w=innerWidth, h=innerHeight;
+    function resize(){ w=innerWidth; h=innerHeight; starCanvas.width=w; starCanvas.height=h; trimCanvas.width=w; trimCanvas.height=h }
+    addEventListener('resize', resize); resize();
+
+    // Star population with subtle color/size variance + perlin-ish twinkle
+    const STARS=[]; const N=Math.min(1600,Math.floor(w*h/1100));
+    for(let i=0;i<N;i++){
+      const tempRand=Math.random(); // crude spectral shift
+      const color = tempRand<0.6 ? 'rgba(200,230,255,' : tempRand<0.9 ? 'rgba(255,245,220,' : 'rgba(220,200,255,';
+      STARS.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()<0.85?Math.random()*1.1+0.15:Math.random()*1.8+0.4,
+                  vx:(Math.random()*0.2-0.1),vy:(Math.random()*0.2-0.1),a:Math.random()*6.28,c:color});
+    }
+
+    function randConstellation(cx,cy,R,n){
+      const pts=[]; for(let i=0;i<n;i++){ const ang=(i/n)*Math.PI*2+(Math.random()*0.4-0.2); const r=R*(0.6+Math.random()*0.5);
+        pts.push([cx+Math.cos(ang)*r, cy+Math.sin(ang)*r]) }
+      return pts;
+    }
+    let patternA = randConstellation(w*0.68, h*0.25, Math.min(w,h)*0.18, 10);
+    let patternB = randConstellation(w*0.32, h*0.62, Math.min(w,h)*0.22, 10);
+    let t=0, dir=1;
+
+    const TRIM=[]; const M=Math.min(360, Math.floor((w+h)/5));
+    for(let i=0;i<M;i++){ TRIM.push({ x:Math.random()*w, y:(Math.random()<0.5?0:h), vx:(Math.random()-0.5)*0.4, vy:(Math.random()<0.5?Math.random()*0.4:-Math.random()*0.4), a:Math.random()*1 }) }
+
+    function draw(){
+      // starfield
+      sctx.clearRect(0,0,w,h);
+      for(const s of STARS){
+        s.x+=s.vx; s.y+=s.vy; s.a+=0.018;
+        if(s.x<0) s.x=w; if(s.x>w) s.x=0; if(s.y<0) s.y=h; if(s.y>h) s.y=0;
+        const tw=(Math.sin(s.a*1.7)+Math.sin(s.a*0.7))*0.25 + 0.5;
+        sctx.beginPath(); sctx.arc(s.x, s.y, s.r + tw*0.5, 0, Math.PI*2);
+        const g=sctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*3);
+        g.addColorStop(0, s.c+'0.9)');
+        g.addColorStop(1, s.c+'0)');
+        sctx.fillStyle=g; sctx.fill();
+      }
+      // morphing constellations
+      t += 0.0024*dir; if(t>1){ t=1; dir=-1; patternA=patternB; patternB = randConstellation(Math.random()*w, Math.random()*h*0.7+h*0.15, Math.min(w,h)*(0.15+Math.random()*0.2), 10) }
+      if(t<0){ t=0; dir=1 }
+      const interp=[];
+      for(let i=0;i<patternA.length;i++){ const a=patternA[i], b=patternB[i%patternB.length]; interp.push([ a[0]*(1-t)+b[0]*t, a[1]*(1-t)+b[1]*t ]) }
+      sctx.lineWidth=0.8; sctx.strokeStyle='rgba(155,231,255,0.35)'; sctx.beginPath();
+      for(let i=0;i<interp.length-1;i++){ sctx.moveTo(interp[i][0],interp[i][1]); sctx.lineTo(interp[i+1][0],interp[i+1][1]); }
+      sctx.stroke();
+      for(const p of interp){ sctx.beginPath(); sctx.arc(p[0],p[1],1.6,0,Math.PI*2); sctx.fillStyle='rgba(255,255,255,0.9)'; sctx.fill() }
+
+      // trim particles
+      tctx.clearRect(0,0,w,h);
+      for(const p of TRIM){
+        p.x+=p.vx; p.y+=p.vy; p.a+=0.01;
+        if(p.x<0||p.x>w||p.y<0||p.y>h){ p.x=Math.random()*w; p.y=(Math.random()<0.5? 0: h) }
+        tctx.beginPath(); tctx.arc(p.x,p.y,1.2+(Math.sin(p.a)*0.8+0.8),0,Math.PI*2);
+        tctx.fillStyle='rgba(155,231,255,0.35)'; tctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+
+    // ---------- Region Playbooks ----------
+    const REGION_PLANS = {
+      "Kayes": {
+        context: "Western Mali, Sahel–Sudanian transition; stony rises and sandy flats; seasonal streams.",
+        micro: [
+          "Stone bund belts every 25–35 m across gentle slopes; brush‑armored spillways.",
+          "Zaï in sandy flats; enrich each pit with compost + biochar.",
+          "Road‑runoff off‑takes feeding chained half‑moons on farm edges."
+        ],
+        water: [
+          "10–20 m³ ferrocement cisterns per hamlet; roof catch where feasible.",
+          "Shallow seep wells downstream of micro sand‑dams in ephemeral gullies.",
+          "PV pump → elevated tank → taps; keep priming bucket sealed."
+        ],
+        guilds: [
+          "Faidherbia over millet; ziziphus + moringa in homesteads; balanites for oil + browse.",
+          "FMNR on field borders; rotate grazing to protect bark."
+        ],
+        tasks: [
+          "Kayes: map run‑on belts (5 km)",
+          "Kayes: build 300 m stone bund with spillways",
+          "Kayes: dig 300 zaï pits",
+          "Kayes: install 10 m³ cistern + first‑flush",
+          "Kayes: plant 80 faidherbia guards"
+        ]
+      },
+      "Koulikoro": {
+        context: "Bamako hinterland; peri‑urban demand and mixed soils; erosion on new tracks.",
+        micro: [
+          "Contour half‑moons with infiltration trenches every 20 m on cultivated slopes.",
+          "Silt traps on road culverts; route first flush into farm basins.",
+          "Mulch heavy to reduce urban heat stress on seedlings."
+        ],
+        water: [
+          "20 m³ cistern near community center; fence access.",
+          "PV pump sized for 2–3 m³/h; gravity spine to taps.",
+          "1–2 ha drip for greens to service urban markets."
+        ],
+        guilds: [
+          "Moringa alleys (4×4 m) with cowpea understory.",
+          "Faidherbia scattered at 12–15 m spacing in fields."
+        ],
+        tasks: [
+          "Koulikoro: silt trap retrofit at 2 culverts",
+          "Koulikoro: 200 half‑moons with trenches",
+          "Koulikoro: 1 ha drip block set + training",
+          "Koulikoro: seed circle registry launch"
+        ]
+      },
+      "Sikasso": {
+        context: "South; higher rainfall pockets; cash/food crop mosaics.",
+        micro: [
+          "Broad half‑moons to deconcentrate bursts; maintain grassy spillways.",
+          "Stone lines only where sheet flow is fast; avoid waterlogging.",
+          "Compost bays for abundant residues; legumes to temper N demand."
+        ],
+        water: [
+          "20 m³ cistern + sand filters; surplus for processing co‑ops.",
+          "Drip on dry‑season vegetable beds; mulched furrows."
+        ],
+        guilds: [
+          "Shea, baobab, moringa rings near homesteads; live fences.",
+          "FMNR for natural shea regeneration."
+        ],
+        tasks: [
+          "Sikasso: compost bay build",
+          "Sikasso: 20 m³ cistern + taps",
+          "Sikasso: moringa ring (120 seedlings)",
+          "Sikasso: live fence 400 m"
+        ]
+      },
+      "Ségou": {
+        context: "Center‑South; river influence but variable; wind erosion patches.",
+        micro: [
+          "Stone lines with brush fences as sand brakes.",
+          "Zaï + demi‑lunes mix across 3% slopes.",
+          "Shelterbelts on field edges (ziziphus + balanites)."
+        ],
+        water: [
+          "Cisterns 10–15 m³ at cluster scale.",
+          "PV pump + elevated tank; small troughs for small ruminants."
+        ],
+        guilds: [
+          "Faidherbia over cereals; moringa near wells.",
+          "Cowpea rotation to stabilize protein supply."
+        ],
+        tasks: [
+          "Ségou: edge shelterbelt 600 m",
+          "Ségou: 2 troughs at grazing node",
+          "Ségou: 250 zaï pits + mulch",
+          "Ségou: faidherbia prune & guards"
+        ]
+      },
+      "Mopti": {
+        context: "Inner Niger Delta; flood pulse, fisheries, seasonal grazing conflicts.",
+        micro: [
+          "Half‑moons at flood fringe; respect nesting windows.",
+          "Raised seedbeds for vegetables; flood‑resilient paths.",
+          "Brush parklands to protect young trees from browsing."
+        ],
+        water: [
+          "Platformed elevated tanks; pumps above flood marks.",
+          "Point‑of‑use filters for dispersed hamlets; chlorination during outbreaks."
+        ],
+        guilds: [
+          "Ziziphus and balanites on higher mounds; moringa around homesteads.",
+          "FMNR with seasonal fencing."
+        ],
+        tasks: [
+          "Mopti: flood‑mark survey + signage",
+          "Mopti: raise pump platform + anchors",
+          "Mopti: distribute 20 biosand filters",
+          "Mopti: seasonal fence (800 m)"
+        ]
+      },
+      "Tombouctou": {
+        context: "Northern Saharan fringe; salinity risk; mobile dunes.",
+        micro: [
+          "Brush fences + stone toes to trap sand at field edges.",
+          "Deep basins with robust mulching; windbreaks 2–3 rows.",
+          "Micro sand‑dams with seep wells; protect from silt bypass."
+        ],
+        water: [
+          "Cisterns with dust screens; aggressive first‑flush maintenance.",
+          "EC monitoring to rotate sources; avoid saline lens rise."
+        ],
+        guilds: [
+          "Balanites & ziziphus windbreaks; hardy moringa in courtyards.",
+          "Low‑density faidherbia where feasible; strong guards."
+        ],
+        tasks: [
+          "Tombouctou: windbreak 1 km (3‑row)",
+          "Tombouctou: 2 micro sand‑dams + seep wells",
+          "Tombouctou: EC kit distribution + training",
+          "Tombouctou: dust screen retrofits"
+        ]
+      },
+      "Gao": {
+        context: "North‑East; river corridor + arid hinterland; transport long.",
+        micro: [
+          "Contour belts near river terraces; avoid scouring.",
+          "Zaï in oasis edges; mulch from date fronds/brush."
+        ],
+        water: [
+          "20 m³ cistern per cluster; sealed vents vs. dust.",
+          "PV pump; secure cabling from theft risk."
+        ],
+        guilds: [
+          "Date palm ecosystem products near river; moringa pockets.",
+          "Balanites oil co‑op for value add."
+        ],
+        tasks: [
+          "Gao: secure cable runs (conduit)",
+          "Gao: 300 zaï pits at oasis edge",
+          "Gao: 20 m³ cistern + first‑flush",
+          "Gao: date frond mulch operation"
+        ]
+      },
+      "Kidal": {
+        context: "Far NE; sparse populations; logistics dominant risk.",
+        micro: [
+          "Micro‑works only where defendable; prioritize FMNR protection.",
+          "Mobile brush fences to manage drift lines."
+        ],
+        water: [
+          "Cisterns at secure compounds; small footprint PV.",
+          "Point‑of‑use ceramic filters for mobility."
+        ],
+        guilds: [
+          "Balanites & ziziphus sparse planting; guards mandatory.",
+          "Drought‑hardy moringa in protected courtyards."
+        ],
+        tasks: [
+          "Kidal: mobile brush fence kits",
+          "Kidal: ceramic filter cache (x30)",
+          "Kidal: cistern at secure hub",
+          "Kidal: FMNR protection patrol"
+        ]
+      },
+      "Ménaka": {
+        context: "East; pastoral corridors; conflict sensitivity.",
+        micro: [
+          "Half‑moons offset from corridors to reduce trampling.",
+          "Pasture points with troughs; bank protection."
+        ],
+        water: [
+          "PV pump + elevated tank with lockable valves.",
+          "Seasonal troughs; timed to movements."
+        ],
+        guilds: [
+          "Faidherbia sparse; ziziphus along protected lines.",
+          "Moringa near compounds; FMNR where stumps persist."
+        ],
+        tasks: [
+          "Ménaka: trough install x2 + fencing",
+          "Ménaka: 200 half‑moons offset from corridor",
+          "Ménaka: valve lock program",
+          "Ménaka: FMNR inventory sweep"
+        ]
+      }
+    };
+
+    function renderRegion(name){
+      const R = REGION_PLANS[name]; if(!R) return;
+      $('#region-body').innerHTML = `
+        <h4>${name} — Context</h4>
+        <p>${R.context}</p>
+        <h4>Field Micro‑Works</h4>
+        <ul>${R.micro.map(x=>`<li>${x}</li>`).join('')}</ul>
+        <h4>Water Spine</h4>
+        <ul>${R.water.map(x=>`<li>${x}</li>`).join('')}</ul>
+        <h4>Tree‑Crop Guilds</h4>
+        <ul>${R.guilds.map(x=>`<li>${x}</li>`).join('')}</ul>
+        <h4>Deployment Tasks</h4>
+        <ul>${R.tasks.map(x=>`<li>${x}</li>`).join('')}</ul>
+      `;
+    }
+    renderRegion($('#region-select').value);
+    $('#region-select').addEventListener('change', e=> renderRegion(e.target.value));
+    $('#region-add-habit').addEventListener('click', ()=>{
+      const name = $('#region-select').value, R = REGION_PLANS[name];
+      R.tasks.forEach(t => habit.postTask(t));
+    });
+
+    // ---------- BOM ----------
+    const BOM_PRESETS = {
+      pilot: [
+        {cat:'Micro‑works', item:'String reels + line levels', unit:'set', qty:4, price: 12000, key:'strings'},
+        {cat:'Micro‑works', item:'Shovels & picks (crew)', unit:'set', qty:12, price: 18000, key:'tools'},
+        {cat:'Micro‑works', item:'Stone/brush transport', unit:'day', qty:10, price: 25000, key:'transport'},
+        {cat:'Cistern', item:'Ferrocement 10 m³ (cement/sand/rebar)', unit:'lot', qty:1, price: 750000, key:'cistern'},
+        {cat:'Cistern', item:'First‑flush + silt trap fittings', unit:'set', qty:1, price: 90000, key:'fflush'},
+        {cat:'Solar spine', item:'PV + controller + pump (0.8–1.2 kW)', unit:'set', qty:1, price: 1200000, key:'pvpump'},
+        {cat:'Solar spine', item:'Elevated tank 10 m³ + stand', unit:'set', qty:1, price: 600000, key:'tank'},
+        {cat:'Solar spine', item:'Mainline + valves (32–50 mm)', unit:'lot', qty:1, price: 260000, key:'pipe'},
+        {cat:'Drip', item:'1 ha drip (filter, reg, tape, flush)', unit:'lot', qty:1, price: 680000, key:'drip1'},
+        {cat:'Nursery', item:'Polytubes, shade‑net, potting mix', unit:'lot', qty:1, price: 140000, key:'nursery'},
+        {cat:'Filters', item:'Biosand/ceramic units', unit:'pcs', qty:10, price: 22000, key:'filters'},
+        {cat:'Training', item:'Crew training days + PPE', unit:'day', qty:8, price: 35000, key:'training'}
+      ],
+      scale: [
+        {cat:'Micro‑works', item:'String reels + line levels', unit:'set', qty:10, price: 30000, key:'strings'},
+        {cat:'Micro‑works', item:'Shovels & picks (crew)', unit:'set', qty:30, price: 18500, key:'tools'},
+        {cat:'Micro‑works', item:'Stone/brush transport', unit:'day', qty:28, price: 26000, key:'transport'},
+        {cat:'Cistern', item:'Ferrocement 20 m³ (cement/sand/rebar)', unit:'lot', qty:1, price: 1250000, key:'cistern'},
+        {cat:'Cistern', item:'First‑flush + silt trap fittings', unit:'set', qty:1, price: 110000, key:'fflush'},
+        {cat:'Solar spine', item:'PV + controller + pump (1.5–2 kW)', unit:'set', qty:1, price: 2100000, key:'pvpump'},
+        {cat:'Solar spine', item:'Elevated tank 20 m³ + stand', unit:'set', qty:1, price: 980000, key:'tank'},
+        {cat:'Solar spine', item:'Mainline + valves (50 mm)', unit:'lot', qty:1, price: 420000, key:'pipe'},
+        {cat:'Drip', item:'3 ha drip (filter, reg, tape, flush)', unit:'lot', qty:1, price: 1850000, key:'drip3'},
+        {cat:'Nursery', item:'Polytubes, shade‑net, potting mix', unit:'lot', qty:1, price: 220000, key:'nursery'},
+        {cat:'Filters', item:'Biosand/ceramic units', unit:'pcs', qty:24, price: 22000, key:'filters'},
+        {cat:'Training', item:'Crew training days + PPE', unit:'day', qty:16, price: 35000, key:'training'}
+      ]
+    };
+    const CURRENCY = {XOF:1, USD:0.0017}; // naive display factor for convenience (not FX accurate)
+    let bomScope = 'pilot', bomCurr = 'XOF', bomPrices = null, chart=null;
+    async function loadBOM(){
+      bomPrices = await load('bomPrices', null);
+      renderBOM();
+    }
+    function renderBOM(){
+      const preset = BOM_PRESETS[bomScope].map(r => ({...r}));
+      if(bomPrices && bomPrices[bomScope]){
+        for(const row of preset){ if(bomPrices[bomScope][row.key]!=null) row.price = bomPrices[bomScope][row.key] }
+      }
+      const tbody = $('#bom-table tbody'); tbody.innerHTML='';
+      let total = 0;
+      preset.forEach((r,i)=>{
+        const tr=document.createElement('tr');
+        tr.innerHTML = `
+          <td>${r.cat}</td>
+          <td>${r.item}</td>
+          <td><input type="number" min="0" step="1" value="${r.qty}" data-i="${i}" data-f="qty"></td>
+          <td>${r.unit}</td>
+          <td><input type="number" min="0" step="1" value="${r.price}" data-i="${i}" data-f="price"></td>
+          <td class="sub">—</td>
+        `;
+        tbody.appendChild(tr);
+      });
+      function recalc(){
+        total=0;
+        $$('#bom-table tbody tr').forEach((tr,idx)=>{
+          const qty = parseFloat(tr.querySelector('input[data-f="qty"]').value)||0;
+          const price = parseFloat(tr.querySelector('input[data-f="price"]').value)||0;
+          const sub = qty*price; total+=sub;
+          tr.querySelector('.sub').textContent = fmtCurrency(sub);
+        });
+        $('#bom-total').textContent = fmtCurrency(total);
+      }
+      tbody.addEventListener('input', recalc);
+      recalc();
+      // store back to bomPrices
+      $('#bom-save').onclick = async ()=>{
+        const rows = $$('#bom-table tbody tr');
+        const out = {}; rows.forEach((tr,idx)=>{
+          const key = BOM_PRESETS[bomScope][idx].key;
+          const price = parseFloat(tr.querySelector('input[data-f="price"]').value)||0;
+          out[key]=price;
+        });
+        const cur = await load('bomPrices', {}); cur[bomScope]=out; await save('bomPrices', cur);
+        alert('Prices saved locally.');
+      };
+      $('#bom-reset').onclick = ()=>{ save('bomPrices', null).then(()=>{ bomPrices=null; renderBOM() }) };
+    }
+    function fmtCurrency(n){ const fx = CURRENCY[bomCurr]||1; const v = n*fx; return (bomCurr==='USD'?'$':'XOF ') + (bomCurr==='USD'? v.toFixed(0): Math.round(v)).toLocaleString() }
+    $('#bom-scope').addEventListener('change', e=>{ bomScope = e.target.value; renderBOM() });
+    $('#bom-currency').addEventListener('change', e=>{ bomCurr = e.target.value; renderBOM() });
+    $('#bom-chart-btn').addEventListener('click', ()=>{
+      const cats = {}, rows = $$('#bom-table tbody tr');
+      rows.forEach((tr,idx)=>{
+        const cat = BOM_PRESETS[bomScope][idx].cat;
+        const qty = parseFloat(tr.querySelector('input[data-f="qty"]').value)||0;
+        const price = parseFloat(tr.querySelector('input[data-f="price"]').value)||0;
+        cats[cat] = (cats[cat]||0) + qty*price;
+      });
+      const labels = Object.keys(cats), data = labels.map(k=>cats[k]*(CURRENCY[bomCurr]||1));
+      $('#bom-chart').style.display='block';
+      if(chart){ chart.destroy(); }
+      chart = new Chart($('#bom-chart'), {
+        type:'bar',
+        data:{ labels, datasets:[{ label:'Cost breakdown ('+bomCurr+')', data }] },
+        options:{ responsive:true, plugins:{ legend:{display:true} }, scales:{ y:{ beginAtZero:true } } }
+      });
+    });
+    loadBOM();
+
+    // ---------- Training persistence + Habitica push ----------
+    (async ()=>{
+      const saved = await load('training', {});
+      $$('#training-list input[type=checkbox]').forEach(box=>{
+        box.checked = !!saved[box.dataset.drill];
+        box.addEventListener('change', async ()=>{ saved[box.dataset.drill]=box.checked; await save('training', saved) });
+      });
+      $('#training-add-habit').addEventListener('click', ()=>{
+        $$('#training-list input[type=checkbox]:checked').forEach(box=> habit.postTask('DRILL: ' + box.parentElement.textContent.trim()));
+      });
+    })();
+
+    // ---------- Phasing ----------
+    function drawTimeline(){
+      const p1=+$('#phase1').value, p2=+$('#phase2').value, p3=+$('#phase3').value, p4=+$('#phase4').value;
+      const T = p1+p2+p3+p4; const wrap=$('#timeline'); wrap.innerHTML='';
+      const colors = ['#9be7ff','#ffd166','#a7f3d0','#fda4af'];
+      [p1,p2,p3,p4].forEach((d,i)=>{
+        const div=document.createElement('div'); div.style.position='absolute'; div.style.top='20px'; div.style.left=(i===0?0:[p1,p1+p2,p1+p2+p3][i-1]/T*100)+'%';
+        div.style.width=(d/T*100)+'%'; div.style.height='80px'; div.style.background=colors[i]; div.style.opacity='0.18'; div.style.border='1px solid #232a40';
+        div.title = ['P1','P2','P3','P4'][i] + ' — ' + d + ' days'; wrap.appendChild(div);
+      });
+    }
+    $$('#phasing input[type=range]').forEach(r => r.addEventListener('input', drawTimeline)); drawTimeline();
+    $('#phasing-save').addEventListener('click', async ()=>{
+      await save('phasing', {p1:$('#phase1').value,p2:$('#phase2').value,p3:$('#phase3').value,p4:$('#phase4').value}); alert('Phasing saved locally.')
+    });
+    $('#phasing-reset').addEventListener('click', ()=>{ $('#phase1').value=90; $('#phase2').value=180; $('#phase3').value=150; $('#phase4').value=120; drawTimeline(); });
+
+    // ---------- Risk Dashboard ----------
+    function recomputeRisk(){
+      const c=+$('#risk-climate').value, h=+$('#risk-hydro').value, s=+$('#risk-supply').value, so=+$('#risk-social').value, o=+$('#risk-ops').value;
+      // weights: climate .25, hydro .2, supply .15, social .25, ops .15
+      const idx = c*0.25 + h*0.2 + s*0.15 + so*0.25 + o*0.15;
+      const color = idx<1.8? 'good' : idx<3.2? 'warn' : 'bad';
+      $('#risk-index').innerHTML = `<span class="${color}">Index: ${idx.toFixed(2)} / 5</span>`;
+      const mit = [];
+      if(c>=3) mit.push('Stagger half‑moon belts more densely; add shade/mulch; drought calendars for sowing windows.');
+      if(h>=3) mit.push('Increase first‑flush cleaning cadence; monitor EC; rotate abstraction points; promote filters.');
+      if(s>=3) mit.push('Pre‑position basic materials; favor local stone/brush; modularize pump/tank kits.');
+      if(so>=3) mit.push('Conflict‑sensitive siting; lockable valves; community watch; distribute ceramic filters widely.');
+      if(o>=3) mit.push('More training days; clear SOP posters; mentor crews; transparent ledgers.');
+      $('#risk-mit').innerHTML = mit.map(x=>`<li>${x}</li>`).join('') || '<li>Keep standard mitigations; continue monitoring.</li>';
+    }
+    $$('#risk input[type=range]').forEach(r => r.addEventListener('input', recomputeRisk)); recomputeRisk();
+    $('#risk-save').addEventListener('click', async ()=>{
+      await save('risk', { climate:$('#risk-climate').value, hydro:$('#risk-hydro').value, supply:$('#risk-supply').value, social:$('#risk-social').value, ops:$('#risk-ops').value});
+      alert('Risk saved locally.');
+    });
+    $('#risk-reset').addEventListener('click', ()=>{ $('#risk-climate').value=3; $('#risk-hydro').value=2; $('#risk-supply').value=2; $('#risk-social').value=3; $('#risk-ops').value=1; recomputeRisk(); });
+
+    // ---------- Initialize ----------
+    showPage('overview');
+
+  })();
+  </script>
+</body>
+</html>

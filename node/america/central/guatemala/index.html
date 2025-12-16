@@ -1,0 +1,1172 @@
+<!doctype html>
+<html lang="en" data-pra-node="sovereignty/guatemala">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#05070e" />
+  <meta name="color-scheme" content="dark" />
+  <title>PRA • Food & Water Sovereignty — Guatemala | Morphic Constellations HUD</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Ultra-long-form, gamified food & water sovereignty for Guatemala. Photorealistic morphing constellations, parallax dropdown nav, restoration loading screens, IndexedDB media vault, Habitica-style quests, on-device AI, no setup."/>
+  <link rel="canonical" href="https://planetaryrestorationarchive.com/sovereignty/guatemala/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="PRA • Food & Water Sovereignty — Guatemala" />
+  <meta property="og:description" content="Animated restoration HUD + local innovation recipes + offline-first uploads/data." />
+  <meta property="og:image" content="https://planetaryrestorationarchive.com/media/pra_constellations_card.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Structured Data (PRA presentation schema) -->
+  <script type="application/ld+json">
+  {
+    "@context": [
+      "https://schema.org",
+      "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"
+    ],
+    "@type": "WebApplication",
+    "name": "PRA • Food & Water Sovereignty — Guatemala",
+    "operatingSystem": "Browser",
+    "applicationCategory": "EducationApplication",
+    "featureList": ["Water capture", "Bio-sand filters", "Reed beds", "Seed sovereignty", "Soil moisture banking", "IndexedDB uploads", "On-device LLM"],
+    "audience": { "@type": "Audience", "audienceType": "Community Stewards, Teachers, Youth Guilds" }
+  }
+  </script>
+
+  <!-- Styles -->
+  <style>
+    :root{
+      --bg:#05070e; --fg:#e7eeff; --muted:#8fa3c9; --accent:#7dd3fc; --accent2:#a78bfa; --ok:#34d399; --warn:#fbbf24; --bad:#f87171;
+      --glass: rgba(9,12,20,.55); --glass2: rgba(9,12,20,.32); --border: rgba(125,200,255,.16);
+      --mono: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%; background:#05070e; color:var(--fg); font-family:var(--sans)}
+    body{margin:0; overflow:hidden}
+
+    /* Photorealistic morphing constellations canvas layers */
+    #sky, #nebula, #glow {position:fixed; inset:0; width:100%; height:100%; display:block}
+    #nebula{mix-blend-mode:screen; opacity:.6; pointer-events:none}
+    #glow{mix-blend-mode:overlay; opacity:.35; pointer-events:none}
+
+    /* Parallax dropdown nav */
+    .topbar{position:fixed; left:0; right:0; top:0; z-index:30; display:flex; gap:14px; align-items:center;
+      padding:10px 14px; background:linear-gradient(180deg, rgba(5,7,14,.75), rgba(5,7,14,.2)); border-bottom:1px solid var(--border); backdrop-filter: blur(10px);}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.4px}
+    .brand .orb{width:12px; height:12px; border-radius:50%; background:radial-gradient(circle at 35% 35%, #fff, #7dd3fc 40%, #2563eb 72%)}
+    .nav{display:flex; gap:8px; margin-left:8px}
+    .drop{position:relative; perspective:800px}
+    .drop>button{cursor:pointer; padding:9px 12px; border-radius:12px; border:1px solid var(--border); background:var(--glass); color:var(--fg); transform-style:preserve-3d; transition:transform .25s ease, background .25s ease}
+    .drop>button:hover{background:rgba(125,211,252,.12); transform:rotateX(7deg)}
+    .menu{position:absolute; top:42px; left:0; min-width:270px; background:var(--glass); border:1px solid var(--border); border-radius:14px; padding:10px; display:none; box-shadow: 0 12px 40px rgba(0,0,0,.45); transform-origin: 50% -20px; transform: rotateX(-15deg) translateZ(0); opacity:.0}
+    .menu.show{display:block; animation:dropin .28s ease forwards}
+    @keyframes dropin{to{opacity:1; transform:rotateX(0) translateZ(0)}}
+    .menu a{display:flex; align-items:center; gap:8px; padding:8px 10px; border-radius:10px; color:var(--fg); text-decoration:none}
+    .menu a:hover{background:rgba(255,255,255,.05)}
+    .badge{display:inline-flex; gap:6px; align-items:center; padding:6px 10px; border-radius:999px; border:1px solid var(--border); background:var(--glass2); font-size:12px}
+
+    /* Restoration loading screens */
+    .loader{position:fixed; inset:0; display:grid; place-items:center; z-index:50; background:radial-gradient(1200px 600px at 70% 20%, rgba(10,16,30,.9) 0%, rgba(5,7,14,.92) 60%, rgba(5,7,14,1) 100%); backdrop-filter: blur(6px); pointer-events:none; opacity:0; transition:opacity .35s ease}
+    .loader.show{pointer-events:auto; opacity:1}
+    .loader .ring{width:120px; height:120px; border-radius:50%; border:3px solid rgba(125,211,252,.25); border-top-color:#7dd3fc; animation:spin 1.2s linear infinite}
+    .loader .txt{margin-top:16px; text-align:center; font-size:13px; color:var(--muted)}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* Layout grid */
+    .grid{position:fixed; inset:56px 0 0; display:grid; grid-template-columns: minmax(300px,1fr) minmax(380px,1.25fr) minmax(360px,1.05fr); gap:14px; padding:14px; overflow:auto}
+    .card{background:var(--glass); border:1px solid var(--border); border-radius:16px; padding:14px; backdrop-filter: blur(8px)}
+    .card h2{margin:.1rem 0 .6rem; font-size:18px}
+    .muted{color:var(--muted); font-size:12px}
+    .row{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .stack{display:flex; flex-direction:column; gap:10px}
+    .btn,button{cursor:pointer; padding:9px 12px; border-radius:12px; border:1px solid var(--border); background:var(--glass); color:var(--fg)}
+    .btn:hover,button:hover{background:rgba(125,211,252,.12)}
+    input,select,textarea{width:100%; padding:10px 12px; background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:12px; color:var(--fg)}
+    .kpis{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+    .kpi{border:1px solid var(--border); border-radius:12px; padding:10px; background:var(--glass2)}
+    .kpi .v{font-family:var(--mono); font-size:18px}
+    .tabpanels > section[hidden]{display:none}
+
+    /* Media vault (gallery) */
+    .gallery{display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px}
+    .thumb{position:relative; border:1px solid var(--border); border-radius:12px; overflow:hidden; background:rgba(255,255,255,.03); aspect-ratio:1/1}
+    .thumb img{width:100%; height:100%; object-fit:cover; display:block}
+    .thumb .cap{position:absolute; left:0; right:0; bottom:0; padding:6px 8px; font-size:11px; background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.55))}
+    .pill{padding:8px 10px; border:1px solid var(--border); background:var(--glass); border-radius:999px; font-size:12px}
+
+    /* Responsive */
+    @media (max-width:1200px){ .grid{grid-template-columns:1fr} }
+  </style>
+
+  <!-- Three.js & postprocessing for star field -->
+  <script defer src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/three@0.161.0/examples/js/postprocessing/EffectComposer.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/three@0.161.0/examples/js/postprocessing/RenderPass.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/three@0.161.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+
+  <!-- WebLLM (optional, on-device) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm/dist/web-llm.min.js"></script>
+</head>
+<body>
+  <!-- Morphic Constellations -->
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <canvas id="nebula" aria-hidden="true"></canvas>
+  <canvas id="glow" aria-hidden="true"></canvas>
+
+  <!-- Restoration Loader -->
+  <div class="loader" id="loader">
+    <div style="display:grid; place-items:center">
+      <div class="ring"></div>
+      <div class="txt">
+        <div>Restoring biocycles…</div>
+        <div id="loader-hint">Preparing Water HUD</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Navigation (Parallax Dropdowns) -->
+  <header class="topbar" role="navigation" aria-label="PRA Sovereignty Nav">
+    <div class="brand"><span class="orb" aria-hidden="true"></span> PRA • Guatemala
+      <span class="badge" id="conn-badge">🛰️ Online</span>
+    </div>
+    <nav class="nav">
+      <div class="drop">
+        <button data-tab="water">💧 Water</button>
+        <div class="menu" id="menu-water" role="menu" aria-label="Water Menu">
+          <a href="#" data-sub="capture">Roof Capture & Gravity Lines</a>
+          <a href="#" data-sub="purify">Bio-Sand & Pasteurizers</a>
+          <a href="#" data-sub="reuse">Reed Beds & Greywater</a>
+          <a href="#" data-sub="coops">Co-ops & Ledgers</a>
+        </div>
+      </div>
+      <div class="drop">
+        <button data-tab="food">🌾 Food</button>
+        <div class="menu" id="menu-food" role="menu" aria-label="Food Menu">
+          <a href="#" data-sub="seeds">Seed Sovereignty & Banks</a>
+          <a href="#" data-sub="soil">Moisture Banking & Mulch</a>
+          <a href="#" data-sub="guilds">Agroforestry Guilds</a>
+          <a href="#" data-sub="kitchens">Community Kitchens</a>
+        </div>
+      </div>
+      <div class="drop">
+        <button data-tab="vault">🧰 Vault</button>
+        <div class="menu" id="menu-vault" role="menu" aria-label="Vault Menu">
+          <a href="#" data-sub="upload">Upload Discoveries</a>
+          <a href="#" data-sub="gallery">Image Gallery</a>
+          <a href="#" data-sub="recipes">Local Build Recipes</a>
+        </div>
+      </div>
+      <div class="drop">
+        <button data-tab="ai">🤖 AI</button>
+        <div class="menu" id="menu-ai" role="menu" aria-label="AI Menu">
+          <a href="#" data-sub="assistant">On-Device Assistant</a>
+          <a href="#" data-sub="calc">Calculators</a>
+        </div>
+      </div>
+    </nav>
+    <div style="margin-left:auto" class="row">
+      <button id="enable-offline" class="btn">Enable Offline Cache</button>
+      <button id="export-json" class="btn">Export Data</button>
+      <a class="btn" href="/food/guatemala/" rel="next">Open /food/guatemala</a>
+    </div>
+  </header>
+
+  <!-- Main Panels -->
+  <main class="grid">
+    <!-- WATER PANEL (Part 1 emphasis) -->
+    <section class="card tabpanels" id="panel-water" aria-label="Water Sovereignty">
+      <h2>Water Sovereignty • Guatemala</h2>
+      <p class="muted">Local innovation, tools you can build, materials you can source, all logged locally with uploadable evidence.</p>
+      <div class="kpis" aria-label="KPIs">
+        <div class="kpi"><div class="muted">Litres Captured</div><div class="v" id="kpi-litres">0</div></div>
+        <div class="kpi"><div class="muted">Households Onboarded</div><div class="v" id="kpi-households">0</div></div>
+        <div class="kpi"><div class="muted">Leak-Free Days</div><div class="v" id="kpi-leakdays">0</div></div>
+      </div>
+
+      <div class="stack" style="margin-top:10px">
+        <details open>
+          <summary><strong>Roof Capture & Gravity Lines</strong></summary>
+          <div class="stack">
+            <div class="badge">Formula: Litres = RoofArea(m²) × Rain(mm) × RunoffCoeff (0.7–0.9)</div>
+            <p>Source corrugated zinc/tile locally from ferreterías (hardware stores). For gutters: recycled PVC pipe split lengthwise; first-flush diverter from 2L PET with a ping-pong ball valve.</p>
+            <ul>
+              <li><strong>Local build:</strong> Brackets from scrap rebar (hammered flat; drill holes). Seal joints with natural latex or bicycle tube strips + tar.</li>
+              <li><strong>Gravity lines:</strong> HDPE 25–32mm; simple saddle taps with melted nail punch + rubber gasket from inner tubes.</li>
+              <li><strong>Cisterns:</strong> Ferrocement (mesh + 1:3 cement:sand), limewash interior; bamboo scaffold formwork.</li>
+            </ul>
+            <div class="row">
+              <input id="c-area" type="number" min="1" value="100" title="Roof m²">
+              <input id="c-rain" type="number" min="1" value="1000" title="Annual Rain (mm)">
+              <select id="c-coeff">
+                <option value="0.9">Metal/Tile (0.9)</option>
+                <option value="0.8">Good Gutters (0.8)</option>
+                <option value="0.7">Rough (0.7)</option>
+              </select>
+              <button id="c-calc">Compute</button>
+              <span class="badge" id="c-result">Estimated: — L/yr</span>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><strong>Bio-Sand & Solar Pasteurizers</strong></summary>
+          <div class="stack">
+            <p><strong>Bio-sand filter:</strong> barrel or concrete column; layers: washed gravel → coarse sand → fine sand; develop bio-layer (schmutzdecke) for 7–10 days.</p>
+            <p><strong>Local sourcing:</strong> River sand (sieved), gravel (quarry tailings), food-grade barrels (soft drink depots), stand pipe from PVC offcuts.</p>
+            <p><strong>Solar pasteurizer:</strong> Plywood box lined with aluminum foil; black-painted pot; clear glass cover; pasteurization indicator (WAPI) crafted from fishing line & soy wax beads (melts ~65 °C).</p>
+          </div>
+        </details>
+
+        <details>
+          <summary><strong>Reed Beds & Greywater Loops</strong></summary>
+          <div class="stack">
+            <p>1×3 m trench, clay-lined. Plant <em>vetiver</em>, cattails (<em>Typha</em>). Distribute kitchen greywater via perforated tube. Outlet to banana circles or firewood trees.</p>
+            <p><strong>Local build:</strong> Perforate PVC with heated nail; diffuser box from crates; mosquito screen offcuts as silt guard.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary><strong>Co-ops & Transparent Ledgers</strong></summary>
+          <div class="stack">
+            <p>Elect 3 rotating roles: Intake, Maintenance, Audit. Ledger is local (IndexedDB) with JSON export, printable at any shop.</p>
+            <div class="row">
+              <input id="m-date" type="date" />
+              <input id="m-litres" type="number" min="0" step="1" placeholder="Litres today" />
+              <input id="m-households" type="number" min="0" step="1" placeholder="HH onboarded" />
+              <input id="m-leakfree" type="number" min="0" step="1" placeholder="Leak-free streak" />
+              <button id="m-add">Log</button>
+            </div>
+            <div id="m-table" class="muted" style="max-height:260px; overflow:auto; border:1px solid var(--border); border-radius:12px; padding:8px"></div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- FOOD PANEL (content continues in Part 2, but hooks & loaders ready) -->
+    <section class="card tabpanels" id="panel-food" aria-label="Food Sovereignty" hidden>
+      <h2>Food Sovereignty • Guatemala</h2>
+      <p class="muted">Seed banks, soil moisture banking, agroforestry guilds, community kitchens. (Full content + blueprints load with Restoration Screen.)</p>
+      <div class="kpis">
+        <div class="kpi"><div class="muted">Seed Varieties Banked</div><div class="v" id="kpi-seeds">0</div></div>
+        <div class="kpi"><div class="muted">Hectares Mulched</div><div class="v" id="kpi-mulch">0</div></div>
+        <div class="kpi"><div class="muted">Meals/Week</div><div class="v" id="kpi-meals">0</div></div>
+      </div>
+      <div id="food-placeholder" class="stack" style="margin-top:10px">
+        <div class="badge">Tip: Start with “Moisture Banks” — pits + mulch + contour swales. Seeds: maíz criollo, frijol de bejuco, amaranto, chaya.</div>
+        <p class="muted">Switching tabs will animate a restoration loader while the rest of the guide hydrates.</p>
+      </div>
+    </section>
+
+    <!-- VAULT PANEL: Uploads & Recipes -->
+    <section class="card tabpanels" id="panel-vault" aria-label="Vault" hidden>
+      <h2>Innovation Vault • Uploads & Recipes</h2>
+      <p class="muted">Store discoveries (notes, images, alternates). Stays local (IndexedDB). Export anytime.</p>
+      <div class="stack">
+        <div class="row">
+          <input id="u-title" placeholder="Discovery title (e.g., PET first-flush valve v2)" />
+          <select id="u-tag">
+            <option value="water">Water</option>
+            <option value="food">Food</option>
+            <option value="tools">Tools</option>
+            <option value="materials">Materials</option>
+            <option value="misc">Misc</option>
+          </select>
+        </div>
+        <textarea id="u-notes" rows="4" placeholder="How you built it, where you sourced parts, costs, failure modes, alternatives…"></textarea>
+        <div class="row">
+          <input id="u-file" type="file" accept="image/*" />
+          <button id="u-add">Add to Vault</button>
+          <span class="badge" id="u-count">0 items</span>
+        </div>
+        <div class="gallery" id="u-gallery" aria-live="polite"></div>
+      </div>
+
+      <details style="margin-top:12px">
+        <summary><strong>Local Build Recipes (Examples)</strong></summary>
+        <div class="stack">
+          <div class="badge">PET First-Flush (no spring): 2L bottle + ping-pong ball + 1/2" elbow + teflon tape or thread wrapped with PTFE-less hemp fibre + oil.</div>
+          <div class="badge">Ferrocement Cistern: chicken wire + old chain-link mesh + 1:3 cement:sand; cure 7 days; limewash interior.</div>
+          <div class="badge">WAPI: small polycarbonate tube + soy wax bead + cotton string; melts at 65 °C; indicates pasteurization.</div>
+        </div>
+      </details>
+    </section>
+
+    <!-- AI & Calculators -->
+    <section class="card tabpanels" id="panel-ai" aria-label="AI & Calculators" hidden>
+      <h2>On-Device Assistant & Calculators</h2>
+      <div class="row" style="align-items:center">
+        <select id="model-sel">
+          <option value="Llama-3.2-1B-Instruct-q4f16_1">Llama-3.2 1B (fastest)</option>
+          <option value="Llama-3.1-8B-Instruct-q4f16_1">Llama-3.1 8B (heavier)</option>
+        </select>
+        <button id="ai-init">Load Model</button>
+        <span class="badge" id="ai-status">Idle</span>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr; gap:10px; margin-top:10px">
+        <div style="border:1px solid var(--border); border-radius:12px; padding:10px; height:280px; overflow:auto" id="chatlog" role="log"></div>
+        <div class="row">
+          <input id="chat-input" placeholder="Ask about local builds, costs, alternatives…" />
+          <button id="chat-send">Send</button>
+        </div>
+      </div>
+
+      <hr style="border-color:var(--border); opacity:.25; margin:12px 0">
+
+      <h3>Tank Size Calculator</h3>
+      <div class="row">
+        <input id="cistern-days" type="number" min="1" value="60" title="Dry days buffer" />
+        <input id="cistern-pp" type="number" min="1" value="5" title="People served" />
+        <input id="cistern-lppd" type="number" min="5" value="25" title="L/person/day" />
+        <button id="cistern-calc">Compute</button>
+        <span class="badge" id="cistern-result">Suggested tank size: — L</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating quick controls -->
+  <div style="position:fixed; right:14px; bottom:84px; display:flex; flex-direction:column; gap:8px; z-index:20">
+    <button class="pill" id="scroll-top">↑ Top</button>
+  </div>
+
+  <!-- ===== APP LOGIC (Part 1 ends after this script) ===== -->
+  <script>
+  /* ==========================================================
+     Constellation Engine: photorealistic stars + morphing lines
+  ========================================================== */
+  let skyR, skyS, skyC, composer, bloom, nebCtx, glowCtx, clock = new THREE.Clock();
+  function initStars(){
+    const sky = document.getElementById('sky');
+    skyR = new THREE.WebGLRenderer({canvas: sky, antialias:true, alpha:true});
+    skyR.setPixelRatio(Math.min(2, window.devicePixelRatio||1));
+    resize();
+
+    skyS = new THREE.Scene();
+    skyC = new THREE.PerspectiveCamera(60, sky.clientWidth/sky.clientHeight, 0.1, 3000);
+    skyC.position.set(0,0,2.2);
+
+    // Field of points
+    const N = 18000;
+    const g = new THREE.BufferGeometry();
+    const pos = new Float32Array(N*3);
+    const col = new Float32Array(N*3);
+    for(let i=0;i<N;i++){
+      const r = 600*Math.pow(Math.random(), .55)+80;
+      const u = Math.random(); const v = Math.random();
+      const th = 2*Math.PI*u; const ph = Math.acos(2*v-1);
+      const x = r*Math.sin(ph)*Math.cos(th);
+      const y = r*Math.sin(ph)*Math.sin(th);
+      const z = r*Math.cos(ph);
+      pos.set([x,y,z], i*3);
+      const tint = Math.random();
+      const c = new THREE.Color().setHSL(0.62 + 0.1*Math.random(), 0.5 + 0.4*Math.random(), 0.58 + 0.3*tint);
+      col.set([c.r,c.g,c.b], i*3);
+    }
+    g.setAttribute('position', new THREE.BufferAttribute(pos,3));
+    g.setAttribute('color', new THREE.BufferAttribute(col,3));
+    const mat = new THREE.PointsMaterial({size:1.2, sizeAttenuation:true, vertexColors:true, transparent:true, opacity:0.92, depthWrite:false});
+    const stars = new THREE.Points(g, mat);
+    skyS.add(stars);
+
+    // Constellation lines (morphing)
+    const lineGeo = new THREE.BufferGeometry();
+    const linePos = new Float32Array(600*3);
+    lineGeo.setAttribute('position', new THREE.BufferAttribute(linePos,3));
+    const lineMat = new THREE.LineBasicMaterial({color:0x9acbff, transparent:true, opacity:.55});
+    const lines = new THREE.LineSegments(lineGeo, lineMat);
+    skyS.add(lines);
+
+    // Post processing (bloom)
+    const renderPass = new THREE.RenderPass(skyS, skyC);
+    bloom = new THREE.UnrealBloomPass(new THREE.Vector2(sky.clientWidth, sky.clientHeight), .9, .8, .2);
+    composer = new THREE.EffectComposer(skyR);
+    composer.addPass(renderPass);
+    composer.addPass(bloom);
+
+    // 2D nebula/glow for photorealism
+    nebCtx = document.getElementById('nebula').getContext('2d');
+    glowCtx = document.getElementById('glow').getContext('2d');
+
+    function animate(){
+      const t = clock.getElapsedTime();
+      stars.rotation.y = t*0.003;
+      stars.rotation.x = Math.sin(t*0.06)*0.02;
+
+      // Morph lines
+      const lp = lines.geometry.attributes.position.array;
+      for(let i=0;i<lp.length;i+=6){
+        const a = Math.sin((t*0.35)+(i*.0013))*0.8;
+        lp[i] = Math.sin(i*.007 + t*.2)*220;
+        lp[i+1]= Math.cos(i*.006 + t*.18)*160*a;
+        lp[i+2]= Math.sin(i*.005 + t*.22)*-200;
+        lp[i+3]= Math.sin((i+3)*.009 + t*.25)*-210;
+        lp[i+4]= Math.cos((i+7)*.008 + t*.21)*170*a;
+        lp[i+5]= Math.sin((i+9)*.007 + t*.24)*210;
+      }
+      lines.geometry.attributes.position.needsUpdate = true;
+
+      // Parallax
+      skyC.position.x += (mx - skyC.position.x)*0.05;
+      skyC.position.y += (-my - skyC.position.y)*0.05;
+      skyC.lookAt(0,0,0);
+
+      // 2D paints
+      paintNebula(t); paintGlow(t);
+      composer.render();
+      requestAnimationFrame(animate);
+    }
+    animate();
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', parallax);
+    window.addEventListener('deviceorientation', gyro);
+  }
+  function resize(){
+    if(!skyR || !skyC) return;
+    const w = window.innerWidth, h = window.innerHeight;
+    skyR.setSize(w,h,false); skyC.aspect = w/h; skyC.updateProjectionMatrix();
+    const neb = document.getElementById('nebula'); neb.width=w; neb.height=h;
+    const glow = document.getElementById('glow'); glow.width=w; glow.height=h;
+  }
+  let mx=0, my=0;
+  function parallax(e){ mx = (e.clientX / window.innerWidth - .5)*0.2; my = (e.clientY / window.innerHeight - .5)*0.12; }
+  function gyro(e){ const {gamma=0,beta=0}=e; mx = (gamma/45)*0.2; my = (beta/45)*0.12; }
+  function paintNebula(t){
+    const c = nebCtx, w=c.canvas.width, h=c.canvas.height;
+    c.clearRect(0,0,w,h);
+    for(let i=0;i<3;i++){
+      const gx = w*(.2 + .6*Math.sin(t*.08 + i));
+      const gy = h*(.2 + .6*Math.cos(t*.06 + i*1.2));
+      const r = Math.min(w,h)*(.25 + .18*Math.sin(t*.12 + i));
+      const grad = c.createRadialGradient(gx,gy,0,gx,gy,r);
+      const hue = 200 + 40*i;
+      grad.addColorStop(0, `rgba(${50+50*i},${80+50*i},${180+20*i},.28)`);
+      grad.addColorStop(1, `rgba(0,0,0,0)`);
+      c.fillStyle = grad; c.beginPath(); c.arc(gx,gy,r,0,Math.PI*2); c.fill();
+    }
+  }
+  function paintGlow(t){
+    const c = glowCtx, w=c.canvas.width, h=c.canvas.height;
+    c.clearRect(0,0,w,h);
+    c.globalCompositeOperation='lighter';
+    for(let i=0;i<2;i++){
+      const x = w*(.5 + .35*Math.sin(t*.05 + i));
+      const y = h*(.5 + .35*Math.cos(t*.04 + i*1.7));
+      const r = Math.min(w,h)*(.18 + .12*Math.sin(t*.11 + i));
+      const g = c.createRadialGradient(x,y,0,x,y,r);
+      g.addColorStop(0,'rgba(255,255,255,.05)');
+      g.addColorStop(1,'rgba(0,0,0,0)');
+      c.fillStyle=g; c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fill();
+    }
+    c.globalCompositeOperation='source-over';
+  }
+
+  /* ===========================================
+     Parallax Dropdowns + Restoration Loader Nav
+  ============================================*/
+  const loader = document.getElementById('loader');
+  const loaderHint = document.getElementById('loader-hint');
+  const drops = document.querySelectorAll('.drop');
+  drops.forEach(d=>{
+    const btn = d.querySelector('button');
+    const menu = d.querySelector('.menu');
+    btn.addEventListener('mouseenter', ()=> menu.classList.add('show'));
+    d.addEventListener('mouseleave', ()=> menu.classList.remove('show'));
+    btn.addEventListener('click', (e)=> {
+      e.preventDefault();
+      route(btn.dataset.tab);
+    });
+    menu.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        route(btn.dataset.tab, a.dataset.sub);
+      });
+    });
+  });
+
+  const panels = {
+    water: document.getElementById('panel-water'),
+    food: document.getElementById('panel-food'),
+    vault: document.getElementById('panel-vault'),
+    ai: document.getElementById('panel-ai')
+  };
+  function showLoader(hint){ loaderHint.textContent = hint||'Restoring…'; loader.classList.add('show'); }
+  function hideLoader(){ loader.classList.remove('show'); }
+  function route(tab, sub){
+    showLoader(tab==='food' ? 'Hydrating Food Systems…' :
+               tab==='vault' ? 'Opening Innovation Vault…' :
+               tab==='ai' ? 'Spinning up Assistant…' : 'Preparing Water HUD…');
+    setTimeout(()=>{
+      for(const k in panels) panels[k].hidden = true;
+      panels[tab].hidden = false;
+      hideLoader();
+    }, 620); // feels nice with glow/bloom
+  }
+
+  /* =========================
+     Connectivity badge
+  ==========================*/
+  const connBadge = document.getElementById('conn-badge');
+  function setConn(){ connBadge.textContent = navigator.onLine ? '🛰️ Online' : '🛶 Offline'; }
+  window.addEventListener('online', setConn); window.addEventListener('offline', setConn); setConn();
+
+  /* =========================
+     IndexedDB (quests/metrics/vault/kv)
+  ==========================*/
+  const DB = 'pra_gt_fw'; const VER = 1; let db;
+  function idbOpen(){
+    return new Promise((res,rej)=>{
+      const req = indexedDB.open(DB, VER);
+      req.onupgradeneeded = e=>{
+        const db = e.target.result;
+        if(!db.objectStoreNames.contains('metrics')){
+          const s = db.createObjectStore('metrics', {keyPath:'id', autoIncrement:true});
+          s.createIndex('by_date','date');
+        }
+        if(!db.objectStoreNames.contains('vault')){
+          const s = db.createObjectStore('vault', {keyPath:'id', autoIncrement:true});
+          s.createIndex('by_tag','tag');
+        }
+        if(!db.objectStoreNames.contains('kv')){
+          db.createObjectStore('kv', {keyPath:'k'});
+        }
+      };
+      req.onsuccess=()=>{ db=req.result; res(db); };
+      req.onerror = ()=> rej(req.error);
+    });
+  }
+  const tx = (name,mode='readonly') => db.transaction(name,mode).objectStore(name);
+  const kvSet = (k,v)=> new Promise((res,rej)=>{ const r=tx('kv','readwrite').put({k,v}); r.onsuccess=res; r.onerror=()=>rej(r.error); });
+  const kvGet = (k)=> new Promise((res,rej)=>{ const r=tx('kv').get(k); r.onsuccess=()=>res(r.result?.v); r.onerror=()=>rej(r.error); });
+
+  /* =========================
+     Metrics UI (water)
+  ==========================*/
+  const mDate = document.getElementById('m-date');
+  const mLitres = document.getElementById('m-litres');
+  const mHH = document.getElementById('m-households');
+  const mLeak = document.getElementById('m-leakfree');
+  const mAdd = document.getElementById('m-add');
+  const mTable = document.getElementById('m-table');
+  const kLitres = document.getElementById('kpi-litres');
+  const kHH = document.getElementById('kpi-households');
+  const kLeak = document.getElementById('kpi-leakdays');
+
+  mAdd?.addEventListener('click', ()=>{
+    const rec = {
+      date: mDate.value || new Date().toISOString().slice(0,10),
+      litres: parseInt(mLitres.value||'0',10),
+      households: parseInt(mHH.value||'0',10),
+      leakfree: parseInt(mLeak.value||'0',10),
+      ts: Date.now()
+    };
+    const s = tx('metrics','readwrite').add(rec);
+    s.onsuccess = ()=>{ renderMetrics(); clearMetrics(); };
+  });
+  function clearMetrics(){ mLitres.value=''; mHH.value=''; mLeak.value=''; }
+  function renderMetrics(){
+    const r = tx('metrics').getAll();
+    r.onsuccess = ()=>{
+      const arr = (r.result||[]).sort((a,b)=>a.ts-b.ts);
+      let totL=0; let maxH=0; let lastLeak=0;
+      const rows = ['<table style="width:100%; border-collapse:collapse; font-size:13px"><thead><tr><th style="text-align:left">Date</th><th style="text-align:right">Litres</th><th style="text-align:right">HH</th><th style="text-align:right">Leak-free</th></tr></thead><tbody>'];
+      for(const x of arr){
+        totL += x.litres||0; maxH = Math.max(maxH, x.households||0); lastLeak = x.leakfree||lastLeak;
+        rows.push(`<tr><td>${x.date}</td><td style="text-align:right">${x.litres||0}</td><td style="text-align:right">${x.households||0}</td><td style="text-align:right">${x.leakfree||0}</td></tr>`);
+      }
+      rows.push('</tbody></table>');
+      mTable.innerHTML = rows.join('');
+      kLitres.textContent = totL.toLocaleString();
+      kHH.textContent = maxH.toString();
+      kLeak.textContent = lastLeak.toString();
+    };
+  }
+
+  /* =========================
+     Calculators (water)
+  ==========================*/
+  const cArea = document.getElementById('c-area');
+  const cRain = document.getElementById('c-rain');
+  const cCoeff = document.getElementById('c-coeff');
+  const cBtn = document.getElementById('c-calc');
+  const cRes = document.getElementById('c-result');
+  cBtn?.addEventListener('click', ()=>{
+    const L = Math.round((parseFloat(cArea.value||'0')||0) * (parseFloat(cRain.value||'0')||0) * (parseFloat(cCoeff.value||'0.9')||0));
+    cRes.textContent = `Estimated: ${L.toLocaleString()} L/yr`;
+  });
+
+  /* =========================
+     Vault: uploads (images + notes)
+  ==========================*/
+  const uTitle = document.getElementById('u-title');
+  const uTag = document.getElementById('u-tag');
+  const uNotes = document.getElementById('u-notes');
+  const uFile = document.getElementById('u-file');
+  const uAdd = document.getElementById('u-add');
+  const uGallery = document.getElementById('u-gallery');
+  const uCount = document.getElementById('u-count');
+
+  uAdd?.addEventListener('click', async ()=>{
+    const title = (uTitle.value||'').trim();
+    if(!title && !uFile.files[0] && !uNotes.value.trim()){ alert('Add a title, a file, or some notes.'); return; }
+    const tag = uTag.value;
+    const notes = uNotes.value.trim();
+    const file = uFile.files[0];
+    let blob=null, mime=null, dataURL=null;
+    if(file){
+      blob = await file.arrayBuffer();
+      mime = file.type || 'application/octet-stream';
+      // generate a small preview dataURL for gallery
+      dataURL = await fileToDataURL(file);
+    }
+    const rec = { title, tag, notes, mime, dataURL, blob: blob ? new Blob([blob], {type:mime}) : null, ts: Date.now() };
+    const store = tx('vault','readwrite');
+    const add = store.add(rec);
+    add.onsuccess = ()=>{ uTitle.value=''; uNotes.value=''; uFile.value=''; renderVault(); };
+  });
+  function fileToDataURL(file){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); }); }
+  function renderVault(){
+    const r = tx('vault').getAll();
+    r.onsuccess = ()=>{
+      const arr = (r.result||[]).sort((a,b)=>b.ts-a.ts);
+      uCount.textContent = `${arr.length} items`;
+      uGallery.innerHTML = '';
+      for(const it of arr){
+        const div = document.createElement('div'); div.className='thumb';
+        const img = document.createElement('img');
+        img.alt = it.title||'Discovery';
+        img.src = it.dataURL || 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><rect width="100%" height="100%" fill="#0b1224"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9acbff" font-family="monospace" font-size="14">${(it.title||'No Image').slice(0,20)}</text></svg>`);
+        const cap = document.createElement('div'); cap.className='cap'; cap.textContent = `${it.tag} • ${(it.title||'')}`;
+        div.appendChild(img); div.appendChild(cap);
+        uGallery.appendChild(div);
+      }
+    };
+  }
+
+  /* =========================
+     AI (WebLLM)
+  ==========================*/
+  const chatlog = document.getElementById('chatlog');
+  const chatInput = document.getElementById('chat-input');
+  const chatSend = document.getElementById('chat-send');
+  const modelSel = document.getElementById('model-sel');
+  const aiInit = document.getElementById('ai-init');
+  const aiStatus = document.getElementById('ai-status');
+  let llm = null;
+  aiInit?.addEventListener('click', async ()=>{
+    try{
+      aiStatus.textContent='Loading…';
+      llm = await webllm.CreateWebWorkerMLCEngine(new URL("https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm/dist/worker.js", location.href),
+        { model: modelSel.value, logLevel:"info" });
+      aiStatus.textContent='Ready';
+      addAssistant("Model ready. Ask about local sourcing, DIY builds, or alternatives.");
+    }catch(e){ aiStatus.textContent='Error'; addAssistant("Couldn’t load model. Try smaller size."); }
+  });
+  chatSend?.addEventListener('click', async ()=>{
+    const q = chatInput.value.trim(); if(!q){return;}
+    addUser(q); chatInput.value='';
+    if(!llm){ addAssistant('Load a model first.'); return; }
+    try{
+      const r = await llm.chat.completions.create({ messages: [{role:'user', content:`You are a field engineer in Guatemala. Give precise, buildable steps, local materials, prices if relevant. Q: ${q}`} ]});
+      addAssistant(r.choices?.[0]?.message?.content || '(no response)');
+    }catch(e){ addAssistant('LLM busy/offline.'); }
+  });
+  function addUser(t){ addMsg('You', t); }
+  function addAssistant(t){ addMsg('Navi', t); }
+  function addMsg(who, t){
+    const d = document.createElement('div'); d.style.margin='6px 0'; d.innerHTML = `<strong>${who}:</strong> ${escapeHTML(t)}`;
+    chatlog.appendChild(d); chatlog.scrollTop = chatlog.scrollHeight;
+  }
+  function escapeHTML(s){ return s?.replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])) || ''; }
+
+  /* =========================
+     Export JSON & Offline SW
+  ==========================*/
+  document.getElementById('export-json')?.addEventListener('click', async ()=>{
+    const data = await exportAll();
+    const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = Object.assign(document.createElement('a'), {href:url, download:`pra-guatemala_fw_${Date.now()}.json`});
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  });
+  function exportAll(){
+    return new Promise((resolve)=>{
+      const out = { metrics:[], vault:[], kv:{} };
+      const t = db.transaction(['metrics','vault','kv'],'readonly');
+      t.objectStore('metrics').getAll().onsuccess = e=> out.metrics = e.target.result||[];
+      t.objectStore('vault').getAll().onsuccess = e=> out.vault = e.target.result||[];
+      t.objectStore('kv').getAll().onsuccess = e=> (e.target.result||[]).forEach(({k,v})=> out.kv[k]=v);
+      t.oncomplete = ()=> resolve(out);
+    });
+  }
+
+  document.getElementById('enable-offline')?.addEventListener('click', async ()=>{
+    if(!('serviceWorker' in navigator)){ alert('No ServiceWorker support.'); return; }
+    const code = `
+      self.addEventListener('install', e=>{ e.waitUntil(caches.open('pra-gt-fw-v1').then(c=>c.addAll(['./']))); self.skipWaiting(); });
+      self.addEventListener('activate', e=> self.clients.claim());
+      self.addEventListener('fetch', e=>{
+        e.respondWith(
+          caches.match(e.request).then(r=> r || fetch(e.request).then(resp=>{ const copy=resp.clone(); caches.open('pra-gt-fw-v1').then(c=>c.put(e.request, copy)); return resp; }).catch(()=> caches.match('./')))
+        );
+      });
+    `;
+    const blob = new Blob([code], {type:'text/javascript'});
+    const url = URL.createObjectURL(blob);
+    try{ await navigator.serviceWorker.register(url,{scope:'./'}); alert('Offline cache enabled.'); setTimeout(()=>URL.revokeObjectURL(url), 4000); }catch(e){ alert('SW registration failed.'); }
+  });
+
+  /* =========================
+     Utilities & Init
+  ==========================*/
+  document.getElementById('scroll-top')?.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+  (async function boot(){
+    await idbOpen();
+    renderMetrics();
+    renderVault();
+    initStars();
+    // default route
+    panels.water.hidden = false;
+    panels.food.hidden = true;
+    panels.vault.hidden = true;
+    panels.ai.hidden = true;
+  })();
+  </script>
+<!-- ===== PART 2 • EXTENSIONS, FOOD SYSTEMS, SEEDBANK, CALCULATORS ===== -->
+  <script>
+  /*  -----------------------------------------------------------------------
+      PART 2 LOADER
+      - Extends the single-file app without manual setup.
+      - Adds Seed Bank Manager (IndexedDB v2), Food calculators, and deep guides.
+      - Hydrates #panel-food with rich, local-first content.
+      --------------------------------------------------------------------- */
+  (function(){
+    const DB = 'pra_gt_fw';
+    const V2 = 2; // upgrade to add seedbank / recipes / quests_food
+
+    // Perform a lazy schema upgrade if needed (idempotent)
+    function migrateToV2(){
+      return new Promise((resolve, reject)=>{
+        const req = indexedDB.open(DB, V2);
+        req.onupgradeneeded = (e)=>{
+          const db = e.target.result;
+          // Add new stores if they don't exist yet
+          if(!db.objectStoreNames.contains('seedbank')){
+            const s = db.createObjectStore('seedbank', { keyPath:'id', autoIncrement:true });
+            s.createIndex('by_species','species');
+            s.createIndex('by_variety','variety');
+          }
+          if(!db.objectStoreNames.contains('recipes')){
+            const s = db.createObjectStore('recipes', { keyPath:'id', autoIncrement:true });
+            s.createIndex('by_tag','tag');
+          }
+          if(!db.objectStoreNames.contains('quests_food')){
+            db.createObjectStore('quests_food', { keyPath:'id', autoIncrement:true });
+          }
+        };
+        req.onsuccess = ()=>{
+          // Close immediately; Part 1’s open handle remains active for v1 stores.
+          req.result.close();
+          // Re-open the already-initialized connection from Part 1 at higher version:
+          const again = indexedDB.open(DB, V2);
+          again.onsuccess = ()=>{ window.db = again.result; resolve(again.result); };
+          again.onerror = ()=> reject(again.error);
+        };
+        req.onerror = ()=> reject(req.error);
+      });
+    }
+
+    // Helpers that reuse Part 1 tx/escapeHTML if present; else shim
+    const hasTx = typeof tx === 'function';
+    const _tx = hasTx ? tx : ((name,mode='readonly') => window.db.transaction(name,mode).objectStore(name));
+    const esc = (s)=> (typeof escapeHTML==='function' ? escapeHTML(s) : (s||'').replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])));
+
+    // ====== FOOD PANEL HYDRATION =================================================
+    function hydrateFoodPanel(){
+      const panel = document.getElementById('panel-food');
+      if(!panel) return;
+
+      // Build rich UI inside the existing panel
+      const wrapper = document.createElement('div');
+      wrapper.className = 'stack';
+      wrapper.style.marginTop = '10px';
+      wrapper.innerHTML = `
+        <section class="stack">
+          <h3 style="margin:4px 0">Seed Bank Manager <span class="badge">IndexedDB v2</span></h3>
+          <p class="muted">Catalogue local seeds, track viability, store sourcing notes, and attach images. Stays on-device; export from top-right.</p>
+          <div class="row">
+            <input id="sb-species" placeholder="Species (e.g., Maíz)" />
+            <input id="sb-variety" placeholder="Variety (e.g., Criollo Amarillo)" />
+            <input id="sb-source" placeholder="Source (market, neighbor, coop…)" />
+          </div>
+          <div class="row">
+            <input id="sb-qty" type="number" min="1" placeholder="Qty (g or count)" />
+            <input id="sb-germ" type="number" min="0" max="100" placeholder="Germination % (if known)" />
+            <select id="sb-storage">
+              <option value="jar+desiccant">Jar + Desiccant</option>
+              <option value="clay_olla">Clay Olla (dry)</option>
+              <option value="paper_envelope">Paper Envelope</option>
+              <option value="sealed_bucket">Sealed Bucket</option>
+            </select>
+          </div>
+          <textarea id="sb-notes" rows="3" placeholder="Notes (where grown, altitude, pest pressure, stories…)"></textarea>
+          <div class="row">
+            <input id="sb-file" type="file" accept="image/*" />
+            <button id="sb-add">Add to Seed Bank</button>
+            <span class="badge" id="sb-count">0 entries</span>
+          </div>
+          <div id="sb-table" style="max-height:300px; overflow:auto; border:1px solid var(--border); border-radius:12px; padding:8px; margin-top:8px"></div>
+        </section>
+
+        <hr style="border-color:var(--border); opacity:.25">
+
+        <section class="stack">
+          <h3 style="margin:4px 0">Moisture Banking & Swale Planner</h3>
+          <div class="badge">Zai pits • Olla irrigation • Mulch domes • Contour swales</div>
+          <div class="row">
+            <input id="mb-area" type="number" min="10" value="200" title="Field area (m²)" placeholder="Area m²" />
+            <input id="mb-mulch" type="number" min="1" value="8" title="Mulch depth (cm)" placeholder="Mulch depth (cm)" />
+            <input id="mb-density" type="number" min="80" value="120" title="Mulch density (kg/m³)" placeholder="Mulch density kg/m³" />
+            <select id="mb-evap">
+              <option value="0.35">Good cover (−65% evap)</option>
+              <option value="0.5">Moderate cover (−50%)</option>
+              <option value="0.7">Light cover (−30%)</option>
+            </select>
+            <button id="mb-calc">Estimate Savings</button>
+          </div>
+          <div class="row">
+            <input id="sw-slope" type="number" min="1" value="6" title="Slope %" placeholder="Slope % (e.g., 6)" />
+            <button id="sw-plan">Swale Spacing</button>
+            <span class="badge" id="sw-result">—</span>
+          </div>
+          <div class="badge" id="mb-result">Moisture saved: — L/season • Mulch required: — kg</div>
+          <details>
+            <summary><strong>Local builds & sourcing</strong></summary>
+            <ul class="muted">
+              <li><strong>Ollas (clay pots):</strong> Two unglazed pots rim-to-rim with clay slip; cork/wooden plug; bury up to neck among plants. Potter co-ops in Antigua/Quetzaltenango.</li>
+              <li><strong>Zai pits:</strong> 30–40 cm wide, 20–25 cm deep; add manure/compost & biochar; plant 3–5 seeds per pit. Spacing ~80–100 cm.</li>
+              <li><strong>Mulch domes:</strong> Use <em>paca</em> grass, coffee husks, or leaf litter. Target 6–10 cm depth.</li>
+              <li><strong>Contour swales:</strong> A-frame level from sticks, nails, and string plus a rock as plumb bob—no special tools needed.</li>
+            </ul>
+          </details>
+        </section>
+
+        <hr style="border-color:var(--border); opacity:.25">
+
+        <section class="stack">
+          <h3 style="margin:4px 0">Agroforestry Guild Designer</h3>
+          <p class="muted">Fast, resilient guilds for highlands & lowlands. Copy → test → iterate locally.</p>
+          <div class="row">
+            <select id="guild-zone">
+              <option value="highland">Highland (1,500–2,500 m)</option>
+              <option value="mid">Mid-Elevation (800–1,500 m)</option>
+              <option value="lowland">Lowland (< 800 m)</option>
+            </select>
+            <button id="guild-suggest">Suggest Guild</button>
+          </div>
+          <div id="guild-output" style="border:1px solid var(--border); border-radius:12px; padding:10px" class="muted"></div>
+          <details>
+            <summary><strong>Local materials & DIY tools</strong></summary>
+            <ul class="muted">
+              <li><strong>Biochar TLUD:</strong> Two nested paint cans, bottom air holes; feed with dry sticks/corn cobs; quench with water → crush; charge with urine/compost tea.</li>
+              <li><strong>Solar dryer:</strong> Plywood + clear polycarbonate; black mesh trays (window screen offcuts). </li>
+              <li><strong>Rocket stove:</strong> Fire bricks or clay-sand mix (3:1); L-shaped burn tunnel; metal pot skirt for efficiency.</li>
+              <li><strong>Seed dryer:</strong> Paper envelopes, silica gel from shoe boxes, rice as desiccant fallback.</li>
+            </ul>
+          </details>
+        </section>
+
+        <hr style="border-color:var(--border); opacity:.25">
+
+        <section class="stack">
+          <h3 style="margin:4px 0">Community Kitchen & Calorie Planner</h3>
+          <div class="row">
+            <input id="cal-people" type="number" min="1" value="40" placeholder="People served" />
+            <input id="cal-kcal" type="number" min="1000" value="2100" placeholder="kcal/person/day" />
+            <input id="cal-days" type="number" min="1" value="7" placeholder="Days" />
+            <button id="cal-plan">Plan Staples</button>
+          </div>
+          <div id="cal-output" class="muted" style="border:1px solid var(--border); border-radius:12px; padding:10px"></div>
+          <details>
+            <summary><strong>Staple conversions (rule-of-thumb)</strong></summary>
+            <ul class="muted">
+              <li>Maize: ~3,650 kcal/kg • Beans: ~3,400 kcal/kg • Rice: ~3,600 kcal/kg</li>
+              <li>Plantain (fresh): ~890 kcal/kg • Potato: ~770 kcal/kg</li>
+              <li>Oil: ~8,800 kcal/L (for fortification)</li>
+            </ul>
+          </details>
+        </section>
+
+        <hr style="border-color:var(--border); opacity:.25">
+
+        <section class="stack">
+          <h3 style="margin:4px 0">Food Quests (Local Innovation)</h3>
+          <div class="row">
+            <button id="fq-add-demo" class="btn">Load Sample Food Quests</button>
+            <span class="badge" id="fq-count">0 quests</span>
+          </div>
+          <div id="fq-list" style="display:grid; gap:8px"></div>
+        </section>
+      `;
+      // Replace placeholder and attach
+      const placeholder = document.getElementById('food-placeholder');
+      if(placeholder) placeholder.remove();
+      panel.appendChild(wrapper);
+
+      // Wire up events
+      document.getElementById('sb-add')?.addEventListener('click', addSeed);
+      renderSeeds();
+
+      document.getElementById('mb-calc')?.addEventListener('click', moistureCalc);
+      document.getElementById('sw-plan')?.addEventListener('click', swalePlan);
+
+      document.getElementById('guild-suggest')?.addEventListener('click', suggestGuild);
+
+      document.getElementById('cal-plan')?.addEventListener('click', caloriePlan);
+
+      document.getElementById('fq-add-demo')?.addEventListener('click', loadFoodQuests);
+      renderFoodQuests();
+    }
+
+    // ===== Seed Bank CRUD ========================================================
+    async function addSeed(){
+      const s = (id)=> document.getElementById(id);
+      const species = s('sb-species').value.trim();
+      const variety = s('sb-variety').value.trim();
+      const source  = s('sb-source').value.trim();
+      const qty     = parseFloat(s('sb-qty').value||'0');
+      const germ    = parseFloat(s('sb-germ').value||'0');
+      const storage = s('sb-storage').value;
+      const notes   = s('sb-notes').value.trim();
+      const file    = s('sb-file').files[0];
+
+      if(!species && !variety && !source && !qty && !notes && !file){
+        alert('Add at least one seed detail or an image.'); return;
+      }
+
+      let dataURL=null, mime=null, blob=null;
+      if(file){
+        dataURL = await new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); });
+        mime = file.type || 'image/*';
+        const buf = await file.arrayBuffer(); blob = new Blob([buf], {type:mime});
+      }
+
+      const rec = { species, variety, source, qty, germ, storage, notes, dataURL, mime, blob, ts: Date.now() };
+      const store = _tx('seedbank','readwrite');
+      const r = store.add(rec);
+      r.onsuccess = ()=>{
+        s('sb-species').value = s('sb-variety').value = s('sb-source').value = '';
+        s('sb-qty').value = s('sb-germ').value = '';
+        s('sb-notes').value = ''; s('sb-file').value = '';
+        renderSeeds();
+      };
+    }
+
+    function renderSeeds(){
+      const t = _tx('seedbank').getAll();
+      const el = document.getElementById('sb-table');
+      const count = document.getElementById('sb-count');
+      t.onsuccess = ()=>{
+        const arr = (t.result||[]).sort((a,b)=> b.ts-a.ts);
+        count.textContent = `${arr.length} entries`;
+        const rows = [
+          '<table style="width:100%; border-collapse:collapse; font-size:13px">',
+          '<thead><tr>',
+          '<th style="text-align:left">Species</th>',
+          '<th style="text-align:left">Variety</th>',
+          '<th style="text-align:left">Source</th>',
+          '<th style="text-align:right">Qty</th>',
+          '<th style="text-align:right">Germ%</th>',
+          '<th style="text-align:left">Storage</th>',
+          '<th style="text-align:left">Notes</th>',
+          '</tr></thead><tbody>'
+        ];
+        for(const s of arr){
+          rows.push(`
+            <tr>
+              <td>${esc(s.species||'')}</td>
+              <td>${esc(s.variety||'')}</td>
+              <td>${esc(s.source||'')}</td>
+              <td style="text-align:right">${s.qty||0}</td>
+              <td style="text-align:right">${s.germ||'—'}</td>
+              <td>${esc(s.storage||'')}</td>
+              <td>${esc((s.notes||'').slice(0,140))}${(s.notes && s.notes.length>140)?'…':''}</td>
+            </tr>
+          `);
+        }
+        rows.push('</tbody></table>');
+        el.innerHTML = rows.join('');
+      };
+    }
+
+    // ===== Moisture Banking & Swale Planner =====================================
+    function moistureCalc(){
+      const A = parseFloat(document.getElementById('mb-area').value||'0');      // m²
+      const d_cm = parseFloat(document.getElementById('mb-mulch').value||'0');  // cm
+      const rho = parseFloat(document.getElementById('mb-density').value||'0'); // kg/m³
+      const evapF = parseFloat(document.getElementById('mb-evap').value||'0.5');// factor
+      const depth_m = d_cm/100;
+      const mulchVolume = A * depth_m;         // m³
+      const mulchMass = mulchVolume * rho;     // kg
+
+      // Very rough seasonal saving proxy: saved evap (L) ≈ A * 0.6 m (600 mm) * (1 - evapF)
+      // Tune locally with rain diary; this is just a starting heuristic for typical rainy regions.
+      const saved = Math.max(0, Math.round(A * 600 * (1 - evapF))); // L per wet season
+      document.getElementById('mb-result').textContent = `Moisture saved: ${saved.toLocaleString()} L/season • Mulch required: ${Math.round(mulchMass).toLocaleString()} kg`;
+    }
+
+    function swalePlan(){
+      const slope = Math.max(1, parseFloat(document.getElementById('sw-slope').value||'1'));
+      // Rule-of-thumb spacing (m) along slope: 0.5–2m base scaled by inverse slope; clamp to practical band.
+      const base = 1.2; // mid
+      const spacing = Math.min(12, Math.max(1, base * (10 / slope)));
+      document.getElementById('sw-result').textContent = `Place swales every ~${spacing.toFixed(1)} m downslope. Use A-frame level to set contour.`;
+    }
+
+    // ===== Guild suggestions =====================================================
+    function suggestGuild(){
+      const z = document.getElementById('guild-zone').value;
+      const out = document.getElementById('guild-output');
+      const guilds = {
+        highland: [
+          { name:'Milpa Cloud', species:['Maíz criollo','Frijol de bejuco','Calabaza','Chaya','Inga','Capulín'], notes:'Add windbreak (living fence of nopal). Mulch heavy to buffer cold nights.' },
+          { name:'Coffee-Understory+', species:['Café','Guamo (Inga)','Banano','Ejote trepador','Crotalaria (abono verde)'], notes:'Biochar microdoses at root zone; vetiver strips for erosion.' }
+        ],
+        mid: [
+          { name:'Citrus Alley', species:['Naranja agria','Plátano','Piña','Camote','Cacahuate (maní)'], notes:'Swales + banana circles. Greywater to banana ring.' },
+          { name:'Maíz-Bean-Sesbania', species:['Maíz','Frijol trepador','Sesbania sesban','Calabaza'], notes:'Sesbania fixes N and coppices for mulch.' }
+        ],
+        lowland: [
+          { name:'Cacao Shade Web', species:['Cacao','Guineo','Inga','Malanga','Chili','Achiote'], notes:'Thick leaf litter; avoid waterlogging with shallow trenches.' },
+          { name:'Dry-Edge Saver', species:['Sorgo','Frijol caupí','Yuca','Moringa'], notes:'Microcatchments and ollas; drought-tough palette.' }
+        ]
+      };
+      const pick = guilds[z] || guilds.mid;
+      const html = pick.map(g=>`<div class="badge"><strong>${esc(g.name)}</strong> — ${esc(g.species.join(', '))}<br><span class="muted">${esc(g.notes)}</span></div>`).join('');
+      out.innerHTML = html;
+    }
+
+    // ===== Calories / Staples Planner ===========================================
+    function caloriePlan(){
+      const ppl = Math.max(1, parseInt(document.getElementById('cal-people').value||'1',10));
+      const kcal = Math.max(800, parseInt(document.getElementById('cal-kcal').value||'2100',10));
+      const days = Math.max(1, parseInt(document.getElementById('cal-days').value||'7',10));
+      const total = ppl * kcal * days; // kcal
+
+      // Split: 55% maize, 25% beans, 15% plantain/potato (fresh), 5% oil (for energy density)
+      const alloc = {
+        maize: total*0.55, beans: total*0.25, fresh: total*0.15, oil: total*0.05
+      };
+      const kg = {
+        maize: alloc.maize / 3650,
+        beans: alloc.beans / 3400,
+        fresh: alloc.fresh / 890,  // use plantain proxy
+        oil:   alloc.oil   / 8800  // liters
+      };
+      const o = document.getElementById('cal-output');
+      o.innerHTML = `
+        <div class="badge">Total energy: ${total.toLocaleString()} kcal</div>
+        <ul class="muted">
+          <li>Maize ≈ <strong>${kg.maize.toFixed(1)} kg</strong></li>
+          <li>Beans ≈ <strong>${kg.beans.toFixed(1)} kg</strong></li>
+          <li>Plantain/Potato (fresh) ≈ <strong>${kg.fresh.toFixed(1)} kg</strong></li>
+          <li>Oil ≈ <strong>${(kg.oil).toFixed(2)} L</strong></li>
+        </ul>
+        <p class="muted">Adjust with local prices and preferences; add leafy greens & fruit for micronutrients.</p>
+      `;
+    }
+
+    // ===== Food Quests ==========================================================
+    function loadFoodQuests(){
+      const store = _tx('quests_food','readwrite');
+      const seeds = [
+        { title:'Build A-frame level and mark first contour', points:5, done:false, tag:'contour', ts:Date.now() },
+        { title:'Charge biochar (1 bucket) and blend into 10 planting holes', points:6, done:false, tag:'biochar', ts:Date.now() },
+        { title:'Establish 10 zai pits near greywater outlet', points:7, done:false, tag:'zai', ts:Date.now() },
+        { title:'Register 5 local seed varieties with story notes', points:8, done:false, tag:'seedbank', ts:Date.now() }
+      ];
+      seeds.forEach(s => store.add(s));
+      setTimeout(renderFoodQuests, 120);
+    }
+
+    function renderFoodQuests(){
+      const list = document.getElementById('fq-list');
+      const badge = document.getElementById('fq-count');
+      const r = _tx('quests_food').getAll();
+      r.onsuccess = ()=>{
+        const arr = (r.result||[]).sort((a,b)=> (a.done===b.done?0:a.done?1:-1) || a.ts-b.ts);
+        badge.textContent = `${arr.length} quests`;
+        list.innerHTML = '';
+        for(const q of arr){
+          const row = document.createElement('div');
+          row.style.border='1px solid var(--border)';
+          row.style.borderRadius='10px';
+          row.style.padding='8px';
+          row.style.background='rgba(255,255,255,.02)';
+          row.innerHTML = `
+            <div class="row" style="justify-content:space-between">
+              <div><strong>${esc(q.title)}</strong> <span class="muted">[${esc(q.tag)}]</span></div>
+              <button data-id="${q.id||''}" class="btn btn-done">${q.done?'✓ Completed':'Mark Done'}</button>
+            </div>
+            <div class="muted">+${q.points||1} XP • ${new Date(q.ts||Date.now()).toLocaleString()}</div>
+          `;
+          row.querySelector('.btn-done').addEventListener('click', ()=>{
+            const s = _tx('quests_food','readwrite');
+            const g = s.get(q.id);
+            g.onsuccess = ()=>{ const rec = g.result; rec.done = true; s.put(rec); setTimeout(renderFoodQuests, 100); };
+          });
+          list.appendChild(row);
+        }
+      };
+    }
+
+    // ===== Deep Guide: local innovation & sourcing (static content)  ============
+    function appendDeepGuides(){
+      const panel = document.getElementById('panel-food');
+      if(!panel) return;
+      const guide = document.createElement('section');
+      guide.className = 'card';
+      guide.style.marginTop = '12px';
+      guide.innerHTML = `
+        <h2>Local Innovation & Sourcing Almanac</h2>
+        <p class="muted">Guatemala’s strength is craft. Almost every “expensive import” has a village-scale cousin.</p>
+        <ul>
+          <li><strong>Ferreterías</strong> (hardware): PVC, HDPE, buckets, rebar, mesh. Ask for offcuts & returns for discounts.</li>
+          <li><strong>Markets & co-ops:</strong> Sacks, crates, burlap (great for shade & erosion). Coffee pulp/husks for mulch.</li>
+          <li><strong>Potter collectives:</strong> Unglazed ollas, tiles, stove liners. Commission simple molds for consistency.</li>
+          <li><strong>Mechanic yards:</strong> Inner tubes (gaskets), drums (cisterns), sheet offcuts (roof catchment repairs).</li>
+          <li><strong>Sawmills:</strong> Slabwood for raised beds and rocket stove skirts. Biochar feedstock from dry shavings.</li>
+        </ul>
+        <details>
+          <summary><strong>DIY Bill of Materials (BOM) patterns</strong></summary>
+          <div class="stack">
+            <div class="badge"><strong>First-flush Diverter (PET+ball)</strong> — 2L PET + ping pong ball + 1/2" elbow + tape/hemp fibre. Cost: <$5. Build: 30 min.</div>
+            <div class="badge"><strong>Ferrocement Cistern (2–5k L)</strong> — Mesh + 1:3 cement:sand, bamboo form, limewash. Cost: 60–120 USD equiv, local.</div>
+            <div class="badge"><strong>TLUD Biochar Stove</strong> — 2 paint cans + drill + dry sticks/cobs. Cost: scrap + labor.</div>
+            <div class="badge"><strong>Solar Pasteurizer Box</strong> — Plywood + glass + black pot; WAPI bead @ 65 °C.</div>
+          </div>
+        </details>
+      `;
+      panel.appendChild(guide);
+    }
+
+    // ===== Boot part 2 ==========================================================
+    (async function initPart2(){
+      // show a tiny loader hint when switching into food on first hydrate
+      const wasHidden = document.getElementById('panel-food')?.hidden;
+      try{
+        await migrateToV2();
+        hydrateFoodPanel();
+        appendDeepGuides();
+        if(wasHidden === false){
+          // Recalculate immediately if user is already on Food tab
+          suggestGuild();
+        }
+      }catch(e){
+        console.error('Part 2 init failed', e);
+      }
+    })();
+
+  })();
+  </script>
+</body>
+</html>

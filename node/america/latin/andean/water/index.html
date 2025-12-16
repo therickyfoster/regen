@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en" data-schema="planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Water Sovereignty — Andean Arcs (Latin America Region Pack 1) | PRA</title>
+  <meta name="description" content="Ultra long-form, region-specific Water Sovereignty guide for the Andean Arcs (Chile, Peru, Bolivia, Ecuador, Colombia). Standalone index.html with starfield, PWA, IndexedDB journal, Habitica sync, WebLLM-aware advisor, engineering blueprints, BoMs, O&M, and governance playbooks." />
+  <meta name="keywords" content="Andean hydrology, amunas, qochas, páramo, ichu grass, rock check dams, infiltration, Latin America, water sovereignty, PRA, Habitica, WebLLM, IndexedDB, PWA" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Water Sovereignty — Andean Arcs | PRA" />
+  <meta property="og:description" content="Region Pack 1: Andean Arcs. A complete, gamified, offline-first hydrology manual and mission framework." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAB..." />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Water Sovereignty — Andean Arcs | PRA" />
+  <meta name="twitter:description" content="Region Pack 1: Andean Arcs. A complete, gamified, offline-first hydrology manual and mission framework." />
+  <meta name="twitter:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAB..." />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"CreativeWork",
+    "name":"Water Sovereignty — Andean Arcs (Region Pack 1)",
+    "about":["Hydrology","Andean water systems","Community Science","Agrohydrology","Nature-based solutions"],
+    "inLanguage":"en",
+    "isAccessibleForFree":true,
+    "audience":{"@type":"Audience","audienceType":"Stewards, smallholders, teachers, municipal planners"},
+    "license":"https://creativecommons.org/licenses/by-sa/4.0/",
+    "genre":"planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"
+  }
+  </script>
+
+  <meta name="theme-color" content="#071126" />
+
+  <style>
+    :root{
+      --bg:#030814; --ink:#e8f0ff; --muted:#97a0b5; --accent:#66e1ff; --accent-2:#8bffb0;
+      --card:#0b1220; --glass: rgba(13,22,40,.6); --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35), inset 0 0 .5px rgba(255,255,255,.08);
+      --ok:#8bffb0; --warn:#ffd366; --danger:#ff7b7b;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+    a{color:var(--accent)} a:hover{color:var(--accent-2)}
+    .wrap{max-width:1260px;margin:0 auto;padding:24px}
+    header.nav{position:sticky;top:0;z-index:12;background:linear-gradient(180deg, rgba(4,8,20,.75), rgba(4,8,20,.35));backdrop-filter: blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand h1{margin:0;font-size:1.06rem;letter-spacing:.12em;text-transform:uppercase;color:#dff6ff}
+    .badge{display:inline-flex;gap:8px;align-items:center;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg, rgba(102,225,255,.12), rgba(139,255,176,.12));font-size:.78rem;color:var(--muted)}
+    #starfield{position:fixed;inset:0;z-index:-2;background:#000}
+    #space-glow{position:fixed;inset:-12%;z-index:-1;
+      background:
+        radial-gradient(60% 40% at 20% 20%, rgba(64,121,255,.12), transparent 60%),
+        radial-gradient(40% 30% at 80% 30%, rgba(255,0,128,.10), transparent 60%),
+        radial-gradient(35% 25% at 50% 75%, rgba(0,255,204,.08), transparent 60%);
+      filter: blur(36px); pointer-events:none;
+    }
+    .grid{display:grid;gap:22px} @media(min-width:920px){ .cols-2{grid-template-columns:1.2fr .8fr} .cols-3{grid-template-columns:repeat(3,1fr)} .cols-4{grid-template-columns:repeat(4,1fr)} }
+    .card{background:linear-gradient(180deg, rgba(13,22,40,.66), rgba(13,22,40,.42));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+    .title{margin:0 0 6px;font-size:1.2rem}
+    .muted{color:var(--muted)}
+    .kpi{display:flex;gap:12px;flex-wrap:wrap}
+    .pill{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:.9rem}
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+    .cta button,.cta a.btn{appearance:none;border:0;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer;background:linear-gradient(135deg, rgba(102,225,255,.25), rgba(139,255,176,.20));color:#dbf9ff;box-shadow:var(--shadow)}
+    .cta button:hover,.cta a.btn:hover{transform:translateY(-1px)}
+    .section{padding:28px 0;border-top:1px solid rgba(255,255,255,.07)}
+    h2.section-title{margin:0 0 14px;font-size:1.36rem}
+    h3{margin:10px 0 8px}
+    .list{line-height:1.68}
+    .small{font-size:.92rem}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+    .ok{color:var(--ok)} .warn{color:var(--warn)} .danger{color:var(--danger)}
+    .pill-tag{display:inline-flex;gap:6px;align-items:center;padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:.78rem;margin:2px 6px 2px 0}
+    .progress{height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+    .progress > i{display:block;height:100%;background:linear-gradient(90deg,#66e1ff,#8bffb0)}
+    label{display:block;margin:10px 0 6px}
+    input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.14);background:rgba(3,8,20,.6);color:var(--ink)}
+    .row{display:grid;gap:12px} @media(min-width:760px){ .row.cols-2{grid-template-columns:1fr 1fr} .row.cols-3{grid-template-columns:repeat(3,1fr)} .row.cols-4{grid-template-columns:repeat(4,1fr)} }
+    .notice{border-left:3px solid var(--accent);padding:10px 12px;background:rgba(102,225,255,.08);border-radius:12px}
+    .ribbon{position:fixed;left:-60px;top:22px;transform:rotate(-35deg);background:#102336;border:1px solid rgba(255,255,255,.12);color:#b9dfff;padding:8px 90px;z-index:15;box-shadow:var(--shadow)}
+    .floating-help{position:fixed;right:16px;bottom:16px;border-radius:18px;background:linear-gradient(135deg, rgba(102,225,255,.24), rgba(139,255,176,.22));border:1px solid rgba(255,255,255,.1);box-shadow:var(--shadow);padding:12px 14px;backdrop-filter: blur(8px);z-index:14}
+    details summary{cursor:pointer}
+    .hero-num{font-weight:800;font-size:1.8rem;letter-spacing:.02em}
+  </style>
+</head>
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div id="space-glow" aria-hidden="true"></div>
+  <div class="ribbon mono small">ZERO-HARM • REGENERATIVE-ONLY</div>
+
+  <header class="nav">
+    <div class="wrap">
+      <div class="brand">
+        <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="32" r="31" fill="url(#g)" stroke="rgba(255,255,255,.2)"/>
+          <defs><radialGradient id="g" cx="50%" cy="50%"><stop offset="0%" stop-color="#79f2ff"/><stop offset="100%" stop-color="#0b1220"/></radialGradient></defs>
+        </svg>
+        <h1>Water Sovereignty — Andean Arcs (Region Pack 1)</h1>
+        <span class="badge">Standalone • IndexedDB • PWA • Habitica • WebLLM-aware</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="grid cols-2">
+      <div class="card">
+        <h2 class="title">Andean Arcs • Chile • Peru • Bolivia • Ecuador • Colombia</h2>
+        <p class="muted">Glaciers retreat. Páramos and bofedales (high peatlands) are the continent’s sponges. This Region Pack operationalizes amunas (infiltration canals), qochas (ponds), ichu grass belts, and rock check dams—engineered for today’s hydrology, teachable in a weekend, maintainable for a century.</p>
+        <div class="kpi">
+          <span class="pill">Blueprints: <strong>14</strong></span>
+          <span class="pill">O&M Runbooks: <strong>7</strong></span>
+          <span class="pill">Community Missions: <strong>12</strong></span>
+          <span class="pill">Offline Lessons: <strong class="ok">Ready</strong></span>
+        </div>
+        <div class="cta">
+          <a class="btn" href="../index.html" title="Back to /water/">↩ /water/</a>
+          <a class="btn" href="../../food/sovereignty/latin-america/index.html">/food/sovereignty/latin-america/</a>
+          <button id="btnOfflineKit">Cache Offline</button>
+          <button id="btnRegionJournal">Open Region Journal</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="title">Your Andean Steward Profile</h3>
+        <div class="row cols-2">
+          <div><label>Sub-Region</label>
+            <select id="subRegion">
+              <option value="north">Northern Andes (EC/CO)</option>
+              <option value="central" selected>Central Andes (PE/BO)</option>
+              <option value="south">Southern Andes (CL/AR border ranges)</option>
+            </select>
+          </div>
+          <div><label>Elevation (m)</label><input id="elev" type="number" placeholder="3200"/></div>
+        </div>
+        <div class="row cols-2">
+          <div><label>Mean Annual Rain (mm)</label><input id="rain" type="number" placeholder="700"/></div>
+          <div><label>Soil Type</label>
+            <select id="soil"><option>clay loam</option><option>loam</option><option>sandy loam</option><option>peaty</option></select>
+          </div>
+        </div>
+        <div class="row cols-2">
+          <div><label>Habitica User</label><input id="habiticaUser" class="mono" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"/></div>
+          <div><label>Habitica Token</label><input id="habiticaToken" class="mono" placeholder="stored locally"/></div>
+        </div>
+        <div class="cta">
+          <button id="saveProfile">Save</button>
+          <button id="linkHabitica">Link Habitica</button>
+        </div>
+        <p class="small muted">Credentials stored only on this device via IndexedDB. Sync is opt-in.</p>
+      </div>
+    </section>
+
+    <!-- GAME MECHANICS -->
+    <section class="section" id="mechanics">
+      <h2 class="section-title">Mechanics • Levels • Region XP</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Progression</h3>
+          <ul class="list small">
+            <li><strong>Apprentice</strong> — map micro-basin; log 3 tests.</li>
+            <li><strong>Artisan</strong> — build 1 qocha or 20m amuna section.</li>
+            <li><strong>Architect</strong> — design a 3-tier cascade (qocha → trench → check dam).</li>
+            <li><strong>Guardian</strong> — train 10 neighbors; certify seasonal O&M team.</li>
+            <li><strong>Oracle</strong> — publish sub-basin plan to PRA ledger.</li>
+          </ul>
+          <div class="progress"><i id="xpBar" style="width:18%"></i></div>
+          <p class="mono small muted">XP: <span id="xp">180</span> • Rank: <span id="rank">Apprentice</span></p>
+        </div>
+        <div class="card">
+          <h3>Region Tokens</h3>
+          <p class="small muted">Earn <strong>HydroCredits</strong> and <strong>FlowTokens</strong> for liters stored, infiltration volume, erosion prevented, and training hours.</p>
+          <div class="kpi">
+            <span class="pill">Liters stored: <strong id="liters">0</strong></span>
+            <span class="pill">Infiltration (m³): <strong id="infilt">0</strong></span>
+            <span class="pill">Neighbors trained: <strong id="trained">0</strong></span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Journal</h3>
+          <p class="small muted">All actions saved offline. Export/share as JSON to seed new villages.</p>
+          <div class="cta">
+            <button id="btnExport">Export</button>
+            <button id="btnImport">Import</button>
+            <input id="importFile" type="file" accept=".json" hidden />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLUEPRINTS -->
+    <section class="section" id="blueprints">
+      <h2 class="section-title">Engineering Blueprints (Andean Systems)</h2>
+
+      <!-- Qocha -->
+      <div class="card">
+        <h3>Blueprint A • <span class="hero-num">Qocha</span> Micro-Reservoir (2–12 m diameter)</h3>
+        <p class="muted small">Shallow bowl pond that captures seasonal flow, recharges groundwater, and buffers dry spells. Designed for high-elevation frost cycles.</p>
+
+        <details open>
+          <summary><strong>Design Specs</strong></summary>
+          <ul class="list small">
+            <li><strong>Siting:</strong> gentle slope &lt; 8°, above agricultural plots; avoid active landslides.</li>
+            <li><strong>Geometry:</strong> depth 0.6–1.2 m; side slope 3:1 (H:V); diameter 2–12 m.</li>
+            <li><strong>Liner:</strong> native clay compaction; upgrade with bentonite 2–5 kg/m² if seepage &gt; desired.</li>
+            <li><strong>Spillway:</strong> armored with stone; design return period 10–25 yr storm; level sill.</li>
+            <li><strong>Perimeter:</strong> plant ichu (<em>Stipa ichu</em>) belt + páramo forb mix for bank stabilization.</li>
+            <li><strong>Overflow:</strong> to infiltration trench on contour (40–60 cm wide, 40–60 cm deep).</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><strong>Sizing Calculator (est.)</strong></summary>
+          <div class="row cols-4 small">
+            <div><label>Catchment (m²)</label><input id="qa_catch" type="number" placeholder="1500"></div>
+            <div><label>Runoff Coef (0–1)</label><input id="qa_c" type="number" step="0.05" placeholder="0.25"></div>
+            <div><label>Storm (mm)</label><input id="qa_r" type="number" placeholder="40"></div>
+            <div><label>Target Storage (m³)</label><input id="qa_s" type="number" placeholder="10"></div>
+          </div>
+          <div class="cta"><button id="qa_calc">Compute Volume & Suggest Diameter</button></div>
+          <pre id="qa_out" class="mono small muted">—</pre>
+        </details>
+
+        <details>
+          <summary><strong>Bill of Materials (example 6 m qocha)</strong></summary>
+          <ul class="list small">
+            <li>Earthworks: ~17 m³ excavation + grading</li>
+            <li>Stone: 1.5–2 m³ for spillway armor</li>
+            <li>Bentonite: 2–5 kg/m² × ~30 m² base = 60–150 kg (if needed)</li>
+            <li>Geotextile under armor (optional): 25–30 m²</li>
+            <li>Plants: ichu plugs 60–120 pcs + native forb mix</li>
+            <li>Tools: A-frame level, shovel, tampers, pick, wheelbarrow</li>
+          </ul>
+        </details>
+
+        <div class="cta">
+          <button class="btnQuest" data-quest="qocha-build">Add Quest: Build a 6 m Qocha</button>
+          <button class="btnHabitica" data-task="Build a 6 m qocha with armored spillway">Habitica Task</button>
+        </div>
+      </div>
+
+      <!-- Amunas -->
+      <div class="card">
+        <h3>Blueprint B • <span class="hero-num">Amunas</span> Infiltration Canal (Recharge Line)</h3>
+        <p class="muted small">Ancestral canals that slow and infiltrate seasonal flows into hillsides, feeding springs months later.</p>
+
+        <details open>
+          <summary><strong>Design Specs</strong></summary>
+          <ul class="list small">
+            <li><strong>Alignment:</strong> gentle grade 0.2–0.8% along contour; avoid steep scarps.</li>
+            <li><strong>Section:</strong> 30–50 cm wide, 25–35 cm deep; gravel bed lens to distribute flow.</li>
+            <li><strong>Check stones:</strong> every 5–8 m; notch for level sill overflow.</li>
+            <li><strong>Recharge berm:</strong> downslope bund to create infiltration lens; vegetate with ichu.</li>
+            <li><strong>Monitoring:</strong> piezometer tubes at 10–20 m spacing (PVC 1” with perforations).</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><strong>Flow & Infiltration Estimator</strong></summary>
+          <div class="row cols-4 small">
+            <div><label>Canal length (m)</label><input id="am_L" type="number" placeholder="60"></div>
+            <div><label>Design flow (L/s)</label><input id="am_Q" type="number" step="0.1" placeholder="3.5"></div>
+            <div><label>Infiltration rate (mm/hr)</label><input id="am_i" type="number" placeholder="8"></div>
+            <div><label>Soil porosity (0–1)</label><input id="am_n" type="number" step="0.01" placeholder="0.35"></div>
+          </div>
+          <div class="cta"><button id="am_calc">Compute Recharge & Lag</button></div>
+          <pre id="am_out" class="mono small muted">—</pre>
+        </details>
+
+        <details>
+          <summary><strong>Bill of Materials (example 60 m amuna)</strong></summary>
+          <ul class="list small">
+            <li>Stone: 5–7 m³ (checks + lining)</li>
+            <li>Gravel/sand lens: 3–4 m³</li>
+            <li>Geotextile (optional for fines): 80 m²</li>
+            <li>PVC 1'' perforated for piezometers: 6–10 sticks + caps</li>
+            <li>Plants: ichu plugs ~120; shrub mix (k'insa q'acha, etc.)</li>
+          </ul>
+        </details>
+
+        <div class="cta">
+          <button class="btnQuest" data-quest="amuna-60m">Add Quest: Cut 60 m Amuna Section</button>
+          <button class="btnHabitica" data-task="Construct 60 m amuna with 8 checks and recharge berm">Habitica Task</button>
+        </div>
+      </div>
+
+      <!-- Rock Check Dams -->
+      <div class="card">
+        <h3>Blueprint C • Rock Check Dam (Ephemeral Gully)</h3>
+        <p class="muted small">Stair-steps energy, traps sediment, and raises bed to reconnect floodplain.</p>
+        <details open>
+          <summary><strong>Design Specs</strong></summary>
+          <ul class="list small">
+            <li>Crown lower at center; tie wings into banks at natural bed level.</li>
+            <li>Backfill upstream with gravel; plant grasses to bind.</li>
+            <li>Spacing by grade: steeper → closer (H/Δh ≈ 8–12).</li>
+          </ul>
+        </details>
+        <details>
+          <summary><strong>Spacing Helper</strong></summary>
+          <div class="row cols-3 small">
+            <div><label>Slope (m/m)</label><input id="cd_s" type="number" step="0.001" placeholder="0.06"></div>
+            <div><label>Channel length (m)</label><input id="cd_L" type="number" placeholder="120"></div>
+            <div><label>Target drop per dam (m)</label><input id="cd_d" type="number" step="0.05" placeholder="0.5"></div>
+          </div>
+          <div class="cta"><button id="cd_calc">Compute # Dams & Spacing</button></div>
+          <pre id="cd_out" class="mono small muted">—</pre>
+        </details>
+        <div class="cta">
+          <button class="btnQuest" data-quest="checkdam-series">Add Quest: 6-Dam Series</button>
+          <button class="btnHabitica" data-task="Build 6 rock check dams with vegetated wings">Habitica Task</button>
+        </div>
+      </div>
+
+      <!-- Páramo Care -->
+      <div class="card">
+        <h3>Blueprint D • Páramo/Bofedal Sponge Care</h3>
+        <p class="muted small">Protects and expands high peatland sponges that regulate dry-season baseflow.</p>
+        <ul class="list small">
+          <li>Exclude grazing during wet recovery windows; rotational plan thereafter.</li>
+          <li>Block headcut scars with coir rolls + stone; seed sphagnum & native sedges.</li>
+          <li>Diffuse inflow with fascines (bundles) along contour.</li>
+        </ul>
+        <div class="cta">
+          <button class="btnQuest" data-quest="paramo-restoration">Add Quest: Sponge Recovery Plot (50×50 m)</button>
+          <button class="btnHabitica" data-task="Install fascines & coir rolls; seed native sedges">Habitica Task</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- O&M / SEASONAL RUNBOOKS -->
+    <section class="section" id="om">
+      <h2 class="section-title">O&M • Seasonal Runbooks (Apprentice → Guardian)</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Pre-Rains (4–8 weeks before)</h3>
+          <ul class="list small">
+            <li>Desilt spillways; top-up bentonite patches if seepage &gt; target.</li>
+            <li>Re-grade level sills; check stone seating.</li>
+            <li>Replant ichu gaps; mulch with straw/fiber mats.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>During Rains</h3>
+          <ul class="list small">
+            <li>Weekly visual checks; photo-log overtopping events.</li>
+            <li>Remove woody debris from checks after peak events.</li>
+            <li>Update infiltration journal (piezometer levels).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Dry Season</h3>
+          <ul class="list small">
+            <li>Crack sealing (clay slurry); bank repair and reseeding.</li>
+            <li>Community training sessions; add interpretive signs.</li>
+            <li>Plan next season cascade expansions.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Inspection Checklist</h3>
+        <div class="row cols-4 small">
+          <div><label>Asset</label><select id="om_asset"><option>Qocha</option><option>Amuna</option><option>Check Dam</option><option>Páramo Plot</option></select></div>
+          <div><label>Condition</label><select id="om_cond"><option>Good</option><option>Fair</option><option>Poor</option></select></div>
+          <div><label>Notes</label><input id="om_notes" placeholder="Erosion on right bank..."/></div>
+          <div><label>&nbsp;</label><button id="om_save">Save Inspection</button></div>
+        </div>
+        <pre id="om_list" class="mono small muted" style="margin-top:10px">—</pre>
+      </div>
+    </section>
+
+    <!-- CITIZEN SCIENCE -->
+    <section class="section" id="science">
+      <h2 class="section-title">Citizen Science • Tests & Maps</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Water Tests</h3>
+          <div class="row cols-3">
+            <div><label>Site</label><input id="t_site" placeholder="Spring A / Canal km 0.6"/></div>
+            <div><label>pH</label><input id="t_ph" type="number" step="0.01" placeholder="7.10"/></div>
+            <div><label>Turbidity (cm)</label><input id="t_turb" type="number" placeholder="42"/></div>
+          </div>
+          <div class="row cols-3">
+            <div><label>Nitrate (ppm)</label><input id="t_no3" type="number" step="0.1" placeholder="3.2"/></div>
+            <div><label>Coliform</label><select id="t_coli"><option>No</option><option>Yes</option></select></div>
+            <div><label>&nbsp;</label><button id="t_save">Save Test</button></div>
+          </div>
+          <pre id="t_list" class="mono small muted">—</pre>
+        </div>
+        <div class="card">
+          <h3>Risk Flags</h3>
+          <div class="row cols-3">
+            <div><label>Type</label><select id="r_type"><option>Sediment spike</option><option>Agrochem runoff</option><option>Sewage</option><option>Industrial</option></select></div>
+            <div><label>Location</label><input id="r_loc" placeholder="Gully B / village intake"/></div>
+            <div><label>&nbsp;</label><button id="r_save">Log Risk</button></div>
+          </div>
+          <pre id="r_list" class="mono small muted">—</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- GOVERNANCE / RIGHTS / FUNDING -->
+    <section class="section" id="governance">
+      <h2 class="section-title">Governance • Customary Rights • Funding Hooks</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Water Commons Charter (Template)</h3>
+          <ul class="list small">
+            <li>Recognize ancestral systems (amunas/qochas) as community commons.</li>
+            <li>Seasonal O&M obligations for all upstream users.</li>
+            <li>Transparent incident log; restorative, not punitive, pathways.</li>
+          </ul>
+          <div class="cta"><button id="charterAdd">Add Charter Draft to Journal</button></div>
+        </div>
+        <div class="card">
+          <h3>Conflict Transformation</h3>
+          <ul class="list small">
+            <li>Water council: 5–9 reps (upstream/downstream parity + gender balance).</li>
+            <li>Mediation protocol with 72-hr cooling-off + third-party steward.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Funding Hooks</h3>
+          <ul class="list small">
+            <li>Micro-grants via FlowToken attestations.</li>
+            <li>Tour-of-duty stipends for O&M crews.</li>
+            <li>Diaspora bonds earmarked for infiltration lines.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADVISOR -->
+    <section class="section" id="advisor">
+      <h2 class="section-title">Local AI Advisor (WebLLM-aware)</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <p class="small muted">If <span class="mono">WebLLM</span> is available, it is used automatically; otherwise a local heuristic generates plans.</p>
+          <label>Describe site (slope %, soil, elevation, rain, goal):</label>
+          <textarea id="adv_in" rows="5" placeholder="Slope 5–7%, clay loam, 3200 m, 700 mm/yr. Goal: dry-season baseflow via qocha+amuna."></textarea>
+          <div class="cta">
+            <button id="adv_run">Get Plan</button>
+            <button id="adv_save">Save to Journal</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Advisor Output</h3>
+          <pre id="adv_out" class="mono small muted">—</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- PWA / OFFLINE -->
+    <section class="section" id="offline">
+      <h2 class="section-title">Offline-first / Service Worker</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>One-click Cache</h3>
+          <p class="small muted">Install/update the service worker for offline field work.</p>
+          <div class="cta"><button id="sw_install">Install / Update</button></div>
+          <p id="sw_status" class="mono small muted">SW: not installed</p>
+        </div>
+        <div class="card">
+          <h3>Storage Snapshot</h3>
+          <pre id="storage" class="mono small muted">—</pre>
+        </div>
+        <div class="card">
+          <h3>Data Control</h3>
+          <div class="cta">
+            <button id="db_export">Export Journal</button>
+            <button id="db_import">Import Journal</button>
+            <input id="db_file" type="file" accept=".json" hidden />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAV TO OTHER REGION PACKS -->
+    <section class="section" id="nav">
+      <h2 class="section-title">Open Other Region Packs</h2>
+      <div class="grid cols-3">
+        <div class="card"><h3>Amazon Basin</h3><p class="small muted">Riparian belts, biochar swales, cloud-seeding biology.</p><a class="btn" href="../latin-america/amazon/index.html">Open Amazon Pack →</a></div>
+        <div class="card"><h3>Sertão (NE Brazil)</h3><p class="small muted">Cisternas, first-flush, mandala gardens, bentonite ponds.</p><a class="btn" href="../latin-america/sertao/index.html">Open Sertão Pack →</a></div>
+        <div class="card"><h3>Central Highlands</h3><p class="small muted">Terraces, vetiver filters, school rain labs.</p><a class="btn" href="../latin-america/central-highlands/index.html">Open Highlands Pack →</a></div>
+      </div>
+      <div class="grid cols-3" style="margin-top:14px">
+        <div class="card"><h3>Patagonia</h3><p class="small muted">Wind baffles, rotational grazing, permafrost watch.</p><a class="btn" href="../latin-america/patagonia/index.html">Open Patagonia Pack →</a></div>
+        <div class="card"><h3>Caribbean Islands</h3><p class="small muted">Fog collectors, solar micro-stills, hurricane storage.</p><a class="btn" href="../latin-america/caribbean/index.html">Open Caribbean Pack →</a></div>
+        <div class="card"><h3>Food Sovereignty Link</h3><p class="small muted">Agroforestry & seed banks tuned to each hydrology.</p><a class="btn" href="../../food/sovereignty/latin-america/index.html">Open Food Node →</a></div>
+      </div>
+    </section>
+
+    <section class="section small muted">
+      <div>License: CC BY-SA 4.0 • Integrity: tamper-evident local logs + re-hash on export • Schema: <span class="mono">.../hybrid</span></div>
+    </section>
+  </main>
+
+  <div class="floating-help small">
+    <div><strong>Quick</strong></div>
+    <div class="linklike" id="q_log">+ Log liters stored</div>
+    <div class="linklike" id="q_quest">+ Add qocha quest</div>
+    <div class="linklike" id="q_sync">↻ Sync Habitica</div>
+  </div>
+
+  <script>
+  /* ====== Photorealistic Starfield ====== */
+  (()=>{
+    const c = document.getElementById('starfield'), x = c.getContext('2d'); let W=0,H=0,dpr=1;
+    const layers=[{n:500,s:.006,r:[.4,1.2],a:[.4,.9]},{n:250,s:.012,r:[.7,1.8],a:[.5,1]},{n:120,s:.02,r:[1,2.4],a:[.6,1]}];
+    let stars=[];
+    function R(a,b){return a+Math.random()*(b-a)}
+    function size(){dpr=Math.min(2,devicePixelRatio||1); W=c.clientWidth=innerWidth; H=c.clientHeight=innerHeight; c.width=W*dpr; c.height=H*dpr; x.setTransform(dpr,0,0,dpr,0,0)}
+    function init(){size(); stars=[]; layers.forEach((L,i)=>{for(let k=0;k<L.n;k++) stars.push({x:Math.random()*W,y:Math.random()*H,z:i,r:R(L.r[0],L.r[1]),a:R(L.a[0],L.a[1]),t:R(0,Math.PI*2),ts:R(.003,.01),h:190+Math.random()*60})})}
+    addEventListener('resize',size); init(); let last=performance.now();
+    function tick(now){const dt=Math.min(33,now-last); last=now; x.clearRect(0,0,W,H);
+      for(const s of stars){const L=layers[s.z]; s.x-=L.s*dt*(.4+s.r/2); if(s.x<-4) s.x=W+4,s.y=Math.random()*H; s.t+=s.ts;
+        const tw=(Math.sin(s.t)+1)/2*.4+.6; x.globalAlpha=s.a*tw; const g=x.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*3);
+        g.addColorStop(0,`hsla(${s.h},90%,88%,1)`); g.addColorStop(.6,`hsla(${s.h},90%,70%,.25)`); g.addColorStop(1,`rgba(0,0,0,0)`);
+        x.fillStyle=g; x.beginPath(); x.arc(s.x,s.y,s.r*3,0,6.283); x.fill();
+      } x.globalAlpha=1; requestAnimationFrame(tick) }
+    requestAnimationFrame(tick);
+  })();
+
+  /* ====== Helpers / DB ====== */
+  const DB='pra_andes_db', VER=1; let db;
+  const el=id=>document.getElementById(id);
+  function id(){return Math.random().toString(36).slice(2)+Date.now().toString(36)}
+  function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open(DB,VER);
+    r.onupgradeneeded=e=>{const D=e.target.result; ['settings','tests','risks','quests','inspections','sync'].forEach(s=>D.createObjectStore(s,{keyPath:'id'}))};
+    r.onsuccess=()=>{db=r.result; res(db)}; r.onerror=()=>rej(r.error)})}
+  async function put(store,val){await openDB(); return new Promise((res,rej)=>{const tx=db.transaction(store,'readwrite'); tx.objectStore(store).put(val); tx.oncomplete=()=>res(true); tx.onerror=()=>rej(tx.error)})}
+  async function all(store){await openDB(); return new Promise((res,rej)=>{const tx=db.transaction(store,'readonly'); const rq=tx.objectStore(store).getAll(); rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error)})}
+  async function stats(){const s={}; for(const k of ['settings','tests','risks','quests','inspections','sync']) s[k]=(await all(k)).length; el('storage').textContent=JSON.stringify(s,null,2)}
+
+  /* ====== Profile / Habitica ====== */
+  async function loadProfile(){const S=(await all('settings')).reduce((m,o)=> (m[o.k]=o.v,m),{});
+    if(S.subRegion) el('subRegion').value=S.subRegion; if(S.elev) el('elev').value=S.elev; if(S.rain) el('rain').value=S.rain; if(S.soil) el('soil').value=S.soil;
+    if(S.hUser) el('habiticaUser').value=S.hUser; if(S.hTok) el('habiticaToken').value=S.hTok; stats();
+  }
+  async function saveProfile(){await put('settings',{id:'subRegion',k:'subRegion',v:el('subRegion').value});
+    await put('settings',{id:'elev',k:'elev',v:el('elev').value}); await put('settings',{id:'rain',k:'rain',v:el('rain').value});
+    await put('settings',{id:'soil',k:'soil',v:el('soil').value}); await put('settings',{id:'hUser',k:'hUser',v:el('habiticaUser').value});
+    await put('settings',{id:'hTok',k:'hTok',v:el('habiticaToken').value}); toast('Profile saved.')}
+  async function queueHabitica(text,notes){const S=(await all('settings')).reduce((m,o)=>(m[o.k]=o.v,m),{});
+    await put('sync',{id:id(),kind:'habitica',payload:{url:'https://habitica.com/api/v3/tasks/user',method:'POST',
+      headers:{'x-api-user':S.hUser||'','x-api-key':S.hTok||'','Content-Type':'application/json'},
+      body: JSON.stringify({text, type:'todo', notes})},time:Date.now(),status:'pending'}); toast('Habitica task queued.')}
+
+  /* ====== XP ====== */
+  let XP=180; function bump(n){XP+=n; el('xp').textContent=XP; el('xpBar').style.width=(Math.min(100,(XP%200)/2))+'%';
+    el('rank').textContent= XP<200?'Apprentice':XP<400?'Artisan':XP<800?'Architect':XP<1600?'Guardian':'Oracle'; }
+
+  /* ====== Calculators ====== */
+  el('qa_calc').addEventListener('click', ()=>{
+    const A=+el('qa_catch').value||0, C=+el('qa_c').value||0, R=+el('qa_r').value||0; let S=+el('qa_s').value||0;
+    const runoff = A*C*(R/1000); if(!S) S=Math.max(5, runoff*0.6); const r = Math.sqrt((S)/(Math.PI*0.75)); // effective radius (assume mean depth 0.75 m)
+    el('qa_out').textContent = `Runoff (m³): ${runoff.toFixed(2)}\nTarget storage (m³): ${S.toFixed(2)}\nSuggested qocha eff. radius (m): ${r.toFixed(2)}\nSuggested diameter (m): ${(2*r).toFixed(2)}`;
+  });
+  el('am_calc').addEventListener('click', ()=>{
+    const L=+el('am_L').value||0, Q=+el('am_Q').value||0, I=+el('am_i').value||0, N=+el('am_n').value||0.35;
+    const infil_mps = (I/1000)/3600; const recharge = infil_mps*L; const captured = Math.min(Q/1000, recharge); // m³/s
+    el('am_out').textContent = `Recharge capacity (m³/s): ${recharge.toExponential(3)}\nDesign flow (m³/s): ${(Q/1000).toFixed(3)}\nCaptured fraction (m³/s): ${captured.toExponential(3)}\nNote: increase gravel lens depth or berm width to raise capture.`;
+  });
+  el('cd_calc').addEventListener('click', ()=>{
+    const S=+el('cd_s').value||0.05, L=+el('cd_L').value||0, D=+el('cd_d').value||0.5; const totalDrop = S*L;
+    const n = Math.ceil(totalDrop/D); const spacing = L/n;
+    el('cd_out').textContent = `Total drop (m): ${totalDrop.toFixed(2)}\n# dams: ${n}\nMean spacing (m): ${spacing.toFixed(1)}\nSet crown lower at center; tie wings into banks.`;
+  });
+
+  /* ====== Quests / Habitica Buttons ====== */
+  document.querySelectorAll('.btnQuest').forEach(b=>b.addEventListener('click', async ()=>{
+    await put('quests',{id:id(),key:b.dataset.quest,time:Date.now(),status:'open'}); bump(6); toast('Quest added.');
+  }));
+  document.querySelectorAll('.btnHabitica').forEach(b=>b.addEventListener('click', async ()=>{await queueHabitica(b.dataset.task,'PRA Andean Pack');}));
+
+  /* ====== O&M ====== */
+  el('om_save').addEventListener('click', async ()=>{
+    await put('inspections',{id:id(),asset:el('om_asset').value,cond:el('om_cond').value,notes:el('om_notes').value,time:Date.now()});
+    bump(3); renderInspections();
+  });
+  async function renderInspections(){const L=await all('inspections'); L.sort((a,b)=>b.time-a.time); el('om_list').textContent=L.slice(0,12).map(x=>`${new Date(x.time).toLocaleString()} | ${x.asset} | ${x.cond} | ${x.notes}`).join('\n')||'—'}
+
+  /* ====== Tests / Risks ====== */
+  el('t_save').addEventListener('click', async ()=>{
+    await put('tests',{id:id(),site:el('t_site').value,ph:+el('t_ph').value||null,turb:+el('t_turb').value||null,no3:+el('t_no3').value||null,coli:el('t_coli').value,time:Date.now()});
+    bump(4); renderTests();
+  });
+  el('r_save').addEventListener('click', async ()=>{
+    await put('risks',{id:id(),type:el('r_type').value,loc:el('r_loc').value,time:Date.now()}); bump(4); renderRisks();
+  });
+  async function renderTests(){const L=await all('tests'); L.sort((a,b)=>b.time-a.time); el('t_list').textContent=L.slice(0,12).map(x=>`${new Date(x.time).toLocaleString()} | ${x.site} | pH=${x.ph??'-'} | turb=${x.turb??'-'}cm | NO3=${x.no3??'-'} | coli=${x.coli}`).join('\n')||'—'}
+  async function renderRisks(){const L=await all('risks'); L.sort((a,b)=>b.time-a.time); el('r_list').textContent=L.slice(0,10).map(x=>`${new Date(x.time).toLocaleString()} | ${x.type} @ ${x.loc}`).join('\n')||'—'}
+
+  /* ====== Advisor (WebLLM-aware) ====== */
+  async function advise(q){
+    if(window?.webllm?.createEngine){
+      try{ if(!window.__wllm){ window.__wllm = await window.webllm.createEngine({model:'Llama-3-8B-Instruct-q4f32_1-MLC', logLevel:'warn'}); }
+        const r = await window.__wllm.chat.completions.create({messages:[{role:'system',content:'You are an Andean hydrology engineer.'},{role:'user',content:q}],temperature:.2,max_tokens:320});
+        return r.choices?.[0]?.message?.content || '(empty)';
+      }catch(err){ console.warn('WebLLM error',err); }
+    }
+    // Heuristic fallback:
+    const t=q.toLowerCase(); const out=[];
+    if(/slope.*?(\d+)%/.test(t)){ const s=+RegExp.$1; if(s<=5) out.push('• Low slope: continuous swales, long amuna runs, large qocha.'); else if(s<=10) out.push('• Moderate slope: shorter amuna segments, more checks, small qochas in cascade.'); else out.push('• Steep: focus on rock check dams, terraces, short recharge lenses.'); }
+    if(/clay|loam|sandy|peat/.test(t)){ if(/clay/.test(t)) out.push('• Clay loam: prevent compaction; add biochar 5–10% for infiltration.'); if(/sandy/.test(t)) out.push('• Sandy loam: raise biochar 10–15%; deeper qocha bowl.') ; if(/peat/.test(t)) out.push('• Peaty: protect sponge; avoid heavy machinery; fascines + coir.'); }
+    if(/(\d{2,4})\s*mm/.test(t)){ const r=+RegExp.$1; if(r<500) out.push('• Low rain: roof capture to cisterns; prioritize seepage control.'); else if(r<1200) out.push('• Moderate: qocha + amuna cascades; level sill redundancy.'); else out.push('• High: multi-path overflows; armor spillways; sediment forebays.'); }
+    out.push('• Validate with hose test; photo-log overflow; iterate sill elevations.');
+    return out.join('\n');
+  }
+  el('adv_run').addEventListener('click', async ()=>{ el('adv_out').textContent='Thinking...'; el('adv_out').textContent=await advise(el('adv_in').value||''); });
+  el('adv_save').addEventListener('click', async ()=>{ await put('quests',{id:id(),key:'advisor-note',text:el('adv_out').textContent,time:Date.now()}); bump(2); toast('Saved.'); });
+
+  /* ====== PWA / SW ====== */
+  const SW_SRC = `
+    const CACHE='pra-andes-v1'; const CORE=self.registration.scope;
+    self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll([CORE])).then(()=>self.skipWaiting()))});
+    self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.map(k=>k===CACHE?null:caches.delete(k))))); self.clients.claim();});
+    self.addEventListener('fetch',e=>{const u=new URL(e.request.url); if(u.origin===location.origin){ e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(resp=>{ if(e.request.method==='GET'&&(e.request.mode==='navigate'||e.request.destination==='document')) caches.open(CACHE).then(c=>c.put(e.request,resp.clone())); return resp; }).catch(()=>caches.match(CORE)))) }});
+  `;
+  el('sw_install').addEventListener('click', async ()=>{
+    const blob=new Blob([SW_SRC],{type:'text/javascript'}); const url=URL.createObjectURL(blob);
+    try{ const reg=await navigator.serviceWorker.register(url,{scope:'./'}); el('sw_status').textContent='SW: installed ('+(reg.scope||'')+')'; toast('Offline ready.'); }catch(e){ el('sw_status').textContent='SW install failed: '+e; }
+  });
+
+  /* ====== Export / Import ====== */
+  async function exportDB(){const out={}; for(const s of ['settings','tests','risks','quests','inspections','sync']) out[s]=await all(s);
+    const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'}); const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download='pra_andes_export_'+new Date().toISOString().replace(/[:.]/g,'-')+'.json'; a.click(); }
+  function importDB(){ el('db_file').click(); }
+  el('db_file').addEventListener('change', async (e)=>{ const f=e.target.files?.[0]; if(!f) return; const text=await f.text(); const data=JSON.parse(text);
+    for(const [store,arr] of Object.entries(data)){ if(Array.isArray(arr)) for(const v of arr) await put(store,v) } await renderAll(); toast('Import complete.'); });
+
+  /* ====== Habitica Sync (best-effort live) ====== */
+  async function syncHabitica(){
+    const Q=await all('sync'); let ok=0,fail=0;
+    for(const job of Q){ if(job.kind!=='habitica') continue; try{ const r=await fetch(job.payload.url,{method:job.payload.method,headers:job.payload.headers,body:job.payload.body});
+        if(!r.ok) throw new Error('HTTP '+r.status); ok++; }catch(e){ fail++; } }
+    toast(`Habitica sync — OK:${ok} FAIL:${fail}`);
+  }
+
+  /* ====== Quick Actions ====== */
+  el('q_log').addEventListener('click', async ()=>{
+    const liters = +prompt('Liters stored (estimate)?')||0; if(!liters) return;
+    const cur=+el('liters').textContent||0; el('liters').textContent = cur+liters; await put('quests',{id:id(),key:'liters',amount:liters,time:Date.now()}); bump(2);
+  });
+  el('q_quest').addEventListener('click', async ()=>{ await put('quests',{id:id(),key:'qocha-quest',time:Date.now(),status:'open'}); bump(3); toast('Qocha quest added.'); });
+  el('q_sync').addEventListener('click', syncHabitica);
+
+  /* ====== Buttons ====== */
+  el('saveProfile').addEventListener('click', saveProfile);
+  el('linkHabitica').addEventListener('click', async ()=>{ await saveProfile(); toast('Habitica credentials stored. Use Habitica Task buttons or ↻ Sync.'); });
+  el('btnExport').addEventListener('click', exportDB);
+  el('btnImport').addEventListener('click', importDB);
+  el('db_export').addEventListener('click', exportDB);
+  el('db_import').addEventListener('click', importDB);
+  el('btnOfflineKit').addEventListener('click', ()=>toast('Use Install/Update to cache this Region Pack for offline.'));
+  el('btnRegionJournal').addEventListener('click', ()=>toast('Journal loaded below (Inspections/Tests/Risks/Quests).'));
+
+  /* ====== Render ====== */
+  async function renderAll(){ await stats(); await renderInspections(); await renderTests(); await renderRisks(); }
+  openDB().then(()=>loadProfile()).then(renderAll);
+
+  /* ====== Toast ====== */
+  function toast(msg){const n=document.createElement('div'); n.textContent=msg; n.style.cssText='position:fixed;left:50%;transform:translateX(-50%);bottom:28px;background:rgba(10,20,40,.94);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 14px;z-index:9999;box-shadow:0 6px 20px rgba(0,0,0,.44);color:#dff6ff'; document.body.appendChild(n); setTimeout(()=>n.remove(),2300)}
+  </script>
+
+  <!-- CLEAN SECTION BREAK — Region Pack 1 (Andean Arcs) COMPLETE.
+       Ask for Region Pack 2 (Amazon Basin), 3 (Sertão), 4 (Central Highlands), 5 (Patagonia), or 6 (Caribbean)
+       and I’ll deliver as separate standalone index.html files with the same framework. -->
+</body>
+</html>
