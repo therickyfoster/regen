@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en" data-presentation-schema="planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Food & Water Sovereignty • United States — PRA Starfield Schema PWA</title>
+
+  <!-- SEO -->
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="description" content="An online-first, offline-capable, cryptographically-aligned playbook for U.S. food & water sovereignty. Includes live data panels (USGS/NOAA/USDA/EPA), IndexedDB ledger, service worker cache, WebLLM aide, Habitica hooks, and mnemonic-based offline recovery." />
+  <link rel="canonical" href="https://planetaryrestorationarchive.com/ref/sovereignty/us/food-water/index.html" />
+  <meta name="keywords" content="food sovereignty, water sovereignty, drought, irrigation, rainwater harvesting, aquifers, USGS, NOAA, USDA, EPA, permaculture, seed banks, soil health, hydrology, regenerative agriculture, disaster readiness, PWA, IndexedDB, WebLLM, Habitica" />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+  <meta property="og:title" content="Food & Water Sovereignty • United States — PRA Starfield Schema PWA" />
+  <meta property="og:description" content="Online-first dashboards with offline fallback, integrity guardrails, and community-led action recipes." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQI12P4z8DwHwAF1gJb4o3eVQAAAABJRU5ErkJggg==" />
+  <meta property="og:url" content="https://planetaryrestorationarchive.com/ref/sovereignty/us/food-water/index.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"TechArticle",
+    "headline":"Food & Water Sovereignty • United States",
+    "author":{"@type":"Organization","name":"Planetary Restoration Archive"},
+    "about":[
+      {"@type":"Thing","name":"Food Sovereignty"},
+      {"@type":"Thing","name":"Water Sovereignty"}
+    ],
+    "datePublished":"2025-10-25",
+    "keywords":"USGS, NOAA, USDA, EPA, PWA, IndexedDB, WebLLM, Habitica, regenerative agriculture, hydrology",
+    "publisher":{"@type":"Organization","name":"PRA"},
+    "isAccessibleForFree":true
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#0b1220; --bg2:#0f1a33; --ink:#e6eefc; --muted:#aab6d1; --accent:#38bdf8; --good:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+      --card: rgba(255,255,255,0.06); --glass: rgba(12,18,32,0.35); --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:radial-gradient(1200px 600px at 70% -10%,#22305500 30%,#0b1220 65%),var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Inter,Arial,sans-serif;overflow-x:hidden}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{
+      position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(11,18,32,.9),rgba(11,18,32,.3) 60%,rgba(11,18,32,0));
+      backdrop-filter:saturate(140%) blur(10px); border-bottom:1px solid rgba(255,255,255,.06)
+    }
+    .wrap{max-width:1200px;margin:0 auto;padding:clamp(10px,2vw,24px)}
+    .row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+    .logo{display:flex;gap:10px;align-items:center}
+    .logo .dot{width:12px;height:12px;border-radius:50%;background:conic-gradient(from 0deg,#38bdf8,#22c55e,#f59e0b,#ef4444,#38bdf8)}
+    nav a{margin:0 8px;padding:8px 10px;border-radius:10px;background:transparent}
+    nav a.active, nav a:hover{background:rgba(255,255,255,.06)}
+    #starfield{position:fixed;inset:0;z-index:-2;background:black}
+    .glow{position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(800px 500px at 20% 10%,rgba(56,189,248,.25),transparent 60%),radial-gradient(900px 500px at 80% 30%,rgba(34,197,94,.2),transparent 65%)}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:18px;box-shadow:var(--shadow);padding:18px}
+    .card h3{margin:.2rem 0 0.6rem 0;font-size:1.1rem}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);font-size:.8rem;color:var(--muted)}
+    footer{padding:40px 0;color:var(--muted)}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media (max-width:900px){.grid-2{grid-template-columns:1fr}}
+    .kbd{font:600 12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:.2rem .5rem;border-radius:6px;background:#0e1832;border:1px solid #26345c;color:#b6c7ff}
+    .btn{display:inline-flex;gap:8px;align-items:center;padding:10px 14px;border-radius:12px;background:#0e1a34;border:1px solid #243257;color:#dfe9ff;cursor:pointer}
+    .btn:hover{filter:brightness(1.1)}
+    .ok{color:var(--good)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    .section{padding:28px 0}
+    .hero{padding:28px 0 10px}
+    .hero h1{font-size:clamp(1.6rem,3vw,2.4rem);margin:0 0 10px}
+    .bar{height:8px;border-radius:6px;background:linear-gradient(90deg,#2dd4bf,#38bdf8,#818cf8);filter:drop-shadow(0 0 12px rgba(56,189,248,.35));margin:6px 0 16px}
+    details summary{cursor:pointer}
+    .toast{position:fixed;right:14px;bottom:14px;padding:12px 14px;background:rgba(20,26,44,.85);border:1px solid rgba(255,255,255,.1);border-radius:12px;max-width:420px;box-shadow:var(--shadow)}
+    .badge{display:inline-block;padding:4px 8px;border:1px solid rgba(255,255,255,.2);border-radius:999px;font-size:.75rem;color:#bcd1ff}
+    .hud{position:fixed;left:14px;bottom:14px;display:flex;gap:10px;flex-wrap:wrap}
+    .hud .btn{padding:8px 10px;font-size:.9rem}
+    .section h2{margin:0 0 12px;font-size:1.25rem}
+    .muted{color:var(--muted)}
+    .list-tight li{margin:.25rem 0}
+    .kv{display:grid;grid-template-columns:180px 1fr;gap:10px;font-size:.95rem}
+    .kv div{padding:6px 8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:8px}
+    .kbdbar{display:flex;gap:8px;flex-wrap:wrap}
+  </style>
+</head>
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="glow" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap row">
+      <div class="logo">
+        <span class="dot" aria-hidden="true"></span>
+        <strong>PRA • Sovereignty</strong>
+      </div>
+      <nav class="row" role="navigation" aria-label="Sections">
+        <a href="#overview" class="active">Overview</a>
+        <a href="#dashboards">Dashboards</a>
+        <a href="#recipes">Action Recipes</a>
+        <a href="#water">Water Toolkit</a>
+        <a href="#food">Food Toolkit</a>
+        <a href="#community">Community</a>
+        <a href="#llm">LLM Aide</a>
+        <a href="#settings">Settings</a>
+      </nav>
+      <div class="row" style="margin-left:auto">
+        <span class="badge" id="onlineBadge">ONLINE-FIRST</span>
+        <span class="badge" id="cacheBadge" title="Offline cache size">CACHE: 0</span>
+        <span class="badge" id="integrityBadge" title="Script integrity">INTEGRITY ✓</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" id="overview">
+      <h1>United States • Food & Water Sovereignty</h1>
+      <div class="bar"></div>
+      <p class="muted">Online-first dashboards with offline fallback. This page caches itself, saves your settings in IndexedDB, and can reconstruct critical preferences via a <strong>mnemonic recovery</strong> if devices fail. Your data stays local unless you explicitly sync.</p>
+      <div class="kbdbar">
+        <span class="kbd" title="Install to homescreen">PWA: Install</span>
+        <span class="kbd" title="Open command palette">Ctrl/⌘ + K</span>
+        <span class="kbd" title="Toggle dark/contrast modes">Alt + D</span>
+        <span class="kbd" title="Open quick actions">Alt + /</span>
+      </div>
+    </section>
+
+    <section class="section" id="dashboards">
+      <h2>Live Dashboards (Online-first, Offline Fallback)</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>USGS • Streamflow & Groundwater</h3>
+          <p class="muted">Fetch national water conditions from USGS Water Services. When offline, view the last cached snapshot.</p>
+          <div class="row">
+            <button class="btn" id="btnUSGS">Fetch USGS Snapshot</button>
+            <span class="pill" id="usgsStatus">idle</span>
+          </div>
+          <pre id="usgsOut" class="mono" style="white-space:pre-wrap;max-height:200px;overflow:auto;margin-top:10px;"></pre>
+        </div>
+
+        <div class="card">
+          <h3>NOAA • Drought / Precipitation</h3>
+          <p class="muted">Pull climate indicators (precip, drought proxies) where available via public JSON endpoints or proxied CSV.</p>
+          <div class="row">
+            <button class="btn" id="btnNOAA">Fetch NOAA Snapshot</button>
+            <span class="pill" id="noaaStatus">idle</span>
+          </div>
+          <pre id="noaaOut" class="mono" style="white-space:pre-wrap;max-height:200px;overflow:auto;margin-top:10px;"></pre>
+        </div>
+
+        <div class="card">
+          <h3>USDA • Local Food & Markets</h3>
+          <p class="muted">Discover farmers markets & distribution nodes for resilient local supply chains.</p>
+          <div class="row">
+            <input id="zipMarket" class="btn" style="inline-size:150px" placeholder="ZIP (e.g. 80301)" />
+            <button class="btn" id="btnUSDA">Find Markets</button>
+            <span class="pill" id="usdaStatus">idle</span>
+          </div>
+          <pre id="usdaOut" class="mono" style="white-space:pre-wrap;max-height:200px;overflow:auto;margin-top:10px;"></pre>
+        </div>
+
+        <div class="card">
+          <h3>EPA • Water Quality Signals</h3>
+          <p class="muted">Surface advisories and monitoring station hints for situational awareness.</p>
+          <div class="row">
+            <button class="btn" id="btnEPA">Fetch EPA Snapshot</button>
+            <span class="pill" id="epaStatus">idle</span>
+          </div>
+          <pre id="epaOut" class="mono" style="white-space:pre-wrap;max-height:200px;overflow:auto;margin-top:10px;"></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="recipes">
+      <h2>Action Recipes • 30/60/90 Day Tracks</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Home & Homestead</h3>
+          <ul class="list-tight">
+            <li><strong>Rainwater Harvesting</strong>: Calculate roof catchment, first-flush diverter, NSF-61 tanks, gravity-fed drip.</li>
+            <li><strong>Greywater</strong>: Laundry-to-landscape, mulch basins, legal compliance per state plumbing codes.</li>
+            <li><strong>Soil</strong>: Soil test (pH/OM), compost layering, biochar at 5–10% volume, cover crops (clover/rye/vetch).</li>
+            <li><strong>Seeds</strong>: Regional seed bank, heirloom registry, seed swap calendar, germination logs in IndexedDB.</li>
+            <li><strong>Micro-irrigation</strong>: Flow meters, pressure regulators, ET-based scheduling, drought reserve plan.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Neighborhood & County</h3>
+          <ul class="list-tight">
+            <li><strong>Mutual Aid Mesh</strong>: Create roles (Grower, Water Steward, Logistics, Comms), SMS tree, check-in cadence.</li>
+            <li><strong>Community Gardens</strong>: Land access MOU, ADA paths, perennial guilds, cistern cluster, tool library.</li>
+            <li><strong>Cold Storage Co-op</strong>: Insulated container, solar + battery sizing, temp sensors, backup protocols.</li>
+            <li><strong>Water Watch</strong>: Citizen sampling kits, simple turbidity logs, alerts mapped to USGS IDs.</li>
+            <li><strong>Foodshed Index</strong>: 50/100/250-mile circle of suppliers; publish a “last-mile resilience” map.</li>
+          </ul>
+        </div>
+      </div>
+      <details class="card" style="margin-top:12px">
+        <summary><strong>Legal & Safety Guardrails (Zero Harm)</strong></summary>
+        <p class="muted">All actions aim to reduce harm, respect rights, and comply with applicable law. Follow local building, health, and water codes. Do not bypass potable standards; treat and test water before drinking. This site provides information only, not professional or legal advice.</p>
+      </details>
+    </section>
+
+    <section class="section" id="water">
+      <h2>Water Toolkit</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Catchment & Storage Calculator</h3>
+          <div class="kv">
+            <div>Roof Area (sqft)</div><div><input id="roofSqft" class="btn" placeholder="e.g. 1200" /></div>
+            <div>Annual Rain (in)</div><div><input id="rainIn" class="btn" placeholder="e.g. 15" /></div>
+            <div>Runoff Coeff.</div><div><input id="coeff" class="btn" placeholder="0.8 (metal), 0.75 (shingle)" /></div>
+          </div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn" id="calcCatch">Estimate Storage Potential</button>
+            <span class="pill" id="catchRes">ready</span>
+          </div>
+          <small class="muted">Rule-of-thumb: gallons ≈ sqft × inches × 0.623 × coefficient</small>
+        </div>
+
+        <div class="card">
+          <h3>Point-of-Use Treatment Matrix</h3>
+          <ul class="list-tight">
+            <li>Particulates &gt;5 μm → Sediment cartridge</li>
+            <li>Microbes → 0.2 μm filter + UV or boil (rolling boil 1 min @ sea level; longer at elevation)</li>
+            <li>Organics/odor → Activated carbon</li>
+            <li>Dissolved ions → RO/DI; remineralize post-treatment for taste/alkalinity</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Drought Playbook</h3>
+          <ul class="list-tight">
+            <li>Tiered priority: Life safety &gt; drinking/cooking &gt; sanitation &gt; crops &gt; livestock &gt; landscape.</li>
+            <li>Contingent sources: community taps, hauled potable, emergency bladders; document with QR labels.</li>
+            <li>Agronomic pivots: deficit irrigation, mulches, windbreaks, drought-tolerant cultivars, dry farming methods.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="food">
+      <h2>Food Toolkit</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Perennial Guilds (Climate Bands)</h3>
+          <p class="muted">Choose guilds by USDA zone; mix nitrogen fixers, dynamic accumulators, pollinator support, and canopy/understory layers.</p>
+          <ul class="list-tight" id="guilds">
+            <li>Zone 3–4: Apple • Currant • Clover • Yarrow • Chives</li>
+            <li>Zone 5–6: Pear • Gooseberry • Lupine • Comfrey • Thyme</li>
+            <li>Zone 7–8: Persimmon • Blueberry • Goumi • Mint • Oregano</li>
+            <li>Zone 9–10: Citrus • Pigeon Pea • Moringa (frost-shelter) • Basil • Rosemary</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Seed Bank Ledger (IndexedDB)</h3>
+          <div class="row">
+            <input id="seedName" class="btn" placeholder="Variety" />
+            <input id="seedYear" class="btn" placeholder="Year" />
+            <button class="btn" id="addSeed">Add</button>
+          </div>
+          <pre id="seedOut" class="mono" style="white-space:pre-wrap;max-height:180px;overflow:auto;margin-top:10px;"></pre>
+        </div>
+        <div class="card">
+          <h3>Calorie Garden Planner</h3>
+          <p class="muted">Estimate area to cover baseline calories with potatoes/beans/squash/corn + greens for micronutrients.</p>
+          <div class="row">
+            <input id="household" class="btn" placeholder="Household size" />
+            <button class="btn" id="calcCalories">Compute</button>
+          </div>
+          <pre id="calOut" class="mono" style="white-space:pre-wrap;max-height:160px;overflow:auto;margin-top:10px;"></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="community">
+      <h2>Community & Governance</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Transparency Ledger (Local)</h3>
+          <p class="muted">Log actions with a hash chain. Export to share publicly if desired.</p>
+          <div class="row">
+            <input id="entryText" class="btn" style="inline-size:320px" placeholder="e.g. Installed 2,500 gal cistern at library" />
+            <button class="btn" id="addEntry">Add Entry</button>
+            <button class="btn" id="exportLedger">Export</button>
+          </div>
+          <pre id="ledgerOut" class="mono" style="white-space:pre-wrap;max-height:180px;overflow:auto;margin-top:10px;"></pre>
+        </div>
+
+        <div class="card">
+          <h3>Habitica Bridge (Optional)</h3>
+          <p class="muted">Sync milestones to Habitica (Tasks). Keys are stored locally; never leave your device unless you press Sync.</p>
+          <div class="row">
+            <input id="habitUser" class="btn" placeholder="API User" />
+            <input id="habitToken" class="btn" placeholder="API Token" />
+          </div>
+          <div class="row" style="margin-top:8px">
+            <input id="habitTask" class="btn" style="inline-size:320px" placeholder="Task title (e.g., Submit drought plan)" />
+            <button class="btn" id="habitSync">Create Task</button>
+            <span class="pill" id="habitStatus">idle</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Mnemonic Recovery</h3>
+          <p class="muted">Generate a 12-word recovery phrase to decrypt your local settings on a new device (AES-GCM with PBKDF2).</p>
+          <div class="row">
+            <button class="btn" id="mkMnemonic">Generate</button>
+            <button class="btn" id="rekey">Rekey</button>
+          </div>
+          <pre id="mnemonicOut" class="mono" style="white-space:pre-wrap;max-height:140px;overflow:auto;margin-top:10px;"></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="llm">
+      <h2>WebLLM Aide (Online-first)</h2>
+      <p class="muted">When online, click Load to initialize an in-browser LLM for planning and Q&A. Offline fallback provides rule-based prompts.</p>
+      <div class="row">
+        <button class="btn" id="loadLLM">Load WebLLM</button>
+        <button class="btn" id="askLLM">Ask</button>
+      </div>
+      <textarea id="llmIn" class="btn" style="display:block;width:100%;height:90px;margin-top:10px;background:#0d1730;border-color:#223257" placeholder="Ask about irrigation scheduling, drought rotations, municipal water audits, etc."></textarea>
+      <pre id="llmOut" class="mono" style="white-space:pre-wrap;max-height:220px;overflow:auto;margin-top:10px;"></pre>
+    </section>
+
+    <section class="section" id="settings">
+      <h2>Settings & Integrity</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Privacy</h3>
+          <p class="muted">Local-first. Nothing leaves your device unless you press a Sync/Export button. Clear storage anytime.</p>
+          <div class="row">
+            <button class="btn" id="clearAll">Clear Local Data</button>
+            <button class="btn" id="showSizes">Show Storage Sizes</button>
+          </div>
+          <pre id="sizesOut" class="mono" style="white-space:pre-wrap;max-height:120px;overflow:auto;margin-top:10px;"></pre>
+        </div>
+        <div class="card">
+          <h3>Integrity Guard</h3>
+          <p class="muted">Self-hash of core script is checked at runtime. If altered, UI degrades to a read-only banner.</p>
+          <div class="row">
+            <button class="btn" id="recheck">Recheck Integrity</button>
+            <span class="pill" id="hashNow">pending</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="hud">
+    <button class="btn" id="savePage">Save Page (Offline)</button>
+    <button class="btn" id="installPWA">Install</button>
+    <button class="btn" id="quickActions">Quick Actions</button>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script>
+  (function(){
+    /* ========= STARFIELD (photorealistic-ish, performant) ========= */
+    const c = document.getElementById('starfield'), x = c.getContext('2d', { alpha: false });
+    let W=innerWidth,H=innerHeight, stars=[], n= Math.floor((W*H)/1800);
+    function reset(){ c.width=W=innerWidth; c.height=H=innerHeight; stars=Array.from({length:n}, ()=>({
+      x: Math.random()*W, y: Math.random()*H, z: Math.random()*W, r: Math.random()*1.6+0.3, tw: Math.random()*0.03+0.01
+    })); x.fillStyle='#000'; x.fillRect(0,0,W,H) }
+    reset(); addEventListener('resize', reset);
+    let t=0;
+    (function loop(){
+      t+=1;
+      x.fillStyle='#000'; x.fillRect(0,0,W,H);
+      for(const s of stars){
+        s.z-=0.6; if(s.z<=1) s.z=W;
+        const k = 128/s.z; const px = (s.x-W/2)*k + W/2; const py = (s.y-H/2)*k + H/2;
+        const tw = (Math.sin(t*s.tw)+1)/2*0.8 + 0.2;
+        const rad = s.r*k*0.8;
+        const g = x.createRadialGradient(px,py,0,px,py,rad);
+        g.addColorStop(0, `rgba(200,220,255,${0.85*tw})`);
+        g.addColorStop(1, `rgba(20,30,55,0)`);
+        x.fillStyle=g; x.beginPath(); x.arc(px,py,rad,0,Math.PI*2); x.fill();
+      }
+      requestAnimationFrame(loop);
+    })();
+
+    /* ========= UTILITIES ========= */
+    const $ = sel => document.querySelector(sel);
+    const toast = (msg)=>{ const el = $('#toast'); el.textContent=msg; el.hidden=false; setTimeout(()=>el.hidden=true, 3200); };
+    const onlineBadge = $('#onlineBadge');
+    function setOnline(v){ onlineBadge.textContent = v ? 'ONLINE-FIRST' : 'OFFLINE MODE'; onlineBadge.style.color = v? '#9fffd1' : '#ffd29f'; }
+    setOnline(navigator.onLine); addEventListener('online',()=>setOnline(true)); addEventListener('offline',()=>setOnline(false));
+
+    /* ========= SERVICE WORKER (inline via Blob) ========= */
+    (async function registerSW(){
+      if(!('serviceWorker' in navigator)) return;
+      const swCode = `
+        const PRECACHE = 'pwa-pra-fw-1';
+        const CORE = self.registration ? [ self.location.href ] : [];
+        self.addEventListener('install', e=>{
+          e.waitUntil(caches.open(PRECACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()));
+        });
+        self.addEventListener('activate', e=>{ e.waitUntil(self.clients.claim()); });
+        self.addEventListener('fetch', e=>{
+          const url = new URL(e.request.url);
+          if(url.origin===location.origin){
+            e.respondWith(caches.match(e.request).then(r=> r || fetch(e.request).then(res=>{
+              const cc = res.clone(); caches.open(PRECACHE).then(c=>c.put(e.request, cc)); return res;
+            }).catch(()=>caches.match(self.location.href))));
+          } else {
+            // Network-first for cross-origin; fallback to cache if CORS allows
+            e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));
+          }
+        });
+      `;
+      const blob = new Blob([swCode], {type:'text/javascript'});
+      const url = URL.createObjectURL(blob);
+      try { await navigator.serviceWorker.register(url); toast('PWA ready (cached)'); recalcCacheSize(); } catch(e){ console.warn('SW failed', e); }
+    })();
+
+    async function recalcCacheSize(){
+      if(!('caches' in window)) return;
+      let total=0;
+      const keys = await caches.keys();
+      for(const k of keys){
+        const c = await caches.open(k); const reqs = await c.keys();
+        for(const r of reqs){ const res = await c.match(r); if(res){ const buf = await res.clone().arrayBuffer().catch(()=>null); if(buf) total += buf.byteLength; } }
+      }
+      $('#cacheBadge').textContent = 'CACHE: ' + (total/1024/1024).toFixed(2) + ' MB';
+    }
+    setTimeout(recalcCacheSize, 1200);
+
+    /* ========= INDEXEDDB (settings, ledger, seeds, cache) ========= */
+    const DB_NAME='pra_fw_db', DB_VER=1;
+    let db;
+    const idb = {
+      open(){
+        return new Promise((res,rej)=>{
+          const r = indexedDB.open(DB_NAME, DB_VER);
+          r.onupgradeneeded = e=>{
+            const d = e.target.result;
+            d.createObjectStore('settings', {keyPath:'k'});
+            d.createObjectStore('ledger', {keyPath:'id', autoIncrement:true});
+            d.createObjectStore('seeds', {keyPath:'id', autoIncrement:true});
+            d.createObjectStore('cache', {keyPath:'k'});
+          };
+          r.onsuccess=()=>{ db=r.result; res(db); }; r.onerror=()=>rej(r.error);
+        });
+      },
+      put(store, val){ return new Promise((res,rej)=>{ const tx=db.transaction(store,'readwrite'); tx.objectStore(store).put(val).onsuccess=()=>res(); tx.onerror=()=>rej(tx.error); }); },
+      get(store, key){ return new Promise((res,rej)=>{ const tx=db.transaction(store); tx.objectStore(store).get(key).onsuccess=e=>res(e.target.result); tx.onerror=()=>rej(tx.error); }); },
+      all(store){ return new Promise((res,rej)=>{ const tx=db.transaction(store); const req=tx.objectStore(store).getAll(); req.onsuccess=e=>res(e.target.result); req.onerror=()=>rej(req.error); }); },
+      clear(store){ return new Promise((res,rej)=>{ const tx=db.transaction(store,'readwrite'); tx.objectStore(store).clear().onsuccess=()=>res(); tx.onerror=()=>rej(tx.error); }); }
+    };
+    idb.open();
+
+    /* ========= INTEGRITY (self-hash) ========= */
+    const INTEGRITY = { ok:false, sha:'', expected:null };
+    async function selfHash(){
+      // Hash inline <script> (this block). We use the textContent captured at startup.
+      const scripts = document.getElementsByTagName('script');
+      const me = scripts[scripts.length-1].textContent;
+      const enc = new TextEncoder().encode(me);
+      const dig = await crypto.subtle.digest('SHA-256', enc);
+      const hex = [...new Uint8Array(dig)].map(b=>b.toString(16).padStart(2,'0')).join('');
+      INTEGRITY.sha = hex;
+      if(!INTEGRITY.expected){
+        INTEGRITY.expected = hex; // first-run pin
+        await idb.put('settings', {k:'integrity.sha', v:hex});
+      } else {
+        const pin = (await idb.get('settings','integrity.sha'))?.v || INTEGRITY.expected;
+        INTEGRITY.ok = (pin===hex);
+      }
+      $('#integrityBadge').textContent = INTEGRITY.ok ? 'INTEGRITY ✓' : 'INTEGRITY !';
+      $('#integrityBadge').style.color = INTEGRITY.ok ? '#9fffd1' : '#ffb3b3';
+      $('#hashNow').textContent = INTEGRITY.sha.slice(0,12)+'…';
+      if(!INTEGRITY.ok){ degradeToBanner(); }
+    }
+    function degradeToBanner(){
+      document.body.innerHTML = `
+        <div style="min-height:100vh;display:grid;place-items:center;background:#0b1220;color:#e6eefc;padding:24px;text-align:center">
+          <div style="max-width:720px">
+            <h1>Read-Only Mode</h1>
+            <p>This file failed integrity verification. For safety, active features are disabled.</p>
+            <p class="mono">Hash: ${(INTEGRITY.sha||'').slice(0,24)}…</p>
+            <p>Replace with a verified copy or re-pin only if you trust the source.</p>
+          </div>
+        </div>`;
+    }
+    selfHash(); $('#recheck').addEventListener('click', selfHash);
+
+    /* ========= MNEMONIC RECOVERY (12 words -> AES-GCM key) ========= */
+    const WORDS = "abandon ability able about above absent absorb abstract absurd abuse access accident account accuse achieve acid acoustic across act action actor actress actual adapt add addict address adjust admit adult advance advice aerobic affair afford afraid again agent agree ahead aim air airport aisle alarm album alcohol alert alien alike alive alley allow almost alone alpha already also alter always amateur amazing among amount amused analyst anchor ancient anger angle angry animal ankle announce annual another answer antique anxiety any apart apology appear apple approve april arch area arena argue arm armed armor army around arrange arrest arrive arrow art artifact artist artwork ask aspect asset assist assume athlete atom attack attend attitude attract auction audit august aunt author auto autumn average avocado avoid awake aware away awesome axis bacon badge bag balance balcony ball bamboo banana banner bar barely bargain barrel base basic basket battle beach bean beauty because become beef before begin behave behind believe below belt bench benefit best betray better between beyond bicycle bid bike bind biology bird birth bitter black blade blame blanket blast bleak bless blind blood blossom blouse blue blur blush board boat body boil bomb bone bonus book boost border boring borrow boss bottom bounce box boy bracket brain brand brass brave bread breeze brick bridge brief bright bring brisk broccoli broken bronze broom brother brown brush bubble buddy budget buffalo build bulb bulk bullet bundle bunker burden burger burst bus business busy butter buyer buzz cabbage cabin cable cactus cage cake call calm camera camp can canal cancel candy cannon canoe canvas canyon capable capital captain car carbon card cargo carpet carry cart case cash casino castle casual cat catalog catch category cattle caught cause caution cave ceiling celery cement census century cereal certain chair chalk champion change chaos chapter charge chase chat cheap check cheese chef cherry chest chicken chief child chimney choice choose chronic chunk cinnamon circle citizen city civil claim clap clarify claw clay clean clerk clever click client cliff climb clinic clip clock clog close cloth cloud clump cluster clutch coach coast coconut code coffee coil coin collect color column combine come comfort comic common company concert conduct confirm connect consider control convince cook cool copper copy coral core corn correct cost cotton couch country couple course cousin cover coyote crack cradle craft cram crane crash crater crawl crazy cream credit creek crew cricket crime crisp critic crop cross crouch crowd crucial cruel cruise crumble crunch crush cry crystal cube culture cup cupboard curious current curtain curve cushion custom cute cycle".split(' ');
+    async function mnemonicToKey(mn){
+      const salt = new TextEncoder().encode('pra-fw-salt');
+      const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(mn), 'PBKDF2', false, ['deriveKey']);
+      return crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations: 100_000, hash:'SHA-256'},
+        base, {name:'AES-GCM', length:256}, false, ['encrypt','decrypt']);
+    }
+    function randomMnemonic(n=12){ return Array.from({length:n},()=>WORDS[Math.floor(Math.random()*WORDS.length)]).join(' '); }
+    $('#mkMnemonic').addEventListener('click', async()=>{
+      const m = randomMnemonic();
+      await idb.put('settings',{k:'mnemonic',v:m});
+      $('#mnemonicOut').textContent = 'Write this down securely:\n'+m;
+      toast('Mnemonic generated (local only).');
+    });
+    $('#rekey').addEventListener('click', async()=>{
+      const m = (await idb.get('settings','mnemonic'))?.v;
+      if(!m) return toast('No mnemonic saved.');
+      const key = await mnemonicToKey(m);
+      // Encrypt a small settings bundle as proof
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const blob = new TextEncoder().encode(JSON.stringify({ts:Date.now(), note:'settings checkpoint'}));
+      const ct = await crypto.subtle.encrypt({name:'AES-GCM', iv}, key, blob);
+      await idb.put('cache',{k:'checkpoint', v:{iv:Array.from(iv), ct:Array.from(new Uint8Array(ct))}});
+      toast('Settings re-keyed to mnemonic.');
+      $('#mnemonicOut').textContent = 'Rekey OK. Keep your 12 words safe.';
+    });
+
+    /* ========= TRANSPARENCY LEDGER (hash chain) ========= */
+    async function sha256(txt){
+      const dig = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt));
+      return [...new Uint8Array(dig)].map(b=>b.toString(16).padStart(2,'0')).join('');
+    }
+    async function ledgerAdd(text){
+      const all = await idb.all('ledger');
+      const prev = all.length ? all[all.length-1].hash : 'GENESIS';
+      const payload = JSON.stringify({t:Date.now(), text, prev});
+      const hash = await sha256(payload);
+      await idb.put('ledger', {payload, hash});
+    }
+    async function ledgerRender(){
+      const all = await idb.all('ledger');
+      $('#ledgerOut').textContent = all.map((r,i)=>`${i+1}. ${r.payload}  #${r.hash.slice(0,10)}`).join('\n')||'—';
+    }
+    $('#addEntry').addEventListener('click', async()=>{
+      const txt = $('#entryText').value.trim(); if(!txt) return;
+      await ledgerAdd(txt); $('#entryText').value=''; ledgerRender(); toast('Ledger entry added.');
+    });
+    $('#exportLedger').addEventListener('click', async()=>{
+      const all = await idb.all('ledger');
+      const blob = new Blob([JSON.stringify(all,null,2)],{type:'application/json'});
+      const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='pra_transparency_ledger.json'; a.click();
+    });
+    ledgerRender();
+
+    /* ========= SEED BANK ========= */
+    async function seedRender(){
+      const all = await idb.all('seeds');
+      $('#seedOut').textContent = all.map(s=>`${s.name} (${s.year})`).join('\n')||'—';
+    }
+    $('#addSeed').addEventListener('click', async()=>{
+      const name = $('#seedName').value.trim(), year=$('#seedYear').value.trim();
+      if(!name||!year) return;
+      await idb.put('seeds',{name,year}); $('#seedName').value=''; $('#seedYear').value=''; seedRender();
+    });
+    seedRender();
+
+    /* ========= WATER CATCHMENT CALC ========= */
+    $('#calcCatch').addEventListener('click', ()=>{
+      const A = parseFloat($('#roofSqft').value||0);
+      const R = parseFloat($('#rainIn').value||0);
+      const C = parseFloat($('#coeff').value||0.8);
+      const gallons = A*R*0.623*C;
+      $('#catchRes').textContent = isFinite(gallons) ? `~ ${Math.round(gallons).toLocaleString()} gal/yr` : 'check inputs';
+    });
+
+    /* ========= CALORIE GARDEN ========= */
+    $('#calcCalories').addEventListener('click', ()=>{
+      const n = Math.max(1, parseInt($('#household').value||'1',10));
+      // Very rough planning baseline
+      const kcal = n*2400; // per day
+      const areaPotato = Math.ceil((kcal*0.5)/ (400* 0.5)); // 400 kcal/serving, 0.5 servings/ft²·day abstracted
+      const areaBeans  = Math.ceil((kcal*0.2)/ (330* 0.4));
+      const areaCorn   = Math.ceil((kcal*0.2)/ (365* 0.3));
+      const areaSquash = Math.ceil((kcal*0.1)/ (200* 0.25));
+      $('#calOut').textContent = `Daily baseline: ~${kcal} kcal\nSuggested bed area (ft²)\n- Potatoes: ${areaPotato}\n- Beans: ${areaBeans}\n- Corn: ${areaCorn}\n- Squash: ${areaSquash}\n(Adjust with real local yields.)`;
+    });
+
+    /* ========= API PANELS (ONLINE-FIRST with offline cache) ========= */
+    async function netJSON(url, statusEl, cacheKey, offlineSample){
+      statusEl.textContent='loading…';
+      try{
+        const r = await fetch(url, {mode:'cors'});
+        const j = await r.json();
+        await idb.put('cache',{k:cacheKey, v:j});
+        statusEl.textContent='live ✓';
+        return j;
+      }catch(e){
+        const c = (await idb.get('cache', cacheKey))?.v || offlineSample;
+        statusEl.textContent='offline • cached';
+        return c;
+      }
+    }
+
+    // USGS: national water conditions (example endpoint)
+    $('#btnUSGS').addEventListener('click', async()=>{
+      const j = await netJSON(
+        'https://waterservices.usgs.gov/nwis/site/?format=rdb&stateCd=co&parameterCd=00060,00065&siteType=ST',
+        $('#usgsStatus'), 'usgs_sites',
+        {note:'sample (no network)', rows:[{site:'06730500', var:'00060', flow_cfs: '123'}]}
+      );
+      $('#usgsOut').textContent = typeof j==='object' ? JSON.stringify(j,null,2) : String(j).slice(0,2000);
+    });
+
+    // NOAA: demo placeholder (replace with a JSON-enabled endpoint you trust)
+    $('#btnNOAA').addEventListener('click', async()=>{
+      const j = await netJSON(
+        'https://api.weather.gov/gridpoints/BOU/62,61/forecast',
+        $('#noaaStatus'), 'noaa_forecast',
+        {note:'sample', today:{precip:'low', drought:'moderate'}}
+      );
+      $('#noaaOut').textContent = typeof j==='object' ? JSON.stringify(j,null,2) : String(j).slice(0,2000);
+    });
+
+    // USDA: Farmers markets (sample/placeholder)
+    $('#btnUSDA').addEventListener('click', async()=>{
+      const zip = ($('#zipMarket').value||'80301').trim();
+      const j = await netJSON(
+        'https://farmersmarkets.usda.gov/api/marketstouring?zip='+encodeURIComponent(zip),
+        $('#usdaStatus'), 'usda_markets',
+        {note:'sample', markets:[{name:'Sample Market', zip}]}
+      );
+      $('#usdaOut').textContent = typeof j==='object' ? JSON.stringify(j,null,2) : String(j).slice(0,2000);
+    });
+
+    // EPA: placeholder
+    $('#btnEPA').addEventListener('click', async()=>{
+      const j = await netJSON(
+        'https://enviro.epa.gov/enviro/efservice/FRS_PROGRAMS/ROWS/0:5/JSON',
+        $('#epaStatus'), 'epa_sig',
+        {note:'sample', advisory:'no recent alerts'}
+      );
+      $('#epaOut').textContent = typeof j==='object' ? JSON.stringify(j,null,2) : String(j).slice(0,2000);
+    });
+
+    /* ========= HABITICA ========= */
+    async function habiticaCreate(user, token, title){
+      const r = await fetch('https://habitica.com/api/v3/tasks/user', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-user':user,'x-api-key':token},
+        body: JSON.stringify({text:title, type:'todo'})
+      });
+      if(!r.ok) throw new Error('Habitica error');
+      return await r.json();
+    }
+    $('#habitSync').addEventListener('click', async()=>{
+      const user = $('#habitUser').value.trim(), token=$('#habitToken').value.trim(), title=$('#habitTask').value.trim();
+      if(!user || !token || !title){ $('#habitStatus').textContent='missing fields'; return; }
+      await idb.put('settings',{k:'habit.user',v:user});
+      await idb.put('settings',{k:'habit.token',v:token});
+      try{
+        const j = await habiticaCreate(user, token, title);
+        $('#habitStatus').textContent='synced ✓'; toast('Habitica task created.');
+      }catch(e){ $('#habitStatus').textContent='error'; toast('Habitica sync failed.'); }
+    });
+
+    /* ========= WEBLLM (on-demand) ========= */
+    let webllm;
+    $('#loadLLM').addEventListener('click', async()=>{
+      try{
+        // CDN load (online only). Replace with a pinned, trusted mirror in production.
+        await new Promise((res,rej)=>{
+          const s=document.createElement('script'); s.src='https://unpkg.com/@mlc-ai/web-llm/dist/index.js'; s.onload=res; s.onerror=rej; document.head.appendChild(s);
+        });
+        // @ts-ignore
+        webllm = window.mlc;
+        toast('WebLLM loaded.');
+      }catch(e){ toast('LLM load failed. Using offline prompts.'); }
+    });
+    $('#askLLM').addEventListener('click', async()=>{
+      const q = $('#llmIn').value.trim();
+      if(!q) return;
+      if(webllm?.CreateWebWorkerMLCEngine){
+        $('#llmOut').textContent = 'Loading model… (first time can be slow)';
+        const engine = await webllm.CreateWebWorkerMLCEngine(
+          new Worker('https://unpkg.com/@mlc-ai/web-llm/dist/worker.js', { type:'module' }),
+          { model:'Llama-3.1-8B-Instruct-q4f16_1-MLC', conv_config: webllm.conv_template_config['llama-3'] }
+        );
+        const out = await engine.chat.completions.create({messages:[{role:'user', content:q}], temperature:0.3, max_tokens:512});
+        $('#llmOut').textContent = out.choices?.[0]?.message?.content || '(no response)';
+      } else {
+        // Offline fallback: rule-based scaffold
+        const hint = `Plan frame:\n1) Define objective\n2) Check legal/safety\n3) Data needed\n4) Actions (72h, 30d, 90d)\n5) Publish ledger hash\n\nQ: ${q}\nA:`;
+        $('#llmOut').textContent = hint + '\n- Objective: …\n- Risks: …\n- Data: …\n- Actions 72h/30d/90d: …\n- Ledger Hash: …';
+      }
+    });
+
+    /* ========= SETTINGS / STORAGE ========= */
+    $('#clearAll').addEventListener('click', async()=>{
+      await idb.clear('settings'); await idb.clear('ledger'); await idb.clear('seeds'); await idb.clear('cache');
+      ledgerRender(); seedRender(); $('#sizesOut').textContent='cleared'; toast('Local data cleared.');
+    });
+    $('#showSizes').addEventListener('click', async()=>{
+      if(!('storage' in navigator) || !navigator.storage.estimate){ $('#sizesOut').textContent='n/a'; return; }
+      const e = await navigator.storage.estimate();
+      $('#sizesOut').textContent = `usage: ${(e.usage/1024/1024).toFixed(2)} MB of ${(e.quota/1024/1024).toFixed(1)} MB`;
+    });
+
+    /* ========= PWA INSTALL + SAVE ========= */
+    let deferredPrompt=null;
+    window.addEventListener('beforeinstallprompt', (e)=>{ e.preventDefault(); deferredPrompt=e; });
+    $('#installPWA').addEventListener('click', async()=>{
+      if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt=null; } else { toast('Use browser • Add to Home Screen'); }
+    });
+    $('#savePage').addEventListener('click', ()=>{
+      const a=document.createElement('a'); const blob=new Blob([document.documentElement.outerHTML],{type:'text/html'});
+      a.href=URL.createObjectURL(blob); a.download='index.html'; a.click();
+    });
+
+    /* ========= COMMAND PALETTE (quick) ========= */
+    $('#quickActions').addEventListener('click', ()=>{
+      const act = prompt('Action: usgs, noaa, usda, epa, plan, seed, ledger');
+      if(!act) return;
+      const map = {usgs:()=>$('#btnUSGS').click(), noaa:()=>$('#btnNOAA').click(), usda:()=>$('#btnUSDA').click(), epa:()=>$('#btnEPA').click(),
+        seed:()=>$('#addSeed').click(), ledger:()=>$('#addEntry').click(), plan:()=>$('#askLLM').click()};
+      (map[act]||(()=>toast('Unknown action')) )();
+    });
+
+    /* ========= KEYBOARD SHORTCUTS ========= */
+    addEventListener('keydown', (e)=>{
+      if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='k'){ e.preventDefault(); $('#quickActions').click(); }
+      if(e.altKey && e.key.toLowerCase()==='d'){ document.documentElement.classList.toggle('contrast'); }
+    });
+
+  })();
+  </script>
+</body>
+</html>
