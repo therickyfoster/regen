@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>All‑Inclusive Survival • Food & Water Sovereignty (Offline‑first)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Ultra long‑form, all‑in‑one personal survival guide with food and water sovereignty modules, local sourcing & DIY fabrication, medical first‑aid playbooks, offline IndexedDB with uploads, Habitica sync, and a local WebLLM coach." />
+  <meta name="keywords" content="survival, water sovereignty, food sovereignty, first aid, DIY, fabrication, IndexedDB, Habitica, WebLLM, offline, uploads" />
+  <link rel="canonical" href="https://example.org/survival/" />
+  <meta property="og:title" content="All‑Inclusive Survival • Food & Water Sovereignty"/>
+  <meta property="og:description" content="Online‑centric app with offline fallback: uploads, calculators, quests, medical first‑aid, local sourcing & fabrication, Habitica, WebLLM."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://example.org/survival/"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"CreativeWork",
+    "name":"All‑Inclusive Personal Survival + Food & Water Sovereignty",
+    "inLanguage":"en",
+    "isAccessibleForFree":true,
+    "audience":{"@type":"Audience","audienceType":"Households, community orgs, field responders"},
+    "about":"Preparedness, water & food sovereignty, medical first aid, DIY tools & local sourcing",
+    "publisher":{"@type":"Organization","name":"Planetary Restoration Archive"},
+    "mainEntityOfPage":"https://example.org/survival/"
+  }
+  </script>
+
+  <!-- Custom presentation schema hook -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid",
+    "@type":"HybridPresentation",
+    "title":"All‑Inclusive Survival — Food × Water × Medical",
+    "modules":["Quests","Calculators","Water","Food","Medical","Tools & Fabrication","Shelter & Power","Comms & Navigation","OpenLab Uploads","Governance & Finance"],
+    "features":["MorphingConstellations","ParallaxMegaMenu","CommandPalette","HabiticaSync","IndexedDB","WebLLMCoach","UploadGallery","ExportImport","Local‑First"],
+    "siblingFolders":["/food/","/water/"]
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#04070f; --text:#e8f0ff; --muted:#9db0cb; --accent:#9ad6ff; --accent2:#c5a1ff;
+      --panel:rgba(12,18,30,.75); --panel-solid:#0e1624; --card:rgba(255,255,255,.05);
+      --border:rgba(255,255,255,.09); --good:#4ade80; --warn:#f59e0b; --bad:#ef4444;
+      --shadow:0 10px 35px rgba(0,0,0,.55); --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --sans: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; background:var(--bg); color:var(--text); font-family:var(--sans); line-height:1.6; overflow-x:hidden;}
+    a{color:#a8c6ff; text-decoration:none} a:hover{text-decoration:underline}
+
+    /* Sky layers */
+    #sky-wrap{position:fixed; inset:0; z-index:-2; overflow:hidden; perspective:1000px}
+    canvas.sky{position:absolute; inset:0; width:100%; height:100%}
+    #sky-stars{z-index:-2} #sky-constellations{z-index:-1}
+
+    /* Header & mega menu */
+    header{position:sticky; top:0; z-index:20; backdrop-filter:blur(14px) saturate(120%);
+      background:linear-gradient(to bottom, rgba(4,7,15,.75), rgba(4,7,15,.45)); border-bottom:1px solid var(--border);}
+    nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 18px;}
+    .brand{font-weight:900; letter-spacing:.3px}
+    .links{display:flex; align-items:center; gap:10px}
+    .btn{display:inline-flex; align-items:center; gap:.5rem; padding:.65rem .95rem; border:1px solid var(--border);
+      border-radius:12px; background:var(--panel); color:var(--text); cursor:pointer; box-shadow:var(--shadow);
+      transform:translateZ(0); transition:transform .08s ease, background .2s ease;}
+    .btn:hover{transform:translateY(-1px)} .btn.good{border-color:rgba(74,222,128,.35)}
+    .btn.warn{border-color:rgba(245,158,11,.35)} .btn.bad{border-color:rgba(239,68,68,.35)}
+    .pill{display:inline-block; padding:.2rem .6rem; border-radius:999px; border:1px solid var(--border); color:var(--muted); font-size:.85rem}
+
+    .menu{position:relative}
+    .menu > button{border-radius:999px; background:linear-gradient(135deg, rgba(154,214,255,.08), rgba(197,161,255,.06));}
+    .dropdown{position:absolute; top:110%; left:0; min-width:920px; max-width:96vw; background:var(--panel-solid);
+      border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); display:none; padding:18px;
+      transform-origin:20% -10%; transform: perspective(900px) rotateX(-8deg) translateY(-10px) scale(.98);
+      transition: transform .2s ease, opacity .2s ease; opacity:0;}
+    .menu.open .dropdown{display:block; opacity:1; transform: perspective(900px) rotateX(0deg) translateY(0) scale(1);}
+    .grid{display:grid; gap:14px}
+    @media (min-width:1020px){ .cols-2{grid-template-columns:1fr 1fr} .cols-3{grid-template-columns:repeat(3,1fr)} .cols-4{grid-template-columns:repeat(4,1fr)} }
+
+    .card{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px}
+    .muted{color:var(--muted)} .mini{font-size:.92rem}
+    .progress{width:100%; height:12px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden; border:1px solid var(--border)}
+    .progress > span{display:block; height:100%; background:linear-gradient(90deg, #36d1dc, #5b86e5); width:0%}
+    main{max-width:1240px; margin:0 auto; padding:22px}
+    section{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:22px; margin:16px 0; box-shadow:var(--shadow)}
+    h1{font-size:2.25rem; margin:0 0 8px} h2{font-size:1.6rem; margin:0 0 10px} h3{font-size:1.2rem; margin:18px 0 8px}
+    .kbd{font-family:var(--mono); background:rgba(255,255,255,.08); padding:.15rem .35rem; border-radius:6px; border:1px solid var(--border)}
+    .tilt{will-change:transform; transform-style:preserve-3d; transition:transform .15s ease}
+    .tilt:hover{transform: perspective(700px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateZ(10px)}
+    .gallery{display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px}
+    .thumb{position:relative; border-radius:12px; overflow:hidden; border:1px solid var(--border); background:#0b1320}
+    .thumb img{display:block; width:100%; height:140px; object-fit:cover}
+    .thumb .cap{position:absolute; left:0; right:0; bottom:0; padding:6px 8px; background:linear-gradient(to top, rgba(0,0,0,.55), transparent); font-size:.85rem}
+
+    /* Command palette */
+    #cmdBackdrop{position:fixed; inset:0; background:rgba(0,0,0,.5); backdrop-filter:blur(2px); display:none; align-items:flex-start; justify-content:center; z-index:40}
+    #cmd{margin-top:8vh; width:min(860px,92vw); background:var(--panel-solid); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); padding:12px}
+    #cmd input{width:100%; padding:12px 14px; background:#0d1624; color:var(--text); border:1px solid var(--border); border-radius:10px; outline:none}
+    #cmdList{margin-top:8px; max-height:60vh; overflow:auto}
+    #cmdList .item{padding:10px 12px; border-radius:10px; border:1px solid transparent; cursor:pointer}
+    #cmdList .item:hover{background:rgba(255,255,255,.04); border-color:var(--border)}
+
+    /* Modals shared */
+    .modal-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; z-index:30}
+    .modal{width:min(900px, 92vw); background:var(--panel-solid); border:1px solid var(--border); border-radius:18px; padding:16px}
+    .modal header{position:relative; backdrop-filter:none; background:none; border-bottom:1px solid var(--border); border-radius:18px 18px 0 0}
+    .modal .close{position:absolute; right:12px; top:12px}
+
+    input, select, textarea{width:100%; padding:.7rem .8rem; background:#0d1624; color:var(--text); border:1px solid var(--border); border-radius:10px; outline:none}
+    label{font-size:.9rem; color:var(--muted)} .row{display:flex; gap:10px; align-items:center} .stack{display:flex; flex-direction:column; gap:10px}
+    .footer{opacity:.7; font-size:.9rem; padding:26px 10px 80px}
+  </style>
+</head>
+<body>
+  <!-- Sky -->
+  <div id="sky-wrap" aria-hidden="true">
+    <canvas id="sky-stars" class="sky"></canvas>
+    <canvas id="sky-constellations" class="sky"></canvas>
+  </div>
+
+  <!-- Header + mega dropdown -->
+  <header>
+    <nav>
+      <div class="links">
+        <span class="brand">Planetary Restoration Archive</span>
+        <span class="pill">All‑Inclusive Survival • Food × Water × Medical</span>
+      </div>
+      <div class="links">
+        <a class="btn" href="./">/survival/</a>
+        <a class="btn" href="./#water">/water/</a>
+        <a class="btn" href="./#food">/food/</a>
+
+        <div class="menu">
+          <button class="btn" id="menuOpen">Explore ▼</button>
+          <div class="dropdown" id="mega">
+            <div class="grid cols-3">
+              <div class="card tilt">
+                <strong>Quests & XP</strong>
+                <div class="progress" aria-label="XP progress"><span id="xpBar" style="width:0%"></span></div>
+                <div class="mini muted">Level <span id="level">1</span> · <span id="xp">0</span>/<span id="xpMax">200</span> XP</div>
+              </div>
+              <div class="card tilt">
+                <strong>Calculators</strong>
+                <p class="mini muted">Water, ORS, rations, PV, wind load.</p>
+                <button class="btn" data-jump="#calculators">Open</button>
+              </div>
+              <div class="card tilt">
+                <strong>OpenLab Uploads</strong>
+                <p class="mini muted">Store images, notes, and alternatives locally (IndexedDB). Export/Import.</p>
+                <button class="btn" data-jump="#openlab">Open</button>
+              </div>
+              <div class="card tilt">
+                <strong>Medical (First Aid)</strong>
+                <p class="mini muted">Evidence‑based basics & safety constraints; no drug‑making instructions.</p>
+                <button class="btn" data-jump="#medical">Open</button>
+              </div>
+              <div class="card tilt">
+                <strong>Tools & Fabrication</strong>
+                <p class="mini muted">Salvage + local stock → stoves, filters, mounts, lashings.</p>
+                <button class="btn" data-jump="#tools">Open</button>
+              </div>
+              <div class="card tilt">
+                <strong>WebLLM Coach</strong>
+                <p class="mini muted">Local, private, offline‑capable design checks.</p>
+                <button class="btn good" id="openCoach">AI Coach</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn" id="openSettings">Settings</button>
+        <button class="btn" id="openCmd"><span class="kbd">Ctrl</span>+<span class="kbd">K</span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="hero" class="tilt">
+      <h1>All‑Inclusive Survival — Practical, Local, Offline‑Savvy</h1>
+      <p class="mini muted">Designed for real constraints: grid fragility, import friction, spare‑parts delays, water quality risks, and storm seasons. Everything here runs in your browser and keeps working offline.</p>
+      <div class="grid cols-3">
+        <div class="card"><strong>Local‑First</strong><p class="mini muted">Progress & uploads live in your browser via <code>IndexedDB</code>. Export as JSON bundles.</p></div>
+        <div class="card"><strong>Ethics & Safety</strong><p class="mini muted">No instructions for synthesizing drugs or culturing organisms. Medical guidance sticks to first‑aid and safe, lawful preparedness.</p></div>
+        <div class="card"><strong>Folders</strong><p class="mini muted"><a href="#water">Water</a> · <a href="#food">Food</a> · <a href="#medical">Medical</a> · <a href="#tools">Tools</a> · <a href="#power">Power</a> · <a href="#comms">Comms</a></p></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Photorealistic morphing constellations + parallax -->
+  <script>
+    (function(){
+      const DPR = Math.min(2, devicePixelRatio||1);
+      const C1 = document.getElementById('sky-stars');
+      const C2 = document.getElementById('sky-constellations');
+      const S = C1.getContext('2d', {alpha:false});
+      const K = C2.getContext('2d', {alpha:true});
+      let W = innerWidth, H = innerHeight;
+      function fit(c, ctx, clear=true){ c.width=W*DPR; c.height=H*DPR; c.style.width=W+'px'; c.style.height=H+'px'; ctx.setTransform(DPR,0,0,DPR,0,0); if(clear){ ctx.fillStyle='#04070f'; ctx.fillRect(0,0,W,H);} }
+      function resize(){ W=innerWidth; H=innerHeight; fit(C1,S); fit(C2,K,false);} resize(); addEventListener('resize', resize);
+
+      const layers = [{n:1400, sp:.008, r:[.6,1.2], tw:[.3,.9]},{n:700, sp:.015, r:[1,1.8], tw:[.4,1.0]},{n:240, sp:.022, r:[1.2,2.6], tw:[.6,1.2]}];
+      let stars=[];
+      function initStars(){ stars=[]; layers.forEach(L=>{ for(let i=0;i<L.n;i++){ stars.push({x:Math.random()*W, y:Math.random()*H, r:L.r[0]+Math.random()*(L.r[1]-L.r[0]), a:.2+Math.random()*.85, tw:Math.random()*Math.PI*2, twamp:L.tw[0]+Math.random()*(L.tw[1]-L.tw[0]), sp:L.sp*(.6+Math.random()*.8)}); } }); }
+      initStars();
+
+      const seeds = [
+        [{x:.15,y:.25},{x:.35,y:.30},{x:.45,y:.12},{x:.40,y:.48},{x:.22,y:.55}],
+        [...Array(9)].map((_,i)=>({x:.55+.2*Math.cos(i*.7)*(.5-i/12), y:.35+.18*Math.sin(i*.7)*(.5-i/12)})),
+        [...Array(8)].map((_,i)=>({x:.15+.7*(i/7), y:.62+.1*Math.sin(i*.8)})),
+        [{x:.72,y:.18},{x:.83,y:.30},{x:.76,y:.48},{x:.68,y:.33}],
+        [...Array(10)].map((_,i)=>({x:.1+.8*(i/9), y:.2+.15*Math.sin(i*.9)+.05*Math.sin(i*2.2)}))
+      ];
+      let si=0, t=0, dir=1, mx=0,my=0, par={x:0,y:0};
+      addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; par.x=(mx/W-.5); par.y=(my/H-.5); });
+
+      function drawStars(){
+        S.fillStyle='#04070f'; S.fillRect(0,0,W,H);
+        const g = S.createRadialGradient(W*.65, -H*.15, 50, W*.5, H*1.1, Math.max(W,H));
+        g.addColorStop(0,'rgba(160,200,255,.10)'); g.addColorStop(1,'rgba(0,0,0,0)'); S.fillStyle=g; S.fillRect(0,0,W,H);
+        S.globalCompositeOperation='screen';
+        for(const s of stars){
+          s.x -= s.sp*(1+.3*par.x); if(s.x<-5) s.x=W+5; s.tw += 0.02 + s.sp*2;
+          const a = s.a * (0.6 + 0.4*Math.sin(s.tw)*s.twamp);
+          S.beginPath(); S.arc(s.x+par.x*10, s.y+par.y*10, s.r, 0, 2*Math.PI); S.fillStyle=`rgba(255,255,255,${a})`; S.fill();
+          S.beginPath(); S.arc(s.x+par.x*14, s.y+par.y*14, s.r*2.4, 0, 2*Math.PI); S.fillStyle=`rgba(170,200,255,${a*0.12})`; S.fill();
+        }
+        S.globalCompositeOperation='source-over';
+      }
+      function drawConstellations(){
+        K.clearRect(0,0,W,H);
+        const ni=(si+1)%seeds.length; t+=0.003*dir; if(t>=1){t=1;dir=-1;si=ni;} if(t<=0){t=0;dir=1;}
+        const A=seeds[si], B=seeds[ni], n=Math.max(A.length,B.length);
+        for(let i=0;i<n;i++){
+          const a=A[i%A.length], b=B[i%B.length];
+          const x=(a.x*(1-t)+b.x*t)*W + par.x*18, y=(a.y*(1-t)+b.y*t)*H + par.y*18;
+          K.beginPath(); K.arc(x,y,2.2,0,2*Math.PI); K.fillStyle='rgba(190,215,255,.9)'; K.fill();
+          K.beginPath(); K.arc(x,y,7,0,2*Math.PI); K.fillStyle='rgba(120,170,255,.12)'; K.fill();
+        }
+        K.lineWidth=1.2; K.strokeStyle='rgba(160,200,255,.35)';
+        for(let i=0;i<n-1;i++){
+          const a=A[i%A.length], b=A[(i+1)%A.length];
+          const ax=(a.x*(1-t)+B[i%B.length].x*t)*W + par.x*18, ay=(a.y*(1-t)+B[i%B.length].y*t)*H + par.y*18;
+          const bx=(b.x*(1-t)+B[(i+1)%B.length].x*t)*W + par.x*18, by=(b.y*(1-t)+B[(i+1)%B.length].y*t)*H + par.y*18;
+          K.beginPath(); K.moveTo(ax,ay); K.lineTo(bx,by); K.stroke();
+        }
+      }
+      function loop(){ drawStars(); drawConstellations(); requestAnimationFrame(loop); } requestAnimationFrame(loop);
+
+      // Mega dropdown + tilt
+      const menu = document.querySelector('.menu'); const mega = document.getElementById('mega'); const openBtn = document.getElementById('menuOpen');
+      openBtn.addEventListener('click', ()=> menu.classList.toggle('open'));
+      document.addEventListener('click', e=>{ if(!menu.contains(e.target) && menu.classList.contains('open')) menu.classList.remove('open'); });
+      mega.querySelectorAll('[data-jump]').forEach(b=> b.addEventListener('click', e=>{ e.preventDefault(); const t=document.querySelector(b.getAttribute('data-jump')); if(t){ t.scrollIntoView({behavior:'smooth'}); menu.classList.remove('open'); } }));
+      document.querySelectorAll('.tilt').forEach(el=>{
+        el.addEventListener('mousemove', e=>{ const r=el.getBoundingClientRect(); const rx=((e.clientY-r.top)/r.height-.5)*-6; const ry=((e.clientX-r.left)/r.width-.5)*6; el.style.setProperty('--rx',rx+'deg'); el.style.setProperty('--ry',ry+'deg'); });
+        el.addEventListener('mouseleave', ()=>{ el.style.setProperty('--rx','0deg'); el.style.setProperty('--ry','0deg'); });
+      });
+
+      // Command palette
+      const cmdBackdrop=document.createElement('div'); cmdBackdrop.id='cmdBackdrop'; cmdBackdrop.innerHTML=`<div id="cmd"><input id="cmdInput" placeholder="Jump to… (try: water, food, medical, tools, power, comms, openlab, calculators)"/><div id="cmdList"></div></div>`;
+      document.body.appendChild(cmdBackdrop);
+      const openCmd=()=>{ cmdBackdrop.style.display='flex'; setTimeout(()=>document.getElementById('cmdInput').focus(),0); };
+      const closeCmd=()=>{ cmdBackdrop.style.display='none'; document.getElementById('cmdList').innerHTML=''; document.getElementById('cmdInput').value=''; };
+      document.getElementById('openCmd').onclick=openCmd; addEventListener('keydown', e=>{ if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){ e.preventDefault(); openCmd(); } if(e.key==='Escape') closeCmd(); });
+      cmdBackdrop.addEventListener('click', e=>{ if(e.target===cmdBackdrop) closeCmd(); });
+      const commands=[['Water','#water'],['Food','#food'],['Medical','#medical'],['Tools','#tools'],['Shelter & Power','#power'],['Comms & Navigation','#comms'],['OpenLab','#openlab'],['Calculators','#calculators'],['Quests','#quests']];
+      document.getElementById('cmdInput').addEventListener('input', e=>{
+        const q=e.target.value.toLowerCase(); const list=document.getElementById('cmdList'); list.innerHTML='';
+        commands.filter(([t])=>t.toLowerCase().includes(q)).forEach(([t,href])=>{
+          const div=document.createElement('div'); div.className='item'; div.textContent=t; div.onclick=()=>{ const el=document.querySelector(href); if(el){ el.scrollIntoView({behavior:'smooth'}); closeCmd(); } };
+          list.appendChild(div);
+        });
+      });
+    })();
+  </script>
+<!-- MAIN CONTENT SECTIONS -->
+  <main>
+    <!-- QUESTS -->
+    <section id="quests" class="tilt">
+      <h2>Quests & XP — from Basics to Mastery</h2>
+      <p class="mini muted">Earn XP as you complete practical milestones. Optionally push To‑Dos to Habitica; progress is stored locally.</p>
+      <div class="grid cols-2" id="questList"><!-- populated by JS --></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn good" id="syncHabitica">Sync to Habitica</button>
+        <span id="habiticaStatus" class="mini muted"></span>
+      </div>
+    </section>
+
+    <!-- CALCULATORS -->
+    <section id="calculators" class="tilt">
+      <h2>Calculators — Design Faster, Fail Less</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Water: Emergency Reserve</h3>
+          <label>People</label><input id="emerPeople" type="number" min="1" value="3"/>
+          <label>Days</label><input id="emerDays" type="number" min="1" value="3"/>
+          <label>Liters per person per day</label><input id="emerLpPd" type="number" step="0.1" value="3.5"/>
+          <div class="row"><button class="btn" id="calcEmer">Calculate</button><span id="emerOut" class="mini muted"></span></div>
+        </div>
+
+        <div class="card">
+          <h3>Water: Rain Catchment (roof)</h3>
+          <label>Annual rainfall (mm)</label><input id="rainMM" type="number" value="1500"/>
+          <label>Roof area (m²)</label><input id="roofM2" type="number" value="120"/>
+          <label>Runoff coefficient</label><input id="coef" type="number" step="0.05" value="0.9"/>
+          <div class="row"><button class="btn" id="calcRain">Estimate</button><span id="rainOut" class="mini muted"></span></div>
+        </div>
+
+        <div class="card">
+          <h3>Water: Chlorine Dosing (Emergency)</h3>
+          <label>Volume (liters)</label><input id="chlVol" type="number" value="20"/>
+          <label>Bleach strength</label>
+          <select id="chlPct"><option value="6">6%</option><option value="8.25">8.25%</option></select>
+          <div class="row"><button class="btn" id="calcChl">Dose</button><span id="chlOut" class="mini muted"></span></div>
+          <p class="mini muted">Aim ≈0.5 mg/L after 30 min contact; ≥0.2 mg/L at point of use.</p>
+        </div>
+
+        <div class="card">
+          <h3>Medical: ORS (Oral Rehydration Solution)</h3>
+          <label>Target volume (L)</label><input id="orsVol" type="number" step="0.1" value="1"/>
+          <div class="row"><button class="btn" id="calcORS">Mixing Guide</button><span id="orsOut" class="mini muted"></span></div>
+          <p class="mini muted">Use clean water. If in doubt about water safety, disinfect first.</p>
+        </div>
+
+        <div class="card">
+          <h3>Food: Ration Planner</h3>
+          <label>Calories on hand (kcal)</label><input id="rCal" type="number" value="60000"/>
+          <label>People</label><input id="rPeople" type="number" value="3"/>
+          <label>Target kcal/person/day</label><input id="rPPD" type="number" value="2200"/>
+          <div class="row"><button class="btn" id="calcRation">Compute Days</button><span id="rOut" class="mini muted"></span></div>
+        </div>
+
+        <div class="card">
+          <h3>Power: PV Pump Sizing</h3>
+          <label>Flow (L/min)</label><input id="pumpQ" type="number" value="15"/>
+          <label>Total Dynamic Head (m)</label><input id="pumpH" type="number" value="20"/>
+          <label>Efficiency (0.2–0.5)</label><input id="pumpEta" type="number" step="0.05" value="0.35"/>
+          <div class="row"><button class="btn" id="calcPump">Estimate PV W</button><span id="pumpOut" class="mini muted"></span></div>
+        </div>
+
+        <div class="card">
+          <h3>Power: PV & Battery (Quick)</h3>
+          <label>Daily load (Wh)</label><input id="pvWh" type="number" value="1200"/>
+          <label>Sun hours (peak)</label><input id="pvSun" type="number" step="0.1" value="5.5"/>
+          <label>System losses (0.6–0.85)</label><input id="pvLoss" type="number" step="0.05" value="0.75"/>
+          <label>Days autonomy</label><input id="pvDays" type="number" value="2"/>
+          <div class="row"><button class="btn" id="calcPV">Size</button><span id="pvOut" class="mini muted"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WATER -->
+    <section id="water" class="tilt">
+      <h2>Water Sovereignty — Secure and Safe</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Emergency (Level 1)</h3>
+          <ul class="mini">
+            <li>Store ≥3–4 L/person/day × 3–7 days (drinking/cooking).</li>
+            <li>Containers: food‑grade, labeled, shaded; rotate stock.</li>
+            <li>Disinfect: boil 1 min (3 min ≥2000 m) or dose unscented bleach and verify residual.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Catchment & Cisterns (Level 2–4)</h3>
+          <ul class="mini">
+            <li>Roof hygiene + leaf screens; first‑flush ~0.5–1 mm.</li>
+            <li>Filter train: sediment → carbon → disinfection (chlorine or UV).</li>
+            <li>Annual cistern cleaning; tight lids; screened vents/overflows; mosquito control per public health guidance.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Desal & Community Hubs (Level 5–7)</h3>
+          <ul class="mini">
+            <li>SWRO energy budget (≈2.5–4.5 kWh/m³ modern plants).</li>
+            <li>Intake defense for sargassum surges; diffusers and monitoring for brine.</li>
+            <li>Neighborhood taps with elevated storage & signage for advisories.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOD -->
+    <section id="food" class="tilt">
+      <h2>Food Sovereignty — Steady Calories, Safe Kitchens</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Storables</h3>
+          <ul class="mini">
+            <li>Grains/legumes (rotate): rice, lentils, split peas, oats.</li>
+            <li>Fats: oil (opaque bottles), nut butters; watch rancidity.</li>
+            <li>Protein: tins (fish, beans), powdered eggs/milk; dates lots/first‑in‑first‑out (FIFO).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Local Production</h3>
+          <ul class="mini">
+            <li>Containers/raised beds; mulch to retain moisture; drip or clay pot (ollas) for water‑efficient irrigation.</li>
+            <li>Salt‑tolerant or drought‑tolerant cultivars where applicable.</li>
+            <li>Pest control: exclusion nets, traps, soap sprays as labeled; keep biological agents out of kitchens.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Kitchen Safety</h3>
+          <ul class="mini">
+            <li>Handwashing station (tippy‑tap) with soap; separate raw/cooked boards.</li>
+            <li>Heat foods ≥74 °C when reheating; keep cold foods ≤5 °C.</li>
+            <li>Avoid home canning of low‑acid foods without tested protocols; botulism is unforgiving.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEDICAL -->
+    <section id="medical" class="tilt">
+      <h2>Medical — First Aid, Not Pharmacy</h2>
+      <div class="card" style="border-color:rgba(239,68,68,.4)">
+        <strong class="mini">Safety Constraints</strong>
+        <p class="mini muted">No instructions for synthesizing pharmaceuticals, antibiotics, or other medical compounds from mycelium/fauna/plants. No culturing steps, no dosages for improvised drugs, no “home antivenom.” Focus on lawful stocking, first aid, and when to escalate to professionals.</p>
+      </div>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Core First‑Aid Kit (stock lawfully)</h3>
+          <ul class="mini">
+            <li>Gloves, soap, alcohol gel, sterile gauze, adhesive bandages, triangular bandage, elastic wrap.</li>
+            <li>Irrigation syringe/bottle, saline or boiled‑then‑cooled water for wound irrigation.</li>
+            <li>Antiseptic (e.g., povidone‑iodine), antibiotic ointment (OTC), burn gel/dressings, tweezers, shears, digital thermometer.</li>
+            <li>Pain/fever reducers (OTC), antihistamine (OTC), rehydration salts, glucose source.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Wounds & Burns (essentials)</h3>
+          <ul class="mini">
+            <li>Wash hands. Control bleeding with pressure. Irrigate with copious clean water; avoid crushing debris into tissue.</li>
+            <li>Dress with sterile gauze; monitor for redness, swelling, pus, fever.</li>
+            <li>Burns: cool with clean running water 20 min; no ice; cover loosely with sterile, non‑adherent dressing. Seek care for size, depth, or face/genitals.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Dehydration & ORS</h3>
+          <ul class="mini">
+            <li>Signs: thirst, dry mouth, lethargy, reduced urine. Children/elderly need close monitoring.</li>
+            <li>Mix ORS precisely; if vomiting, give small sips frequently.</li>
+            <li>Escalate: altered mental status, persistent vomiting, blood in stool, infants/elderly, or underlying disease.</li>
+          </ul>
+        </div>
+      </div>
+
+      <details class="card">
+        <summary><strong>“Natural” Remedies — Caution</strong></summary>
+        <p class="mini">Some foods (e.g., pasteurized honey for minor wounds) have supportive evidence when used correctly. Many plant extracts are adulterated or misidentified; dose/purity can be hazardous. Avoid wild foraging unless trained with authoritative, region‑specific guides, and never attempt to manufacture pharmaceuticals.</p>
+      </details>
+    </section>
+
+    <!-- TOOLS & FABRICATION -->
+    <section id="tools" class="tilt">
+      <h2>Tools & Fabrication — Local Sourcing, Smart Substitutes</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Fire & Cooking</h3>
+          <ul class="mini">
+            <li><strong>Rocket stove (sheet/brick):</strong> Efficient small‑fuel cooker using bricks or welded sheet offcuts; chimney insulated with ash or perlite.</li>
+            <li><strong>Solar cooker:</strong> Foil‑lined panel cooker with dark pot + clear bag/lid; site out of wind; reflective safety for eyes.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Water Hardware</h3>
+          <ul class="mini">
+            <li><strong>First‑flush diverter:</strong> PVC vertical leg with drain; floating ball or valve to bypass initial dirty runoff.</li>
+            <li><strong>PVC filter housing:</strong> Large‑diameter pipe + end caps; EPDM gasket seats; unions; pressure test 2× operating.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Materials & Fasteners (coastal)</h3>
+          <ul class="mini">
+            <li>Prefer 316 SS, hot‑dip galvanized steel; anti‑seize for bolts; rinse salt spray; paint cut edges.</li>
+            <li>Ropes: polypropylene for wet use; natural sisal for lashings; learn square, bowline, trucker’s hitch.</li>
+          </ul>
+        </div>
+      </div>
+      <details class="card">
+        <summary><strong>Local Sourcing Notes</strong></summary>
+        <ul class="mini">
+          <li>Repurpose HDPE drums (confirmed food‑grade) and IBC totes for storage; avoid any container with solvent/pesticide history.</li>
+          <li>Leaf screens from 304/316 mesh; mosquito mesh ≤1 mm; paint PVC for UV resistance.</li>
+          <li>Salvage wiring & breakers carefully; de‑energize, test; respect codes; when in doubt, don’t repurpose electrical parts.</li>
+        </ul>
+      </details>
+    </section>
+
+    <!-- SHELTER & POWER -->
+    <section id="power" class="tilt">
+      <h2>Shelter & Power — Weather the Weather</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Site & Setup</h3>
+          <ul class="mini">
+            <li>Avoid flood channels & tree fall zones; stake tarps low and braced; ventilation to prevent condensation.</li>
+            <li>Keep a dry sleep system; separate wet area; store food sealed and away from sleeping area.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Wind & PV</h3>
+          <ul class="mini">
+            <li>Rule‑of‑thumb wind pressure q≈0.613·V² (Pa), V in m/s; increase anchoring and bracing with forecast wind.</li>
+            <li>PV: secure mounts with stainless hardware; plan for shade and salt spray; use drip loops and fuses as rated.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Lighting & Heat</h3>
+          <ul class="mini">
+            <li>LED headlamps + rechargeable cells; store spares in waterproof bags; avoid open flames in enclosed spaces.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMMS & NAVIGATION -->
+    <section id="comms" class="tilt">
+      <h2>Comms & Navigation — Keep Signal</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Redundancy</h3>
+          <ul class="mini">
+            <li>Battery bank + radio + weather alerts; print important numbers and maps.</li>
+            <li>Respect radio licensing and local laws; test equipment regularly.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Checklists</h3>
+          <ul class="mini">
+            <li>Contacts tree; rendezvous points; out‑of‑area contact; SMS templates.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Navigation</h3>
+          <ul class="mini">
+            <li>Offline maps; compass basics; daylight route planning; water crossings with caution.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPEN LAB: Uploads (discoveries, images, alternatives) -->
+    <section id="openlab" class="tilt">
+      <h2>OpenLab — Local Innovation & Evidence (Offline‑first)</h2>
+      <p class="mini muted">Capture field hacks, material substitutions, and build notes. Upload images & files; tag and describe alternatives. Everything stays in your browser (<code>IndexedDB</code>) unless you export or push to your own endpoint.</p>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>New Entry</h3>
+          <label>Title</label><input id="labTitle" placeholder="e.g., PVC filter housing w/ EPDM seats"/>
+          <label>Category</label>
+          <select id="labCategory"><option>Water</option><option>Food</option><option>Medical (observations only)</option><option>Tools</option><option>Power</option><option>Comms</option></select>
+          <label>Island / Locality</label><input id="labIsland" placeholder="e.g., Saint George, Barbados"/>
+          <label>Bill of Materials (BOM)</label><textarea id="labBOM" rows="4" placeholder="- PVC 110mm (1m)
+- 110mm end cap (2)
+- EPDM gasket sheet"/></textarea>
+          <label>How‑To / Notes</label><textarea id="labNotes" rows="6" placeholder="Steps, QA checks, safety notes… (no medical synthesis protocols)"></textarea>
+          <label>Alternatives</label><textarea id="labAlts" rows="4" placeholder="- Substitute: 100mm + adapter
+- Stainless mesh if plastic scarce"/></textarea>
+          <label>Attach images/files (stored locally)</label>
+          <input id="labFiles" type="file" multiple accept="image/*,.pdf,.txt,.csv,.json" />
+          <div class="row">
+            <button class="btn good" id="saveDiscovery">Save Entry</button>
+            <span id="labStatus" class="mini muted"></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Library</h3>
+          <div class="row">
+            <button class="btn" id="refreshLibrary">Refresh</button>
+            <button class="btn" id="exportAll">Export</button>
+            <button class="btn warn" id="importAll">Import</button>
+            <button class="btn" id="pushRemote">Push to Endpoint</button>
+          </div>
+          <div class="mini muted" id="libStatus"></div>
+          <div class="gallery" id="labGallery"><!-- populated by JS --></div>
+        </div>
+      </div>
+
+      <details class="card">
+        <summary><strong>Remote Push (Optional)</strong></summary>
+        <label>POST URL</label><input id="pushUrl" placeholder="https://your-endpoint.example/upload"/>
+        <label>Auth header (optional)</label><input id="pushAuth" placeholder="Bearer &lt;token&gt;"/>
+        <p class="mini muted">Browser CORS may block direct calls; if so, export the JSON bundle and upload via your own interface.</p>
+      </details>
+    </section>
+
+    <!-- SETTINGS MODAL -->
+    <div id="backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="modal">
+        <header>
+          <h3 id="settingsTitle">Settings & Sync</h3>
+          <button class="btn close" id="closeSettings">✕</button>
+        </header>
+        <div class="stack">
+          <details open>
+            <summary><strong>Habitica</strong> (optional)</summary>
+            <div class="grid cols-2">
+              <div>
+                <label>User ID</label><input id="habUser" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"/>
+                <label>API Token</label><input id="habKey" placeholder="your-secret-token"/>
+                <label>x-client (recommended)</label><input id="habClient" placeholder="your-userid-survivalapp"/>
+                <p class="mini muted">Stored locally in <code>IndexedDB</code>. CORS may block direct calls; keep progress local if needed.</p>
+              </div>
+              <div class="card">
+                <strong>Sync Options</strong>
+                <label><input type="checkbox" id="habPushTodos" checked/> Push quests as To‑Dos</label>
+                <label><input type="checkbox" id="habScoreOnComplete" checked/> Score tasks on completion</label>
+                <button class="btn good" id="saveHab">Save Habitica Settings</button>
+                <div id="habSaveStatus" class="mini muted"></div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary><strong>Local AI Coach (WebLLM)</strong></summary>
+            <p class="mini">Runs entirely in your browser (WebGPU). First load caches a quantized model for offline use.</p>
+            <label>Model</label><input id="llmModel" value="Llama-3.2-3B-Instruct-q4f32_1-MLC"/>
+            <button class="btn" id="prepLLM">Preload Model</button>
+            <div id="llmStatus" class="mini muted"></div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <!-- COACH MODAL -->
+    <div id="coachBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="coachTitle">
+      <div class="modal">
+        <header>
+          <h3 id="coachTitle">AI Coach — Survival Design Assistant</h3>
+          <button class="btn close" id="closeCoach">✕</button>
+        </header>
+        <div class="stack">
+          <textarea id="coachInput" rows="6" placeholder="Ask: 'Plan 7 days of water & calories for 3 people with solar pump and ORS contingency.'" ></textarea>
+          <div class="row">
+            <button class="btn good" id="askCoach">Ask</button>
+            <span id="coachStatus" class="mini muted"></span>
+          </div>
+          <div id="coachReply" class="card mini"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- INDEXEDDB CORE -->
+  <script>
+    const DB = {
+      db: null,
+      open(){ return new Promise((res, rej)=>{
+        const req = indexedDB.open('all-inclusive-survival', 2);
+        req.onupgradeneeded = e=>{
+          const db = e.target.result;
+          if(!db.objectStoreNames.contains('profile')) db.createObjectStore('profile', { keyPath:'id' });
+          if(!db.objectStoreNames.contains('quests')) db.createObjectStore('quests', { keyPath:'id' });
+          if(!db.objectStoreNames.contains('habitica')) db.createObjectStore('habitica', { keyPath:'id' });
+          if(!db.objectStoreNames.contains('lab')) db.createObjectStore('lab', { keyPath:'id', autoIncrement:true });
+          if(!db.objectStoreNames.contains('labfiles')) db.createObjectStore('labfiles', { keyPath:'id', autoIncrement:true });
+        };
+        req.onsuccess =()=>{ this.db = req.result; res(); };
+        req.onerror =()=> rej(req.error);
+      });},
+      put(store, value){ return new Promise((res, rej)=>{
+        const tx = this.db.transaction(store,'readwrite'); tx.oncomplete=()=>res(); tx.onerror=()=>rej(tx.error);
+        tx.objectStore(store).put(value);
+      });},
+      add(store, value){ return new Promise((res, rej)=>{
+        const tx = this.db.transaction(store,'readwrite'); tx.onerror=()=>rej(tx.error);
+        const rq = tx.objectStore(store).add(value); rq.onsuccess=()=>res(rq.result);
+      });},
+      get(store, key){ return new Promise((res, rej)=>{
+        const tx = this.db.transaction(store,'readonly'); tx.onerror=()=>rej(tx.error);
+        const rq = tx.objectStore(store).get(key); rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error);
+      });},
+      all(store){ return new Promise((res, rej)=>{
+        const tx = this.db.transaction(store,'readonly'); tx.onerror=()=>rej(tx.error);
+        const rq = tx.objectStore(store).getAll(); rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error);
+      });},
+      del(store, key){ return new Promise((res, rej)=>{
+        const tx = this.db.transaction(store,'readwrite'); tx.onerror=()=>rej(tx.error);
+        const rq = tx.objectStore(store).delete(key); rq.onsuccess=()=>res(); rq.onerror=()=>rej(rq.error);
+      });}
+    };
+  </script>
+
+  <!-- QUEST ENGINE -->
+  <script>
+    const XP_PER_QUEST = 35;
+    const state = { xp:0, level:1, xpMax:200, quests:[] };
+    const QUESTS = [
+      // Water
+      {id:'W1', title:'3-Day Potable Reserve', desc:'Stock ≥3–4 L/person/day × 3 days; rotate and label.', badge:'Water-Reserve'},
+      {id:'W2', title:'Boil/Bleach SOP posted', desc:'Print simple disinfection SOP; keep by sink.', badge:'Water-SOP'},
+      {id:'W3', title:'Leaf screens + first‑flush', desc:'Mesh screens and diverter installed; safe drain.', badge:'Catchment-Ready'},
+      // Food
+      {id:'F1', title:'Staple rotation plan', desc:'FIFO for grains/legumes, tins, oils; track dates.', badge:'Food-FIFO'},
+      {id:'F2', title:'7‑day meal plan', desc:'Match storables to calories and cooking fuel.', badge:'Food-MealPlan'},
+      // Medical
+      {id:'M1', title:'First‑aid kit stocked', desc:'Gloves, gauze, antiseptic, dressings, meds (OTC), ORS.', badge:'Med-Kit'},
+      {id:'M2', title:'Wound irrigation kit', desc:'Irrigation bottle/syringe, sterile saline or equivalent.', badge:'Med-Irrigation'},
+      // Tools/Power
+      {id:'T1', title:'Rocket or solar cooker built', desc:'Safe, tested, ventilated, with pot stand.', badge:'Cooker-Built'},
+      {id:'T2', title:'PV basics sized', desc:'Daily Wh vs sun hours; fuses and anchoring plan.', badge:'PV-Plan'},
+      // Comms
+      {id:'C1', title:'Comms card + map printed', desc:'Contacts, rally points, SMS templates printed and sealed.', badge:'Comms-Ready'}
+    ];
+
+    async function initQuests(){
+      const prof = await DB.get('profile','me') || {id:'me', xp:0, level:1, xpMax:200};
+      state.xp = prof.xp; state.level=prof.level; state.xpMax=prof.xpMax;
+
+      const saved = await DB.all('quests');
+      const doneSet = new Set(saved.filter(q=>q.done).map(q=>q.id));
+      state.quests = QUESTS.map(q=>({...q, done:doneSet.has(q.id)}));
+
+      renderXP(); renderQuests();
+    }
+    function renderXP(){
+      const pct = Math.min(100, Math.round(100*state.xp/state.xpMax));
+      document.getElementById('xpBar').style.width = pct+'%';
+      document.getElementById('xp').textContent = state.xp;
+      document.getElementById('xpMax').textContent = state.xpMax;
+      document.getElementById('level').textContent = state.level;
+    }
+    async function addXP(n){
+      state.xp += n;
+      while(state.xp >= state.xpMax){ state.xp -= state.xpMax; state.level++; state.xpMax = Math.round(state.xpMax*1.35); }
+      await DB.put('profile', {id:'me', xp:state.xp, level:state.level, xpMax:state.xpMax});
+      renderXP();
+    }
+    function renderQuests(){
+      const root = document.getElementById('questList'); root.innerHTML='';
+      state.quests.forEach(q=>{
+        const el = document.createElement('div'); el.className='card';
+        el.innerHTML = `<div class="row" style="justify-content:space-between"><div><strong>${q.title}</strong><div class="mini muted">${q.desc}</div><div class="pill">Badge: ${q.badge}</div></div><div><button class="btn ${q.done?'good':''}" data-id="${q.id}">${q.done?'✓ Completed':'Mark Done (+'+XP_PER_QUEST+' XP)'}</button></div></div>`;
+        root.appendChild(el);
+      });
+      root.querySelectorAll('button[data-id]').forEach(b=>{
+        b.addEventListener('click', async ()=>{
+          const id=b.getAttribute('data-id'); const q=state.quests.find(x=>x.id===id); if(!q||q.done) return;
+          q.done=true; b.textContent='✓ Completed'; b.classList.add('good'); await DB.put('quests',{id,done:true}); await addXP(XP_PER_QUEST);
+          if(document.getElementById('habScoreOnComplete').checked){ tryScoreHabitica(id); }
+        });
+      });
+    }
+  </script>
+
+  <!-- CALC LOGIC -->
+  <script>
+    const $ = s=>document.querySelector(s);
+    // Water
+    $('#calcEmer').onclick = ()=>{
+      const p=+$('#emerPeople').value, d=+$('#emerDays').value, lpd=+$('#emerLpPd').value;
+      const L = p*d*lpd; $('#emerOut').textContent = `Store ≈ ${L.toFixed(0)} L (${(L/3.785).toFixed(0)} US gal).`;
+    };
+    $('#calcRain').onclick = ()=>{
+      const mm=+$('#rainMM').value, m2=+$('#roofM2').value, c=+$('#coef').value;
+      const L = mm*m2*c; $('#rainOut').textContent = `Annual capture ≈ ${Math.round(L).toLocaleString()} L (${(L/1000).toFixed(1)} m³).`;
+    };
+    $('#calcChl').onclick = ()=>{
+      const L = +$('#chlVol').value, pct = +$('#chlPct').value;
+      const perGalDrops = (pct>=8?6:8); // 6 drops @8.25%, 8 drops @6%
+      const drops = L/3.785 * perGalDrops, tsp = drops/76;
+      $('#chlOut').textContent = `Dose ≈ ${Math.max(2,Math.round(drops))} drops (${tsp.toFixed(2)} tsp). Stand 30 min; check residual.`;
+    };
+    // ORS
+    $('#calcORS').onclick = ()=>{
+      const v=+$('#orsVol').value||1;
+      const sugar = 6*v; // level teaspoons
+      const salt = 0.5*v; // level teaspoons
+      $('#orsOut').textContent = `For ${v.toFixed(1)} L: ${sugar.toFixed(1)} level tsp sugar + ${salt.toFixed(1)} level tsp salt in safe water. Mix until dissolved. Use exact measures.`;
+    };
+    // Ration
+    $('#calcRation').onclick = ()=>{
+      const cal=+$('#rCal').value, ppl=+$('#rPeople').value, ppd=+$('#rPPD').value;
+      const days = cal/(ppl*ppd); $('#rOut').textContent = `≈ ${days.toFixed(1)} days at ${ppd} kcal/person/day for ${ppl} people.`;
+    };
+    // Pumps & PV
+    $('#calcPump').onclick = ()=>{
+      const Qlpm=+$('#pumpQ').value, H=+$('#pumpH').value, eta=Math.max(.1,Math.min(.95,+$('#pumpEta').value||.35));
+      const Q=(Qlpm/1000)/60; const P=1000*9.81*H*Q/eta;
+      $('#pumpOut').textContent = `Pump ≈ ${Math.ceil(P)} W; PV ≈ ${Math.ceil(P*1.4)} W headroom.`;
+    };
+    $('#calcPV').onclick = ()=>{
+      const Wh=+$('#pvWh').value, sun=+$('#pvSun').value, loss=+$('#pvLoss').value, days=+$('#pvDays').value;
+      const arrayW = Math.ceil(Wh/(sun*loss)); const battWh = Math.ceil(Wh*days/0.8); // crude 80% usable
+      $('#pvOut').textContent = `Array ≈ ${arrayW} W; Battery ≈ ${battWh} Wh (80% usable). Verify with real data.`;
+    };
+  </script>
+
+  <!-- OPENLAB: Uploads -->
+  <script>
+    async function saveFilesReturnIds(fileList){
+      const ids=[]; if(!fileList || !fileList.length) return ids;
+      for(const file of fileList){
+        const buff = await file.arrayBuffer();
+        const rec = { name:file.name, type:file.type, ts:Date.now(), data:new Blob([buff], {type:file.type}) };
+        const id = await DB.add('labfiles', rec); ids.push(id);
+      }
+      return ids;
+    }
+    async function saveDiscovery(){
+      const title=$('#labTitle').value.trim(); if(!title){ $('#labStatus').textContent='Title required.'; return; }
+      const cat=$('#labCategory').value, island=$('#labIsland').value.trim();
+      const bom=$('#labBOM').value, notes=$('#labNotes').value, alts=$('#labAlts').value;
+      const fileIds = await saveFilesReturnIds($('#labFiles').files);
+      const id = await DB.add('lab', { title, cat, island, bom, notes, alts, fileIds, ts:Date.now() });
+      $('#labStatus').textContent = `Saved (#${id}).`; setTimeout(()=>$('#labStatus').textContent='', 1600);
+      $('#labTitle').value=''; $('#labBOM').value=''; $('#labNotes').value=''; $('#labAlts').value=''; $('#labFiles').value='';
+      refreshLibrary();
+    }
+    async function fileIdToThumbUrl(id){
+      return new Promise((res, rej)=>{
+        const tx=DB.db.transaction('labfiles','readonly'); const rq=tx.objectStore('labfiles').get(id);
+        rq.onsuccess=()=>{ const rec=rq.result; if(!rec){ res(null); return; } res(URL.createObjectURL(rec.data)); };
+        rq.onerror=()=>rej(rq.error);
+      });
+    }
+    async function refreshLibrary(){
+      const list = await DB.all('lab'); const gal=$('#labGallery'); gal.innerHTML='';
+      for(const it of list.sort((a,b)=>b.ts-a.ts)){
+        let url=null; if(it.fileIds && it.fileIds.length) url=await fileIdToThumbUrl(it.fileIds[0]);
+        const card=document.createElement('div'); card.className='thumb';
+        card.innerHTML = `${url?`<img src="${url}" alt="">`:`<div style="height:140px;display:flex;align-items:center;justify-content:center;color:#6b7a96">No Image</div>`}
+          <div class="cap"><strong>${it.title}</strong><br><span class="mini">${it.cat}${it.island?` — ${it.island}`:''}</span></div>`;
+        card.addEventListener('click', ()=>openDiscovery(it)); gal.appendChild(card);
+      }
+      $('#libStatus').textContent = `${list.length} item(s) stored locally.`;
+    }
+    function openDiscovery(rec){
+      const w=window.open('','_blank');
+      const files=(rec.fileIds||[]).map(id=>`<li>file#${id}</li>`).join('');
+      w.document.write(`<pre style="white-space:pre-wrap;font-family:system-ui;background:#0e1624;color:#e8f0ff;padding:16px">
+<strong>${rec.title}</strong>
+Category: ${rec.cat}
+Island: ${rec.island||'-'}
+BOM:
+${rec.bom||'-'}
+
+Notes:
+${rec.notes||'-'}
+
+Alternatives:
+${rec.alts||'-'}
+
+Files:
+<ul>${files||'<li>None</li>'}</ul>
+</pre>`); w.document.close();
+    }
+    async function exportAll(){
+      const prof=await DB.get('profile','me'); const quests=await DB.all('quests'); const lab=await DB.all('lab'); const fileStore=await DB.all('labfiles');
+      async function blobToBase64(b){ return new Promise(r=>{ const fr=new FileReader(); fr.onload=()=>r(fr.result); fr.readAsDataURL(b); }); }
+      const files=[]; for(const f of fileStore){ const dataUrl=await blobToBase64(f.data); files.push({id:f.id,name:f.name,type:f.type,ts:f.ts,dataUrl}); }
+      const bundle={ meta:{app:'all-inclusive-survival',ver:1,ts:Date.now()}, prof, quests, lab, files };
+      const blob=new Blob([JSON.stringify(bundle)],{type:'application/json'}); const url=URL.createObjectURL(blob);
+      const a=document.createElement('a'); a.href=url; a.download=`survival-export-${Date.now()}.json`; a.click(); URL.revokeObjectURL(url);
+      $('#libStatus').textContent='Exported.';
+    }
+    async function importAllDialog(){
+      const inp=document.createElement('input'); inp.type='file'; inp.accept='application/json';
+      inp.onchange=async()=>{
+        const f=inp.files[0]; if(!f) return; const text=await f.text();
+        try{
+          const bundle=JSON.parse(text); if(bundle.prof) await DB.put('profile', bundle.prof);
+          if(Array.isArray(bundle.quests)) for(const q of bundle.quests){ await DB.put('quests', q); }
+          const fileMap=new Map();
+          if(Array.isArray(bundle.files)){
+            for(const rec of bundle.files){ const resp=await fetch(rec.dataUrl); const b=await resp.blob(); const newId=await DB.add('labfiles',{name:rec.name,type:rec.type,ts:rec.ts,data:b}); fileMap.set(rec.id,newId); }
+          }
+          if(Array.isArray(bundle.lab)){ for(const it of bundle.lab){ const ids=(it.fileIds||[]).map(old=>fileMap.get(old)).filter(Boolean); await DB.add('lab',{...it,id:undefined,fileIds:ids}); } }
+          $('#libStatus').textContent='Imported bundle.'; await initQuests(); refreshLibrary();
+        }catch(e){ $('#libStatus').textContent='Import failed: '+e.message; }
+      }; inp.click();
+    }
+    async function pushRemote(){
+      const url=$('#pushUrl').value.trim(); if(!url){ $('#libStatus').textContent='Set POST URL first.'; return; }
+      const auth=$('#pushAuth').value.trim();
+      const prof=await DB.get('profile','me'), quests=await DB.all('quests'), lab=await DB.all('lab'), fileStore=await DB.all('labfiles');
+      async function blobToBase64(b){ return new Promise(r=>{ const fr=new FileReader(); fr.onload=()=>r(fr.result); fr.readAsDataURL(b); }); }
+      const files=[]; for(const f of fileStore){ const dataUrl=await blobToBase64(f.data); files.push({id:f.id,name:f.name,type:f.type,ts:f.ts,dataUrl}); }
+      const bundle={ meta:{app:'all-inclusive-survival',ver:1,ts:Date.now()}, prof, quests, lab, files };
+      try{
+        const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json',...(auth?{'Authorization':auth}:{})},body:JSON.stringify(bundle)});
+        if(!res.ok) throw new Error('HTTP '+res.status); $('#libStatus').textContent='Pushed to endpoint.';
+      }catch(e){ $('#libStatus').textContent='Push failed (CORS/endpoint): '+e.message; }
+    }
+    // Wire buttons
+    document.getElementById('saveDiscovery').onclick=saveDiscovery;
+    document.getElementById('refreshLibrary').onclick=refreshLibrary;
+    document.getElementById('exportAll').onclick=exportAll;
+    document.getElementById('importAll').onclick=importAllDialog;
+    document.getElementById('pushRemote').onclick=pushRemote;
+  </script>
+
+  <!-- SETTINGS & HABITICA -->
+  <script>
+    const backdrop = document.getElementById('backdrop');
+    const coachBackdrop = document.getElementById('coachBackdrop');
+    document.getElementById('openSettings').onclick = ()=> backdrop.style.display='flex';
+    document.getElementById('closeSettings').onclick = ()=> backdrop.style.display='none';
+    document.getElementById('openCoach').onclick = ()=> coachBackdrop.style.display='flex';
+    document.getElementById('closeCoach').onclick = ()=> coachBackdrop.style.display='none';
+
+    async function loadHabitica(){
+      const creds=await DB.get('habitica','creds');
+      if(creds){
+        document.getElementById('habUser').value=creds.user||'';
+        document.getElementById('habKey').value=creds.key||'';
+        document.getElementById('habClient').value=creds.client||'';
+        document.getElementById('habPushTodos').checked=!!creds.push;
+        document.getElementById('habScoreOnComplete').checked=!!creds.score;
+      }
+    }
+    document.getElementById('saveHab').onclick = async ()=>{
+      await DB.put('habitica',{id:'creds', user:$('#habUser').value.trim(), key:$('#habKey').value.trim(), client:$('#habClient').value.trim(), push:$('#habPushTodos').checked, score:$('#habScoreOnComplete').checked});
+      document.getElementById('habSaveStatus').textContent='Saved locally.'; setTimeout(()=>document.getElementById('habSaveStatus').textContent='', 1500);
+    };
+    async function habiticaFetch(path,opts={}){
+      const creds=await DB.get('habitica','creds'); if(!creds||!creds.user||!creds.key) throw new Error('No Habitica credentials set.');
+      const headers={'Content-Type':'application/json','x-api-user':creds.user,'x-api-key':creds.key}; if(creds.client) headers['x-client']=creds.client;
+      const res=await fetch('https://habitica.com/api/v3'+path,{...opts,headers}); if(!res.ok) throw new Error('API error or CORS: '+res.status); return res.json();
+    }
+    async function ensureTodos(){
+      const create=async(title,notes)=>habiticaFetch('/tasks/user',{method:'POST',body:JSON.stringify({text:title,type:'todo',notes})});
+      const pend=state.quests.filter(q=>!q.done); const out=[]; for(const q of pend){ try{ out.push(await create(q.title,q.desc)); }catch(e){ break; } } return out;
+    }
+    async function tryScoreHabitica(questId){
+      try{
+        const list=await habiticaFetch('/tasks/user?type=todos'); const t=(list.data||[]).find(t=>t.text===state.quests.find(q=>q.id===questId)?.title);
+        if(t) await habiticaFetch(`/tasks/${t.id}/score/up`,{method:'POST'});
+      }catch(e){/* ignore */}
+    }
+    document.getElementById('syncHabitica').onclick = async ()=>{
+      const s=document.getElementById('habiticaStatus');
+      try{ s.textContent='Syncing…'; if(!document.getElementById('habPushTodos').checked){ s.textContent='Push disabled in Settings.'; return;}
+        const out=await ensureTodos(); s.textContent=`Requested ${out.length} to‑dos. If none appear, a CORS policy blocked the call.`; }
+      catch(e){ s.textContent='Habitica sync unavailable (CORS). Progress remains local.'; }
+      setTimeout(()=>s.textContent='',4000);
+    };
+  </script>
+
+  <!-- WEBLLM (local AI coach, with medical guardrails) -->
+  <script type="module">
+    import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm@0.2.79";
+    let engine=null, modelStr='Llama-3.2-3B-Instruct-q4f32_1-MLC';
+    const statusEl=document.getElementById('llmStatus');
+    document.getElementById('prepLLM').onclick = async ()=>{
+      try{
+        modelStr = document.getElementById('llmModel').value || modelStr;
+        statusEl.textContent='Downloading & preparing model…';
+        engine = await CreateMLCEngine(modelStr, { initProgressCallback: ({progress,text})=> statusEl.textContent = `Model init: ${(progress*100|0)}% ${text||''}` });
+        statusEl.textContent='Model ready (cached).';
+      }catch(e){ statusEl.textContent='WebGPU/Model init failed on this device.'; }
+    };
+    document.getElementById('askCoach').onclick = async ()=>{
+      const box=document.getElementById('coachInput'), reply=document.getElementById('coachReply'); const q=box.value.trim(); if(!q){ reply.textContent=''; return;}
+      document.getElementById('coachStatus').textContent='Thinking…';
+      if(!engine){ reply.textContent='Load model in Settings first.'; document.getElementById('coachStatus').textContent=''; return; }
+      const system={role:"system", content:`You are a careful survival, water, and food coach.
+- Give numbered steps, formulas, and unit sanity checks when appropriate.
+- Never provide instructions to synthesize pharmaceuticals, extract scheduled drugs, culture organisms, or give dosages for improvised medications. If asked, explain why and pivot to lawful, safe alternatives (stocking lists, first aid, sanitation, safe water, when to escalate).
+- Emphasize local sourcing and repairability without violating the above.`};
+      const msgs=[system,{role:"user",content:q}]; let full='';
+      try{ const chunks=await engine.chat.completions.create({messages:msgs,stream:true});
+        for await (const ch of chunks){ full+=(ch.choices[0]?.delta?.content??''); reply.textContent=full; } }
+      catch(e){ reply.textContent='Local inference failed or memory insufficient.'; }
+      document.getElementById('coachStatus').textContent='';
+    };
+  </script>
+
+  <!-- BOOT -->
+  <script>
+    (async function(){
+      await DB.open();
+      await initQuests();
+      await loadHabitica();
+      await refreshLibrary();
+      // Smooth internal links
+      document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click', e=>{
+        const id=a.getAttribute('href'); const t=document.querySelector(id); if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+      }));
+    })();
+  </script>
+
+  <footer class="footer muted">© Planetary Restoration Archive — All‑Inclusive Survival. Local‑first. <span style="float:right">v1.0</span></footer>
+</body>
+</html>

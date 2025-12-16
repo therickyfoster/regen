@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guardians of the Constellation: A Global Plan for Youth Digital Wellbeing (Greece‑anchored)</title>
+  <meta name="description" content="Feature‑rich, animated, offline‑capable single‑file blueprint to protect children and teens from risks of unsupervised AI/digital exposure, cyberbullying, and addictive platforms — globally, with Greece focus." />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0b0f1a" />
+  <!-- PWA Manifest (inlined & installed at runtime) -->
+  <link rel="manifest" id="inline-manifest" href="#"/>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Accessibility & SEO basics -->
+  <link rel="canonical" href="https://example.local/offline-youth-constellation" />
+  <meta name="robots" content="index,follow" />
+
+  <style>
+    :root{
+      --bg: #05070d;
+      --fg: #e9f0ff;
+      --muted:#9bb3ff;
+      --accent:#7aa2ff;
+      --accent-2:#a07aff;
+      --good:#70e7c0;
+      --warn:#ffd166;
+      --bad:#ff6b6b;
+      --card:#0c1222cc;
+      --card-border:#243554;
+      --focus: 0 0 0 .2rem #7aa2ff88;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+    html,body{height:100%;}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Color Emoji", "Apple Color Emoji", sans-serif;
+      color:var(--fg); background:var(--bg);
+      overflow-x:hidden;
+    }
+    a{color:var(--accent)} a:visited{color:var(--accent-2)}
+    /* Skip link */
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{left:1rem;top:1rem;width:auto;height:auto;padding:.6rem 1rem;background:#000;border-radius:8px;z-index:9999}
+
+    /* Galactic background (parallax starfield + nebula) */
+    .space{
+      position:fixed; inset:0; z-index:-2; background: radial-gradient(1200px 800px at 70% 20%, rgba(122,162,255,.15), transparent 60%),
+                  radial-gradient(1000px 700px at 20% 80%, rgba(160,122,255,.10), transparent 60%),
+                  linear-gradient(180deg, #070b15, #05070d 40%, #04060b);
+    }
+    .stars, .stars2, .stars3{
+      position:fixed; inset:0; z-index:-1; background:transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"><circle cx="1" cy="1" r="1" fill="white"/></svg>') repeat; opacity:.6; animation: drift 240s linear infinite;
+    }
+    .stars2{opacity:.4;transform:scale(1.5); animation-duration: 360s}
+    .stars3{opacity:.25;transform:scale(2.2); animation-duration: 540s}
+    @keyframes drift{from{background-position:0 0} to{background-position:-2000px -2000px}}
+
+    header{
+      position:sticky; top:0; backdrop-filter: blur(10px) saturate(120%);
+      background: linear-gradient(180deg, rgba(10,16,30,.85), rgba(10,16,30,.55));
+      border-bottom:1px solid var(--card-border);
+      z-index:50;
+    }
+    .wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+    .nav{display:flex;align-items:center;gap:1rem; padding: .6rem 0}
+    .brand{display:flex;align-items:center;gap:.75rem}
+    .brand .logo{width:36px;height:36px;border-radius:50%; background: conic-gradient(from 0deg,#7aa2ff,#a07aff,#7aa2ff); box-shadow:0 0 40px #7aa2ff33}
+    .brand h1{font-size:1.05rem;margin:0;letter-spacing:.3px}
+    .nav a.button{margin-left:auto}
+    .button{
+      display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--card-border); color:var(--fg);
+      background:linear-gradient(180deg,#0d1630,#0b1228); padding:.6rem .9rem; border-radius:12px; box-shadow:var(--shadow); text-decoration:none
+    }
+    .button:focus-visible{outline:none; box-shadow: var(--focus)}
+    .button.small{padding:.45rem .7rem;border-radius:10px;font-size:.9rem}
+
+    main{padding: 1.2rem 0 4rem}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;padding:2rem 0}
+    .hero h2{font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.6rem); margin:.2rem 0 .6rem}
+    .hero p.lead{font-size:1.1rem;color:var(--muted)}
+    .hero .card{background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:1rem 1.2rem}
+
+    .grid{display:grid;gap:1rem}
+    .cols-2{grid-template-columns: repeat(2, minmax(0,1fr))}
+    @media (max-width:900px){.hero{grid-template-columns:1fr}.cols-2{grid-template-columns:1fr}}
+
+    /* Cards & Sections */
+    section{scroll-margin-top:92px}
+    .card{background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:1rem 1.2rem; box-shadow: var(--shadow)}
+    .card h3{margin:.2rem 0 .4rem; font-size:1.25rem}
+    .muted{color:var(--muted)}
+
+    /* Accordion */
+    details{border:1px solid var(--card-border); border-radius:14px; background:linear-gradient(180deg, #0b1328, #0a1122); margin:.75rem 0}
+    details[open]{background:linear-gradient(180deg, #0e1936, #0b142a)}
+    summary{cursor:pointer; list-style:none; padding:.8rem 1rem; font-weight:600}
+    summary:focus-visible{outline:none; box-shadow:var(--focus)}
+    summary::-webkit-details-marker{display:none}
+    .accordion-body{padding:.6rem 1rem 1rem}
+
+    /* Pill nav */
+    .pills{display:flex;flex-wrap:wrap;gap:.6rem}
+    .pill{background:#0e1730;border:1px solid var(--card-border);border-radius:999px;padding:.35rem .7rem;font-size:.9rem}
+
+    /* Toast */
+    .toast{position:fixed;right:1rem;bottom:1rem;background:#0b1328;border:1px solid var(--card-border);padding:.7rem 1rem;border-radius:12px;display:none}
+
+    /* Footer */
+    footer{opacity:.9; padding:2rem 0 4rem; text-align:center; color:var(--muted)}
+
+    /* Focus styles for key elements */
+    a:focus-visible, button:focus-visible, input:focus-visible{outline:none; box-shadow:var(--focus)}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="space" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="stars2" aria-hidden="true"></div>
+  <div class="stars3" aria-hidden="true"></div>
+
+  <header role="banner">
+    <div class="wrap nav" aria-label="Primary">
+      <div class="brand" aria-label="Brand">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>Guardians of the Constellation — Youth Digital Wellbeing (GR → Global)</h1>
+      </div>
+      <a href="#download" class="button small" id="installBtn" aria-label="Install for offline use">Install ⚡</a>
+    </div>
+  </header>
+
+  <main id="main" class="wrap" role="main">
+    <section class="hero" aria-label="Intro">
+      <div>
+        <h2>Design for Children & Teens in the Age of Machine‑Mediated Attention</h2>
+        <p class="lead">A comprehensive blueprint to counter harms from <strong>unsupervised AI exposure</strong>, <strong>cyberbullying</strong>, and <strong>addictive platforms</strong>—with a special focus on <strong>Greece</strong>, adapted for global use. Built as a single‑file, offline‑first reference you can save, share, and extend.</p>
+        <div class="pills" aria-label="keywords">
+          <span class="pill">Child Rights</span><span class="pill">Mental Health</span><span class="pill">Safety‑by‑Design</span><span class="pill">AI Governance</span><span class="pill">Digital Literacy</span><span class="pill">EU Alignment</span><span class="pill">Parent Playbooks</span><span class="pill">School Toolkits</span>
+        </div>
+      </div>
+      <div class="card" aria-label="Executive Summary">
+        <h3>Executive Summary</h3>
+        <p>Children and teens are navigating a high‑intensity digital experiment without symmetric protections. This plan combines <em>policy</em>, <em>practice</em>, and <em>product</em> layers: (1) national policy aligning with EU/UN child‑rights standards; (2) community & family playbooks for daily life; (3) technical guardrails and ethical‑AI patterns; (4) narrative strategies that empower youth as <strong>co‑designers</strong> not guinea pigs; (5) phased implementation with metrics.</p>
+        <ul>
+          <li><strong>Immediate (0–6 months):</strong> high‑risk triage, school protocols, crisis lines, platform settings guides, age‑appropriate filters, cyberbullying response SOPs.</li>
+          <li><strong>Mid‑term (6–24 months):</strong> national curricula, youth councils, platform compliance audits, research registries, clinician training, parent micro‑courses.</li>
+          <li><strong>Long‑term (2–10 years):</strong> resilient institutions, verified youth ombuds, continuous evaluation, adaptive regulation for AR/AI‑agents/BCI horizons.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ACCORDIONS: Deep Content -->
+    <section id="policy" class="card" aria-label="Policy Roadmap (Greece‑anchored)">
+      <h3>Policy Roadmap (Greece‑anchored, globally portable)</h3>
+      <p class="muted">Aligns with EU child protection, the UN Convention on the Rights of the Child (UNCRC), and evolving AI governance—translated into Greek institutions.</p>
+      <details>
+        <summary>PR‑1: Foundational Principles & Legal Anchors</summary>
+        <div class="accordion-body">
+          <ul>
+            <li><strong>Child‑rights baseline:</strong> Best interests of the child, right to participation, protection from harm, privacy, access to information.</li>
+            <li><strong>EU alignment:</strong> Digital Services Act (DSA) risk assessments & mitigation; GDPR children’s data protections; AI Act risk tiers for systems impacting minors.</li>
+            <li><strong>Greek transposition:</strong> Establish a <em>National Youth Digital Wellbeing Authority (NYDWA)</em> coordinating Education, Health, Digital Governance, Citizen Protection.</li>
+            <li><strong>Duty of Care:</strong> Platforms with significant minor user bases must implement default‑safe settings, age‑appropriate design, and independent audits.</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>PR‑2: Education & Health System Integration</summary>
+        <div class="accordion-body">
+          <ul>
+            <li>Mandate <strong>Digital Resilience Curriculum</strong> across grades: AI literacy, critical media skills, bystander intervention, cyber‑ethics, sleep & attention hygiene.</li>
+            <li>Embed <strong>School Clinical Liaisons</strong>: train counselors in cyberbullying trauma care, screen‑time-related anxiety/depression, and online coercion dynamics.</li>
+            <li>Create <strong>Regional Youth Wellbeing Hubs</strong> to coordinate school psychologists, pediatricians, NGOs, helplines, and municipal programs.</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>PR‑3: Platform Regulation & Audits</summary>
+        <div class="accordion-body">
+          <ul>
+            <li>Require <strong>Minor Impact Assessments</strong> for recommender systems; publish risk registers; remediate manipulative design (dark patterns, infinite scroll).</li>
+            <li><strong>Age‑appropriate design code:</strong> no high‑risk features by default for minors; time‑aware prompts; bedtime & schooltime quiet modes.</li>
+            <li><strong>Independent auditing</strong> of cyberbullying moderation efficacy, CSAM detection, and harassment response times; publish quarterly dashboards.</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>PR‑4: Research, Data & Safeguards</summary>
+        <div class="accordion-body">
+          <ul>
+            <li><strong>Youth Research Registry:</strong> catalog ongoing studies on digital effects; enforce ethical oversight and data minimization.</li>
+            <li><strong>Privacy sandboxes</strong> for research with synthetic datasets where possible; ban commercial reuse of child data.</li>
+            <li><strong>Incident reporting rails</strong>: national portal for harms (doxing, sextortion, algorithmic abuse), with escalation to law enforcement when warranted.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section id="community" class="card" aria-label="Community & Family Playbook">
+      <h3>Community & Family Playbook</h3>
+      <p class="muted">Practical moves for parents, caregivers, schools, coaches, and peers—structured for daily life.</p>
+      <details>
+        <summary>CF‑1: Home Protocols</summary>
+        <div class="accordion-body">
+          <ul>
+            <li><strong>Default‑safe devices:</strong> create child profiles, content filters, communication limits, bedtime schedules, app whitelists.</li>
+            <li><strong>Family Agreements:</strong> co‑create rules: screen‑free meals, phone‑free bedrooms, consent for photos, report‑without‑punishment pledge.</li>
+            <li><strong>Signal safety:</strong> establish codewords for uncomfortable situations; encourage screenshot evidence saving.</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>CF‑2: School & Peer Protocols</summary>
+        <div class="accordion-body">
+          <ul>
+            <li><strong>Cyberbullying SOPs:</strong> recognize, document, report, restore; protect targets from retaliation; engage guardians.</li>
+            <li><strong>Bystander activation:</strong> anonymous tip lines; peer mentors; restorative circles; digital citizenship badges.</li>
+            <li><strong>Trusted Tech:</strong> vetted apps for homework and communication; privacy‑first tools; transparent data policies.</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>CF‑3: Crisis & Triage</summary>
+        <div class="accordion-body">
+          <ul>
+            <li>Immediate risks: self‑harm ideation, coercion, sextortion → escalate to trained responders and hotlines; preserve evidence.</li>
+            <li>Rapid containment: block/report features; platform safety teams; law‑enforcement rails for credible threats.</li>
+            <li>Post‑incident care: counseling, family debrief, gradual re‑exposure plans, social repair when appropriate.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section id="tech" class="card" aria-label="Technical Design Framework">
+      <h3>Technical Design Framework</h3>
+      <p class="muted">Safety‑by‑design patterns for products and networks—prioritizing minors’ rights and wellbeing.</p>
+      <details>
+        <summary>TDF‑1: Default‑Safe Interaction</summary>
+        <div class="accordion-body">
+          <ul>
+            <li><strong>Age‑appropriate modes:</strong> calm timelines, rate‑limited feeds, no autoplay, no infinite scroll, no late‑night push alerts for minors.</li>
+            <li><strong>AI guardrails:</strong> minor‑aware prompts; refusal for sexual content; grooming detection; context‑aware bystander tips.</li>
+            <li><strong>Time & mood prompts:</strong> periodic check‑ins that suggest breaks, movement, or supportive resources.</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>TDF‑2: Verification, Privacy, and Data Minimization</summary>
+        <div class="accordion-body">
+          <ul>
+            <li><strong>Privacy‑preserving age signals:</strong> device‑side estimation + parental consent flows; avoid storing biometric data; use zero‑knowledge proofs where feasible.</li>
+            <li><strong>Strict data budgets:</strong> only collect what’s essential; short retention; encrypted at rest/in transit; teen‑friendly transparency dashboards.</li>
+            <li><strong>Open safety APIs:</strong> enable third‑party auditors and guardians to monitor high‑level risk indicators without exposing private content.</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>TDF‑3: Moderation & Response</summary>
+        <div class="accordion-body">
+          <ul>
+            <li><strong>Hybrid moderation:</strong> AI triage + trained human reviewers specialized in youth contexts and Greek language/culture.</li>
+            <li><strong>Harms taxonomy:</strong> bullying, harassment, hate, self‑harm, sexual risk, scams; publish removal/appeal timelines.</li>
+            <li><strong>Safety UX:</strong> one‑tap block/report, context help, and traceable tickets with ETA; evidence export for parents/schools.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section id="narrative" class="card" aria-label="Narrative Strategy">
+      <h3>Narrative Strategy: From Lab Rats to Co‑Designers</h3>
+      <p class="muted">Kids are not guinea pigs—they are <em>Guardians‑in‑training</em>. Culture carries the shield.</p>
+      <details>
+        <summary>NS‑1: Greek Cultural Anchors</summary>
+        <div class="accordion-body">
+          <ul>
+            <li>Tap Greek mythic motifs (Ariadne’s thread, Theseus and the Labyrinth) to teach navigation of digital mazes with wisdom, not force.</li>
+            <li>Showcase local heroes—students, teachers, communities—who transformed toxic online spaces into prosocial clubs and maker circles.</li>
+            <li>Celebrate <strong>philotimo</strong> (honor/duty) as the ethic of online care for one another.</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>NS‑2: Youth Co‑Design</summary>
+        <div class="accordion-body">
+          <ul>
+            <li>Establish <strong>Youth Digital Councils</strong> at school/municipal levels; youth co‑author platform feedback and school policies.</li>
+            <li>Run <strong>Design Jams</strong> where teens prototype better safety UX, peer protocols, and media literacy games.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section id="phases" class="card" aria-label="Implementation Phases">
+      <h3>Implementation Phases & Workstreams</h3>
+      <details>
+        <summary>Phase 0–6 Months: Rapid Triage</summary>
+        <div class="accordion-body">
+          <ol>
+            <li>Publish national safety settings guides; deploy crisis hotlines; school cyberbullying SOPs; minimum viable audits for major platforms.</li>
+            <li>Train school counselors; launch bystander micro‑courses; begin data collection on incidents.</li>
+            <li>Start Youth Digital Councils in pilot municipalities.</li>
+          </ol>
+        </div>
+      </details>
+      <details>
+        <summary>Phase 6–24 Months: System Build‑Out</summary>
+        <div class="accordion-body">
+          <ol>
+            <li>Curriculum adoption nationwide; Hubs fully staffed; standardized reporting portal; parental micro‑courses (Greek + multilingual).</li>
+            <li>Annual platform audits published; penalties for non‑compliance; grants for open‑source safety tools.</li>
+            <li>National competitions for youth‑built wellbeing tools and media campaigns.</li>
+          </ol>
+        </div>
+      </details>
+      <details>
+        <summary>Phase 2–10 Years: Resilience & Foresight</summary>
+        <div class="accordion-body">
+          <ol>
+            <li>Institutionalize NYDWA; continuous evaluation; expand to AR/agentic‑AI/BCI contexts.</li>
+            <li>Longitudinal studies; community repair programs; international exchange on best practices.</li>
+          </ol>
+        </div>
+      </details>
+    </section>
+
+    <section id="governance" class="card" aria-label="Governance & Oversight">
+      <h3>Governance & Oversight</h3>
+      <ul>
+        <li><strong>Independent Ombuds for Youth:</strong> child‑friendly intake; binding recommendations; public dashboards.</li>
+        <li><strong>Ethics Board:</strong> clinicians, educators, technologists, youth reps, disability advocates, privacy experts.</li>
+        <li><strong>Transparency:</strong> quarterly metrics; incident heatmaps; audit outcomes; budget traces.</li>
+      </ul>
+    </section>
+
+    <section id="metrics" class="card" aria-label="Metrics & Evidence">
+      <h3>Metrics & Evidence</h3>
+      <ul>
+        <li><strong>Mental health:</strong> standardized well‑being scores; anxiety/depression incidence; sleep quality; counseling uptake.</li>
+        <li><strong>Safety:</strong> cyberbullying reports per 1,000 students; time‑to‑response; recidivism; restorative outcomes.</li>
+        <li><strong>Use patterns:</strong> daily screen time; night usage; exposure to high‑risk content; break adherence.</li>
+        <li><strong>Trust & Agency:</strong> student/parent trust indices; perceived control; co‑design participation rates.</li>
+      </ul>
+    </section>
+
+    <section id="toolkits" class="card" aria-label="Toolkits & Templates">
+      <h3>Toolkits & Templates</h3>
+      <details>
+        <summary>Downloads: Family Agreement, School SOPs, Incident Log</summary>
+        <div class="accordion-body">
+          <p>Use the buttons below to export ready‑to‑print templates. They embed simple guidance and checklists.</p>
+          <div class="grid cols-2">
+            <button class="button" data-doc="family">📄 Generate Family Agreement</button>
+            <button class="button" data-doc="sop">📄 Generate School Cyberbullying SOP</button>
+            <button class="button" data-doc="log">📄 Generate Incident Log Sheet</button>
+            <button class="button" data-doc="council">📄 Generate Youth Council Charter</button>
+          </div>
+        </div>
+      </details>
+      <details>
+        <summary>Schemas (JSON) for Offline Programs</summary>
+        <div class="accordion-body">
+          <pre aria-label="JSON Schemas"><code id="schemas" class="language-json" style="white-space:pre-wrap;word-break:break-word"></code></pre>
+        </div>
+      </details>
+    </section>
+
+    <section id="faq" class="card" aria-label="FAQ & Pitfalls">
+      <h3>FAQ & Pitfalls</h3>
+      <details>
+        <summary>“Won’t restrictions just push kids to darker corners?”</summary>
+        <div class="accordion-body">Restrictions alone fail. The mix that works: default‑safe design, genuine youth agency, pro‑social alternatives, and quick pathways to care.</div>
+      </details>
+      <details>
+        <summary>“Is age verification privacy‑invasive?”</summary>
+        <div class="accordion-body">It can be. That’s why we favor device‑side signals, parental consent, and zero‑knowledge proofs—no central biometric honeypots.</div>
+      </details>
+    </section>
+
+    <section id="download" class="card" aria-label="Offline & Exports">
+      <h3>Offline & Exports</h3>
+      <p>Install to your device for full offline reading. You can also export key templates as plain text.</p>
+      <div class="grid cols-2">
+        <button class="button" id="saveSelf">💾 Save this page (single‑file)</button>
+        <button class="button" id="forceCache">📦 Pre‑cache for offline</button>
+      </div>
+      <p class="muted">Tip: Add to Home Screen on mobile for app‑like experience.</p>
+    </section>
+  </main>
+
+  <div class="toast" role="status" aria-live="polite" id="toast">Ready for offline use.</div>
+
+  <footer role="contentinfo">
+    <div class="wrap">Built as a public good. Protect kids. Empower teens. Strengthen communities. ✨</div>
+  </footer>
+
+  <script>
+  // --- Minimal focus-visible polyfill for keyboard users
+  (function(){
+    function handleFirstTab(e){ if(e.key === 'Tab'){ document.body.classList.add('user-is-tabbing'); window.removeEventListener('keydown', handleFirstTab); } }
+    window.addEventListener('keydown', handleFirstTab);
+  })();
+
+  // --- Inline JSON Schemas & Template Generators
+  const schemas = {
+    FamilyAgreement: {
+      version: 1,
+      sections: ["Devices", "Bedtime", "Privacy & Consent", "Reporting Harms", "Repair & Restorative Steps"],
+      defaults: { bedrooms: false, screenFreeMeals: true, bedtime: "22:00" }
+    },
+    SchoolSOP: {
+      version: 1,
+      steps: ["Recognize", "Document", "Report", "Protect Target", "Restore"],
+      timing: { acknowledgeWithinHours: 24, resolutionTargetDays: 7 }
+    },
+    IncidentLog: {
+      fields: ["date", "student_id", "type", "platform", "evidence", "actions", "follow_up_date"],
+      severityScale: [1,2,3,4,5]
+    },
+    YouthCouncilCharter: {
+      roles: ["Chair (Student)", "Vice‑Chair (Student)", "Faculty Liaison", "Parent Rep"],
+      remit: ["Policy feedback", "Tool testing", "Peer education", "Campaigns"]
+    }
+  };
+  document.getElementById('schemas').textContent = JSON.stringify(schemas, null, 2);
+
+  const templateBodies = {
+`family`: `FAMILY DIGITAL AGREEMENT\n\nWe agree to:\n• Screen‑free meals and phone‑free bedrooms.\n• Bedtime device curfew at 22:00.\n• Ask consent before posting photos/videos.\n• Report problems without punishment; we solve it together.\n• Use safety settings and shared passwords for minors.\n\nSignatures: ______________________`,
+`sop`: `SCHOOL CYBERBULLYING SOP (MINIMUM)\n\n1) RECOGNIZE: Train staff to spot signs; create safe reporting channels.\n2) DOCUMENT: Preserve screenshots/URLs; protect evidence.\n3) REPORT: Log in central system; notify guardians as appropriate.\n4) PROTECT: Shield target from retaliation; adjust seating/groups if needed.\n5) RESTORE: Counseling, restorative meeting if appropriate; follow‑up in 7 days.`,
+`log`: `INCIDENT LOG SHEET\n\nDate: ____  Student: ____  Platform: ____  Type: ____\nEvidence saved (Y/N): ____  Actions taken: ____  Follow‑up date: ____  Severity (1‑5): ____`,
+`council`: `YOUTH DIGITAL COUNCIL — CHARTER\n\nPurpose: Co‑design safer, healthier digital spaces.\nMembership: Majority students; include faculty/parent reps.\nMeetings: Bi‑weekly during term; minutes public to school.\nPowers: Advise on policy; test tools; run campaigns; liaise with platforms.\nSafeguards: Anti‑harassment code; conflict‑of‑interest rules.`
+  };
+
+  document.querySelectorAll('[data-doc]').forEach(btn =>{
+    btn.addEventListener('click', ()=>{
+      const key = btn.getAttribute('data-doc');
+      const content = templateBodies[key];
+      const blob = new Blob([content], {type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = key + '.txt'; a.click(); URL.revokeObjectURL(url);
+    })
+  });
+
+  // --- Offline: dynamic manifest + service worker via Blob
+  const manifest = {
+    name: "Youth Digital Wellbeing (GR → Global)",
+    short_name: "YouthWellbeing",
+    start_url: ".",
+    display: "standalone",
+    background_color: "#05070d",
+    theme_color: "#0b0f1a",
+    icons: []
+  };
+  (function installManifest(){
+    const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    document.querySelector('#inline-manifest').setAttribute('href', url);
+  })();
+
+  // Service Worker code (as a string)
+  const swCode = `self.addEventListener('install', e=>{self.skipWaiting(); e.waitUntil(caches.open('youth-wellbeing-v1').then(c=>c.addAll(['./'])))});
+self.addEventListener('activate', e=>{e.waitUntil((async()=>{const keys=await caches.keys(); await Promise.all(keys.filter(k=>k!=='youth-wellbeing-v1').map(k=>caches.delete(k))); self.clients.claim()})())});
+self.addEventListener('fetch', e=>{const req=e.request; e.respondWith((async()=>{const cache=await caches.open('youth-wellbeing-v1'); const cached=await cache.match(req); try{const fresh=await fetch(req); if(req.method==='GET' && fresh && fresh.ok){cache.put(req, fresh.clone())} return fresh}catch(err){return cached || Response.error()}})())});`;
+
+  async function registerSW(){
+    if(!('serviceWorker' in navigator)) return;
+    const blob = new Blob([swCode], {type:'text/javascript'});
+    const url = URL.createObjectURL(blob);
+    try{ await navigator.serviceWorker.register(url); showToast('Ready for offline use.'); }
+    catch(e){ console.warn('SW register failed', e); }
+  }
+
+  function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.style.display='block'; setTimeout(()=>t.style.display='none', 3000) }
+
+  // Trigger SW on load
+  window.addEventListener('load', registerSW);
+
+  // Install button simply hints PWA install or stores a hint
+  document.getElementById('installBtn').addEventListener('click', ()=>{
+    showToast('If your browser supports it, use “Add to Home Screen” or browser menu → Install');
+  });
+
+  // Save self as a single file (best‑effort)
+  document.getElementById('saveSelf').addEventListener('click', ()=>{
+    const html = '<!doctype html>' + document.documentElement.outerHTML;
+    const blob = new Blob([html], {type:'text/html'}); const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download='youth_digital_wellbeing.html'; a.click(); URL.revokeObjectURL(url);
+  });
+
+  // Force cache (fetch assets to cache)
+  document.getElementById('forceCache').addEventListener('click', async ()=>{
+    try{ const r = await fetch('./'); if(r.ok){ showToast('Cached current page. Offline ready.'); } }
+    catch(e){ showToast('Cache attempt failed (likely already cached).'); }
+  });
+  </script>
+</body>
+</html>

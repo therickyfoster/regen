@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Water Sovereignty — Caribbean (Gamified Ultra Guide)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Ultra long-form, gamified Caribbean Water Sovereignty guide: morphing starfield UI, parallax mega menus, offline-first IndexedDB (uploads, images, discoveries), Habitica sync, WebLLM coach. Local innovation, sourcing, and DIY build methods." />
+  <meta name="keywords" content="Caribbean, water sovereignty, cistern, desalination, sargassum, rainwater harvesting, DIY filters, solar pumps, Habitica, WebLLM, IndexedDB, local sourcing, materials, fabrication" />
+  <link rel="canonical" href="https://example.org/water/" />
+  <meta property="og:title" content="Water Sovereignty — Caribbean (Gamified Ultra Guide)"/>
+  <meta property="og:description" content="Offline-first, ultra long-form water security guide with calculators, quests, uploads, and a local AI coach."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://example.org/water/"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <!-- Schema.org HowTo / CreativeWork -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"HowTo",
+    "name":"Caribbean Water Sovereignty — Gamified Ultra Guide",
+    "about":"Household and community-scale water security with local sourcing and DIY fabrication",
+    "isAccessibleForFree": true,
+    "inLanguage":"en",
+    "publisher":{"@type":"Organization","name":"Planetary Restoration Archive"},
+    "mainEntityOfPage":"https://example.org/water/",
+    "offers":{"@type":"Offer","price":"0"}
+  }
+  </script>
+
+  <!-- Custom presentation schema hook -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid",
+    "@type":"HybridPresentation",
+    "title":"Water Sovereignty — Caribbean",
+    "modules":["Quests","Calculators","OpenLab","Island Profiles","Emergency Playbooks","Governance & Finance","Sourcing & Fabrication"],
+    "features":["MorphingConstellations","ParallaxMenus","HabiticaSync","IndexedDB","LocalWebLLMCoach","UploadGallery","ExportImport"],
+    "siblingFolders":["/food/","/water/"]
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#04070f; --text:#e8f0ff; --muted:#9eb0c9; --accent:#9ad6ff; --accent2:#c5a1ff;
+      --panel:rgba(12,18,30,.75); --panel-solid:#0e1624; --card:rgba(255,255,255,.04);
+      --border:rgba(255,255,255,.09); --good:#4ade80; --warn:#f59e0b; --bad:#ef4444;
+      --shadow: 0 10px 35px rgba(0,0,0,.55); --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --sans: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--text); font-family:var(--sans); line-height:1.6; overflow-x:hidden;
+    }
+    a{color:#a7c8ff; text-decoration:none}
+    a:hover{text-decoration:underline}
+    /* Canvas sky layers */
+    #sky-wrap{position:fixed; inset:0; z-index:-2; overflow:hidden; perspective:1000px}
+    canvas.sky{position:absolute; inset:0; width:100%; height:100%}
+    #sky-stars{z-index:-2}
+    #sky-constellations{z-index:-1}
+
+    /* Parallax mega header */
+    header{
+      position:sticky; top:0; z-index:20; backdrop-filter: blur(14px) saturate(120%);
+      background:linear-gradient(to bottom, rgba(4,7,15,.75), rgba(4,7,15,.45));
+      border-bottom:1px solid var(--border);
+    }
+    nav{
+      display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 18px;
+    }
+    .brand{font-weight:900; letter-spacing:.25px}
+    .links{display:flex; align-items:center; gap:10px}
+    .btn{
+      display:inline-flex; align-items:center; gap:.5rem; padding:.65rem .95rem; border:1px solid var(--border);
+      border-radius:12px; background:var(--panel); color:var(--text); cursor:pointer; box-shadow:var(--shadow);
+      transform:translateZ(0); transition:transform .08s ease, background .2s ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn.good{border-color:rgba(74,222,128,.35)}
+    .btn.warn{border-color:rgba(245,158,11,.35)}
+    .btn.bad{border-color:rgba(239,68,68,.35)}
+
+    /* Mega dropdown */
+    .menu{position:relative}
+    .menu > button{border-radius:999px; background:linear-gradient(135deg, rgba(154,214,255,.08), rgba(197,161,255,.06));}
+    .dropdown{
+      position:absolute; top:110%; left:0; min-width:800px; max-width:92vw;
+      background:var(--panel-solid); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow);
+      display:none; padding:18px; transform-origin:20% -10%; transform: perspective(800px) rotateX(-8deg) translateY(-10px) scale(.98);
+      transition: transform .2s ease, opacity .2s ease; opacity:0;
+    }
+    .menu.open .dropdown{display:block; opacity:1; transform: perspective(800px) rotateX(0deg) translateY(0) scale(1);}
+    .dropdown .grid{display:grid; gap:14px}
+    @media (min-width:900px){ .dropdown .grid.cols-3{grid-template-columns:repeat(3,1fr)} }
+    .card{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px}
+    .muted{color:var(--muted)}
+    .pill{display:inline-block; padding:.2rem .6rem; border-radius:999px; border:1px solid var(--border); color:var(--muted); font-size:.85rem}
+    .kbd{font-family:var(--mono); background:rgba(255,255,255,.08); padding:.15rem .35rem; border-radius:6px; border:1px solid var(--border)}
+    .progress{width:100%; height:12px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden; border:1px solid var(--border)}
+    .progress > span{display:block; height:100%; background:linear-gradient(90deg, #36d1dc, #5b86e5); width:0%}
+
+    main{max-width:1220px; margin:0 auto; padding:22px}
+    section{
+      background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:22px; margin:16px 0; box-shadow:var(--shadow);
+    }
+    h1{font-size:2.2rem; margin:0 0 8px}
+    h2{font-size:1.55rem; margin:0 0 10px}
+    h3{font-size:1.2rem; margin:18px 0 8px}
+    .grid{display:grid; gap:14px}
+    @media (min-width:980px){ .grid.cols-2{grid-template-columns:1fr 1fr} .grid.cols-3{grid-template-columns:repeat(3,1fr)} .grid.cols-4{grid-template-columns:repeat(4,1fr)} }
+    .mini{font-size:.92rem}
+
+    /* Gallery */
+    .gallery{display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px}
+    .thumb{position:relative; border-radius:12px; overflow:hidden; border:1px solid var(--border); background:#0b1320}
+    .thumb img{display:block; width:100%; height:140px; object-fit:cover}
+    .thumb .cap{position:absolute; left:0; right:0; bottom:0; padding:6px 8px; background:linear-gradient(to top, rgba(0,0,0,.55), transparent); font-size:.85rem}
+
+    /* Modals general */
+    .modal-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; z-index:30}
+    .modal{width:min(880px, 92vw); background:var(--panel-solid); border:1px solid var(--border); border-radius:18px; padding:16px}
+    .modal header{position:relative; backdrop-filter:none; background:none; border-bottom:1px solid var(--border); border-radius:18px 18px 0 0}
+    .modal .close{position:absolute; right:12px; top:12px}
+
+    input, select, textarea{width:100%; padding:.7rem .8rem; background:#0d1624; color:var(--text); border:1px solid var(--border); border-radius:10px; outline:none;}
+    label{font-size:.9rem; color:var(--muted)}
+    .row{display:flex; gap:10px; align-items:center}
+    .stack{display:flex; flex-direction:column; gap:10px}
+    .footer{opacity:.7; font-size:.9rem; padding:26px 10px 80px}
+
+    /* Parallax scroll accents (cards tilt) */
+    .tilt{will-change:transform; transform-style:preserve-3d; transition:transform .15s ease}
+    .tilt:hover{transform: perspective(700px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateZ(10px)}
+  </style>
+</head>
+<body>
+  <!-- Sky layers -->
+  <div id="sky-wrap" aria-hidden="true">
+    <canvas id="sky-stars" class="sky"></canvas>
+    <canvas id="sky-constellations" class="sky"></canvas>
+  </div>
+
+  <!-- Header + mega dropdown -->
+  <header>
+    <nav>
+      <div class="links">
+        <span class="brand">Planetary Restoration Archive</span>
+        <span class="pill">Water Sovereignty — Caribbean</span>
+      </div>
+      <div class="links">
+        <a class="btn" href="../food/">/food/</a>
+        <a class="btn" href="./">/water/</a>
+
+        <div class="menu" data-depth="0.2">
+          <button class="btn" id="menuOpen">Explore ▼</button>
+          <div class="dropdown" id="mega">
+            <div class="grid cols-3">
+              <div class="card tilt">
+                <strong>Quests & XP</strong>
+                <p class="mini muted">Clear milestones from emergency reserves to island‑scale redundancy.</p>
+                <div class="progress" aria-label="XP progress"><span id="xpBar" style="width:0%"></span></div>
+                <div class="mini muted">Level <span id="level">1</span> · <span id="xp">0</span>/<span id="xpMax">200</span> XP</div>
+              </div>
+              <div class="card tilt">
+                <strong>Calculators</strong>
+                <p class="mini muted">Rain, cistern code, chlorination, solar pumping, desal energy & brine.</p>
+                <button class="btn" data-jump="#calculators">Open</button>
+              </div>
+              <div class="card tilt">
+                <strong>Open Lab (Uploads)</strong>
+                <p class="mini muted">Capture local innovations: notes, images, BOMs, and alternatives. Stored in IndexedDB with export/import.</p>
+                <button class="btn" data-jump="#openlab">Open</button>
+              </div>
+              <div class="card tilt">
+                <strong>Sourcing & Fabrication</strong>
+                <p class="mini muted">Where to source parts locally; how to fabricate & repair with island stock.</p>
+                <button class="btn" data-jump="#sourcing">Open</button>
+              </div>
+              <div class="card tilt">
+                <strong>Playbooks</strong>
+                <p class="mini muted">Boil‑water SOPs, rainwater QA, sargassum response, drought triggers.</p>
+                <button class="btn" data-jump="#playbooks">Open</button>
+              </div>
+              <div class="card tilt">
+                <strong>AI Coach</strong>
+                <p class="mini muted">Local, in‑browser WebLLM design assistant for quick sanity checks.</p>
+                <button class="btn good" id="openCoach">AI Coach</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn" id="openSettings">Settings</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="hero" class="tilt">
+      <h1>Caribbean Water Sovereignty — Gamified Ultra Guide</h1>
+      <p class="mini muted">From <em>3‑day potable reserves</em> to <em>cistern mastery</em>, <em>solar pumping</em>, and <em>island‑scale redundancy</em>. Offline‑first with IndexedDB, Habitica sync, uploads, and a local AI coach.</p>
+      <div class="grid cols-3">
+        <div class="card">
+          <strong>Local‑First</strong>
+          <p class="mini muted">All progress and uploads stored in your browser via <code>IndexedDB</code>. Export anytime as a JSON bundle.</p>
+        </div>
+        <div class="card">
+          <strong>Folders</strong>
+          <div><a href="../food/">../food/</a> · <a href="./">./water/</a></div>
+          <p class="mini muted">Place this file at <code>/water/index.html</code>. Mirror structure in <code>/food/</code>.</p>
+        </div>
+        <div class="card">
+          <strong>Resilience Lens</strong>
+          <p class="mini muted">Grid fragility, sargassum surges, spare parts delays, cistern hygiene, and drought dashboards.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUESTS -->
+    <section id="quests" class="tilt">
+      <h2>Questline: From Thirst to Resilience</h2>
+      <p class="mini muted">Earn XP by completing milestones; optionally sync tasks to Habitica. Quests emphasize local sourcing and DIY.</p>
+      <div class="grid cols-2" id="questList"><!-- populated by JS --></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn good" id="syncHabitica">Sync to Habitica</button>
+        <span id="habiticaStatus" class="mini muted"></span>
+      </div>
+    </section>
+
+    <!-- CALCULATORS -->
+    <section id="calculators" class="tilt">
+      <h2>Calculators — Design Faster, Fail Less</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Emergency Reserve</h3>
+          <label>People</label><input id="emerPeople" type="number" min="1" value="3"/>
+          <label>Days</label><input id="emerDays" type="number" min="1" value="3"/>
+          <label>Liters per person per day</label><input id="emerLpPd" type="number" step="0.1" value="3.5"/>
+          <div class="row"><button class="btn" id="calcEmer">Calculate</button><span id="emerOut" class="mini muted"></span></div>
+        </div>
+
+        <div class="card">
+          <h3>Rain Catchment (roof)</h3>
+          <label>Annual rainfall (mm)</label><input id="rainMM" type="number" value="1500"/>
+          <label>Roof area (m²)</label><input id="roofM2" type="number" value="120"/>
+          <label>Runoff coefficient</label><input id="coef" type="number" step="0.05" value="0.9"/>
+          <div class="row"><button class="btn" id="calcRain">Estimate</button><span id="rainOut" class="mini muted"></span></div>
+        </div>
+
+        <div class="card">
+          <h3>Chlorine Dosing (Emergency)</h3>
+          <label>Volume (liters)</label><input id="chlVol" type="number" value="20"/>
+          <label>Bleach strength</label>
+          <select id="chlPct"><option value="6">6%</option><option value="8.25">8.25%</option></select>
+          <div class="row"><button class="btn" id="calcChl">Dose</button><span id="chlOut" class="mini muted"></span></div>
+          <p class="mini muted">Aim for ~0.5 mg/L free chlorine after 30 min contact; ≥0.2 mg/L at use.</p>
+        </div>
+
+        <div class="card">
+          <h3>Solar Pump Sizing</h3>
+          <label>Flow (L/min)</label><input id="pumpQ" type="number" value="15"/>
+          <label>Total Dynamic Head (m)</label><input id="pumpH" type="number" value="20"/>
+          <label>Efficiency (0.2–0.5)</label><input id="pumpEta" type="number" step="0.05" value="0.35"/>
+          <div class="row"><button class="btn" id="calcPump">Estimate PV W</button><span id="pumpOut" class="mini muted"></span></div>
+        </div>
+
+        <div class="card">
+          <h3>Desal (SWRO)</h3>
+          <label>Production (m³/day)</label><input id="roM3d" type="number" value="1000"/>
+          <label>SEC range (kWh/m³)</label><input id="roSEC" type="text" value="2.5–4.5"/>
+          <label>Recovery (%)</label><input id="roRec" type="number" value="40"/>
+          <div class="row"><button class="btn warn" id="calcRO">Compute</button><span id="roOut" class="mini muted"></span></div>
+        </div>
+
+        <div class="card">
+          <h3>Cistern Code (USVI example)</h3>
+          <label>Roof area (ft²)</label><input id="cisFt2" type="number" value="2000"/>
+          <label>Use type</label>
+          <select id="cisUse"><option value="res">Residential (min 4.5 gal/ft²)</option><option value="mixed">Combined occupancy (10 gal/ft²)</option></select>
+          <div class="row"><button class="btn" id="calcCis">Minimum Capacity</button><span id="cisOut" class="mini muted"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPEN LAB: Upload discoveries, images, alternatives -->
+    <section id="openlab" class="tilt">
+      <h2>Open Lab — Local Innovation & Evidence</h2>
+      <p class="mini muted">Document field hacks, material substitutions, and build notes. Upload images and files, tag them, and keep alternatives. Everything stays in your browser (<code>IndexedDB</code>) unless you export or push to a remote endpoint.</p>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>New Discovery</h3>
+          <label>Title</label><input id="labTitle" placeholder="e.g., Cistern first-flush from 110mm PVC + tennis ball valve"/>
+          <label>Category</label>
+          <select id="labCategory">
+            <option>Tools</option><option>Materials</option><option>Methods</option><option>Fabrication</option><option>Maintenance</option><option>Policy/Governance</option>
+          </select>
+          <label>Island / Locality</label><input id="labIsland" placeholder="e.g., Saint George, Barbados"/>
+          <label>Bill of Materials (BOM)</label><textarea id="labBOM" rows="4" placeholder="- PVC 110mm (1m)
+- Tennis ball (1)
+- 110mm end cap with drain"/></textarea>
+          <label>How‑To / Notes</label><textarea id="labNotes" rows="6" placeholder="Step 1… Safety… Test protocol…"></textarea>
+          <label>Alternatives</label><textarea id="labAlts" rows="4" placeholder="- Substitute: 100mm + adapter
+- Use HDPE drum if PVC scarce"/></textarea>
+          <label>Attach images/files (stored locally)</label>
+          <input id="labFiles" type="file" multiple accept="image/*,.pdf,.txt,.csv,.json" />
+          <div class="row">
+            <button class="btn good" id="saveDiscovery">Save Discovery</button>
+            <span id="labStatus" class="mini muted"></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Library</h3>
+          <div class="row">
+            <button class="btn" id="refreshLibrary">Refresh</button>
+            <button class="btn" id="exportAll">Export</button>
+            <button class="btn warn" id="importAll">Import</button>
+            <button class="btn" id="pushRemote">Push to Endpoint</button>
+          </div>
+          <div class="mini muted" id="libStatus"></div>
+          <div class="gallery" id="labGallery"><!-- populated by JS --></div>
+        </div>
+      </div>
+
+      <details class="card" style="margin-top:10px">
+        <summary><strong>Remote Push (Optional)</strong></summary>
+        <p class="mini muted">If you run your own endpoint (e.g., a simple server or proxy you control), you can POST a JSON bundle with base64 files. CORS may block in-browser calls; in that case download the export and upload manually.</p>
+        <label>POST URL</label><input id="pushUrl" placeholder="https://your-endpoint.example/upload"/>
+        <label>Auth header (optional)</label><input id="pushAuth" placeholder="Bearer &lt;token&gt;"/>
+      </details>
+    </section>
+
+    <!-- SOURCING & FABRICATION -->
+    <section id="sourcing" class="tilt">
+      <h2>Sourcing & Fabrication — Caribbean‑Savvy</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Food‑Grade Storage</h3>
+          <p class="mini">HDPE drums (where ex‑food import streams exist), IBC totes, NSF‑rated liners, opaque tanks to curb algae. Inspect for prior contents; avoid solvent/drum re-use for potable water.</p>
+          <details class="mini">
+            <summary>DIY: Drum → Cistern (modular)</summary>
+            <ul>
+              <li>Rinse with mild detergent → 200 ppm chlorine → rinse.</li>
+              <li>Manifold via bulkhead fittings + PVC; add screened vent + overflow.</li>
+              <li>Elevate on blocks; seismic strap; paint UV shield.</li>
+            </ul>
+          </details>
+        </div>
+        <div class="card">
+          <h3>Filters & Media</h3>
+          <p class="mini">5µm poly sediment, carbon block, and UV/chlorine. For emergency carbon, see coconut shell biochar (food‑contact safe only with strict QA; test for ash/metal).</p>
+          <details class="mini">
+            <summary>DIY: PVC Cartridge Housing</summary>
+            <ul>
+              <li>110mm PVC pipe + 2 end caps; solvent weld; EPDM gasket seat.</li>
+              <li>Drill 1/2&quot; NPT inlet/outlet bosses; add unions & drain.</li>
+              <li>Pressure test to 2× operating pressure before use.</li>
+            </ul>
+          </details>
+        </div>
+        <div class="card">
+          <h3>First‑Flush & Screens</h3>
+          <p class="mini">Leaf screens (304 SS mesh ≥1 mm), mosquito mesh (≤1 mm), tennis‑ball diverters, simple needle‑valves for drain control.</p>
+          <details class="mini">
+            <summary>DIY: Tennis‑Ball Diverter</summary>
+            <ul>
+              <li>Short vertical PVC with end‑cap drain and cage.</li>
+              <li>Ball floats to seal after initial flush (0.5–1 mm rain).</li>
+            </ul>
+          </details>
+        </div>
+        <div class="card">
+          <h3>Solar Pump Kits</h3>
+          <p class="mini">Brushless DC pumps, non‑return valves, float switches, small MPPT. Match TDH and duty cycle to cistern height and run hours.</p>
+          <details class="mini">
+            <summary>DIY: Shade‑Tolerant PV Mount</summary>
+            <ul>
+              <li>Galvalume angles, SS hardware, wind bracing.</li>
+              <li>Salt‑spray: prefer 316 SS + anti‑seize; recoat cuts.</li>
+            </ul>
+          </details>
+        </div>
+        <div class="card">
+          <h3>Sargassum Intake Defense</h3>
+          <p class="mini">Replaceable offshore screens; boom nets; crew SOP to clear intakes; emergency wells or barging contracts.</p>
+        </div>
+        <div class="card">
+          <h3>Low‑Tech Distillers (Emergency)</h3>
+          <p class="mini">Solar stills & kettle‑condenser rigs for small volumes; not for saline feed at scale; always test output TDS & residual.</p>
+        </div>
+      </div>
+      <p class="mini muted">Safety: Validate potability with residual chlorine, turbidity, and presence/absence coliform tests. Where in doubt, boil.</p>
+    </section>
+
+    <!-- PLAYBOOKS -->
+    <section id="playbooks" class="tilt">
+      <h2>Playbooks — Practical SOPs</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Boil‑Water / Bleach SOP</h3>
+          <ol class="mini">
+            <li>Strain cloudy water through cloth. Boil 1 minute (≥2000 m elevation: 3 min).</li>
+            <li>Alternative: dose unscented bleach to reach ~0.5 mg/L after 30 min; maintain ≥0.2 mg/L at tap.</li>
+            <li>Store in food‑grade containers; label & date; avoid sun/heat.</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h3>Rainwater QA</h3>
+          <ul class="mini">
+            <li>Roof hygiene + leaf screens + first‑flush 0.5–1 mm.</li>
+            <li>Train: sediment → carbon → disinfection (chlorine or UV).</li>
+            <li>Annual cistern cleaning; tight lids & screened vents.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ISLAND GAPS -->
+    <section id="islands" class="tilt">
+      <h2>High‑Signal Gaps — Region Snapshot</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Common Weak Links</h3>
+          <ul class="mini">
+            <li>Grid outages → pumping & treatment failures → advisories.</li>
+            <li>Sargassum surges clog intakes for desal & power plants.</li>
+            <li>Spare parts & membranes delayed by import/customs.</li>
+            <li>Brine management under‑engineered near enclosed bays.</li>
+            <li>Cistern hygiene lapses; residual testing inconsistent.</li>
+            <li>Data deserts: rainfall/storage/outage visibility lagging.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Examples</h3>
+          <ul class="mini">
+            <li>Barbados: water‑scarce; diversify via reuse, recharge, desal.</li>
+            <li>USVI: cisterns common by code; emphasize maintenance.</li>
+            <li>Puerto Rico: grid failures cascade into water outages.</li>
+            <li>Antigua & Barbuda: desal expansions; govern brine & energy.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS MODAL -->
+    <div id="backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="modal">
+        <header>
+          <h3 id="settingsTitle">Settings & Sync</h3>
+          <button class="btn close" id="closeSettings">✕</button>
+        </header>
+        <div class="stack">
+          <details open>
+            <summary><strong>Habitica</strong> (optional)</summary>
+            <div class="grid cols-2">
+              <div>
+                <label>User ID</label><input id="habUser" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"/>
+                <label>API Token</label><input id="habKey" placeholder="your-secret-token"/>
+                <label>x-client (recommended)</label><input id="habClient" placeholder="your-userid-waterapp"/>
+                <p class="mini muted">Stored only in your browser via IndexedDB. CORS may block direct calls.</p>
+              </div>
+              <div class="card">
+                <strong>Sync Options</strong>
+                <label><input type="checkbox" id="habPushTodos" checked/> Push quests as To‑Dos</label>
+                <label><input type="checkbox" id="habScoreOnComplete" checked/> Score tasks on completion</label>
+                <button class="btn good" id="saveHab">Save Habitica Settings</button>
+                <div id="habSaveStatus" class="mini muted"></div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary><strong>Local AI Coach (WebLLM)</strong></summary>
+            <p class="mini">Runs in browser (WebGPU). First load caches a quantized model for offline use.</p>
+            <label>Model</label><input id="llmModel" value="Llama-3.2-3B-Instruct-q4f32_1-MLC"/>
+            <button class="btn" id="prepLLM">Preload Model</button>
+            <div id="llmStatus" class="mini muted"></div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <!-- COACH MODAL -->
+    <div id="coachBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="coachTitle">
+      <div class="modal">
+        <header>
+          <h3 id="coachTitle">AI Coach — Water Design Assistant</h3>
+          <button class="btn close" id="closeCoach">✕</button>
+        </header>
+        <div class="stack">
+          <textarea id="coachInput" rows="6" placeholder="Ask: 'Size a cistern for 120 m² roof at 1600 mm/yr with 0.85 runoff for 4 people.'"></textarea>
+          <div class="row">
+            <button class="btn good" id="askCoach">Ask</button>
+            <span id="coachStatus" class="mini muted"></span>
+          </div>
+          <div id="coachReply" class="card mini"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- PHOTOREALISTIC MORPHING CONSTELLATIONS + PARALLAX MENU -->
+  <script>
+    // Namespace
+    window.App = window.App || {};
+    (function(){
+      const DPR = Math.min(2, devicePixelRatio||1);
+      const starsCanvas = document.getElementById('sky-stars');
+      const constCanvas = document.getElementById('sky-constellations');
+      const sctx = starsCanvas.getContext('2d', {alpha:false});
+      const cctx = constCanvas.getContext('2d', {alpha:true});
+
+      let W = innerWidth, H = innerHeight;
+      function fit(c, ctx, alphaBg=false){
+        c.width = W*DPR; c.height = H*DPR; c.style.width=W+'px'; c.style.height=H+'px'; ctx.setTransform(DPR,0,0,DPR,0,0);
+        if(!alphaBg){ ctx.fillStyle='#04070f'; ctx.fillRect(0,0,W,H); }
+      }
+      fit(starsCanvas, sctx); fit(constCanvas, cctx, true);
+      addEventListener('resize', ()=>{ W=innerWidth; H=innerHeight; fit(starsCanvas,sctx); fit(constCanvas,cctx,true); });
+
+      // Starfield layers
+      const layers = [
+        {count:1400, speed:.008, size:[.6,1.2], tw:[.3,.9]},
+        {count:700,  speed:.015, size:[1,1.8],  tw:[.4,1.0]},
+        {count:260,  speed:.022, size:[1.2,2.6],tw:[.6,1.2]}
+      ];
+      let stars = [];
+      function initStars(){
+        stars = [];
+        layers.forEach(L=>{
+          for(let i=0;i<L.count;i++){
+            stars.push({
+              x: Math.random()*W, y: Math.random()*H,
+              r: L.size[0] + Math.random()*(L.size[1]-L.size[0]),
+              a: .2 + Math.random()*.85,
+              tw: Math.random()*Math.PI*2, twamp: L.tw[0] + Math.random()*(L.tw[1]-L.tw[0]),
+              sp: L.speed*(.6+Math.random()*.8),
+              hue: 200 + Math.random()*40
+            });
+          }
+        });
+      }
+      initStars();
+
+      // Constellation morph targets (abstracted seeds -> "constellations")
+      const seeds = [
+        // Triangulum-ish
+        [{x:.15,y:.25},{x:.35,y:.30},{x:.45,y:.12},{x:.40,y:.48},{x:.22,y:.55}],
+        // A spiral cluster
+        [...Array(9)].map((_,i)=>({x:.55+.2*Math.cos(i*.7)*(.5-i/12), y:.35+.18*Math.sin(i*.7)*(.5-i/12)})),
+        // Arc ribbon
+        [...Array(8)].map((_,i)=>({x:.15+.7*(i/7), y:.62+.1*Math.sin(i*.8)})),
+        // Kite
+        [{x:.72,y:.18},{x:.83,y:.30},{x:.76,y:.48},{x:.68,y:.33}],
+        // Wave
+        [...Array(10)].map((_,i)=>({x:.1+.8*(i/9), y:.2+.15*Math.sin(i*.9)+.05*Math.sin(i*2.2)}))
+      ];
+      let seedIndex=0, morphT=0, morphDir=1;
+
+      // Parallax
+      let mx=0,my=0, parallax={x:0,y:0};
+      addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; parallax.x = (mx/W-.5); parallax.y = (my/H-.5); });
+
+      function drawStars(){
+        sctx.fillStyle='#04070f'; sctx.fillRect(0,0,W,H);
+        // Nebula glows
+        const g1 = sctx.createRadialGradient(W*.65, -H*.15, 50, W*.5, H*1.1, Math.max(W,H));
+        g1.addColorStop(0, 'rgba(160,200,255,0.10)'); g1.addColorStop(1, 'rgba(0,0,0,0)');
+        sctx.fillStyle=g1; sctx.fillRect(0,0,W,H);
+
+        sctx.globalCompositeOperation='screen';
+        for(const s of stars){
+          s.x -= s.sp*(1+.3*parallax.x);
+          if(s.x<-5) s.x=W+5;
+          s.tw += 0.02 + s.sp*2;
+          const a = s.a * (0.6 + 0.4*Math.sin(s.tw)*s.twamp);
+          // star core
+          sctx.beginPath(); sctx.arc(s.x + parallax.x*10, s.y + parallax.y*10, s.r, 0, 2*Math.PI);
+          sctx.fillStyle=`rgba(255,255,255,${a})`; sctx.fill();
+          // soft bloom
+          sctx.beginPath(); sctx.arc(s.x + parallax.x*14, s.y + parallax.y*14, s.r*2.4, 0, 2*Math.PI);
+          sctx.fillStyle=`rgba(170,200,255,${a*0.12})`; sctx.fill();
+        }
+        sctx.globalCompositeOperation='source-over';
+      }
+
+      function drawConstellations(){
+        cctx.clearRect(0,0,W,H);
+        const nextIndex = (seedIndex+1)%seeds.length;
+        morphT += 0.003*morphDir;
+        if(morphT>=1){ morphT=1; morphDir=-1; seedIndex=nextIndex; }
+        if(morphT<=0){ morphT=0; morphDir=1; }
+
+        const curr = seeds[seedIndex], next = seeds[nextIndex];
+        const n = Math.max(curr.length, next.length);
+        for(let i=0;i<n;i++){
+          const a = curr[i%curr.length], b = next[i%next.length];
+          const x = (a.x*(1-morphT)+b.x*morphT)*W + parallax.x*18;
+          const y = (a.y*(1-morphT)+b.y*morphT)*H + parallax.y*18;
+          // node glow
+          cctx.beginPath(); cctx.arc(x,y,2.2,0,2*Math.PI);
+          cctx.fillStyle='rgba(190,215,255,.9)'; cctx.fill();
+          cctx.beginPath(); cctx.arc(x,y,7,0,2*Math.PI);
+          cctx.fillStyle='rgba(120,170,255,.12)'; cctx.fill();
+        }
+        // connective lines (Delaunay-ish by simple neighbor linking)
+        cctx.lineWidth=1.2; cctx.strokeStyle='rgba(160,200,255,.35)';
+        for(let i=0;i<n-1;i++){
+          const a = curr[i%curr.length], b = curr[(i+1)%curr.length];
+          const ax = (a.x*(1-morphT)+next[i%next.length].x*morphT)*W + parallax.x*18;
+          const ay = (a.y*(1-morphT)+next[i%next.length].y*morphT)*H + parallax.y*18;
+          const bx = (b.x*(1-morphT)+next[(i+1)%next.length].x*morphT)*W + parallax.x*18;
+          const by = (b.y*(1-morphT)+next[(i+1)%next.length].y*morphT)*H + parallax.y*18;
+          cctx.beginPath(); cctx.moveTo(ax,ay); cctx.lineTo(bx,by); cctx.stroke();
+        }
+      }
+
+      function loop(){ drawStars(); drawConstellations(); requestAnimationFrame(loop); }
+      requestAnimationFrame(loop);
+
+      // Parallax mega dropdown logic
+      const menu = document.querySelector('.menu');
+      const openBtn = document.getElementById('menuOpen');
+      const mega = document.getElementById('mega');
+      openBtn.addEventListener('click', ()=>{
+        menu.classList.toggle('open');
+      });
+      document.addEventListener('click', (e)=>{
+        if(!menu.contains(e.target) && menu.classList.contains('open')) menu.classList.remove('open');
+      });
+      // Smooth jumps
+      mega.querySelectorAll('[data-jump]').forEach(b=>{
+        b.addEventListener('click', e=>{
+          e.preventDefault(); const t = document.querySelector(b.getAttribute('data-jump'));
+          if(t){ t.scrollIntoView({behavior:'smooth',block:'start'}); menu.classList.remove('open'); }
+        });
+      });
+      // Tilt effect for cards
+      document.querySelectorAll('.tilt').forEach(el=>{
+        el.addEventListener('mousemove', e=>{
+          const r = el.getBoundingClientRect();
+          const rx = ((e.clientY - r.top)/r.height - 0.5)*-6;
+          const ry = ((e.clientX - r.left)/r.width - 0.5)*6;
+          el.style.setProperty('--rx', rx+'deg'); el.style.setProperty('--ry', ry+'deg');
+        });
+        el.addEventListener('mouseleave', ()=>{ el.style.setProperty('--rx','0deg'); el.style.setProperty('--ry','0deg'); });
+      });
+
+      // Expose minimal API
+      window.App.Sky = { refresh:initStars };
+    })();
+  </script>
+<!-- INDEXEDDB CORE (schema for profile, quests, lab uploads, habitica) -->
+  <script>
+    const DB = {
+      db: null,
+      open(){ return new Promise((res, rej)=>{
+        const req = indexedDB.open('carib-water-sovereignty', 2);
+        req.onupgradeneeded = e=>{
+          const db = e.target.result;
+          if(!db.objectStoreNames.contains('profile')) db.createObjectStore('profile', { keyPath:'id' });
+          if(!db.objectStoreNames.contains('quests')) db.createObjectStore('quests', { keyPath:'id' });
+          if(!db.objectStoreNames.contains('habitica')) db.createObjectStore('habitica', { keyPath:'id' });
+          if(!db.objectStoreNames.contains('lab')) db.createObjectStore('lab', { keyPath:'id', autoIncrement:true });
+          if(!db.objectStoreNames.contains('labfiles')) db.createObjectStore('labfiles', { keyPath:'id', autoIncrement:true });
+        };
+        req.onsuccess =()=>{ this.db = req.result; res(); };
+        req.onerror =()=> rej(req.error);
+      });},
+      put(store, value){ return new Promise((res, rej)=>{
+        const tx = this.db.transaction(store,'readwrite'); tx.oncomplete=()=>res(); tx.onerror=()=>rej(tx.error);
+        tx.objectStore(store).put(value);
+      });},
+      add(store, value){ return new Promise((res, rej)=>{
+        const tx = this.db.transaction(store,'readwrite'); tx.onerror=()=>rej(tx.error);
+        const req = tx.objectStore(store).add(value); req.onsuccess=()=>res(req.result);
+      });},
+      get(store, key){ return new Promise((res, rej)=>{
+        const tx = this.db.transaction(store,'readonly'); tx.onerror=()=>rej(tx.error);
+        const rq = tx.objectStore(store).get(key); rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error);
+      });},
+      all(store){ return new Promise((res, rej)=>{
+        const tx = this.db.transaction(store,'readonly'); tx.onerror=()=>rej(tx.error);
+        const rq = tx.objectStore(store).getAll(); rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error);
+      });},
+      del(store, key){ return new Promise((res, rej)=>{
+        const tx = this.db.transaction(store,'readwrite'); tx.onerror=()=>rej(tx.error);
+        const rq = tx.objectStore(store).delete(key); rq.onsuccess=()=>res(); rq.onerror=()=>rej(rq.error);
+      });}
+    };
+  </script>
+
+  <!-- QUEST ENGINE + XP -->
+  <script>
+    const XP_PER_QUEST = 40;
+    const state = {xp:0, level:1, xpMax:220, quests:[]};
+
+    const QUESTS = [
+      // L1 Emergency
+      {id:'L1-1', title:'3-Day Potable Reserve', desc:'Store ≥3–4 L/person/day × 3 days. Label & rotate.', badge:'Reserve-3d'},
+      {id:'L1-2', title:'Boil/Bleach SOP', desc:'Print SOP near sink; include dosing by bleach strength.', badge:'SOP-Ready'},
+      {id:'L1-3', title:'Containers & Rotation', desc:'Food-grade containers + rotation calendar (IDB record).', badge:'Containers-Pro'},
+      // L2 Catchment
+      {id:'L2-1', title:'Roof Audit + Screens', desc:'Measure roof, mesh screens (≥1 mm leaf, ≤1 mm mosquito).', badge:'Roof-Mapped'},
+      {id:'L2-2', title:'First-Flush Install', desc:'Tennis-ball diverter or valve bucket (0.5–1 mm).', badge:'FirstFlush'},
+      // L3 Safety
+      {id:'L3-1', title:'Filter Train', desc:'Sediment → carbon → disinfection (chlorine/UV).', badge:'Filter-Train'},
+      {id:'L3-2', title:'Residual Checks', desc:'DPD kit: ≥0.2–0.5 mg/L at tap after 30 min.', badge:'Residual-Guardian'},
+      // L4 Cistern Mastery
+      {id:'L4-1', title:'Cistern Clean & Seal', desc:'Clean, inspect, seal lids & vents; screen overflow.', badge:'Cistern-Clean'},
+      {id:'L4-2', title:'Code Capacity Check', desc:'Verify local code; sample: USVI calculation.', badge:'Code-Ready'},
+      // L5 Pumps & Power
+      {id:'L5-1', title:'PV Pump Plan', desc:'Compute TDH/flow; specify NRV and isolation valves.', badge:'Solar-Pump'},
+      {id:'L5-2', title:'Blackout Runtime Plan', desc:'Backup power for wells/treatment; fuel/PV budget.', badge:'Power-Plan'},
+      // L6 Community
+      {id:'L6-1', title:'Neighborhood Tap', desc:'Map hub with storage, signage, and governance.', badge:'Community-Hub'},
+      {id:'L6-2', title:'Drought Triggers', desc:'Tiered conservation + leakage priority list.', badge:'Drought-Plan'},
+      // L7 Island Slack
+      {id:'L7-1', title:'Desal Risk Review', desc:'SEC, brine diffusers, sargassum screens SOP.', badge:'Brine-Scout'},
+      {id:'L7-2', title:'Mutual Aid Spares', desc:'MOU for membranes & critical spare kits.', badge:'Mutual-Aid'}
+    ];
+
+    async function initQuests(){
+      // profile
+      const prof = await DB.get('profile','me') || {id:'me', xp:0, level:1, xpMax:220};
+      Object.assign(state, prof);
+
+      // quests (merge saved done flags)
+      const saved = await DB.all('quests');
+      const doneSet = new Set(saved.filter(q=>q.done).map(q=>q.id));
+      state.quests = QUESTS.map(q=>({...q, done: doneSet.has(q.id)}));
+
+      renderXP(); renderQuests();
+    }
+
+    function renderXP(){
+      const pct = Math.min(100, Math.round(100*state.xp/state.xpMax));
+      document.getElementById('xpBar').style.width = pct+'%';
+      document.getElementById('xp').textContent = state.xp;
+      document.getElementById('xpMax').textContent = state.xpMax;
+      document.getElementById('level').textContent = state.level;
+    }
+    async function addXP(n){
+      state.xp += n;
+      while(state.xp >= state.xpMax){ state.xp -= state.xpMax; state.level++; state.xpMax = Math.round(state.xpMax*1.35); }
+      await DB.put('profile', {id:'me', xp:state.xp, level:state.level, xpMax:state.xpMax});
+      renderXP();
+    }
+
+    function renderQuests(){
+      const root = document.getElementById('questList'); root.innerHTML = '';
+      state.quests.forEach(q=>{
+        const el = document.createElement('div'); el.className='card';
+        el.innerHTML = `
+          <div class="row" style="justify-content:space-between">
+            <div>
+              <strong>${q.title}</strong>
+              <div class="mini muted">${q.desc}</div>
+              <div class="pill">Badge: ${q.badge}</div>
+            </div>
+            <div>
+              <button class="btn ${q.done?'good':''}" data-id="${q.id}">${q.done?'✓ Completed':'Mark Done (+'+XP_PER_QUEST+' XP)'}</button>
+            </div>
+          </div>`;
+        root.appendChild(el);
+      });
+      root.querySelectorAll('button[data-id]').forEach(b=>{
+        b.addEventListener('click', async ()=>{
+          const id = b.getAttribute('data-id'); const q = state.quests.find(x=>x.id===id);
+          if(!q || q.done) return;
+          q.done = true; b.textContent = '✓ Completed'; b.classList.add('good');
+          await DB.put('quests',{id, done:true}); await addXP(XP_PER_QUEST);
+          if(document.getElementById('habScoreOnComplete').checked){ tryScoreHabitica(id); }
+        });
+      });
+    }
+  </script>
+
+  <!-- CALCULATOR LOGIC -->
+  <script>
+    const $ = sel => document.querySelector(sel);
+    $('#calcEmer').onclick = ()=>{
+      const p=+$('#emerPeople').value, d=+$('#emerDays').value, lpd=+$('#emerLpPd').value;
+      const L = p*d*lpd; $('#emerOut').textContent = `Store ≈ ${L.toFixed(0)} L (${(L/3.785).toFixed(0)} US gal).`;
+    };
+    $('#calcRain').onclick = ()=>{
+      const mm=+$('#rainMM').value, m2=+$('#roofM2').value, c=+$('#coef').value;
+      const L = mm*m2*c; $('#rainOut').textContent = `Annual capture ≈ ${Math.round(L).toLocaleString()} L (${(L/1000).toFixed(1)} m³).`;
+    };
+    $('#calcChl').onclick = ()=>{
+      // CDC-style emergency rule-of-thumb: per US gallon (~3.785 L)
+      const L = +$('#chlVol').value, pct = +$('#chlPct').value;
+      const perGalDrops = (pct>=8?6:8); // 6 drops @8.25%, 8 drops @6%
+      const drops = L/3.785 * perGalDrops;
+      const tsp = drops/76; // ~76 drops per tsp
+      $('#chlOut').textContent = `Dose ≈ ${Math.max(2,Math.round(drops))} drops (${tsp.toFixed(2)} tsp). Stand 30 min; check residual.`;
+    };
+    $('#calcPump').onclick = ()=>{
+      const Qlpm=+$('#pumpQ').value, H=+$('#pumpH').value, eta=Math.max(.1,Math.min(.95,+$('#pumpEta').value||.35));
+      const Q = (Qlpm/1000)/60; // m³/s
+      const P = 1000*9.81*H*Q/eta; // W
+      $('#pumpOut').textContent = `Pump ≈ ${Math.ceil(P)} W; PV ≈ ${Math.ceil(P*1.4)} W headroom.`;
+    };
+    $('#calcRO').onclick = ()=>{
+      const m3d=+$('#roM3d').value, rec=+$('#roRec').value/100;
+      const [lo,hi] = $('#roSEC').value.split('–').map(parseFloat);
+      const kWhdLo = m3d*(lo||3.0), kWhdHi = m3d*(hi||4.5);
+      const brine = m3d*(1/rec - 1);
+      $('#roOut').textContent = `Energy ≈ ${Math.round(kWhdLo)}–${Math.round(kWhdHi)} kWh/day; brine ≈ ${brine.toFixed(0)} m³/day (site‑specific).`;
+    };
+    $('#calcCis').onclick = ()=>{
+      const ft2=+$('#cisFt2').value, use=$('#cisUse').value;
+      const galPerFt2 = (use==='mixed')?10:4.5;
+      const gallons = ft2 * galPerFt2, liters = gallons * 3.785;
+      $('#cisOut').textContent = `Minimum ${Math.round(gallons).toLocaleString()} gal (${Math.round(liters).toLocaleString()} L).`;
+    };
+  </script>
+
+  <!-- OPEN LAB: Uploads (IndexedDB) -->
+  <script>
+    async function saveFilesReturnIds(fileList){
+      const ids = [];
+      if(!fileList || !fileList.length) return ids;
+      for(const file of fileList){
+        const buff = await file.arrayBuffer();
+        const rec = { name:file.name, type:file.type, ts:Date.now(), data:new Blob([buff], {type:file.type}) };
+        const id = await DB.add('labfiles', rec); ids.push(id);
+      }
+      return ids;
+    }
+
+    async function saveDiscovery(){
+      const title = $('#labTitle').value.trim(); if(!title){ $('#labStatus').textContent='Title required.'; return; }
+      const cat = $('#labCategory').value; const island=$('#labIsland').value.trim();
+      const bom = $('#labBOM').value; const notes = $('#labNotes').value; const alts = $('#labAlts').value;
+      const fileIds = await saveFilesReturnIds($('#labFiles').files);
+      const id = await DB.add('lab', { title, cat, island, bom, notes, alts, fileIds, ts:Date.now() });
+      $('#labStatus').textContent = `Saved (#${id}).`;
+      setTimeout(()=>$('#labStatus').textContent='', 1600);
+      $('#labTitle').value=''; $('#labBOM').value=''; $('#labNotes').value=''; $('#labAlts').value=''; $('#labFiles').value='';
+      refreshLibrary();
+    }
+
+    async function fileIdToThumbUrl(id){
+      return new Promise((res, rej)=>{
+        const tx = DB.db.transaction('labfiles','readonly');
+        const rq = tx.objectStore('labfiles').get(id);
+        rq.onsuccess = ()=>{
+          const rec = rq.result; if(!rec){ res(null); return; }
+          res(URL.createObjectURL(rec.data));
+        };
+        rq.onerror = ()=>rej(rq.error);
+      });
+    }
+
+    async function refreshLibrary(){
+      const list = await DB.all('lab');
+      const gal = $('#labGallery'); gal.innerHTML='';
+      for(const it of list.sort((a,b)=>b.ts-a.ts)){
+        let thumbUrl = null;
+        if(it.fileIds && it.fileIds.length) thumbUrl = await fileIdToThumbUrl(it.fileIds[0]);
+        const card = document.createElement('div'); card.className='thumb';
+        card.innerHTML = `
+          ${thumbUrl?`<img src="${thumbUrl}" alt="">`:`<div style="height:140px;display:flex;align-items:center;justify-content:center;color:#6b7a96">No Image</div>`}
+          <div class="cap"><strong>${it.title}</strong><br><span class="mini">${it.cat}${it.island?` — ${it.island}`:''}</span></div>`;
+        card.addEventListener('click', ()=> openDiscovery(it));
+        gal.appendChild(card);
+      }
+      $('#libStatus').textContent = `${list.length} item(s) stored locally.`;
+    }
+
+    function openDiscovery(rec){
+      const w = window.open('', '_blank');
+      const files = (rec.fileIds||[]).map(id=>`<li>file#${id}</li>`).join('');
+      w.document.write(`<pre style="white-space:pre-wrap;font-family:system-ui;background:#0e1624;color:#e8f0ff;padding:16px">
+<strong>${rec.title}</strong>
+Category: ${rec.cat}
+Island: ${rec.island||'-'}
+BOM:
+${rec.bom||'-'}
+
+Notes:
+${rec.notes||'-'}
+
+Alternatives:
+${rec.alts||'-'}
+
+Files:
+<ul>${files||'<li>None</li>'}</ul>
+</pre>`);
+      w.document.close();
+    }
+
+    async function exportAll(){
+      const prof = await DB.get('profile','me');
+      const quests = await DB.all('quests');
+      const lab = await DB.all('lab');
+      const fileStore = await DB.all('labfiles');
+
+      // Convert blobs to base64 for portability
+      async function blobToBase64(b){ return new Promise(r=>{ const fr=new FileReader(); fr.onload=()=>r(fr.result); fr.readAsDataURL(b); }); }
+      const files = [];
+      for(const f of fileStore){
+        const dataUrl = await blobToBase64(f.data);
+        files.push({id:f.id, name:f.name, type:f.type, ts:f.ts, dataUrl});
+      }
+
+      const bundle = { meta:{ app:'carib-water', ver:1, ts:Date.now() }, prof, quests, lab, files };
+      const blob = new Blob([JSON.stringify(bundle)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = `water-openlab-export-${Date.now()}.json`; a.click();
+      URL.revokeObjectURL(url);
+      $('#libStatus').textContent='Exported.';
+    }
+
+    async function importAllDialog(){
+      const inp = document.createElement('input'); inp.type='file'; inp.accept='application/json';
+      inp.onchange = async ()=>{
+        const f = inp.files[0]; if(!f) return;
+        const text = await f.text();
+        try{
+          const bundle = JSON.parse(text);
+          if(bundle.prof) await DB.put('profile', bundle.prof);
+          if(Array.isArray(bundle.quests)) for(const q of bundle.quests){ await DB.put('quests', q); }
+          const fileMap = new Map();
+          if(Array.isArray(bundle.files)){
+            for(const rec of bundle.files){
+              // Convert dataUrl back to Blob
+              const resp = await fetch(rec.dataUrl); const b = await resp.blob();
+              const newId = await DB.add('labfiles', { name:rec.name, type:rec.type, ts:rec.ts, data:b });
+              fileMap.set(rec.id, newId);
+            }
+          }
+          if(Array.isArray(bundle.lab)){
+            for(const it of bundle.lab){
+              const ids = (it.fileIds||[]).map(old=> fileMap.get(old)).filter(Boolean);
+              await DB.add('lab', {...it, id:undefined, fileIds:ids});
+            }
+          }
+          $('#libStatus').textContent = 'Imported bundle.';
+          await initQuests(); refreshLibrary(); renderXP();
+        }catch(e){ $('#libStatus').textContent='Import failed: '+e.message; }
+      };
+      inp.click();
+    }
+
+    async function pushRemote(){
+      const url = $('#pushUrl').value.trim(); if(!url){ $('#libStatus').textContent='Set POST URL first.'; return; }
+      const auth = $('#pushAuth').value.trim();
+      const prof = await DB.get('profile','me');
+      const quests = await DB.all('quests');
+      const lab = await DB.all('lab');
+      const fileStore = await DB.all('labfiles');
+
+      async function blobToBase64(b){ return new Promise(r=>{ const fr=new FileReader(); fr.onload=()=>r(fr.result); fr.readAsDataURL(b); }); }
+      const files = [];
+      for(const f of fileStore){
+        const dataUrl = await blobToBase64(f.data);
+        files.push({id:f.id, name:f.name, type:f.type, ts:f.ts, dataUrl});
+      }
+      const bundle = { meta:{ app:'carib-water', ver:1, ts:Date.now() }, prof, quests, lab, files };
+
+      try{
+        const res = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json', ...(auth?{'Authorization':auth}:{})}, body: JSON.stringify(bundle) });
+        if(!res.ok) throw new Error('HTTP '+res.status);
+        $('#libStatus').textContent='Pushed to endpoint.';
+      }catch(e){
+        $('#libStatus').textContent='Push failed (CORS or endpoint): '+e.message;
+      }
+    }
+
+    // Wire buttons
+    document.getElementById('saveDiscovery').onclick = saveDiscovery;
+    document.getElementById('refreshLibrary').onclick = refreshLibrary;
+    document.getElementById('exportAll').onclick = exportAll;
+    document.getElementById('importAll').onclick = importAllDialog;
+    document.getElementById('pushRemote').onclick = pushRemote;
+  </script>
+
+  <!-- SETTINGS & HABITICA -->
+  <script>
+    const backdrop = document.getElementById('backdrop');
+    const coachBackdrop = document.getElementById('coachBackdrop');
+    document.getElementById('openSettings').onclick = ()=> backdrop.style.display='flex';
+    document.getElementById('closeSettings').onclick = ()=> backdrop.style.display='none';
+    document.getElementById('openCoach').onclick = ()=> coachBackdrop.style.display='flex';
+    document.getElementById('closeCoach').onclick = ()=> coachBackdrop.style.display='none';
+
+    async function loadHabitica(){
+      const creds = await DB.get('habitica','creds');
+      if(creds){
+        document.getElementById('habUser').value = creds.user||'';
+        document.getElementById('habKey').value = creds.key||'';
+        document.getElementById('habClient').value = creds.client||'';
+        document.getElementById('habPushTodos').checked = !!creds.push;
+        document.getElementById('habScoreOnComplete').checked = !!creds.score;
+      }
+    }
+    document.getElementById('saveHab').onclick = async ()=>{
+      await DB.put('habitica', {
+        id:'creds',
+        user: document.getElementById('habUser').value.trim(),
+        key: document.getElementById('habKey').value.trim(),
+        client: document.getElementById('habClient').value.trim(),
+        push: document.getElementById('habPushTodos').checked,
+        score: document.getElementById('habScoreOnComplete').checked
+      });
+      document.getElementById('habSaveStatus').textContent='Saved locally.';
+      setTimeout(()=>document.getElementById('habSaveStatus').textContent='', 1500);
+    };
+
+    async function habiticaFetch(path, opts={}){
+      const creds = await DB.get('habitica','creds'); if(!creds || !creds.user || !creds.key) throw new Error('No Habitica credentials set.');
+      const headers = { 'Content-Type':'application/json', 'x-api-user': creds.user, 'x-api-key': creds.key };
+      if(creds.client) headers['x-client'] = creds.client;
+      const res = await fetch('https://habitica.com/api/v3'+path, {...opts, headers});
+      if(!res.ok) throw new Error('API error or CORS blocked: '+res.status);
+      return res.json();
+    }
+
+    async function ensureTodos(){
+      const create = async (title, notes)=> habiticaFetch('/tasks/user', { method:'POST', body: JSON.stringify({ text:title, type:'todo', notes }) });
+      const pend = state.quests.filter(q=>!q.done);
+      const out = [];
+      for(const q of pend){ try{ out.push(await create(q.title, q.desc)); }catch(e){ /* stop on CORS */ break; } }
+      return out;
+    }
+    async function tryScoreHabitica(questId){
+      try{
+        const list = await habiticaFetch('/tasks/user?type=todos');
+        const t = (list.data||[]).find(t=>t.text===state.quests.find(q=>q.id===questId)?.title);
+        if(t) await habiticaFetch(`/tasks/${t.id}/score/up`, { method:'POST' });
+      }catch(e){ /* ignore */ }
+    }
+    document.getElementById('syncHabitica').onclick = async ()=>{
+      const status = document.getElementById('habiticaStatus');
+      try{
+        status.textContent='Syncing…';
+        if(!document.getElementById('habPushTodos').checked){ status.textContent='Push disabled in Settings.'; return; }
+        const out = await ensureTodos();
+        status.textContent = `Requested ${out.length} to‑dos. If nothing appears, browser CORS likely blocked the call.`;
+      }catch(e){
+        status.textContent='Habitica sync unavailable (CORS). Progress remains local.';
+      }
+      setTimeout(()=> status.textContent='', 4000);
+    };
+  </script>
+
+  <!-- WEBLLM (Local in-browser LLM) -->
+  <script type="module">
+    import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm@0.2.79";
+    let engine = null, modelStr = 'Llama-3.2-3B-Instruct-q4f32_1-MLC';
+    const statusEl = document.getElementById('llmStatus');
+
+    document.getElementById('prepLLM').onclick = async ()=>{
+      try{
+        modelStr = document.getElementById('llmModel').value || modelStr;
+        statusEl.textContent = 'Downloading & preparing model…';
+        engine = await CreateMLCEngine(modelStr, { initProgressCallback: ({progress,text})=> statusEl.textContent = `Model init: ${(progress*100|0)}% ${text||''}` });
+        statusEl.textContent = 'Model ready (cached).';
+      }catch(e){ statusEl.textContent='WebGPU/Model init failed on this device.'; }
+    };
+
+    document.getElementById('askCoach').onclick = async ()=>{
+      const box = document.getElementById('coachInput'), reply = document.getElementById('coachReply');
+      const q = box.value.trim(); if(!q){ reply.textContent=''; return; }
+      document.getElementById('coachStatus').textContent = 'Thinking…';
+      if(!engine){ reply.textContent='Load model in Settings first.'; document.getElementById('coachStatus').textContent=''; return; }
+      const system = { role:"system", content:`You are an engineering-grade Caribbean water coach. Give numbered steps, formulas, unit sanity checks, and local-sourcing tips. Caution against unsafe practices.` };
+      const msgs = [system, {role:"user", content:q}];
+      let full = '';
+      try{
+        const chunks = await engine.chat.completions.create({ messages: msgs, stream: true });
+        for await (const ch of chunks){ full += (ch.choices[0]?.delta?.content??''); reply.textContent = full; }
+      }catch(e){ reply.textContent='Local inference failed or memory insufficient.'; }
+      document.getElementById('coachStatus').textContent='';
+    };
+  </script>
+
+  <!-- BOOTSTRAP: init DB, quests, library -->
+  <script>
+    (async function(){
+      await DB.open();
+      await initQuests();
+      await loadHabitica();
+      await refreshLibrary();
+      // Smooth scroll for internal anchors
+      document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click', e=>{
+        const id = a.getAttribute('href'); const t = document.querySelector(id); if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+      }));
+    })();
+  </script>
+
+  <footer class="footer muted">© Planetary Restoration Archive — Water Sovereignty (Caribbean). Offline-first. <span style="float:right">v1.1</span></footer>
+</body>
+</html>

@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>All‑In‑One Survival & Sovereignty — Kosovo | Planetary Restoration Archive</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Ultra long-form, gamified personal survival and sovereignty guide (Kosovo-focused): water, food, first-aid & medical supply planning, shelter, energy, tools, comms, navigation, and community. IndexedDB offline vault, Habitica sync, WebLLM local AI, photorealistic morphing constellations." />
+  <meta name="theme-color" content="#0b0f19" />
+  <meta property="og:title" content="All‑In‑One Survival & Sovereignty — Kosovo" />
+  <meta property="og:description" content="Gamified, offline-first survival & sovereignty playbook with IndexedDB vault, Habitica sync, AI planning, and photorealistic starfield." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://planetaryrestorationarchive.com/static/og-all-kosovo.jpg" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Ctext y='0.9em' font-size='90'%3E⭐%3C/text%3E%3C/svg%3E">
+
+  <!-- JSON-LD: schema.org + your presentation schema -->
+  <script type="application/ld+json">
+  {
+    "@context": [
+      "https://schema.org",
+      "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"
+    ],
+    "@type": "CreativeWork",
+    "name": "All‑In‑One Survival & Sovereignty — Kosovo",
+    "headline": "Comprehensive survival and sovereignty guide: water, food, medical, shelter, energy, tools, comms, navigation, and community.",
+    "inLanguage": "en",
+    "audience": {"@type":"Audience","audienceType":"Individuals, households, farms, makerspaces, schools"},
+    "isPartOf": {"@type":"CreativeWorkSeries","name":"Sovereignty Toolkit — Balkans"},
+    "publisher": {"@type":"Organization","name":"Planetary Restoration Archive"},
+    "datePublished": "2025-10-23",
+    "about": [
+      "water security","food security","first aid","medical supplies","shelter","energy","tools","communications","navigation","community resilience","Kosovo"
+    ],
+    "educationalUse": "self-guided, gamified",
+    "material": "checklists, calculators, IndexedDB vault",
+    "url": "https://example.com/"
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#060912; --ink:#e7ecf5; --muted:#9aa7bd;
+      --accent:#6ae3ff; --accent2:#8cff9a; --accent3:#ffd572; --danger:#ff8f8f; --good:#8cff9a; --warn:#ffd36a;
+      --panel:#101426; --panel2:#0c1120; --line:rgba(255,255,255,0.08); --radius:14px;
+      --glow:0 0 16px rgba(106,227,255,0.28), 0 0 32px rgba(140,255,154,0.16);
+      --glow-hot:0 0 18px rgba(255,213,114,0.28), 0 0 32px rgba(106,227,255,0.12);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Inter,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";overflow-x:hidden}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Cosmos canvas background */
+    #cosmos{position:fixed;inset:0;z-index:-2;background:
+      radial-gradient(1200px 600px at 70% 10%, rgba(80,120,255,0.08), transparent 60%),
+      radial-gradient(1000px 500px at 20% 20%, rgba(120,220,180,0.06), transparent 60%),
+      linear-gradient(180deg,#04060b 0%,#080d18 45%,#080d18 100%);
+    }
+
+    /* Sticky nav with parallax dropdown mega-menus */
+    header{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px) saturate(1.2);
+      background:linear-gradient(180deg,rgba(8,13,24,0.8),rgba(8,13,24,0.45));border-bottom:1px solid var(--line)}
+    nav{max-width:1320px;margin:auto;display:flex;align-items:center;gap:14px;padding:10px 16px;perspective:900px}
+    .brand{font-weight:800;letter-spacing:.3px}
+    .spacer{flex:1}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--line)}
+    .btn:hover{box-shadow:var(--glow)}
+    .menu{position:relative}
+    .menu > button{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--line);transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+    .menu .drop{position:absolute;top:calc(100% + 10px);left:0;min-width:900px;display:none;background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid var(--line);border-radius:14px;box-shadow:var(--glow);padding:16px;transform-origin:top left;transform:translateZ(30px) rotateX(6deg)}
+    .menu.open .drop{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .mini{font-size:12px;color:var(--muted)}
+
+    .wrap{max-width:1240px;margin:28px auto;padding:0 16px}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;padding:26px;border-radius:var(--radius);background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));border:1px solid var(--line)}
+    @media (max-width:980px){ .hero{grid-template-columns:1fr} }
+
+    .panel{background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--glow)}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+
+    .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    @media (max-width:980px){.kpi{grid-template-columns:1fr 1fr}}
+
+    /* Gamified tasks */
+    .act{padding:18px;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));border:1px solid var(--line);border-radius:var(--radius);margin-top:16px}
+    .act h2{margin:.2rem 0 .4rem}
+    .progress{height:8px;background:#1b223f;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+    .progress>span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+    .tasks{display:grid;gap:10px;margin-top:10px}
+    .task{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center;background:#0f152a;border:1px solid var(--line);border-radius:12px;padding:10px}
+    .task .title{font-weight:650}
+    .task .meta{font-size:12px;color:var(--muted)}
+    .task .actions button{padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#121b32;color:var(--ink)}
+    .task .actions button:hover{box-shadow:var(--glow)}
+
+    /* Score ring */
+    .ring{--v:0; width:96px;height:96px;border-radius:50%;background:conic-gradient(var(--accent) calc(var(--v)*1%), #1b223f 0);display:grid;place-items:center;border:1px solid var(--line)}
+    .ring>span{font-weight:800}
+
+    /* Vault (uploads/images/alternatives) */
+    .vault-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    @media (max-width:1100px){.vault-grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:700px){.vault-grid{grid-template-columns:1fr}}
+    .vault-card{background:#10182d;border:1px solid var(--line);border-radius:12px;padding:12px}
+    .chips{display:flex;flex-wrap:wrap;gap:6px}
+    .chip{font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:#0b1326}
+    .thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .thumbs img{width:84px;height:84px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+
+    /* AI chat */
+    #chatlog{height:280px;overflow:auto;background:#0d1326;border:1px solid var(--line);border-radius:12px;padding:10px}
+    .bubble{margin:8px 0;padding:10px 12px;border-radius:12px;background:#0f1a35}
+    .bubble.you{background:#0a2240}
+
+    footer{color:var(--muted);margin:40px 0 70px}
+  </style>
+</head>
+<body>
+  <canvas id="cosmos" aria-hidden="true"></canvas>
+
+  <header>
+    <nav id="mainNav">
+      <div class="brand">Sovereignty Toolkit — <strong>Kosovo</strong></div>
+
+      <div class="menu" id="menuLife">
+        <button aria-haspopup="true" aria-expanded="false">🧭 Modules ▾</button>
+        <div class="drop">
+          <div class="card">
+            <h4>Water & Food</h4>
+            <ul>
+              <li><a href="#water">Water Sovereignty</a></li>
+              <li><a href="#food">Food Sovereignty</a></li>
+              <li><a href="#energy">Energy & Heat</a></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Medical & Shelter</h4>
+            <ul>
+              <li><a href="#medical">First Aid & Medical Planning</a></li>
+              <li><a href="#shelter">Shelter & Weather</a></li>
+              <li><a href="#tools">Tools & Fabrication</a></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Comms & Community</h4>
+            <ul>
+              <li><a href="#comms">Comms & Navigation</a></li>
+              <li><a href="#community">Community Protocols</a></li>
+              <li><a href="#vault">Research Vault</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+
+      <a class="btn" href="#" id="openSettings">⚙️ Settings</a>
+    </nav>
+  </header>
+
+  <div class="wrap">
+    <section class="hero" id="top">
+      <div>
+        <div class="mini">Balkans • Kosovo • Offline‑first • IndexedDB • Habitica • WebLLM • Open Hardware</div>
+        <h1>All‑In‑One Survival & Sovereignty</h1>
+        <p class="mini">
+          Pragmatic resilience for households, farms, and neighborhoods: water, food, first‑aid & medical planning, shelter & heat,
+          energy, tools, communications, navigation, and community. This playbook favors **local materials**, **DIY builds**, and
+          **verifiable safety**. Your **Vault** captures discoveries, images, and alternatives—saved offline in your browser.
+        </p>
+        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+          <div class="ring" id="xpRing"><span id="level">Lv 1</span></div>
+          <div class="card" style="min-width:260px">
+            <div class="mini">Water Yield Estimator</div>
+            <label>Roof (m²) <input id="roofArea" type="number" value="100"></label>
+            <label>Rain (mm/yr) <input id="rainMm" type="number" value="675"></label>
+            <label>Runoff coeff. <select id="coef"><option value="0.8" selected>Tile/metal (0.8)</option><option value="0.6">Rough (0.6)</option></select></label>
+            <div class="mini">Usable L/yr: <strong id="litersOut">–</strong></div>
+          </div>
+          <div class="card" style="min-width:260px">
+            <div class="mini">Garden kcal Planner</div>
+            <label>Area (m²) <input id="area" type="number" value="50"></label>
+            <label>Strategy
+              <select id="mix">
+                <option value="balanced">Balanced</option>
+                <option value="veg">Veg‑heavy</option>
+                <option value="staples">Staple‑heavy</option>
+              </select>
+            </label>
+            <div class="mini">Support/day: <strong id="planOut">–</strong></div>
+          </div>
+          <div class="card" style="min-width:260px">
+            <div class="mini">Solar Rough‑Sizer</div>
+            <label>Daily Wh load <input id="whDay" type="number" value="400"></label>
+            <label>Sun hrs <input id="sunHrs" type="number" value="4"></label>
+            <div class="mini">Panel W (est): <strong id="pvOut">–</strong> • Battery Wh: <strong id="batOut">–</strong></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Achievement Board</h3>
+        <div class="mini">Earn XP by completing quests and adding quality Vault entries.</div>
+        <ul id="achievements" class="mini" style="line-height:1.7">
+          <li>🏁 First Sprint Complete</li>
+          <li>🧪 Tested a Water Source</li>
+          <li>🪣 Stored 1,000 L</li>
+          <li>🌱 First Season Plan</li>
+          <li>🧰 Built a DIY Tool</li>
+          <li>🩺 First‑Aid Kit Packed</li>
+          <li>🔋 48‑h Power Fallback</li>
+          <li>📡 Community Check‑in</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- WATER -->
+    <article class="act" id="water">
+      <h2>Water Sovereignty</h2>
+      <p class="mini">Capture rain, store safely, treat reliably, irrigate efficiently, and drill redundancy. Kosovo context: Batllava/Badovc/Ujman reservoirs; avoid raw river use downstream of historic mining without testing/treatment.</p>
+      <div class="progress"><span id="wp"></span></div>
+      <div class="tasks" id="wtasks"></div>
+      <div class="panel">
+        <details class="card" open>
+          <summary><strong>DIY Builds (local materials)</strong></summary>
+          <div class="mini">
+            • First‑flush diverter (PVC DN110 + end‑cap + float + drain). • Cisterns: HDPE drums / IBC totes (opaque). • Pumps: 12V diaphragm + inline strainer. • Overflow to infiltration (swales/trench). • Freeze protection: drain & insulate.
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <!-- FOOD -->
+    <article class="act" id="food">
+      <h2>Food Sovereignty</h2>
+      <p class="mini">Soils, seeds & law, climate‑wise calendars, irrigation, perennials, storage, and co‑ops. Prioritize drip, mulch, and succession plantings.</p>
+      <div class="progress"><span id="fp"></span></div>
+      <div class="tasks" id="ftasks"></div>
+      <div class="panel">
+        <details class="card" open>
+          <summary><strong>Storage & Processing</strong></summary>
+          <div class="mini">Drying racks, fermenting (cabbage/peppers), cellar corner, bulk staples (rice/beans/wheat/pasta) with O2 absorbers where available.</div>
+        </details>
+      </div>
+    </article>
+
+    <!-- MEDICAL (SAFETY-FIRST) -->
+    <article class="act" id="medical">
+      <h2>First Aid & Medical Supply Planning</h2>
+      <p class="mini">
+        Life‑preserving basics, improvisations that are safe/ethical, and supply resilience. This guide **does not** provide instructions to culture, extract, or synthesize biologically active agents from fungi/plants/animals, or any wet‑lab protocols.
+        Those activities are unsafe outside licensed labs. Instead: robust first‑aid, hygiene, and community‑scale procurement strategies you can implement legally.
+      </p>
+      <div class="progress"><span id="mp"></span></div>
+      <div class="tasks" id="mtasks"></div>
+
+      <div class="panel">
+        <h3>Safe Field‑Useful Recipes & Methods</h3>
+        <div class="card">
+          <strong>Oral Rehydration Solution (ORS)</strong>
+          <p class="mini">Clean water 1 liter + sugar 6 level tsp + salt 1/2 level tsp. Stir until dissolved. Use approved water; if turbid, clarify and disinfect first. ⚠️ For severe dehydration, seek medical care.</p>
+        </div>
+        <div class="card">
+          <strong>Soap & Sanitizer</strong>
+          <p class="mini">Soap: saponified fats (buy lye; observe PPE; cured bars preferred). Alcohol sanitizer (WHO‑style): Ethanol 80% v/v (or IPA 75%) + glycerol 1.45% + hydrogen peroxide 0.125% + sterile water q.s.; mix in clean containers; label clearly.</p>
+        </div>
+        <div class="card">
+          <strong>Dressings & Splints</strong>
+          <p class="mini">Use sterile commercial dressings when at all possible. Improvised (clean, not sterile) cloth can be a **temporary** pressure dressing for bleeding control. Splints: sticks/boards + padding + ties; immobilize joints above/below injury. For serious wounds or fractures: escalate to professionals.</p>
+        </div>
+        <div class="card">
+          <strong>Hygiene & Sterilization</strong>
+          <p class="mini">Pressure sterilization requires proper equipment; don’t improvise “sterile surgery” kits. For reusable tools (food prep/household), clean → disinfect (boil ≥1 min at rolling boil at sea level; longer at altitude) when appropriate.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Mycelium, Flora, Fauna — Policy & Ethics</h3>
+        <p class="mini">
+          Curiosity is welcome; unsafe biosynthesis isn’t. You’ll find high‑level knowledge on materials science (e.g., mushroom mycelium composites for **non‑medical** filtration housings or insulation). We **will not** provide step‑by‑step growth/extraction for medicines or compounds. Safer paths:
+          community procurement pools, licensed pharmacies/clinics, first‑aid training (CPR/bleeding control), and resilient stock rotation (analgesics, antiseptics, ORS packets, dressings, gloves, masks).
+        </p>
+      </div>
+    </article>
+
+    <!-- SHELTER -->
+    <article class="act" id="shelter">
+      <h2>Shelter & Weather</h2>
+      <p class="mini">Heat retention, safe ventilation, smoke control, and winterization. Avoid carbon‑monoxide risks; vent heaters; install CO alarms with spare cells.</p>
+      <div class="progress"><span id="sp"></span></div>
+      <div class="tasks" id="stasks"></div>
+      <div class="panel">
+        <details class="card" open>
+          <summary><strong>DIY Stoves & Heat</strong></summary>
+          <div class="mini">Rocket stove (brick/metal can), TLUD for clean cooking, safe flue routing, reflective barriers behind stoves, insulation curtains. Keep extinguishers and baking soda for grease fires.</div>
+        </details>
+      </div>
+    </article>
+
+    <!-- ENERGY -->
+    <article class="act" id="energy">
+      <h2>Energy & Power</h2>
+      <p class="mini">48‑hour fallback: LED lighting, phone charging, radio, small pump operation. Solar + battery plan with safe wiring and fusing.</p>
+      <div class="progress"><span id="ep"></span></div>
+      <div class="tasks" id="etasks"></div>
+      <div class="panel">
+        <details class="card" open>
+          <summary><strong>Local Sourcing & Making</strong></summary>
+          <div class="mini">12V system basics: MC4 connectors, DC fuses, inline meters, salvaged LiFePO₄ packs (only if tested BMS‑protected), hand‑crank or bike‑generator for emergencies.</div>
+        </details>
+      </div>
+    </article>
+
+    <!-- TOOLS -->
+    <article class="act" id="tools">
+      <h2>Tools & Fabrication</h2>
+      <p class="mini">Repair culture: pumps, valves, meters, and monitors from accessible parts; document in Vault.</p>
+      <div class="progress"><span id="tp"></span></div>
+      <div class="tasks" id="ttasks"></div>
+      <div class="panel">
+        <details class="card" open>
+          <summary><strong>Example Builds</strong></summary>
+          <div class="mini">Foot‑pump from bicycle parts; turbidity tube; ultrasonic level gauge; simple hand‑drill press; wire‑rope clothesline; pallet‑wood shelves for storage rotation.</div>
+        </details>
+      </div>
+    </article>
+
+    <!-- COMMS -->
+    <article class="act" id="comms">
+      <h2>Communications & Navigation</h2>
+      <p class="mini">Neighborhood check‑ins, radio basics, SMS trees, and offline maps.</p>
+      <div class="progress"><span id="cp"></span></div>
+      <div class="tasks" id="ctasks"></div>
+      <div class="panel">
+        <details class="card" open>
+          <summary><strong>Offline‑first Info</strong></summary>
+          <div class="mini">Pre‑download maps, first‑aid PDFs, contact lists; power budget for comms; calling trees; codewords only for harmless logistics (never for anything illegal).</div>
+        </details>
+      </div>
+    </article>
+
+    <!-- COMMUNITY -->
+    <article class="act" id="community">
+      <h2>Community Protocols</h2>
+      <p class="mini">Mutual aid taps, drills, catchment stewardship, co‑ops, and conflict‑cooling norms. Keep it neighborly; protect the vulnerable.</p>
+      <div class="progress"><span id="up"></span></div>
+      <div class="tasks" id="utasks"></div>
+    </article>
+
+    <!-- VAULT -->
+    <section class="act" id="vault">
+      <h2>Research Vault — Discoveries, Alternatives, Images</h2>
+      <p class="mini">Store field notes, construction variants, and photos offline. Export/import JSON. Your data lives in your browser (IndexedDB).</p>
+      <div class="panel">
+        <form id="vaultForm" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="card">
+            <label>Title <input id="vTitle" placeholder="e.g., DN110 First‑Flush with ball‑float" required></label>
+            <label>Category
+              <select id="vCat">
+                <option>Discovery</option>
+                <option>Alternative</option>
+                <option>Material</option>
+                <option>Tool</option>
+                <option>Misc</option>
+              </select>
+            </label>
+            <label>Tags (comma‑sep) <input id="vTags" placeholder="PVC, diverter, winterization"></label>
+            <label>Source / Link (optional) <input id="vSrc" placeholder="http(s) or notes)"></label>
+          </div>
+          <div class="card">
+            <label>How to make / Notes
+              <textarea id="vNotes" rows="7" placeholder="Steps, measurements, pitfalls, testing results…"></textarea>
+            </label>
+            <label>Images (multiple, optional)
+              <input id="vFiles" type="file" accept="image/*" multiple capture="environment">
+            </label>
+            <button id="vSave" type="submit">Save to Vault</button>
+            <button id="vExport" type="button">Export JSON</button>
+            <label class="mini" style="display:inline-block;margin-top:6px">
+              Import JSON <input id="vImport" type="file" accept="application/json">
+            </label>
+          </div>
+        </form>
+      </div>
+      <div class="vault-grid" id="vaultGrid"></div>
+    </section>
+
+    <!-- AI -->
+    <section class="act" id="ai">
+      <h2>Local AI Planner (WebLLM)</h2>
+      <p class="mini">Runs entirely in‑browser with WebGPU. Ask about water sizing, garden rotations, safe improvisations, power budgets. No medical diagnoses.</p>
+      <div class="panel">
+        <div class="mini" id="aiStatus">Model: not loaded</div>
+        <div id="chatlog"></div>
+        <form id="chat" style="display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:8px">
+          <input id="prompt" placeholder="Ask about cistern sizing, drip layout, pantry math, power budget…" autocomplete="off" />
+          <button type="submit">Send</button>
+        </form>
+        <div style="display:flex;gap:10px;margin-top:8px;align-items:center">
+          <button id="loadModel">Load WebLLM</button>
+          <small class="mini">First load caches locally.</small>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Educational use only. For medical issues, consult licensed professionals. Verify designs with local codes and certified installers where required.</p>
+    </footer>
+  </div>
+
+  <!-- SETTINGS -->
+  <dialog id="settings">
+    <form method="dialog" class="panel">
+      <h3>Settings</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <label>Habitica User ID <input id="habiticaUser" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"></label>
+        <label>Habitica API Token <input id="habiticaKey" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"></label>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+        <label>Profile name <input id="profileName" placeholder="Household / Farm / School"></label>
+        <button id="exportTasks" type="button">Download Tasks JSON</button>
+      </div>
+      <p class="mini">Credentials & progress saved locally (IndexedDB). Push any quest to Habitica as a To‑Do.</p>
+      <div style="display:flex;gap:10px;justify-content:flex-end"><button value="cancel">Close</button></div>
+    </form>
+  </dialog>
+
+  <script type="module">
+    /* ===========================
+       COSMOS: Photorealistic Morphing Constellations (parallax)
+       =========================== */
+    const cvs = document.getElementById('cosmos');
+    const g = cvs.getContext('2d');
+    let W=innerWidth, H=innerHeight; cvs.width=W; cvs.height=H;
+
+    const STAR_COUNT = 720, LINK_DIST = 110;
+    const stars = [];
+    const pointer = {x: W/2, y: H/2, z: 0};
+    const SHAPES = {
+      droplet:  "M0,-0.44 C0.24,-0.16 0.38,0.02 0.38,0.22 c0,0.22 -0.18,0.42 -0.38,0.52 c-0.2,0.1 -0.42,0.1 -0.62,0 c-0.2,-0.1 -0.38,-0.3 -0.38,-0.52 c0,-0.2 0.14,-0.38 0.38,-0.66 C-0.16,-0.14 0,-0.34 0,-0.44 z",
+      leaf:     "M-0.46,-0.02 Q0,-0.5 0.46,-0.02 T0,0.48 T-0.46,-0.02",
+      sun:      "M0,-0.42 A0.42,0.42 0 1 0 -0.001,-0.42 M0.0,-0.55 L0.0,-0.7 M0.55,0 L0.7,0 M0.0,0.55 L0.0,0.7 M-0.55,0 L-0.7,0 M0.39,0.39 L0.51,0.51 M-0.39,0.39 L-0.51,0.51 M0.39,-0.39 L0.51,-0.51 M-0.39,-0.39 L-0.51,-0.51",
+      house:    "M-0.4,0.15 v0.25 h0.8 v-0.25 h-0.2 v-0.25 h-0.4 v0.25 z M-0.45,0.15 L0,-0.25 L0.45,0.15",
+      kosovo:   "M-0.2,-0.4 l0.15,0.08 0.12,0.12 0.1,0.2 -0.02,0.14 -0.12,0.12 -0.1,0.06 -0.15,-0.02 -0.12,-0.1 -0.08,-0.12 0.02,-0.14 0.1,-0.18 z"
+    };
+    const SHAPE_KEYS = Object.keys(SHAPES);
+
+    const rand=(a,b)=> a + Math.random()*(b-a);
+    const clamp=(v,a,b)=> Math.max(a, Math.min(b,v));
+    const lerp=(a,b,t)=> a + (b-a)*t;
+
+    function seedStars(){
+      stars.length=0;
+      for(let i=0;i<STAR_COUNT;i++){
+        stars.push({
+          x: Math.random()*W, y: Math.random()*H, z: rand(0.3,1),
+          baseA: rand(0.3,0.9), size: rand(0.8,2.8), tw: rand(0.4,1.5), ph: Math.random()*6.283,
+          tx: null, ty:null
+        });
+      }
+    }
+
+    function pathToPoints(d, n=260){
+      const p = new Path2D(d); const pts=[];
+      for(let i=0;i<n*5 && pts.length<n;i++){
+        const x=rand(-0.52,0.52), y=rand(-0.52,0.52);
+        if(g.isPointInPath(p, x*1000, y*1000)) pts.push([x,y]);
+      }
+      if(pts.length< n*0.6){ for(let i=0;i<n;i++){ const a=i/n*6.283; pts.push([0.45*Math.cos(a), 0.3*Math.sin(a)]);} }
+      return pts;
+    }
+    const SHAPE_POINTS = SHAPE_KEYS.map(k => pathToPoints(SHAPES[k], 260));
+    let shapeIdx = 0;
+
+    function assignTargets(idx){
+      const pts=SHAPE_POINTS[idx];
+      for(let i=0;i<stars.length;i++){
+        const t = pts[i % pts.length];
+        stars[i].tx = (t[0]*0.9+0.5)*W;
+        stars[i].ty = (t[1]*0.9+0.5)*H;
+      }
+    }
+    function cycleShape(){ shapeIdx=(shapeIdx+1)%SHAPE_KEYS.length; assignTargets(shapeIdx); }
+
+    function drawStars(t){
+      g.clearRect(0,0,W,H);
+      g.globalCompositeOperation='lighter';
+      for(const s of stars){
+        // parallax
+        const px = (pointer.x - W/2)/W, py=(pointer.y - H/2)/H;
+        const x = s.x + px*20*s.z, y = s.y + py*20*s.z;
+
+        // morph toward shape target
+        if(s.tx!=null){ s.x = lerp(s.x, s.tx, 0.02); s.y = lerp(s.y, s.ty, 0.02); }
+        else { s.y += 0.05*s.z; if(s.y>H) s.y-=H; }
+
+        const a = s.baseA*(0.8 + 0.2*Math.sin(s.ph + t*0.001*s.tw));
+        g.globalAlpha = a;
+        const r = s.size*1.8;
+        const grad = g.createRadialGradient(x,y,0, x,y,r);
+        grad.addColorStop(0,'rgba(255,255,255,0.95)');
+        grad.addColorStop(0.35,'rgba(170,220,255,0.45)');
+        grad.addColorStop(1,'rgba(0,0,0,0)');
+        g.fillStyle=grad; g.beginPath(); g.arc(x,y,r,0,6.283); g.fill();
+      }
+      // links
+      g.globalAlpha=0.25;
+      g.strokeStyle='rgba(148,190,255,0.35)';
+      for(let i=0;i<stars.length;i+=3){
+        const a=stars[i];
+        for(let j=i+1;j<i+8 && j<stars.length;j++){
+          const b=stars[j]; const dx=a.x-b.x, dy=a.y-b.y; const d=Math.hypot(dx,dy);
+          if(d<LINK_DIST) { g.beginPath(); g.moveTo(a.x,a.y); g.lineTo(b.x,b.y); g.stroke(); }
+        }
+      }
+    }
+
+    function loop(t){ drawStars(t); requestAnimationFrame(loop) }
+    addEventListener('resize', ()=>{W=innerWidth;H=innerHeight;cvs.width=W;cvs.height=H; seedStars(); assignTargets(shapeIdx);});
+    addEventListener('pointermove', e=>{ pointer.x=e.clientX; pointer.y=e.clientY;});
+    addEventListener('deviceorientation', e=>{
+      pointer.x = W/2 + clamp((e.gamma||0),-30,30)*10;
+      pointer.y = H/2 + clamp((e.beta||0),-30,30)*10;
+    });
+
+    seedStars(); assignTargets(0); requestAnimationFrame(loop);
+    setInterval(cycleShape, 12000);
+
+    /* ===========================
+       Parallax Dropdowns
+       =========================== */
+    for(const id of ['menuLife']){
+      const el = document.getElementById(id);
+      const btn = el.querySelector('button');
+      btn.addEventListener('click', ()=>{
+        const opened = el.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(opened));
+      });
+      el.addEventListener('pointermove', (e)=>{
+        const r = btn.getBoundingClientRect();
+        const cx = (e.clientX - (r.left+r.width/2))/r.width;
+        const cy = (e.clientY - (r.top+r.height/2))/r.height;
+        btn.style.setProperty('--rx', `${-cy*6}deg`);
+        btn.style.setProperty('--ry', `${cx*8}deg`);
+      });
+      el.addEventListener('mouseleave', ()=>{ btn.style.removeProperty('--rx'); btn.style.removeProperty('--ry'); });
+    }
+
+    /* ===========================
+       IndexedDB: tasks, settings, vault, images, inventory
+       =========================== */
+    const DB='sovereignty_all_v1'; const VER=1;
+    const STORES={tasks:'tasks', settings:'settings', vault:'vault', images:'images', inventory:'inventory'};
+    function idb(){ return new Promise((res,rej)=>{ const req=indexedDB.open(DB,VER);
+      req.onupgradeneeded=()=>{ const db=req.result;
+        if(!db.objectStoreNames.contains(STORES.tasks)) db.createObjectStore(STORES.tasks,{keyPath:'id'});
+        if(!db.objectStoreNames.contains(STORES.settings)) db.createObjectStore(STORES.settings,{keyPath:'key'});
+        if(!db.objectStoreNames.contains(STORES.vault)) db.createObjectStore(STORES.vault,{keyPath:'id'});
+        if(!db.objectStoreNames.contains(STORES.images)) db.createObjectStore(STORES.images,{keyPath:'id'});
+        if(!db.objectStoreNames.contains(STORES.inventory)) db.createObjectStore(STORES.inventory,{keyPath:'id'});
+      };
+      req.onerror=()=>rej(req.error); req.onsuccess=()=>res(req.result);
+    })}
+    async function dbPut(store,val){ const db=await idb(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readwrite'); tx.objectStore(store).put(val).onsuccess=()=>res(true); tx.onerror=()=>rej(tx.error);});}
+    async function dbGet(store,key){ const db=await idb(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readonly'); const r=tx.objectStore(store).get(key); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error);});}
+    async function dbAll(store){ const db=await idb(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readonly'); const r=tx.objectStore(store).getAll(); r.onsuccess=()=>res(r.result||[]); r.onerror=()=>rej(r.error);});}
+    async function dbDel(store,key){ const db=await idb(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readwrite'); const r=tx.objectStore(store).delete(key); r.onsuccess=()=>res(true); r.onerror=()=>rej(r.error);});}
+
+    /* ===========================
+       Calculators
+       =========================== */
+    const roofArea=document.getElementById('roofArea'), rainMm=document.getElementById('rainMm'), coef=document.getElementById('coef'), litersOut=document.getElementById('litersOut');
+    function updateRain(){ const A=+roofArea.value||0, R=(+rainMm.value||0)/1000, C=+coef.value||0.8; litersOut.textContent = Math.round(A*R*C*1000).toLocaleString('en-US'); }
+    [roofArea,rainMm,coef].forEach(e=>e.addEventListener('input',updateRain)); updateRain();
+
+    const area=document.getElementById('area'), mix=document.getElementById('mix'), planOut=document.getElementById('planOut');
+    function planGarden(){ const A=+area.value||0; const Y={balanced:{gr:450,leg:250,veg:120}, veg:{gr:250,leg:220,veg:220}, staples:{gr:600,leg:200,veg:80}};
+      const y=Y[mix.value]; const kcalDay=Math.round((A*(0.5*y.gr+0.2*y.leg+0.3*y.veg))/365); planOut.textContent = `${kcalDay} kcal`; }
+    [area,mix].forEach(e=>e.addEventListener('input', planGarden)); planGarden();
+
+    const whDay=document.getElementById('whDay'), sunHrs=document.getElementById('sunHrs'), pvOut=document.getElementById('pvOut'), batOut=document.getElementById('batOut');
+    function solarSizer(){ const L=+whDay.value||0, S=Math.max(2, +sunHrs.value||4); pvOut.textContent=Math.ceil(L/(S*0.7)); batOut.textContent=Math.ceil(L*2); }
+    [whDay,sunHrs].forEach(e=>e.addEventListener('input',solarSizer)); solarSizer();
+
+    /* ===========================
+       Tasks per module
+       =========================== */
+    const WTASKS = [
+      {id:'w1',act:'water',title:'Map sources (utility/rain/well/spring)',pts:30,diff:1,details:'Plus public taps & neighbors for mutual aid.'},
+      {id:'w2',act:'water',title:'7‑day reserve: drinking',pts:40,diff:1,details:'3–4 L per person per day; opaque, cool, labeled.'},
+      {id:'w3',act:'water',title:'First‑flush diverter installed',pts:50,diff:2,details:'0.5–1.0 L/m² capture; auto‑drain.'},
+      {id:'w4',act:'water',title:'Cistern sized & secured',pts:50,diff:2,details:'IBC/HDPE drums; mesh; shaded/opaque.'},
+      {id:'w5',act:'water',title:'Overflow → infiltration',pts:30,diff:2,details:'Swales/trench; protect foundations.'},
+      {id:'w6',act:'water',title:'Winterization plan',pts:20,diff:1,details:'Drain low points; insulate; bypass.'}
+    ];
+    const FTASKS = [
+      {id:'f1',act:'food',title:'Soil test (pH/OM/NPK)',pts:30,diff:1,details:'Map by bed; retest annually.'},
+      {id:'f2',act:'food',title:'Compost system (2‑bay)',pts:30,diff:1,details:'Active + curing; browns/greens balance.'},
+      {id:'f3',act:'food',title:'Succession calendar',pts:30,diff:1,details:'Stagger sowings; drier midsummer.'},
+      {id:'f4',act:'food',title:'Low‑pressure drip kit',pts:40,diff:2,details:'0.8–1.6 L/h emitters; dawn runs.'},
+      {id:'f5',act:'food',title:'Perennial block planted',pts:40,diff:2,details:'Plum/apple/pear; basins & mulch.'},
+      {id:'f6',act:'food',title:'Storage & bulk pantry',pts:30,diff:1,details:'Drying/fermenting; rotation labels.'}
+    ];
+    const MTASKS = [
+      {id:'m1',act:'medical',title:'First‑aid course scheduled',pts:30,diff:1,details:'CPR & bleeding control certification.'},
+      {id:'m2',act:'medical',title:'First‑aid kit packed',pts:40,diff:1,details:'Dressings, antiseptics, gloves, shears, ORS, analgesics.'},
+      {id:'m3',act:'medical',title:'ORS supplies stocked',pts:25,diff:1,details:'Sugar, salt, clean containers, measuring spoons.'},
+      {id:'m4',act:'medical',title:'Hygiene & sanitizer materials',pts:25,diff:1,details:'Soap, alcohol sanitizer, tissues, bins.'},
+      {id:'m5',act:'medical',title:'Medication rotation plan',pts:35,diff:2,details:'Check expiries; secure storage; consult pharmacist.'},
+      {id:'m6',act:'medical',title:'Clinic/Pharmacy contacts list',pts:20,diff:1,details:'Hours, phones, routes; neighbors with cars.'}
+    ];
+    const STASKS = [
+      {id:'s1',act:'shelter',title:'CO detector + batteries',pts:25,diff:1,details:'Install and test.'},
+      {id:'s2',act:'shelter',title:'Insulation curtains',pts:20,diff:1,details:'Reduce heat loss; safe clearances from stoves.'},
+      {id:'s3',act:'shelter',title:'Emergency heat plan',pts:30,diff:2,details:'Rocket/TLUD; fire safety; extinguisher on hand.'}
+    ];
+    const ETASKS = [
+      {id:'e1',act:'energy',title:'48‑h power budget',pts:30,diff:1,details:'List loads; prioritize lighting/comms.'},
+      {id:'e2',act:'energy',title:'Panel + battery sourced',pts:40,diff:2,details:'Safe fusing; cable gauges; MC4s.'},
+      {id:'e3',act:'energy',title:'Bike/hand‑crank built',pts:30,diff:2,details:'Charge phones/lights in a pinch.'}
+    ];
+    const TTASKS = [
+      {id:'t1',act:'tools',title:'Foot‑pump build',pts:45,diff:3,details:'Bike parts + PVC pistons + check valves.'},
+      {id:'t2',act:'tools',title:'Turbidity tube',pts:25,diff:1,details:'Clear PVC + Secchi target + drain.'},
+      {id:'t3',act:'tools',title:'Storage shelves',pts:20,diff:1,details:'Pallet wood; rotation labels by shelf.'}
+    ];
+    const CTASKS = [
+      {id:'c1',act:'comms',title:'Contact & SMS tree',pts:25,diff:1,details:'Neighbors; roles; check‑in times.'},
+      {id:'c2',act:'comms',title:'Offline map pack',pts:25,diff:1,details:'Download maps & PDFs; power plan.'},
+      {id:'c3',act:'comms',title:'Radio basics',pts:30,diff:2,details:'Handhelds; spare cells; etiquette.'}
+    ];
+    const UTASKS = [
+      {id:'u1',act:'community',title:'Mutual aid tap live',pts:35,diff:2,details:'Posted hours & rules.'},
+      {id:'u2',act:'community',title:'48‑h drought drill',pts:40,diff:2,details:'Log lessons; refine plan.'},
+      {id:'u3',act:'community',title:'Catchment stewardship day',pts:30,diff:1,details:'Litter removal; tree planting.'}
+    ];
+
+    const sections = {
+      water:{el:document.getElementById('wtasks'), bar:document.getElementById('wp')},
+      food:{el:document.getElementById('ftasks'), bar:document.getElementById('fp')},
+      medical:{el:document.getElementById('mtasks'), bar:document.getElementById('mp')},
+      shelter:{el:document.getElementById('stasks'), bar:document.getElementById('sp')},
+      energy:{el:document.getElementById('etasks'), bar:document.getElementById('ep')},
+      tools:{el:document.getElementById('ttasks'), bar:document.getElementById('tp')},
+      comms:{el:document.getElementById('ctasks'), bar:document.getElementById('cp')},
+      community:{el:document.getElementById('utasks'), bar:document.getElementById('up')}
+    };
+
+    const ALL_TASKS=[...WTASKS,...FTASKS,...MTASKS,...STASKS,...ETASKS,...TTASKS,...CTASKS,...UTASKS];
+
+    function taskRow(t){
+      const row=document.createElement('div'); row.className='task';
+      row.innerHTML = `
+        <input type="checkbox" ${t.done?'checked':''} aria-label="Complete ${t.title}">
+        <div><div class="title">${t.title}</div><div class="meta">${t.act} · ${t.pts} XP · Diff ${'★'.repeat(t.diff)}</div><div class="mini">${t.details||''}</div></div>
+        <div class="actions"><button class="push">↗ Habitica</button></div>
+        <div class="actions"><button class="reset">🗘 Reset</button></div>
+      `;
+      row.querySelector('input').addEventListener('change', async e=>{
+        await dbPut(STORES.tasks,{...t,done:e.target.checked}); render(); tallyXP();
+      });
+      row.querySelector('.reset').addEventListener('click', async ()=>{
+        await dbPut(STORES.tasks,{...t,done:false}); render(); tallyXP();
+      });
+      row.querySelector('.push').addEventListener('click',()=> pushHabitica(t));
+      return row;
+    }
+
+    async function ensureTasks(){
+      const existing=await dbAll(STORES.tasks);
+      if(!existing || existing.length===0){
+        for(const t of ALL_TASKS){ await dbPut(STORES.tasks,{...t,done:false}); }
+      }else{
+        // merge new tasks if we add more in future
+        const ids=new Set(existing.map(x=>x.id));
+        for(const t of ALL_TASKS){ if(!ids.has(t.id)) await dbPut(STORES.tasks,{...t,done:false}); }
+      }
+      render(); tallyXP();
+    }
+
+    async function render(){
+      const all=await dbAll(STORES.tasks);
+      const byAct = Object.fromEntries(Object.keys(sections).map(k=>[k,[]]));
+      all.forEach(t=> byAct[t.act]?.push(t));
+      for(const k of Object.keys(sections)){
+        const group=byAct[k]||[], done=group.filter(x=>x.done).length;
+        const pct = group.length? Math.round(100*done/group.length) : 0;
+        sections[k].bar.style.width=pct+'%';
+        sections[k].el.innerHTML='';
+        group.forEach(t=> sections[k].el.appendChild(taskRow(t)));
+      }
+    }
+
+    /* ===========================
+       Habitica integration
+       =========================== */
+    const openSettings=document.getElementById('openSettings'); const dlg=document.getElementById('settings');
+    const habiticaUser=document.getElementById('habiticaUser'); const habiticaKey=document.getElementById('habiticaKey'); const profileName=document.getElementById('profileName'); const exportBtn=document.getElementById('exportTasks');
+
+    openSettings.addEventListener('click', async (e)=>{ e.preventDefault();
+      const uid=await dbGet(STORES.settings,'habiticaUser'); habiticaUser.value=uid?.val||'';
+      const key=await dbGet(STORES.settings,'habiticaKey'); habiticaKey.value=key?.val||'';
+      const pn =await dbGet(STORES.settings,'profileName'); profileName.value=pn?.val||'';
+      dlg.showModal();
+    });
+    habiticaUser.addEventListener('change',()=> dbPut(STORES.settings,{key:'habiticaUser', val:habiticaUser.value}));
+    habiticaKey .addEventListener('change',()=> dbPut(STORES.settings,{key:'habiticaKey',  val:habiticaKey.value}));
+    profileName .addEventListener('change',()=> dbPut(STORES.settings,{key:'profileName',  val:profileName.value}));
+    exportBtn.addEventListener('click', ()=>{
+      const blob=new Blob([JSON.stringify(ALL_TASKS,null,2)],{type:'application/json'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='all-quests.json'; a.click(); URL.revokeObjectURL(a.href);
+    });
+
+    async function pushHabitica(task){
+      const uid=(await dbGet(STORES.settings,'habiticaUser'))?.val||'';
+      const key=(await dbGet(STORES.settings,'habiticaKey'))?.val||'';
+      if(!uid || !key){ alert('Add Habitica User ID + API Token in Settings first.'); return; }
+      const body={ text:`[KS] ${task.act.toUpperCase()} — ${task.title}`, type:'todo', notes:task.details||'', priority: task.diff>=3?2:1, attributes:'int' };
+      try{
+        const res=await fetch('https://habitica.com/api/v3/tasks/user',{
+          method:'POST', headers:{'Content-Type':'application/json','x-api-user':uid,'x-api-key':key,'x-client':'pra.all.kosovo-1.0'},
+          body:JSON.stringify(body)
+        });
+        if(!res.ok) throw new Error(await res.text());
+        alert('Task sent to Habitica ✔');
+      }catch(e){ alert('Habitica error: '+e.message.slice(0,280)); }
+    }
+
+    /* ===========================
+       XP / Achievements
+       =========================== */
+    const xpRing=document.getElementById('xpRing'); const levelEl=document.getElementById('level');
+    async function tallyXP(){
+      const all=await dbAll(STORES.tasks);
+      const xp=all.reduce((s,t)=> s+(t.done?t.pts:0), 0) + (await dbAll(STORES.vault)).length*10;
+      const level = 1 + Math.floor(xp/300);
+      const pct = Math.min(99, (xp%300)/300*100);
+      xpRing.style.setProperty('--v', pct.toFixed(1));
+      levelEl.textContent='Lv '+level;
+    }
+
+    /* ===========================
+       Vault: uploads + images + export/import
+       =========================== */
+    const vForm=document.getElementById('vaultForm'), vTitle=document.getElementById('vTitle'), vCat=document.getElementById('vCat'), vTags=document.getElementById('vTags'), vSrc=document.getElementById('vSrc'), vNotes=document.getElementById('vNotes'), vFiles=document.getElementById('vFiles'), vSave=document.getElementById('vSave'), vExport=document.getElementById('vExport'), vImport=document.getElementById('vImport'), vaultGrid=document.getElementById('vaultGrid');
+
+    function uid(){ return 'v_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8); }
+
+    vForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const id=uid(); const imgs=[];
+      if(vFiles.files && vFiles.files.length){
+        for(const f of vFiles.files){
+          const iid=uid();
+          await dbPut(STORES.images,{id:iid, blob:f, mime:f.type||'image/*'});
+          imgs.push(iid);
+        }
+      }
+      const rec={ id, title:vTitle.value.trim(), cat:vCat.value, tags:vTags.value.split(',').map(s=>s.trim()).filter(Boolean), src:vSrc.value.trim(), notes:vNotes.value.trim(), images:imgs, ts: Date.now() };
+      await dbPut(STORES.vault, rec);
+      vForm.reset(); renderVault(); tallyXP();
+    });
+
+    async function renderVault(){
+      const items=(await dbAll(STORES.vault)).sort((a,b)=>b.ts-a.ts);
+      vaultGrid.innerHTML='';
+      for(const it of items){
+        const card=document.createElement('div'); card.className='vault-card';
+        const chipz = it.tags.map(t=>`<span class="chip">#${t}</span>`).join(' ');
+        card.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>${it.title}</strong><span class="chip">${it.cat}</span>
+          </div>
+          <div class="mini">${new Date(it.ts).toLocaleString()}</div>
+          <div class="mini">${it.src?`Source: <a href="${it.src}" target="_blank" rel="noopener">link</a>`:''}</div>
+          <p class="mini" style="white-space:pre-wrap">${it.notes||''}</p>
+          <div class="chips">${chipz}</div>
+          <div class="thumbs" id="th_${it.id}"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+            <button data-id="${it.id}" class="btnDel">Delete</button>
+            <button data-id="${it.id}" class="btnExport">Export Item</button>
+          </div>
+        `;
+        vaultGrid.appendChild(card);
+
+        const box=card.querySelector('#th_'+it.id);
+        for(const iid of it.images||[]){
+          const img=document.createElement('img'); const rec=await dbGet(STORES.images, iid);
+          if(rec){ const url=URL.createObjectURL(rec.blob); img.src=url; img.alt='upload'; box.appendChild(img); }
+        }
+      }
+      vaultGrid.querySelectorAll('.btnDel').forEach(btn=>{
+        btn.addEventListener('click', async ()=>{
+          const id=btn.getAttribute('data-id'); const rec=await dbGet(STORES.vault,id);
+          if(rec?.images){ for(const iid of rec.images) await dbDel(STORES.images,iid); }
+          await dbDel(STORES.vault,id); renderVault(); tallyXP();
+        });
+      });
+      vaultGrid.querySelectorAll('.btnExport').forEach(btn=>{
+        btn.addEventListener('click', async ()=>{
+          const id=btn.getAttribute('data-id'); const rec=await dbGet(STORES.vault,id);
+          const blob=new Blob([JSON.stringify(rec,null,2)],{type:'application/json'});
+          const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`vault-${id}.json`; a.click(); URL.revokeObjectURL(a.href);
+        });
+      });
+    }
+
+    vExport.addEventListener('click', async ()=>{
+      const all=await dbAll(STORES.vault);
+      const blob=new Blob([JSON.stringify(all,null,2)],{type:'application/json'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='vault-all.json'; a.click(); URL.revokeObjectURL(a.href);
+    });
+
+    vImport.addEventListener('change', async ()=>{
+      const f=vImport.files?.[0]; if(!f) return;
+      try{
+        const txt=await f.text(); const arr=JSON.parse(txt);
+        if(Array.isArray(arr)){ for(const rec of arr){ await dbPut(STORES.vault, rec); } renderVault(); tallyXP(); }
+      }catch(e){ alert('Import error: '+e.message); }
+    });
+
+    /* ===========================
+       AI: WebLLM — local planner
+       =========================== */
+    let engine=null;
+    const aiStatus=document.getElementById('aiStatus'); const chatlog=document.getElementById('chatlog'); const chatForm=document.getElementById('chat'); const promptEl=document.getElementById('prompt');
+    function say(who,text){ const b=document.createElement('div'); b.className='bubble '+(who==='you'?'you':''); b.textContent=text; chatlog.appendChild(b); chatlog.scrollTop=chatlog.scrollHeight; }
+    document.getElementById('loadModel').addEventListener('click', async ()=>{
+      try{
+        aiStatus.textContent='Loading WebLLM…';
+        const { CreateMLCEngine } = await import('https://esm.run/@mlc-ai/web-llm');
+        engine = await CreateMLCEngine('Llama-3.2-3B-Instruct-q4f32_1-MLC', { initProgressCallback: ({progress})=> aiStatus.textContent = `Loading: ${Math.round(progress*100)}%` });
+        aiStatus.textContent='Model ready.';
+      }catch(e){ aiStatus.innerHTML=`<span class="danger">Failed:</span> ${e.message}`; }
+    });
+    chatForm.addEventListener('submit', async (e)=>{
+      e.preventDefault(); const q=promptEl.value.trim(); if(!q) return; say('you',q); promptEl.value='';
+      if(!engine){ say('ai','Load the model first.'); return; }
+      try{
+        const r = await engine.chat.completions.create({ model:'Llama-3.2-3B-Instruct-q4f32_1-MLC',
+          messages:[
+            {role:'system', content:'You are a practical survival planner for Kosovo households/farms. Be concise, safe, and provide step-by-step actions. Do not provide wet-lab or biosynthesis protocols; redirect to safe alternatives if asked.'},
+            {role:'user', content:q}
+          ]});
+        say('ai', r?.choices?.[0]?.message?.content?.trim()||'…');
+      }catch(err){ say('ai','WebLLM error: '+err.message.slice(0,220)); }
+    });
+
+    /* ===========================
+       Boot
+       =========================== */
+    function mountModuleTasks(list, targetAct){ list.forEach(async t=>{
+      const existing = await dbGet(STORES.tasks, t.id);
+      if(!existing) await dbPut(STORES.tasks, {...t, done:false});
+    }); }
+    async function boot(){
+      seedStars(); assignTargets(0);
+      await ensureTasks();
+      await renderVault();
+    }
+    boot();
+
+  </script>
+</body>
+</html>

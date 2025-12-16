@@ -1,0 +1,880 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Water Sovereignty — Kosovo | Planetary Restoration Archive</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Ultra long-form, gamified water sovereignty for Kosovo: capture, storage, treatment, irrigation, community protocols, and local innovation. Photorealistic morphing constellations, IndexedDB vault with uploads, Habitica sync, and on-device WebLLM." />
+  <meta name="theme-color" content="#0b0f19" />
+  <meta property="og:title" content="Water Sovereignty — Kosovo" />
+  <meta property="og:description" content="Gamified, offline-first water sovereignty guide for Kosovo with Habitica, WebLLM, and an IndexedDB research vault." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://planetaryrestorationarchive.com/static/og-water-kosovo.jpg" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Ctext y='0.9em' font-size='90'%3E💧%3C/text%3E%3C/svg%3E">
+
+  <!-- JSON-LD: schema.org + custom presentation schema -->
+  <script type="application/ld+json">
+  {
+    "@context": [
+      "https://schema.org",
+      "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"
+    ],
+    "@type": "HowTo",
+    "name": "Water Sovereignty — Kosovo (Balkans)",
+    "headline": "Ultra long-form, gamified water sovereignty guide for Kosovo",
+    "inLanguage": "en",
+    "about": [
+      "water security", "rainwater harvesting", "cisterns", "first-flush diverters",
+      "slow-sand filters", "UV/boil/RO treatment", "drip irrigation",
+      "community protocols", "local innovation", "Kosovo"
+    ],
+    "audience": {"@type":"Audience","audienceType":"Households, farmers, cooperatives, schools"},
+    "isPartOf": {"@type":"CreativeWorkSeries","name":"Sovereignty Toolkit — Balkans"},
+    "publisher": {"@type":"Organization","name":"Planetary Restoration Archive"},
+    "datePublished": "2025-10-21",
+    "url": "https://example.com/water/"
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#060912; --ink:#e7ecf5; --muted:#9aa7bd; --accent:#6ae3ff; --accent2:#8cff9a; --accent3:#ffd572;
+      --panel:#101426; --panel2:#0c1120; --line:rgba(255,255,255,0.08);
+      --glow:0 0 16px rgba(106,227,255,0.25), 0 0 28px rgba(140,255,154,0.15);
+      --glow-hot:0 0 16px rgba(255,213,114,0.25), 0 0 28px rgba(106,227,255,0.15);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;background:var(--bg);color:var(--ink);
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Inter,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+      overflow-x:hidden;
+    }
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Photorealistic morphing constellations + starfield layer */
+    #cosmos{position:fixed;inset:0;z-index:-2;background:radial-gradient(1200px 600px at 70% 10%, rgba(80,120,255,0.09), transparent 60%), radial-gradient(1000px 500px at 20% 20%, rgba(120,220,180,0.06), transparent 60%), linear-gradient(180deg,#04060b 0%,#080d18 45%,#080d18 100%);}
+
+    /* Parallax header & dropdown mega-menu */
+    header{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px) saturate(1.2);
+      background:linear-gradient(180deg,rgba(8,13,24,0.8),rgba(8,13,24,0.45));border-bottom:1px solid var(--line)}
+    nav{max-width:1300px;margin:auto;display:flex;align-items:center;gap:14px;padding:10px 16px;perspective: 800px;}
+    .brand{font-weight:800;letter-spacing:.3px}
+    .spacer{flex:1}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--line)}
+    .btn:hover{box-shadow:var(--glow)}
+    .menu{position:relative}
+    .menu > button{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--line);transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+    .menu .drop{
+      position:absolute;top:calc(100% + 10px);left:0;min-width:720px;display:none;
+      background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));
+      border:1px solid var(--line);border-radius:14px;box-shadow:var(--glow);padding:16px; transform-origin:top left;
+      transform:translateZ(30px) rotateX(6deg);
+    }
+    .menu.open .drop{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .mini{font-size:12px;color:var(--muted)}
+
+    .wrap{max-width:1200px;margin:28px auto;padding:0 16px}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;padding:26px;border-radius:var(--radius);background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));border:1px solid var(--line)}
+    @media (max-width:980px){ .hero{grid-template-columns:1fr} }
+
+    .panel{background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--glow)}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+
+    .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    @media (max-width:980px){.kpi{grid-template-columns:1fr 1fr}}
+
+    /* Gamified tasks */
+    .act{padding:18px;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));border:1px solid var(--line);border-radius:var(--radius);margin-top:16px}
+    .progress{height:8px;background:#1b223f;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+    .progress>span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+    .tasks{display:grid;gap:10px;margin-top:10px}
+    .task{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center;background:#0f152a;border:1px solid var(--line);border-radius:12px;padding:10px}
+    .task .title{font-weight:650}
+    .task .meta{font-size:12px;color:var(--muted)}
+    .task .actions button{padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#121b32;color:var(--ink)}
+    .task .actions button:hover{box-shadow:var(--glow)}
+    .badge{display:inline-flex;gap:8px;align-items:center;font-size:12px;color:var(--muted)}
+    .warn{color:#ffd36a}
+    .good{color:#8cff9a}
+    .danger{color:#ff8c8c}
+
+    /* Score ring */
+    .ring{--v:0; width:96px;height:96px;border-radius:50%;background:
+      conic-gradient(var(--accent) calc(var(--v)*1%), #1b223f 0);
+      display:grid;place-items:center;border:1px solid var(--line)}
+    .ring>span{font-weight:800}
+
+    /* Vault (uploads, images, alternatives) */
+    .vault-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    @media (max-width:1100px){.vault-grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:700px){.vault-grid{grid-template-columns:1fr}}
+    .vault-card{background:#10182d;border:1px solid var(--line);border-radius:12px;padding:12px}
+    .chips{display:flex;flex-wrap:wrap;gap:6px}
+    .chip{font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:#0b1326}
+    .thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .thumbs img{width:84px;height:84px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+
+    /* AI chat */
+    #chatlog{height:280px;overflow:auto;background:#0d1326;border:1px solid var(--line);border-radius:12px;padding:10px}
+    .bubble{margin:8px 0;padding:10px 12px;border-radius:12px;background:#0f1a35}
+    .bubble.you{background:#0a2240}
+
+    /* Footer */
+    footer{color:var(--muted);margin:40px 0 70px}
+  </style>
+</head>
+<body>
+  <canvas id="cosmos" aria-hidden="true"></canvas>
+
+  <header>
+    <nav id="mainNav">
+      <div class="brand">Sovereignty Toolkit — <strong>Kosovo</strong></div>
+      <a class="btn" href="/water/" aria-current="page">💧 Water</a>
+      <a class="btn" href="/food/">🌾 Food</a>
+      <div class="spacer"></div>
+
+      <div class="menu" id="menuGuides">
+        <button aria-haspopup="true" aria-expanded="false">🧭 Guides ▾</button>
+        <div class="drop">
+          <div class="card">
+            <h4>Household</h4>
+            <ul>
+              <li><a href="#act1">7‑Day Security Sprint</a></li>
+              <li><a href="#act2">Water Quality & Treatment</a></li>
+              <li><a href="#act3">Rain Capture & Cisterns</a></li>
+              <li><a href="#act4">Storage & Redundancy</a></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Farm & Community</h4>
+            <ul>
+              <li><a href="#act5">Irrigation & Drought</a></li>
+              <li><a href="#act6">Law & Safety</a></li>
+              <li><a href="#act7">Open Hardware Lab</a></li>
+              <li><a href="#act8">Mutual Aid Protocols</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu" id="menuVault">
+        <button aria-haspopup="true" aria-expanded="false">🗃️ Vault ▾</button>
+        <div class="drop">
+          <div class="card">
+            <h4>Uploads</h4>
+            <p class="mini">Add discoveries, images, alternatives; stored in IndexedDB; export/import JSON.</p>
+            <a class="btn" href="#vault">Open Vault ↓</a>
+          </div>
+          <div class="card">
+            <h4>AI Planner</h4>
+            <p class="mini">WebLLM hydrologist runs on your GPU—no server.</p>
+            <a class="btn" href="#ai">Chat with AI ↓</a>
+          </div>
+        </div>
+      </div>
+
+      <a class="btn" href="#" id="openSettings">⚙️ Settings</a>
+    </nav>
+  </header>
+
+  <div class="wrap">
+    <section class="hero" id="top">
+      <div>
+        <div class="badge">Balkans • Kosovo • Offline‑first • IndexedDB • Habitica • WebLLM • Open Hardware</div>
+        <h1>Water Sovereignty — Kosovo</h1>
+        <p class="muted">
+          Build stacked resilience for households, farms, and neighborhoods: capture rain, store safely, treat reliably,
+          irrigate efficiently, and act together. This guide prizes local materials and DIY builds
+          (PVC, HDPE, galvanized, repurposed barrels, pebble/river sand, local mesh, bicycle parts for pumps),
+          plus a **Vault** to upload your own innovations and alternatives—images and all—right in the browser.
+        </p>
+        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+          <div class="ring" id="xpRing"><span id="level">Lv 1</span></div>
+          <div class="card" style="min-width:260px">
+            <div class="muted">Quick Yield Estimator</div>
+            <label>Roof (m²) <input id="roofArea" type="number" value="100"></label>
+            <label>Rain (mm/yr) <input id="rainMm" type="number" value="675"></label>
+            <label>Runoff coeff. <select id="coef"><option value="0.8" selected>Tile/metal (0.8)</option><option value="0.6">Rough (0.6)</option></select></label>
+            <div class="mini">Usable liters/yr: <strong id="litersOut">–</strong></div>
+          </div>
+          <div class="card" style="flex:1">
+            <div class="muted">Kosovo context</div>
+            <ul class="mini">
+              <li>Key reservoirs: Batllava • Badovc • Ujman/Gazivoda.</li>
+              <li>Historic mining in the north ⇒ avoid raw river use without testing/treatment.</li>
+              <li>Focus: roof capture + safe storage + redundancy drills.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Achievement Board</h3>
+        <div class="mini">XP from completing quests and adding quality Vault entries.</div>
+        <ul id="achievements" class="mini" style="line-height:1.7">
+          <li>🏁 First Sprint Complete</li>
+          <li>🧪 Tested a Source</li>
+          <li>🌀 First‑Flush Installed</li>
+          <li>🪣 1,000 L Stored</li>
+          <li>🧰 Built a DIY Filter</li>
+          <li>📡 Mutual Aid Tap Active</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ACT I — Household Water Security -->
+    <article class="act" id="act1">
+      <h2>Act I — Household Water Security (7‑Day Sprint)</h2>
+      <p class="muted">Goal: 7‑day reserve, shutoff drill, leak audit, first rain barrels. Tailor for urban apartments in Prishtina or rural homes in Dukagjin.</p>
+      <div class="progress"><span id="p1"></span></div>
+      <div id="tasks-act1" class="tasks"></div>
+    </article>
+
+    <!-- ACT II — Water Quality & Treatment -->
+    <article class="act" id="act2">
+      <h2>Act II — Water Quality & Treatment</h2>
+      <p class="muted">Goal: test sources; treat turbidity, microbes, and possible metals (site‑specific); establish safe storage SOP.</p>
+      <div class="progress"><span id="p2"></span></div>
+      <div id="tasks-act2" class="tasks"></div>
+
+      <div class="panel">
+        <h3>DIY Builds (local materials)</h3>
+        <details class="card" open>
+          <summary><strong>Slow‑Sand Filter (SSF) — 20–60 L/day</strong></summary>
+          <div class="mini">
+            <strong>Materials (Kosovo‑friendly):</strong> FOOD‑grade barrel (100–220 L); PVC 32–40 mm; valve; river sand (washed, 0.15–0.35 mm); pea gravel; mesh.
+            <br><strong>Build:</strong> (1) Outlet at bottom via PVC standpipe. (2) 10 cm pea gravel base, then 50–70 cm fine sand.
+            (3) Diffuser plate top; cover against light. (4) Condition for 1–2 weeks to form bio‑layer. <em>Flow</em> ~0.1–0.3 L/min.
+            <br><strong>Maintenance:</strong> Wet harrow top 1–2 cm when headloss rises. Avoid chlorinated feed.
+          </div>
+        </details>
+        <details class="card">
+          <summary><strong>Ceramic “Pot” Filter (CPWF) — microbe removal</strong></summary>
+          <div class="mini">
+            <strong>Materials:</strong> Local clay + sawdust (or rice husk), food‑safe colloidal silver (optional).
+            <br><strong>Build gist:</strong> Mix clay+sawdust (50:50 vol), press pot shape, dry, fire ~900°C (community kiln). Burnout creates pores. Silver‑coat for bacterial inhibition.
+            <br><strong>Caveat:</strong> Verify flow (1–3 L/h) and cracks; test with field kits.
+          </div>
+        </details>
+        <details class="card">
+          <summary><strong>Two‑Bucket Filter (sediment + carbon)</strong></summary>
+          <div class="mini">
+            Upper bucket: cloth pre‑filter + fine sand; lower bucket: activated carbon; taps at each stage. Good for taste/odor; add boil or UV for microbes.
+          </div>
+        </details>
+        <details class="card">
+          <summary><strong>Solar Pasteurizer (SODIS / Concentrator)</strong></summary>
+          <div class="mini">
+            PET bottles or blackened coil under box reflector; pasteurization indicator (WAPI). Works best on clear days; use after filtration.
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <!-- ACT III — Rainwater System -->
+    <article class="act" id="act3">
+      <h2>Act III — Rainwater Harvesting System</h2>
+      <p class="muted">Goal: gutters/screens, first‑flush diverter, cistern sizing, overflow to infiltration, and freeze‑ready plumbing.</p>
+      <div class="progress"><span id="p3"></span></div>
+      <div id="tasks-act3" class="tasks"></div>
+
+      <div class="panel">
+        <h3>Local Sourcing & Making Notes</h3>
+        <ul class="mini">
+          <li><strong>First‑flush diverter:</strong> PVC DN110 (commonly available), end‑cap, ball‑float, small drain valve; 0.5–1.0 L per m² of roof capture.</li>
+          <li><strong>Cisterns:</strong> Repurposed IBC totes (1000 L), opaque paint to block light; or HDPE drums (200 L). Add mosquito mesh.</li>
+          <li><strong>Pumps:</strong> 12V diaphragm pump (camping/boat type), inline strainer, car battery or small PV + charge controller.</li>
+          <li><strong>Gravity header:</strong> 300–500 L rooftop drum with float valve; unions and isolation valves for maintenance.</li>
+          <li><strong>Freeze protection:</strong> Drain taps at low points; insulation on exposed lines; bypass for winter.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- ACT IV — Storage & Redundancy -->
+    <article class="act" id="act4">
+      <h2>Act IV — Storage, Distribution, & Redundancy</h2>
+      <p class="muted">Goal: safe/opaque storage, isolation valves, gravity fallback, neighborhood mutual‑aid tap.</p>
+      <div class="progress"><span id="p4"></span></div>
+      <div id="tasks-act4" class="tasks"></div>
+    </article>
+
+    <!-- ACT V — Irrigation & Drought -->
+    <article class="act" id="act5">
+      <h2>Act V — Irrigation & Drought Strategy</h2>
+      <p class="muted">Goal: low‑pressure drip, mulching & shading, deficit irrigation, drought drills aligned with local rain pattern.</p>
+      <div class="progress"><span id="p5"></span></div>
+      <div id="tasks-act5" class="tasks"></div>
+
+      <div class="panel">
+        <h3>DIY Micro‑Drip from Reused Materials</h3>
+        <div class="mini">
+          Use old PE tubing (carefully cleaned) + heated pin to make 0.8–1.2 mm emitters; regulate height/head; run at dawn; add sand filter upstream.
+        </div>
+      </div>
+    </article>
+
+    <!-- ACT VI — Law & Community Safety -->
+    <article class="act" id="act6">
+      <h2>Act VI — Law, Safety, & Community Protocols</h2>
+      <p class="muted">Goal: operate within Kosovo water protections; protect catchments; neighborhood outage protocols.</p>
+      <div class="progress"><span id="p6"></span></div>
+      <div id="tasks-act6" class="tasks"></div>
+    </article>
+
+    <!-- ACT VII — Open Hardware Lab -->
+    <article class="act" id="act7">
+      <h2>Act VII — Open Hardware Lab (Make & Repair)</h2>
+      <p class="muted">Goal: build/repair pumps, valves, meters, and monitors from accessible parts; document in the Vault.</p>
+      <div class="progress"><span id="p7"></span></div>
+      <div id="tasks-act7" class="tasks"></div>
+
+      <div class="panel">
+        <h3>Example Builds</h3>
+        <details class="card" open>
+          <summary><strong>Foot‑Pump (treadle) from Bicycle Parts</strong></summary>
+          <div class="mini">
+            <strong>Materials:</strong> Old bike frame, wooden treadles, two check valves (PVC), hose, pistons (PVC syringes or machined wood + seal).
+            <br><strong>How:</strong> Link treadles to pistons via cranks; piston chambers from PVC with end‑caps; one‑way valves for in/out; prime with water; add strainer.
+            <br><strong>Output:</strong> 10–25 L/min at low head; great for garden transfer to header tank.
+          </div>
+        </details>
+        <details class="card">
+          <summary><strong>Low‑Cost Turbidity Tube</strong></summary>
+          <div class="mini">
+            Clear PVC tube with printed Secchi symbol at base; drain at bottom; measure visibility depth to estimate NTU. Calibrate against test kits when possible.
+          </div>
+        </details>
+        <details class="card">
+          <summary><strong>DIY Ultrasonic Level Gauge (optional)</strong></summary>
+          <div class="mini">
+            HC‑SR04 sensor + microcontroller (ESP32) + 18650 cell. Epoxy to tank lid (condensation shield). Report % full to LEDs; optional LoRa/ Wi‑Fi.
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <!-- ACT VIII — Mutual Aid & Exercises -->
+    <article class="act" id="act8">
+      <h2>Act VIII — Mutual Aid & Drills</h2>
+      <p class="muted">Goal: shared taps, emergency comms tree, 48‑hour drought drill, and catchment stewardship days.</p>
+      <div class="progress"><span id="p8"></span></div>
+      <div id="tasks-act8" class="tasks"></div>
+    </article>
+
+    <!-- VAULT -->
+    <section class="act" id="vault">
+      <h2>Research Vault — Discoveries, Alternatives, Images</h2>
+      <p class="muted">Store field notes, construction variants, and photos offline. Export/import JSON. Your data lives in your browser (IndexedDB).</p>
+
+      <div class="panel">
+        <form id="vaultForm" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="card">
+            <label>Title <input id="vTitle" placeholder="e.g., DN110 First‑Flush with ball‑float" required></label>
+            <label>Category
+              <select id="vCat">
+                <option>Discovery</option>
+                <option>Alternative</option>
+                <option>Material</option>
+                <option>Tool</option>
+                <option>Misc</option>
+              </select>
+            </label>
+            <label>Tags (comma‑sep) <input id="vTags" placeholder="PVC, diverter, winterization"></label>
+            <label>Source / Link (optional) <input id="vSrc" placeholder="http(s) or notes"></label>
+          </div>
+          <div class="card">
+            <label>How to make / Notes
+              <textarea id="vNotes" rows="7" placeholder="Steps, measurements, pitfalls, testing results…"></textarea>
+            </label>
+            <label>Images (multiple, optional)
+              <input id="vFiles" type="file" accept="image/*" multiple capture="environment">
+            </label>
+            <button id="vSave" type="submit">Save to Vault</button>
+            <button id="vExport" type="button">Export JSON</button>
+            <label class="mini" style="display:inline-block;margin-top:6px">
+              Import JSON <input id="vImport" type="file" accept="application/json">
+            </label>
+          </div>
+        </form>
+      </div>
+
+      <div class="vault-grid" id="vaultGrid"></div>
+    </section>
+
+    <!-- AI HYDROLOGIST -->
+    <section class="act" id="ai">
+      <h2>Local AI Hydrologist (WebLLM)</h2>
+      <p class="muted">Runs entirely in‑browser with WebGPU. Ask for Kosovo‑specific design tweaks; no cloud round‑trip.</p>
+      <div class="panel">
+        <div class="mini" id="aiStatus">Model: not loaded</div>
+        <div id="chatlog"></div>
+        <form id="chat" style="display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:8px">
+          <input id="prompt" placeholder="Ask about cistern sizing, first‑flush volumes, SSF troubleshooting…" autocomplete="off" />
+          <button type="submit">Send</button>
+        </form>
+        <div style="display:flex;gap:10px;margin-top:8px;align-items:center">
+          <button id="loadModel">Load WebLLM</button>
+          <small class="mini">First load caches locally.</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      Links: <a href="/water/">Water</a> • <a href="/food/">Food</a> • <span class="mini">Educational use only; verify designs with local code and professionals where required.</span>
+    </footer>
+  </div>
+
+  <!-- SETTINGS MODAL -->
+  <dialog id="settings">
+    <form method="dialog" class="panel">
+      <h3>Settings</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <label>Habitica User ID <input id="habiticaUser" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"></label>
+        <label>Habitica API Token <input id="habiticaKey" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"></label>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+        <label>Profile name <input id="profileName" placeholder="Household / Farm / School"></label>
+        <button id="exportTasks" type="button">Download Tasks JSON</button>
+      </div>
+      <p class="mini">Credentials & progress saved in your browser (IndexedDB). Push any quest to Habitica as a To‑Do.</p>
+      <div style="display:flex;gap:10px;justify-content:flex-end"><button value="cancel">Close</button></div>
+    </form>
+  </dialog>
+
+  <script type="module">
+    /* ===========================
+       COSMOS: Photorealistic Morphing Constellations (parallax)
+       =========================== */
+    const cvs = document.getElementById('cosmos');
+    const g = cvs.getContext('2d');
+    let W=innerWidth, H=innerHeight; cvs.width=W; cvs.height=H;
+
+    const STAR_COUNT = 650, LINK_DIST = 110;
+    const stars = [];
+    const pointer = {x: W/2, y: H/2, z: 0};
+    let shapeIdx = 0, shapeLerp = 0;
+
+    const rand=(a,b)=> a + Math.random()*(b-a);
+    const clamp=(v,a,b)=> Math.max(a, Math.min(b,v));
+    const lerp=(a,b,t)=> a + (b-a)*t;
+
+    // Generate base stars
+    function seedStars(){
+      stars.length=0;
+      for(let i=0;i<STAR_COUNT;i++){
+        stars.push({
+          x: Math.random()*W, y: Math.random()*H, z: rand(0.3,1),
+          baseA: rand(0.3,0.9), size: rand(0.8,2.8), tw: rand(0.4,1.5), ph: Math.random()*6.283,
+          tx: null, ty:null // target positions from shapes
+        });
+      }
+    }
+
+    // Shapes are normalized to [-0.5..0.5] space, then scaled to viewport
+    // Shapes: Droplet, Cistern, Valve, River Mesh, Kosovo outline (stylized)
+    const SHAPES = {
+      droplet:  "M0,-0.44 C0.24,-0.16 0.38,0.02 0.38,0.22 c0,0.22 -0.18,0.42 -0.38,0.52 c-0.2,0.1 -0.42,0.1 -0.62,0 c-0.2,-0.1 -0.38,-0.3 -0.38,-0.52 c0,-0.2 0.14,-0.38 0.38,-0.66 C-0.16,-0.14 0,-0.34 0,-0.44 z",
+      cistern:  "M-0.42,-0.25 h0.84 v0.38 a0.42,0.18 0 0 1 -0.84,0 v-0.38 z",
+      valve:    "M-0.3,0 h0.6 v0.08 h-0.6 z M0,-0.2 a0.2,0.2 0 1 1 0,0.001 z",
+      rivers:   "M-0.5,-0.1 C-0.1,0.0 0.2,0.05 0.5,0.12 M-0.45,-0.3 C-0.1,-0.22 0.2,-0.12 0.45,0.0",
+      kosovo:   "M-0.2,-0.4 l0.15,0.08 0.12,0.12 0.1,0.2 -0.02,0.14 -0.12,0.12 -0.1,0.06 -0.15,-0.02 -0.12,-0.1 -0.08,-0.12 0.02,-0.14 0.1,-0.18 z"
+    };
+
+    // Sample path into points
+    function pathToPoints(d, n=220){
+      const p = new Path2D(d);
+      // naive sampling over bounding box; accept points near stroke
+      const pts=[];
+      for(let i=0;i<n*5 && pts.length<n;i++){
+        const x=rand(-0.52,0.52), y=rand(-0.52,0.52);
+        if(g.isPointInPath(p, x*1000, y*1000)) pts.push([x,y]); // overscale trick
+      }
+      // if too few points, fallback to grid ring
+      if(pts.length< n*0.6){
+        for(let i=0;i<n;i++){
+          const a = i/n*6.283; pts.push([0.45*Math.cos(a), 0.3*Math.sin(a)]);
+        }
+      }
+      return pts;
+    }
+    const SHAPE_KEYS = Object.keys(SHAPES);
+    const SHAPE_POINTS = SHAPE_KEYS.map(k => pathToPoints(SHAPES[k], 240));
+
+    function assignTargets(shape){
+      const pts=SHAPE_POINTS[shape];
+      for(let i=0;i<stars.length;i++){
+        const t = pts[i % pts.length];
+        stars[i].tx = (t[0]*0.9+0.5)*W;
+        stars[i].ty = (t[1]*0.9+0.5)*H;
+      }
+    }
+
+    function cycleShape(){
+      shapeIdx = (shapeIdx+1) % SHAPE_KEYS.length;
+      assignTargets(shapeIdx);
+      shapeLerp = 0;
+    }
+
+    function drawStars(t){
+      g.clearRect(0,0,W,H);
+      g.globalCompositeOperation='lighter';
+      for(const s of stars){
+        // parallax
+        const px = (pointer.x - W/2)/W, py=(pointer.y - H/2)/H;
+        const x = s.x + px*20*s.z, y = s.y + py*20*s.z;
+
+        // morph toward shape target
+        if(s.tx!=null){
+          s.x = lerp(s.x, s.tx, 0.02);
+          s.y = lerp(s.y, s.ty, 0.02);
+        }else{
+          s.y += 0.05*s.z; if(s.y>H) s.y-=H;
+        }
+
+        const a = s.baseA*(0.8 + 0.2*Math.sin(s.ph + t*0.001*s.tw));
+        g.globalAlpha = a;
+        // glow sprite (soft)
+        const r = s.size*1.8;
+        const grad = g.createRadialGradient(x,y,0, x,y,r);
+        grad.addColorStop(0,'rgba(255,255,255,0.95)');
+        grad.addColorStop(0.35,'rgba(170,220,255,0.45)');
+        grad.addColorStop(1,'rgba(0,0,0,0)');
+        g.fillStyle=grad; g.beginPath(); g.arc(x,y,r,0,6.283); g.fill();
+      }
+      // links
+      g.globalAlpha=0.25;
+      g.strokeStyle='rgba(148,190,255,0.35)';
+      for(let i=0;i<stars.length;i+=3){
+        const a=stars[i];
+        for(let j=i+1;j<i+8 && j<stars.length;j++){
+          const b=stars[j]; const dx=a.x-b.x, dy=a.y-b.y; const d=Math.hypot(dx,dy);
+          if(d<LINK_DIST) { g.beginPath(); g.moveTo(a.x,a.y); g.lineTo(b.x,b.y); g.stroke(); }
+        }
+      }
+    }
+
+    function loop(t){ drawStars(t); requestAnimationFrame(loop) }
+    addEventListener('resize', ()=>{W=innerWidth;H=innerHeight;cvs.width=W;cvs.height=H; seedStars(); assignTargets(shapeIdx);});
+    addEventListener('pointermove', e=>{ pointer.x=e.clientX; pointer.y=e.clientY;});
+    addEventListener('deviceorientation', e=>{
+      // light parallax boost on mobile
+      pointer.x = W/2 + clamp((e.gamma||0),-30,30)*10;
+      pointer.y = H/2 + clamp((e.beta||0),-30,30)*10;
+    });
+
+    seedStars(); assignTargets(0); requestAnimationFrame(loop);
+    setInterval(cycleShape, 11000);
+
+    /* ===========================
+       Parallax Dropdowns
+       =========================== */
+    for(const id of ['menuGuides','menuVault']){
+      const el = document.getElementById(id);
+      const btn = el.querySelector('button');
+      btn.addEventListener('click', ()=>{
+        const opened = el.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(opened));
+      });
+      el.addEventListener('pointermove', (e)=>{
+        const r = btn.getBoundingClientRect();
+        const cx = (e.clientX - (r.left+r.width/2))/r.width;
+        const cy = (e.clientY - (r.top+r.height/2))/r.height;
+        btn.style.setProperty('--rx', `${-cy*6}deg`);
+        btn.style.setProperty('--ry', `${cx*8}deg`);
+      });
+      el.addEventListener('mouseleave', ()=>{ btn.style.removeProperty('--rx'); btn.style.removeProperty('--ry'); });
+    }
+
+    /* ===========================
+       IndexedDB: tasks, settings, vault, images
+       =========================== */
+    const DB='sovereignty_db_v2'; const VER=2;
+    const STORES={tasks:'tasks', settings:'settings', vault:'vault', images:'images'};
+    function idb(){ return new Promise((res,rej)=>{ const req=indexedDB.open(DB,VER);
+      req.onupgradeneeded=()=>{ const db=req.result;
+        if(!db.objectStoreNames.contains(STORES.tasks)) db.createObjectStore(STORES.tasks,{keyPath:'id'});
+        if(!db.objectStoreNames.contains(STORES.settings)) db.createObjectStore(STORES.settings,{keyPath:'key'});
+        if(!db.objectStoreNames.contains(STORES.vault)) db.createObjectStore(STORES.vault,{keyPath:'id'});
+        if(!db.objectStoreNames.contains(STORES.images)) db.createObjectStore(STORES.images,{keyPath:'id'});
+      };
+      req.onerror=()=>rej(req.error); req.onsuccess=()=>res(req.result);
+    })}
+    async function dbPut(store,val){ const db=await idb(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readwrite'); tx.objectStore(store).put(val).onsuccess=()=>res(true); tx.onerror=()=>rej(tx.error);});}
+    async function dbGet(store,key){ const db=await idb(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readonly'); const r=tx.objectStore(store).get(key); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error);});}
+    async function dbAll(store){ const db=await idb(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readonly'); const r=tx.objectStore(store).getAll(); r.onsuccess=()=>res(r.result||[]); r.onerror=()=>rej(r.error);});}
+    async function dbDel(store,key){ const db=await idb(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readwrite'); const r=tx.objectStore(store).delete(key); r.onsuccess=()=>res(true); r.onerror=()=>rej(r.error);});}
+
+    /* ===========================
+       Calculators & KPIs
+       =========================== */
+    const roofArea=document.getElementById('roofArea'), rainMm=document.getElementById('rainMm'), coef=document.getElementById('coef'), litersOut=document.getElementById('litersOut');
+    function updateRain(){
+      const A=+roofArea.value||0, R=(+rainMm.value||0)/1000, C=+coef.value||0.8;
+      const L=A*R*C*1000; litersOut.textContent = Math.round(L).toLocaleString('en-US');
+    }
+    [roofArea,rainMm,coef].forEach(e=>e.addEventListener('input',updateRain)); updateRain();
+
+    /* ===========================
+       Task Engine (Acts I–VIII)
+       =========================== */
+    const TASKS = [
+      // Act 1
+      {id:'1-1', act:1, title:'Map your sources', pts:30, diff:1, details:'Utility, rooftop, wells/springs, public taps, graywater candidates.'},
+      {id:'1-2', act:1, title:'7‑day reserve (drinking)', pts:40, diff:1, details:'3–4 L per person per day; opaque, cool, labeled.'},
+      {id:'1-3', act:1, title:'7‑day reserve (non‑potable)', pts:30, diff:1, details:'10–15 L per person per day; barrels/jerrycans.'},
+      {id:'1-4', act:1, title:'Main shutoff drill', pts:20, diff:1, details:'Find/label valve; practice.'},
+      {id:'1-5', act:1, title:'Leak audit & fixes', pts:40, diff:1, details:'Night meter test; dye tablets for toilets; fix drips.'},
+      {id:'1-6', act:1, title:'Two rain barrels (2×200 L)', pts:60, diff:2, details:'Gutters, screens, mesh; secure overflow path.'},
+      {id:'1-7', act:1, title:'Neighborhood map', pts:30, diff:1, details:'Hydrants, public taps, springs, mutual‑aid homes.'},
+      // Act 2
+      {id:'2-1', act:2, title:'Source testing plan', pts:40, diff:2, details:'Turbidity, E. coli; near mining zones: consider metals panel.'},
+      {id:'2-2', act:2, title:'Point‑of‑use treatment', pts:40, diff:2, details:'Sediment + carbon; add boil/UV; RO if metals confirmed.'},
+      {id:'2-3', act:2, title:'Safe storage SOP', pts:20, diff:1, details:'Opaque containers; FIFO rotation; hygiene log.'},
+      {id:'2-4', act:2, title:'Backflow check', pts:30, diff:2, details:'Vacuum breakers; label rain lines; no cross‑ties.'},
+      // Act 3
+      {id:'3-1', act:3, title:'Cistern sizing', pts:50, diff:2, details:'10–30 days of demand; first‑flush 0.5–1.0 mm.'},
+      {id:'3-2', act:3, title:'First‑flush diverter', pts:35, diff:2, details:'PVC DN110; auto‑drain.'},
+      {id:'3-3', act:3, title:'Overflow to infiltration', pts:30, diff:2, details:'Swales/trench; protect foundations.'},
+      {id:'3-4', act:3, title:'Pump + pressure backup', pts:40, diff:2, details:'12V diaphragm; solar trickle; isolation valves.'},
+      {id:'3-5', act:3, title:'Winterization plan', pts:20, diff:1, details:'Drain outdoor lines; insulate; bypass.'},
+      // Act 4
+      {id:'4-1', act:4, title:'Gravity day', pts:20, diff:1, details:'One day on gravity only; label valves.'},
+      {id:'4-2', act:4, title:'Secondary storage', pts:30, diff:2, details:'Rooftop header tank (300–500 L).'},
+      {id:'4-3', act:4, title:'Mutual aid tap', pts:30, diff:2, details:'Outdoor lockable tap; signage & hours.'},
+      // Act 5
+      {id:'5-1', act:5, title:'Mulch & shade', pts:20, diff:1, details:'7–10 cm mulch; shade cloth for heat waves.'},
+      {id:'5-2', act:5, title:'Low‑pressure drip', pts:40, diff:2, details:'0.8–1.6 L/h emitters; dawn schedule.'},
+      {id:'5-3', act:5, title:'Deficit irrigation plan', pts:35, diff:2, details:'Prioritize perennials/high‑value crops.'},
+      {id:'5-4', act:5, title:'48‑h drought drill', pts:30, diff:2, details:'Operate on reserves; log usage.'},
+      // Act 6
+      {id:'6-1', act:6, title:'Water Law brief', pts:20, diff:1, details:'Know protection zones & discharge rules.'},
+      {id:'6-2', act:6, title:'Catchment pledge', pts:20, diff:1, details:'Stream cleanup & monitoring; report pollution.'},
+      {id:'6-3', act:6, title:'Outage protocol', pts:40, diff:2, details:'Neighborhood comms tree & alt routes.'},
+      // Act 7
+      {id:'7-1', act:7, title:'Build foot‑pump', pts:45, diff:3, details:'Bike parts + PVC pistons + check valves.'},
+      {id:'7-2', act:7, title:'Make turbidity tube', pts:25, diff:1, details:'Clear PVC + Secchi target + drain.'},
+      {id:'7-3', act:7, title:'Install level gauge', pts:35, diff:2, details:'Ultrasonic + ESP32 + LEDs.'},
+      // Act 8
+      {id:'8-1', act:8, title:'Shared tap live', pts:35, diff:2, details:'Lockable tap + posted rules.'},
+      {id:'8-2', act:8, title:'Drought drill (community)', pts:40, diff:2, details:'Coordinate 48‑h drill; review lessons.'},
+      {id:'8-3', act:8, title:'Stewardship day', pts:30, diff:1, details:'Reforest hedge; streambank care.'}
+    ];
+
+    const sections = {
+      1:{el:document.getElementById('tasks-act1'), bar:document.getElementById('p1')},
+      2:{el:document.getElementById('tasks-act2'), bar:document.getElementById('p2')},
+      3:{el:document.getElementById('tasks-act3'), bar:document.getElementById('p3')},
+      4:{el:document.getElementById('tasks-act4'), bar:document.getElementById('p4')},
+      5:{el:document.getElementById('tasks-act5'), bar:document.getElementById('p5')},
+      6:{el:document.getElementById('tasks-act6'), bar:document.getElementById('p6')},
+      7:{el:document.getElementById('tasks-act7'), bar:document.getElementById('p7')},
+      8:{el:document.getElementById('tasks-act8'), bar:document.getElementById('p8')}
+    };
+
+    function taskRow(t){
+      const row=document.createElement('div'); row.className='task';
+      row.innerHTML = `
+        <input type="checkbox" ${t.done?'checked':''} aria-label="Complete ${t.title}">
+        <div><div class="title">${t.title}</div><div class="meta">Act ${t.act} · ${t.pts} XP · Diff ${'★'.repeat(t.diff)}</div><div class="mini">${t.details||''}</div></div>
+        <div class="actions"><button class="push">↗ Habitica</button></div>
+        <div class="actions"><button class="reset">🗘 Reset</button></div>
+      `;
+      row.querySelector('input').addEventListener('change', async e=>{
+        await dbPut(STORES.tasks,{...t,done:e.target.checked}); render(); tallyXP();
+      });
+      row.querySelector('.reset').addEventListener('click', async ()=>{
+        await dbPut(STORES.tasks,{...t,done:false}); render(); tallyXP();
+      });
+      row.querySelector('.push').addEventListener('click',()=> pushHabitica(t));
+      return row;
+    }
+
+    async function ensureTasks(){
+      const existing=await dbAll(STORES.tasks);
+      if(!existing || existing.length===0){
+        for(const t of TASKS){ await dbPut(STORES.tasks,{...t,done:false}); }
+      }
+      render(); tallyXP();
+    }
+
+    async function render(){
+      const all=await dbAll(STORES.tasks);
+      for(const a of [1,2,3,4,5,6,7,8]){
+        const group=all.filter(x=>x.act===a);
+        const done=group.filter(x=>x.done).length;
+        const pct = group.length? Math.round(100*done/group.length) : 0;
+        sections[a].bar.style.width=pct+'%';
+        sections[a].el.innerHTML='';
+        group.forEach(t=> sections[a].el.appendChild(taskRow(t)));
+      }
+    }
+
+    /* ===========================
+       Habitica integration
+       =========================== */
+    const openSettings=document.getElementById('openSettings'); const dlg=document.getElementById('settings');
+    const habiticaUser=document.getElementById('habiticaUser'); const habiticaKey=document.getElementById('habiticaKey'); const profileName=document.getElementById('profileName'); const exportBtn=document.getElementById('exportTasks');
+
+    openSettings.addEventListener('click', async (e)=>{ e.preventDefault();
+      const uid=await dbGet(STORES.settings,'habiticaUser'); habiticaUser.value=uid?.val||'';
+      const key=await dbGet(STORES.settings,'habiticaKey'); habiticaKey.value=key?.val||'';
+      const pn =await dbGet(STORES.settings,'profileName'); profileName.value=pn?.val||'';
+      dlg.showModal();
+    });
+    habiticaUser.addEventListener('change',()=> dbPut(STORES.settings,{key:'habiticaUser', val:habiticaUser.value}));
+    habiticaKey .addEventListener('change',()=> dbPut(STORES.settings,{key:'habiticaKey',  val:habiticaKey.value}));
+    profileName .addEventListener('change',()=> dbPut(STORES.settings,{key:'profileName',  val:profileName.value}));
+    exportBtn.addEventListener('click', ()=>{
+      const blob=new Blob([JSON.stringify(TASKS,null,2)],{type:'application/json'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='kosovo-water-quests.json'; a.click(); URL.revokeObjectURL(a.href);
+    });
+
+    async function pushHabitica(task){
+      const uid=(await dbGet(STORES.settings,'habiticaUser'))?.val||'';
+      const key=(await dbGet(STORES.settings,'habiticaKey'))?.val||'';
+      if(!uid || !key){ alert('Add Habitica User ID + API Token in Settings first.'); return; }
+      const body={ text:`[KS Water] ${task.title}`, type:'todo', notes:task.details||'', priority: task.diff>=3?2:1, attributes:'int' };
+      try{
+        const res=await fetch('https://habitica.com/api/v3/tasks/user',{
+          method:'POST', headers:{'Content-Type':'application/json','x-api-user':uid,'x-api-key':key,'x-client':'pra.water.kosovo-1.1'},
+          body:JSON.stringify(body)
+        });
+        if(!res.ok) throw new Error(await res.text());
+        alert('Task sent to Habitica ✔');
+      }catch(e){ alert('Habitica error: '+e.message.slice(0,280)); }
+    }
+
+    /* ===========================
+       XP / Achievements
+       =========================== */
+    const xpRing=document.getElementById('xpRing'); const levelEl=document.getElementById('level');
+    async function tallyXP(){
+      const all=await dbAll(STORES.tasks);
+      const xp=all.reduce((s,t)=> s+(t.done?t.pts:0), 0) + (await dbAll(STORES.vault)).length*10;
+      const level = 1 + Math.floor(xp/250);
+      const pct = Math.min(99, (xp%250)/250*100);
+      xpRing.style.setProperty('--v', pct.toFixed(1));
+      levelEl.textContent='Lv '+level;
+    }
+
+    /* ===========================
+       Vault: uploads + images + export/import
+       =========================== */
+    const vForm=document.getElementById('vaultForm'), vTitle=document.getElementById('vTitle'), vCat=document.getElementById('vCat'), vTags=document.getElementById('vTags'), vSrc=document.getElementById('vSrc'), vNotes=document.getElementById('vNotes'), vFiles=document.getElementById('vFiles'), vSave=document.getElementById('vSave'), vExport=document.getElementById('vExport'), vImport=document.getElementById('vImport'), vaultGrid=document.getElementById('vaultGrid');
+
+    function uid(){ return 'v_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8); }
+
+    vForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const id=uid();
+      const imgs=[];
+      if(vFiles.files && vFiles.files.length){
+        for(const f of vFiles.files){
+          const iid=uid();
+          await dbPut(STORES.images,{id:iid, blob:f, mime:f.type||'image/*'});
+          imgs.push(iid);
+        }
+      }
+      const rec={ id, title:vTitle.value.trim(), cat:vCat.value, tags:vTags.value.split(',').map(s=>s.trim()).filter(Boolean), src:vSrc.value.trim(), notes:vNotes.value.trim(), images:imgs, ts: Date.now() };
+      await dbPut(STORES.vault, rec);
+      vForm.reset(); renderVault(); tallyXP();
+    });
+
+    async function renderVault(){
+      const items=(await dbAll(STORES.vault)).sort((a,b)=>b.ts-a.ts);
+      vaultGrid.innerHTML='';
+      for(const it of items){
+        const card=document.createElement('div'); card.className='vault-card';
+        const chipz = it.tags.map(t=>`<span class="chip">#${t}</span>`).join(' ');
+        card.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>${it.title}</strong>
+            <span class="chip">${it.cat}</span>
+          </div>
+          <div class="mini">${new Date(it.ts).toLocaleString()}</div>
+          <div class="mini">${it.src?`Source: <a href="${it.src}" target="_blank" rel="noopener">link</a>`:''}</div>
+          <p class="mini" style="white-space:pre-wrap">${it.notes||''}</p>
+          <div class="chips">${chipz}</div>
+          <div class="thumbs" id="th_${it.id}"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+            <button data-id="${it.id}" class="btnDel">Delete</button>
+            <button data-id="${it.id}" class="btnExport">Export Item</button>
+          </div>
+        `;
+        vaultGrid.appendChild(card);
+
+        // hydrate images
+        const box=card.querySelector('#th_'+it.id);
+        for(const iid of it.images||[]){
+          const img=document.createElement('img'); const rec=await dbGet(STORES.images, iid);
+          if(rec){ const url=URL.createObjectURL(rec.blob); img.src=url; img.alt='upload'; box.appendChild(img); }
+        }
+      }
+      // wire buttons
+      vaultGrid.querySelectorAll('.btnDel').forEach(btn=>{
+        btn.addEventListener('click', async ()=>{
+          const id=btn.getAttribute('data-id'); const rec=await dbGet(STORES.vault,id);
+          if(rec?.images){ for(const iid of rec.images) await dbDel(STORES.images,iid); }
+          await dbDel(STORES.vault,id); renderVault(); tallyXP();
+        });
+      });
+      vaultGrid.querySelectorAll('.btnExport').forEach(btn=>{
+        btn.addEventListener('click', async ()=>{
+          const id=btn.getAttribute('data-id'); const rec=await dbGet(STORES.vault,id);
+          const blob=new Blob([JSON.stringify(rec,null,2)],{type:'application/json'});
+          const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`vault-${id}.json`; a.click(); URL.revokeObjectURL(a.href);
+        });
+      });
+    }
+
+    vExport.addEventListener('click', async ()=>{
+      const all=await dbAll(STORES.vault);
+      const blob=new Blob([JSON.stringify(all,null,2)],{type:'application/json'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='vault-kosovo-water.json'; a.click(); URL.revokeObjectURL(a.href);
+    });
+
+    vImport.addEventListener('change', async ()=>{
+      const f=vImport.files?.[0]; if(!f) return;
+      try{
+        const txt=await f.text(); const arr=JSON.parse(txt);
+        if(Array.isArray(arr)){ for(const rec of arr){ await dbPut(STORES.vault, rec); } renderVault(); tallyXP(); }
+      }catch(e){ alert('Import error: '+e.message); }
+    });
+
+    /* ===========================
+       WebLLM — local hydrologist
+       =========================== */
+    let engine=null;
+    const aiStatus=document.getElementById('aiStatus'); const chatlog=document.getElementById('chatlog'); const chatForm=document.getElementById('chat'); const promptEl=document.getElementById('prompt');
+    function say(who,text){ const b=document.createElement('div'); b.className='bubble '+(who==='you'?'you':''); b.textContent=text; chatlog.appendChild(b); chatlog.scrollTop=chatlog.scrollHeight; }
+    document.getElementById('loadModel').addEventListener('click', async ()=>{
+      try{
+        aiStatus.textContent='Loading WebLLM…';
+        const { CreateMLCEngine } = await import('https://esm.run/@mlc-ai/web-llm');
+        engine = await CreateMLCEngine('Llama-3.2-3B-Instruct-q4f32_1-MLC', { initProgressCallback: ({progress})=> aiStatus.textContent = `Loading: ${Math.round(progress*100)}%` });
+        aiStatus.textContent='Model ready.';
+      }catch(e){ aiStatus.innerHTML=`<span class="danger">Failed:</span> ${e.message}`; }
+    });
+    chatForm.addEventListener('submit', async (e)=>{
+      e.preventDefault(); const q=promptEl.value.trim(); if(!q) return; say('you',q); promptEl.value='';
+      if(!engine){ say('ai','Load the model first.'); return; }
+      try{
+        const r = await engine.chat.completions.create({ model:'Llama-3.2-3B-Instruct-q4f32_1-MLC',
+          messages:[
+            {role:'system', content:'You are a practical hydrologist for Kosovo households/farms. Be concise, cite assumptions, and give step-by-step actions.'},
+            {role:'user', content:q}
+          ]});
+        say('ai', r?.choices?.[0]?.message?.content?.trim()||'…');
+      }catch(err){ say('ai','WebLLM error: '+err.message.slice(0,220)); }
+    });
+
+    /* ===========================
+       Boot
+       =========================== */
+    ensureTasks().then(renderVault);
+  </script>

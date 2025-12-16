@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Egypt Humanitarian Monitor · Planetary Restoration Archive</title>
+
+<!-- Provenance: Planetary Restoration Archive | planetaryrestorationarchive.com -->
+<!-- GitHub: github.com/therickyfoster | Steward: Foster + Navi -->
+<!-- © 2025 Ricky Foster / Planetary Restoration Archive -->
+<!-- Licensed under MIT License - Attribution Required -->
+
+<meta name="generator" content="Foster + Navi · Planetary Restoration Archive">
+<meta name="description" content="Neutral humanitarian monitoring console for Egypt - incident tracking, verification, and de-escalation">
+<link rel="me" href="https://planetaryrestorationarchive.com">
+<link rel="me" href="https://github.com/TheRickyFoster">
+
+<!-- Open Graph for social sharing -->
+<meta property="og:title" content="Egypt Humanitarian Monitor">
+<meta property="og:description" content="By Planetary Restoration Archive - Neutral monitoring for civilian protection">
+<meta property="og:type" content="website">
+
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' blob:; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none';">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="data:,">
+
+<!-- Web App Manifest (inline) -->
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiRWd5cHQgSHVtYW5pdGFyaWFuIE1vbml0b3IiLCJzaG9ydF9uYW1lIjoiRWd5cHQgTW9uaXRvciIsInN0YXJ0X3VybCI6Ii4vIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzBiMGYxNyIsInRoZW1lX2NvbG9yIjoiIzhiZTlmZCIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDEwMCAxMDAnJTNFJTNDcmVjdCBmaWxsPSclMjM4YmU5ZmQnIHdpZHRoPScxMDAnIGhlaWdodD0nMTAwJy8lM0UlM0N0ZXh0IHg9JzUwJyB5PSc1MCcgZm9udC1zaXplPSc1MCcgdGV4dC1hbmNob3I9J21pZGRsZScgZHk9Jy4zZW0nIGZpbGw9JyUyMzA0MTIxZiclM0VFJTNDL3RleHQlM0UlM0Mvc3ZnJTNFIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwiLCJzaXplcyI6ImFueSJ9XX0=">
+
+<style>
+/* Theme System */
+:root {
+  --bg: #0b0f17; --panel: #121826; --ink: #e6ecff; --muted: #9fb0d1;
+  --accent: #8be9fd; --accent2: #b4ff9f; --warn: #ffd166; --bad: #ff6b6b; --good: #30e0a1;
+  --ring: 0 0 0 2px rgba(139,233,253,.24);
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --sans: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif;
+}
+
+[data-theme="medieval"] {
+  --bg: #1a1410; --panel: #2d2419; --ink: #f4e4d0; --muted: #c4a578;
+  --accent: #d4a574; --accent2: #8fbc8f; --warn: #e8b55d; --bad: #c85a54; --good: #6b9b6b;
+}
+
+[data-theme="space"] {
+  --bg: #000000; --panel: #0d0d1f; --ink: #ffffff; --muted: #a0a0c0;
+  --accent: #00d4ff; --accent2: #ff00ff; --warn: #ffaa00; --bad: #ff0040; --good: #00ff88;
+}
+
+[data-theme="anime"] {
+  --bg: #ffe6f0; --panel: #fff0f7; --ink: #2d1b2e; --muted: #7d5a7f;
+  --accent: #ff6b9d; --accent2: #6bcfff; --warn: #ffbe3d; --bad: #ff4757; --good: #5fdd9d;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  background: linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 90%, var(--panel)) 100%);
+  color: var(--ink); font-family: var(--sans); line-height: 1.5; overflow-x: hidden;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute; left: -9999px; z-index: 999; padding: 1rem;
+  background: var(--accent); color: var(--bg); text-decoration: none; font-weight: bold;
+}
+.skip-link:focus { left: 1rem; top: 1rem; }
+
+/* Header */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 95%, transparent) 0%, transparent 100%);
+  backdrop-filter: saturate(1.2) blur(12px);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+  padding: 1rem 0;
+}
+
+.container { max-width: 1400px; margin: 0 auto; padding: 0 1rem; }
+
+.header-grid {
+  display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center;
+}
+
+.logo { font-size: 1.25rem; font-weight: 700; color: var(--accent); }
+.subtitle { font-size: 0.875rem; color: var(--muted); }
+
+.toolbar { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+/* Buttons */
+button, .btn {
+  appearance: none; border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  background: var(--panel); color: var(--ink); padding: 0.5rem 1rem;
+  border-radius: 0.625rem; cursor: pointer; font-weight: 600; font-size: 0.875rem;
+  transition: all 0.2s ease; box-shadow: var(--ring); font-family: inherit;
+}
+button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+button.primary { background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 80%, white)); color: var(--bg); border: none; }
+button.good { background: linear-gradient(135deg, var(--good), color-mix(in srgb, var(--good) 80%, white)); color: var(--bg); border: none; }
+button.warn { background: linear-gradient(135deg, var(--warn), color-mix(in srgb, var(--warn) 80%, white)); color: var(--bg); border: none; }
+button.bad { background: linear-gradient(135deg, var(--bad), color-mix(in srgb, var(--bad) 80%, white)); color: var(--bg); border: none; }
+
+/* Cards */
+.card {
+  background: linear-gradient(180deg, var(--panel), color-mix(in srgb, var(--panel) 90%, var(--bg)));
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+  border-radius: 1rem; padding: 1.25rem; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.card h3 { margin: 0 0 0.75rem 0; font-size: 1.125rem; color: var(--accent); }
+
+/* Grid layouts */
+.grid { display: grid; gap: 1rem; }
+.cols-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.cols-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+/* Forms */
+label { display: block; font-size: 0.875rem; color: var(--muted); margin-bottom: 0.25rem; font-weight: 600; }
+input, select, textarea {
+  width: 100%; background: var(--bg); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  color: var(--ink); padding: 0.625rem; border-radius: 0.5rem; font-family: var(--sans); font-size: 0.875rem;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--accent); outline-offset: 2px; border-color: var(--accent);
+}
+
+/* Badges */
+.badge {
+  display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px;
+  border: 1px solid; font-size: 0.75rem; font-weight: 600;
+}
+.badge.unverified { border-color: var(--muted); color: var(--muted); }
+.badge.verified { border-color: var(--good); color: var(--good); background: color-mix(in srgb, var(--good) 10%, transparent); }
+.badge.notify { border-color: var(--warn); color: var(--warn); background: color-mix(in srgb, var(--warn) 10%, transparent); }
+.badge.redacted { border-color: var(--bad); color: var(--bad); background: color-mix(in srgb, var(--bad) 10%, transparent); }
+
+/* Table */
+.table-wrapper { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+th, td { padding: 0.75rem; border-bottom: 1px solid color-mix(in srgb, var(--accent) 15%, transparent); text-align: left; }
+th { font-weight: 700; color: var(--accent); background: color-mix(in srgb, var(--panel) 50%, var(--bg)); }
+tr:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); }
+
+/* Progress */
+progress {
+  width: 100%; height: 8px; border: none; border-radius: 4px;
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+}
+progress::-webkit-progress-bar { background: color-mix(in srgb, var(--accent) 20%, transparent); border-radius: 4px; }
+progress::-webkit-progress-value { background: linear-gradient(90deg, var(--accent), var(--good)); border-radius: 4px; }
+progress::-moz-progress-bar { background: linear-gradient(90deg, var(--accent), var(--good)); border-radius: 4px; }
+
+/* Modal */
+.modal {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center; padding: 1rem; z-index: 200;
+}
+.modal.active { display: flex; }
+.modal-content {
+  max-width: 900px; width: 100%; background: var(--panel);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-radius: 1rem; padding: 1.5rem; max-height: 85vh; overflow-y: auto;
+}
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 1rem; right: 1rem; background: var(--panel);
+  border: 1px solid var(--accent); color: var(--ink); padding: 1rem 1.25rem;
+  border-radius: 0.75rem; box-shadow: 0 12px 40px rgba(0,0,0,0.4); z-index: 300;
+  display: none; animation: slideIn 0.3s ease;
+}
+@keyframes slideIn { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+/* Canvas visualization */
+.canvas {
+  height: 320px; border-radius: 1rem; position: relative; overflow: hidden;
+  background:
+    radial-gradient(1200px 400px at 50% -150px, color-mix(in srgb, var(--accent) 15%, transparent), transparent 70%),
+    radial-gradient(500px 250px at 10% 110%, color-mix(in srgb, var(--accent2) 10%, transparent), transparent 65%),
+    linear-gradient(180deg, var(--bg), color-mix(in srgb, var(--bg) 95%, var(--panel)));
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.dot {
+  position: absolute; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 12px currentColor;
+  transition: all 0.3s ease;
+}
+
+/* Footer */
+footer {
+  margin-top: 3rem; padding: 2rem 0; border-top: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
+  text-align: center; color: var(--muted); font-size: 0.875rem;
+}
+
+.attribution {
+  font-weight: 600; color: var(--accent); margin-top: 0.5rem;
+}
+
+/* Tooltips */
+[data-tooltip] { position: relative; cursor: help; }
+[data-tooltip]:hover::after {
+  content: attr(data-tooltip); position: absolute; bottom: 100%; left: 50%;
+  transform: translateX(-50%); background: var(--bg); color: var(--ink);
+  padding: 0.5rem 0.75rem; border-radius: 0.5rem; white-space: nowrap;
+  border: 1px solid var(--accent); font-size: 0.75rem; z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3); pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cols-2, .cols-3 { grid-template-columns: 1fr; }
+  .header-grid { grid-template-columns: 1fr; }
+  .toolbar { justify-content: flex-start; }
+}
+
+/* Print styles */
+@media print {
+  header, .toolbar, button, .canvas { display: none !important; }
+  .card { break-inside: avoid; }
+  body { background: white; color: black; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* EXPLAINER SECTION STYLES */
+#explainer { position: relative; overflow: hidden; transition: all 0.3s ease; }
+#explainer.fullscreen {
+  position: fixed !important; inset: 1rem !important; z-index: 9999 !important;
+  margin: 0 !important; max-width: none !important;
+}
+
+#explainer .stage {
+  height: 280px; border-radius: 1rem; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--bg), color-mix(in srgb, var(--panel) 80%, var(--bg)));
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+  margin-bottom: 1rem;
+}
+
+#explainer .layer {
+  position: absolute; inset: -20%; pointer-events: none; will-change: transform;
+}
+
+#explainer .l-grid {
+  background:
+    linear-gradient(transparent 31px, color-mix(in srgb, var(--accent) 15%, transparent) 32px),
+    linear-gradient(90deg, transparent 31px, color-mix(in srgb, var(--accent) 15%, transparent) 32px);
+  background-size: 32px 32px;
+  opacity: 0.3;
+}
+
+#explainer .l-glow {
+  background:
+    radial-gradient(800px 200px at 50% -50px, color-mix(in srgb, var(--accent) 15%, transparent), transparent 70%),
+    radial-gradient(600px 180px at 20% 120%, color-mix(in srgb, var(--accent2) 10%, transparent), transparent 70%);
+  mix-blend-mode: screen;
+}
+
+#explainer details {
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+  border-radius: 0.75rem; margin: 0.75rem 0; background: var(--bg);
+}
+
+#explainer summary {
+  list-style: none; cursor: pointer; padding: 0.875rem 1rem;
+  user-select: none; font-weight: 700; color: var(--accent);
+  transition: background 0.2s ease;
+}
+
+#explainer summary::-webkit-details-marker { display: none; }
+#explainer summary:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); }
+#explainer details[open] summary {
+  background: var(--panel);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+#explainer .content {
+  padding: 1rem; color: var(--ink); line-height: 1.6;
+}
+
+#explainer code {
+  font-family: var(--mono); background: var(--bg); padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem; font-size: 0.875em;
+}
+
+#explainer pre {
+  background: var(--bg); padding: 1rem; border-radius: 0.5rem; overflow-x: auto;
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+  margin: 0.5rem 0;
+}
+
+#explainer pre code { padding: 0; background: none; }
+
+#explainer kbd {
+  font-family: var(--mono); background: var(--bg);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  padding: 0.125rem 0.5rem; border-radius: 0.375rem; font-size: 0.875em;
+}
+</style>
+</head>
+
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- Zero-Harm Principle Notice (HTML comment) -->
+<!-- 
+  ZERO-HARM & ANTI-INVERSION PRINCIPLE:
+  This tool is designed for humanitarian monitoring, civilian protection, and peaceful de-escalation.
+  It must never be repurposed to target, surveil, or harm individuals or communities.
+  Any use that violates human rights, enables violence, or undermines sovereignty is prohibited.
+  License: MIT with Attribution Requirement
+-->
+
+<header role="banner">
+  <div class="container">
+    <div class="header-grid">
+      <div>
+        <div class="logo">Egypt Humanitarian Monitor</div>
+        <div class="subtitle">Neutral Observation · Verification · Civilian Protection</div>
+      </div>
+      <nav class="toolbar" role="navigation" aria-label="Main navigation">
+        <button id="btn-theme" data-tooltip="Change visual theme">
+          <span id="theme-icon">🎨</span> Theme
+        </button>
+        <button id="btn-export" class="good" data-tooltip="Export redacted report as JSON">
+          📥 Export
+        </button>
+        <button id="btn-settings" data-tooltip="View settings and thresholds">
+          ⚙️ Settings
+        </button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="main-content" class="container" style="padding-top: 2rem; padding-bottom: 3rem;">
+  
+  <!-- Status Overview -->
+  <section class="grid cols-3" style="margin-bottom: 2rem;">
+    <div class="card" data-tooltip="Total incidents in the register">
+      <h3>Total Incidents</h3>
+      <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent);" id="stat-total">0</div>
+    </div>
+    <div class="card" data-tooltip="Incidents verified with ≥2 independent sources">
+      <h3>Verified</h3>
+      <div style="font-size: 2.5rem; font-weight: 700; color: var(--good);" id="stat-verified">0</div>
+    </div>
+    <div class="card" data-tooltip="Awaiting additional corroboration">
+      <h3>Pending Review</h3>
+      <div style="font-size: 2.5rem; font-weight: 700; color: var(--warn);" id="stat-pending">0</div>
+    </div>
+  </section>
+
+  <!-- Incident Intake -->
+  <section class="grid cols-2" style="margin-bottom: 2rem;">
+    <div class="card">
+      <h3>Incident Intake</h3>
+      <p style="color: var(--muted); margin-bottom: 1rem; font-size: 0.875rem;">
+        Record alleged incidents neutrally. System scores confidence based on evidence channels.
+        Rule: <strong>Publish only if ≥2 independent sources corroborate.</strong>
+      </p>
+      <form id="form-incident">
+        <div class="grid cols-2" style="gap: 0.75rem;">
+          <div>
+            <label for="f-time">Timestamp (UTC)</label>
+            <input id="f-time" type="datetime-local" required>
+          </div>
+          <div>
+            <label for="f-loc">Location (lat, lon)</label>
+            <input id="f-loc" placeholder="30.0444, 31.2357" data-tooltip="Cairo coordinates as example">
+          </div>
+          <div>
+            <label for="f-parties">Parties Involved</label>
+            <input id="f-parties" placeholder="Egypt; Israel; UN Observer" data-tooltip="Separate with semicolons">
+          </div>
+          <div>
+            <label for="f-category">Category</label>
+            <select id="f-category">
+              <option value="border">Border/Boundary</option>
+              <option value="humanitarian">Humanitarian Access</option>
+              <option value="civilian">Civilian Infrastructure</option>
+              <option value="medical">Medical Facility</option>
+              <option value="displacement">Displacement/Refuge</option>
+              <option value="maritime">Maritime</option>
+              <option value="military">Military Activity</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div style="grid-column: 1/-1;">
+            <label for="f-desc">Description</label>
+            <textarea id="f-desc" rows="3" placeholder="Neutral, specific, time-bound description of alleged incident..." required></textarea>
+          </div>
+          <div>
+            <label for="f-e1" data-tooltip="Satellite imagery, SAR passes, aerial observation">Evidence: Remote Sensing</label>
+            <input id="f-e1" placeholder="e.g., Sentinel-2 tile ID, image hash">
+          </div>
+          <div>
+            <label for="f-e2" data-tooltip="Ship tracking, port logs, telecommunication metadata">Evidence: AIS/Telemetry</label>
+            <input id="f-e2" placeholder="e.g., MMSI logs, port call records">
+          </div>
+          <div>
+            <label for="f-e3" data-tooltip="Field reports from trusted NGOs or civilian monitors">Evidence: NGO/Field</label>
+            <input id="f-e3" placeholder="e.g., NGO ticket number, observer note">
+          </div>
+          <div>
+            <label for="f-e4" data-tooltip="Verified journalist reports or civic documentation">Evidence: Media/Civic</label>
+            <input id="f-e4" placeholder="e.g., journalist ID, verified post">
+          </div>
+        </div>
+        <div style="display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap;">
+          <button type="submit" class="primary">➕ Add Incident</button>
+          <button type="button" id="btn-sample">📋 Load Samples</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3>Governance & Thresholds</h3>
+      <p style="color: var(--muted); margin-bottom: 1rem; font-size: 0.875rem;">
+        Configure confidence thresholds and review response tiers.
+      </p>
+      
+      <div style="margin-bottom: 1rem;">
+        <label>
+          Publishable Threshold: <strong id="val-publish">0.70</strong>
+        </label>
+        <input type="range" id="t-publish" min="0" max="1" step="0.05" value="0.7" 
+               style="width: 100%; margin-top: 0.25rem;">
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <label>
+          Notify Parties Threshold: <strong id="val-notify">0.50</strong>
+        </label>
+        <input type="range" id="t-notify" min="0" max="1" step="0.05" value="0.5"
+               style="width: 100%; margin-top: 0.25rem;">
+      </div>
+
+      <hr style="border: none; border-top: 1px dashed color-mix(in srgb, var(--accent) 20%, transparent); margin: 1rem 0;">
+
+      <div>
+        <strong style="color: var(--accent); display: block; margin-bottom: 0.5rem;">Response Tiers:</strong>
+        <ol style="color: var(--muted); margin-left: 1.25rem; font-size: 0.875rem;">
+          <li>Tier 1: Rapid Inquiry (liaison notification)</li>
+          <li>Tier 2: Joint Commission Review</li>
+          <li>Tier 3: External Mediator Escalation</li>
+        </ol>
+      </div>
+
+      <div style="margin-top: 1rem;">
+        <button id="btn-charter" class="good">📜 View Charter</button>
+        <button id="btn-reset" class="warn">🔄 Reset Console</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visualization Canvas -->
+  <section class="card" style="margin-bottom: 2rem;">
+    <h3>Operational Canvas</h3>
+    <div class="canvas" id="viz" role="img" aria-label="Visualization of incident locations with privacy jitter"></div>
+    <p style="color: var(--muted); font-size: 0.875rem; margin-top: 0.5rem;">
+      Dots = incidents (position jittered for privacy). Drag to pan, scroll to zoom.
+    </p>
+  </section>
+
+  <!-- Incident Register -->
+  <section class="card" style="margin-bottom: 2rem;">
+    <h3>Incident Register</h3>
+    <div class="table-wrapper">
+      <table id="tbl">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>When (UTC)</th>
+            <th>Where</th>
+            <th>Parties</th>
+            <th>Category</th>
+            <th>Confidence</th>
+            <th>Sources</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="9" style="color: var(--muted); font-size: 0.75rem;">
+              Keyboard: <kbd>Ctrl/Cmd+S</kbd> to export · <kbd>Ctrl/Cmd+O</kbd> to import
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+
+  <!-- EXPLAINER SECTION -->
+  <section id="explainer" class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+      <div>
+        <strong style="color: var(--accent); font-size: 1.125rem;">How This Monitor Works</strong>
+        <p style="color: var(--muted); font-size: 0.875rem;">Hover to expand. Press <kbd>Esc</kbd> to exit.</p>
+      </div>
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <button id="btn-expand">🔍 Expand</button>
+        <button id="btn-print">🖨️ Print PDF</button>
+        <button id="btn-save" class="good">💾 Save Source</button>
+        <button id="btn-close" class="warn" style="display: none;">✖️ Close</button>
+      </div>
+    </div>
+
+    <!-- Parallax Stage -->
+    <div class="stage" id="stage">
+      <div class="layer l-grid" data-depth="0.04"></div>
+      <div class="layer l-glow" data-depth="0.09"></div>
+    </div>
+
+    <!-- Collapsible Documentation -->
+    <details open>
+      <summary>Mission & Architecture</summary>
+      <div class="content">
+        <p>This single-file humanitarian monitoring console observes alleged incidents in Egypt, verifies them across independent sources, and channels outcomes into a three-tier de-escalation pathway.</p>
+        
+        <div class="grid cols-2" style="margin-top: 1rem;">
+          <div>
+            <strong style="color: var(--accent);">Core Features:</strong>
+            <ul style="margin-top: 0.5rem; color: var(--muted);">
+              <li>Neutral intake of incidents</li>
+              <li>Multi-channel evidence verification</li>
+              <li>Transparent confidence scoring</li>
+              <li>Privacy-preserving public exports</li>
+            </ul>
+          </div>
+          <div>
+            <strong style="color: var(--accent);">Technical:</strong>
+            <ul style="margin-top: 0.5rem; color: var(--muted);">
+              <li>Offline-first (Service Worker)</li>
+              <li>Browser-only, no backend</li>
+              <li>Fully auditable single file</li>
+              <li>WCAG 2.1 AA accessible</li>
+            </ul>
+          </div>
+        </div>
+
+        <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--muted);">
+          <strong>Why single-file?</strong> Simplicity is resilience. Easy to mirror, audit, and distribute without infrastructure dependencies.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Confidence Scoring Algorithm</summary>
+      <div class="content">
+        <p>The console applies a transparent, rule-based heuristic:</p>
+        
+        <ol style="margin: 1rem 0; color: var(--muted);">
+          <li><strong>Channel weights:</strong> Remote sensing (0.35), AIS/telemetry (0.25), NGO/field (0.25), media/civic (0.15)</li>
+          <li><strong>Cross-check bonus:</strong> +0.10 for ≥2 channels, +0.05 for ≥3 channels</li>
+          <li><strong>Recency bonus:</strong> +0.08 if ≤24 hours, +0.03 if ≤72 hours</li>
+          <li><strong>Bounds:</strong> Score clamped between 0.00 and 1.00</li>
+        </ol>
+
+        <strong style="color: var(--accent);">Status Logic:</strong>
+        <ul style="margin-top: 0.5rem; color: var(--muted);">
+          <li><strong>Publishable:</strong> confidence ≥ threshold AND ≥2 independent sources</li>
+          <li><strong>Notify Parties:</strong> confidence ≥ notify threshold</li>
+          <li><strong>Unverified:</strong> below notify threshold</li>
+          <li><strong>Redacted:</strong> manual override (always private)</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Response Tiers & Governance</summary>
+      <div class="content">
+        <p>Incidents route through a pre-agreed escalation chain:</p>
+        
+        <ol style="margin: 1rem 0; color: var(--muted);">
+          <li><strong>Tier 1 — Rapid Inquiry:</strong> Notify liaison officers for immediate fact-finding and de-escalation communications</li>
+          <li><strong>Tier 2 — Joint Commission Review:</strong> Civilian-led body evaluates evidence and recommends remedial actions</li>
+          <li><strong>Tier 3 — External Mediator:</strong> Escalation to trusted third party for binding or non-binding arbitration</li>
+        </ol>
+
+        <p style="font-size: 0.875rem; color: var(--muted); margin-top: 1rem;">
+          See the Charter modal for a draft Memorandum of Understanding adaptable to Egypt-specific contexts.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Privacy & Redaction Protocol</summary>
+      <div class="content">
+        <ul style="color: var(--muted);">
+          <li><strong>Source protection:</strong> Public exports remove raw evidence strings; only channel presence flags are retained</li>
+          <li><strong>Geographic jitter:</strong> Incident coordinates are randomized ±0.8% to prevent exact localization</li>
+          <li><strong>Aggregate reporting:</strong> Publish trends and totals, not individual identifiers</li>
+          <li><strong>Right to rectify:</strong> Incidents can be manually redacted; corrections are first-class entries</li>
+        </ul>
+
+        <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--muted);">
+          <strong>Zero-Harm Principle:</strong> This tool must never be repurposed to target, surveil, or harm individuals. Any use violating human rights is prohibited.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Offline Operation & Installation</summary>
+      <div class="content">
+        <p>This page registers an inline Service Worker that caches itself. Once opened, it works offline.</p>
+
+        <div class="grid cols-2" style="margin-top: 1rem;">
+          <div>
+            <strong style="color: var(--accent);">Chrome / Edge:</strong>
+            <ol style="margin-top: 0.5rem; color: var(--muted); font-size: 0.875rem;">
+              <li>Open this page</li>
+              <li>Menu ⋮ → <em>Install app</em></li>
+              <li>Launch from OS like native app</li>
+            </ol>
+          </div>
+          <div>
+            <strong style="color: var(--accent);">Firefox / Safari:</strong>
+            <ol style="margin-top: 0.5rem; color: var(--muted); font-size: 0.875rem;">
+              <li>Press <kbd>Ctrl/Cmd+S</kbd></li>
+              <li>Save as "Webpage, HTML Only"</li>
+              <li>Open saved file anytime</li>
+            </ol>
+          </div>
+        </div>
+
+        <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--muted);">
+          If distributing via USB/LAN, Service Worker still functions when opened from <code>file://</code> in most browsers.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How to Save & Distribute (All Browsers)</summary>
+      <div class="content">
+        <div class="grid cols-2">
+          <div>
+            <strong style="color: var(--accent);">Chrome / Edge:</strong>
+            <ol style="margin-top: 0.5rem; color: var(--muted); font-size: 0.875rem;">
+              <li>Press <kbd>Ctrl/Cmd+S</kbd></li>
+              <li>Choose "Webpage, HTML Only"</li>
+              <li>Share single file via any method</li>
+            </ol>
+          </div>
+          <div>
+            <strong style="color: var(--accent);">Firefox:</strong>
+            <ol style="margin-top: 0.5rem; color: var(--muted); font-size: 0.875rem;">
+              <li>Press <kbd>Ctrl/Cmd+S</kbd></li>
+              <li>Choose "Web Page, HTML Only"</li>
+              <li>For offline: host locally if needed</li>
+            </ol>
+            <pre style="margin-top: 0.5rem;"><code>python3 -m http.server 8080</code></pre>
+          </div>
+        </div>
+
+        <div style="margin-top: 1rem;">
+          <strong style="color: var(--accent);">One-Click Method:</strong>
+          <p style="color: var(--muted); font-size: 0.875rem; margin-top: 0.25rem;">
+            Use the <strong>Save Source</strong> button above. It serializes the live DOM including your current data and settings into a downloadable <code>.html</code> file.
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Keyboard Shortcuts & Tips</summary>
+      <div class="content">
+        <ul style="color: var(--muted);">
+          <li><kbd>Ctrl/Cmd+S</kbd> — Export redacted JSON report</li>
+          <li><kbd>Ctrl/Cmd+O</kbd> — Import JSON data</li>
+          <li><kbd>Esc</kbd> — Exit fullscreen explainer</li>
+          <li><strong>Canvas:</strong> Drag to pan, scroll to zoom</li>
+          <li><strong>Themes:</strong> Click Theme button or matches OS <code>prefers-color-scheme</code></li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <p>Built for humanitarian monitoring, civilian protection, and peaceful de-escalation.</p>
+    <p style="margin-top: 0.5rem;">
+      Offline-capable · Single-file · Open architecture · WCAG 2.1 AA
+    </p>
+    <p class="attribution" style="margin-top: 1rem;">
+      Created by <strong>Ricky Foster</strong> | <a href="https://planetaryrestorationarchive.com" style="color: var(--accent);">Planetary Restoration Archive</a>
+    </p>
+    <p style="font-size: 0.75rem; color: var(--muted); margin-top: 0.5rem;">
+      <a href="https://github.com/TheRickyFoster" style="color: var(--muted);">GitHub: TheRickyFoster</a> · 
+      Licensed under MIT · Attribution Required
+    </p>
+    
+    <!-- Visible Zero-Harm Notice -->
+    <div style="margin-top: 1.5rem; padding: 1rem; border: 1px solid color-mix(in srgb, var(--warn) 30%, transparent); border-radius: 0.5rem; background: color-mix(in srgb, var(--warn) 5%, transparent);">
+      <strong style="color: var(--warn);">⚠️ Zero-Harm & Anti-Inversion Principle</strong>
+      <p style="font-size: 0.875rem; color: var(--muted); margin-top: 0.5rem;">
+        This tool is designed for humanitarian monitoring and civilian protection only. 
+        It must never be repurposed to target, surveil, or harm individuals or communities. 
+        Any use that violates human rights, enables violence, or undermines sovereignty is strictly prohibited.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast notification -->
+<div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+<!-- Modal -->
+<div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-content">
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// Console watermark for developers
+console.log(`
+👋 Developer Notice
+═══════════════════════════════════════════════════════════
+This humanitarian monitoring tool was created by:
+  Ricky Foster | Planetary Restoration Archive
+  
+Website: https://planetaryrestorationarchive.com
+GitHub:  https://github.com/TheRickyFoster
+
+License: MIT with Attribution Requirement
+═══════════════════════════════════════════════════════════
+`);
+
+// Utility functions
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function toast(msg) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 3000);
+}
+
+function openModal(title, content) {
+  const modal = $('#modal');
+  const body = $('#modal-body');
+  body.innerHTML = `<h2 id="modal-title" style="color: var(--accent); margin-bottom: 1rem;">${title}</h2>${content}`;
+  modal.classList.add('active');
+}
+
+function closeModal() {
+  $('#modal').classList.remove('active');
+}
+
+$('#modal').addEventListener('click', (e) => {
+  if (e.target.id === 'modal') closeModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeModal();
+    if ($('#explainer').classList.contains('fullscreen')) {
+      $('#explainer').classList.remove('fullscreen');
+      $('#btn-close').style.display = 'none';
+    }
+  }
+});
+
+// Persistence
+const STORE_KEY = 'egypt-monitor:v1';
+
+function save() {
+  localStorage.setItem(STORE_KEY, JSON.stringify({
+    incidents,
+    settings: getSettings(),
+    theme: document.documentElement.getAttribute('data-theme') || 'default'
+  }));
+}
+
+function load() {
+  try {
+    return JSON.parse(localStorage.getItem(STORE_KEY)) || {};
+  } catch {
+    return {};
+  }
+}
+
+// Settings
+function getSettings() {
+  return {
+    tPublish: parseFloat($('#t-publish').value),
+    tNotify: parseFloat($('#t-notify').value)
+  };
+}
+
+function applySettings(s) {
+  if (!s) return;
+  $('#t-publish').value = s.tPublish ?? 0.7;
+  $('#t-notify').value = s.tNotify ?? 0.5;
+  updateThresholdDisplays();
+}
+
+function updateThresholdDisplays() {
+  $('#val-publish').textContent = $('#t-publish').value;
+  $('#val-notify').textContent = $('#t-notify').value;
+}
+
+$('#t-publish').addEventListener('input', () => {
+  updateThresholdDisplays();
+  render();
+  save();
+});
+
+$('#t-notify').addEventListener('input', () => {
+  updateThresholdDisplays();
+  render();
+  save();
+});
+
+// Incident model
+let incidents = [];
+
+// Confidence scoring
+function scoreConfidence(inc) {
+  let score = 0;
+  let channels = 0;
+  const weights = { e1: 0.35, e2: 0.25, e3: 0.25, e4: 0.15 };
+  
+  for (const key of ['e1', 'e2', 'e3', 'e4']) {
+    if (inc.evidence[key] && inc.evidence[key].trim()) {
+      score += weights[key];
+      channels++;
+    }
+  }
+  
+  // Cross-check bonus
+  if (channels >= 2) score += 0.10;
+  if (channels >= 3) score += 0.05;
+  
+  // Recency bonus
+  const timestamp = Date.parse(inc.timeISO || '');
+  if (!isNaN(timestamp)) {
+    const hours = (Date.now() - timestamp) / 3600000;
+    if (hours <= 24) score += 0.08;
+    else if (hours <= 72) score += 0.03;
+  }
+  
+  score = Math.min(1, Math.max(0, score));
+  inc.corroboratedSources = channels;
+  inc.confidence = parseFloat(score.toFixed(2));
+  return inc.confidence;
+}
+
+function statusFrom(inc) {
+  const { tPublish, tNotify } = getSettings();
+  if (inc.status === 'redacted') return 'redacted';
+  if (inc.confidence >= tPublish && inc.corroboratedSources >= 2) return 'verified';
+  if (inc.confidence >= tNotify) return 'notify';
+  return 'unverified';
+}
+
+// Add incident
+function addIncident(raw) {
+  const [lat, lon] = (raw.loc || '').split(',').map(s => parseFloat(s.trim()));
+  const inc = {
+    id: crypto.randomUUID(),
+    timeISO: new Date(raw.time || Date.now()).toISOString(),
+    lat: isFinite(lat) ? lat : null,
+    lon: isFinite(lon) ? lon : null,
+    parties: (raw.parties || '').split(';').map(s => s.trim()).filter(Boolean),
+    category: raw.category || 'other',
+    desc: (raw.desc || '').trim(),
+    evidence: {
+      e1: raw.e1 || '',
+      e2: raw.e2 || '',
+      e3: raw.e3 || '',
+      e4: raw.e4 || ''
+    },
+    corroboratedSources: 0,
+    confidence: 0,
+    status: 'unverified'
+  };
+  
+  scoreConfidence(inc);
+  inc.status = statusFrom(inc);
+  incidents.unshift(inc);
+  render();
+  save();
+}
+
+// Render table
+function render() {
+  const tbody = $('#tbl tbody');
+  tbody.innerHTML = '';
+  
+  let totalVerified = 0;
+  let totalPending = 0;
+  
+  incidents.forEach((inc, i) => {
+    const tr = document.createElement('tr');
+    const st = statusFrom(inc);
+    
+    if (st === 'verified') totalVerified++;
+    if (st === 'notify') totalPending++;
+    
+    tr.innerHTML = `
+      <td>${i + 1}</td>
+      <td>${inc.timeISO.replace('T', ' ').replace(/\.\d+Z/, ' UTC')}</td>
+      <td>${inc.lat != null && inc.lon != null ? `${inc.lat.toFixed(3)}, ${inc.lon.toFixed(3)}` : '—'}</td>
+      <td>${inc.parties.join(' | ') || '—'}</td>
+      <td>${inc.category}</td>
+      <td>
+        ${inc.confidence.toFixed(2)}
+        <progress max="1" value="${inc.confidence}"></progress>
+      </td>
+      <td>${inc.corroboratedSources}</td>
+      <td><span class="badge ${st}">${st.toUpperCase()}</span></td>
+      <td>
+        <button class="btn-details" data-id="${inc.id}" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Details</button>
+        <button class="btn-redact" data-id="${inc.id}" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Redact</button>
+      </td>
+    `;
+    
+    tbody.appendChild(tr);
+  });
+  
+  // Update stats
+  $('#stat-total').textContent = incidents.length;
+  $('#stat-verified').textContent = totalVerified;
+  $('#stat-pending').textContent = totalPending;
+  
+  drawCanvas();
+}
+
+// Action handlers
+document.addEventListener('click', (e) => {
+  const id = e.target.dataset.id;
+  
+  if (e.target.classList.contains('btn-details') && id) {
+    const inc = incidents.find(x => x.id === id);
+    if (!inc) return;
+    
+    const evidenceList = Object.entries(inc.evidence)
+      .map(([k, v]) => `<li><strong>${k.toUpperCase()}:</strong> ${v || '—'}</li>`)
+      .join('');
+    
+    openModal('Incident Details', `
+      <div class="grid cols-2" style="gap: 1rem;">
+        <div>
+          <strong style="color: var(--accent);">Summary</strong>
+          <p style="margin-top: 0.5rem;"><strong>When:</strong> ${inc.timeISO}</p>
+          <p><strong>Where:</strong> ${inc.lat ?? '—'}, ${inc.lon ?? '—'}</p>
+          <p><strong>Parties:</strong> ${inc.parties.join(', ') || '—'}</p>
+          <p><strong>Category:</strong> ${inc.category}</p>
+          <p><strong>Confidence:</strong> ${inc.confidence}</p>
+          <p><strong>Status:</strong> ${statusFrom(inc)}</p>
+        </div>
+        <div>
+          <strong style="color: var(--accent);">Description</strong>
+          <p style="margin-top: 0.5rem;">${inc.desc || '<em>None provided</em>'}</p>
+        </div>
+      </div>
+      <div style="margin-top: 1rem;">
+        <strong style="color: var(--accent);">Evidence Channels</strong>
+        <ul style="margin-top: 0.5rem;">${evidenceList}</ul>
+      </div>
+      <button onclick="closeModal()" style="margin-top: 1rem;">Close</button>
+    `);
+  }
+  
+  if (e.target.classList.contains('btn-redact') && id) {
+    const idx = incidents.findIndex(x => x.id === id);
+    if (idx >= 0) {
+      incidents[idx].status = 'redacted';
+      render();
+      save();
+      toast('Incident redacted from public reports');
+    }
+  }
+});
+
+// Form submission
+$('#form-incident').addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  const raw = {
+    time: $('#f-time').value,
+    loc: $('#f-loc').value,
+    parties: $('#f-parties').value,
+    category: $('#f-category').value,
+    desc: $('#f-desc').value,
+    e1: $('#f-e1').value,
+    e2: $('#f-e2').value,
+    e3: $('#f-e3').value,
+    e4: $('#f-e4').value
+  };
+  
+  addIncident(raw);
+  e.target.reset();
+  toast('✅ Incident added to register');
+});
+
+// Sample data
+$('#btn-sample').addEventListener('click', () => {
+  const now = Date.now();
+  const samples = [
+    {
+      time: new Date(now - 4 * 3600000).toISOString(),
+      loc: '30.0444, 31.2357',
+      parties: 'Egypt; UN Observer',
+      category: 'humanitarian',
+      desc: 'Alleged delay of aid convoy at checkpoint. Field observer report filed.',
+      e1: '', e2: '', e3: 'UN-Field-Report-7823', e4: ''
+    },
+    {
+      time: new Date(now - 18 * 3600000).toISOString(),
+      loc: '31.2, 34.3',
+      parties: 'Egypt; Israel',
+      category: 'border',
+      desc: 'Boundary monitoring sensor flagged unusual activity. Satellite pass scheduled.',
+      e1: 'Sentinel-2A_20250930', e2: '', e3: '', e4: 'VerifiedJournalist_ID_991'
+    },
+    {
+      time: new Date(now - 56 * 3600000).toISOString(),
+      loc: '30.8, 31.5',
+      parties: 'Egypt; Civilian Monitor',
+      category: 'civilian',
+      desc: 'Water infrastructure damage reported by civilian monitors. NGO ticket opened.',
+      e1: '', e2: '', e3: 'NGO-Infrastructure-Ticket-4492', e4: ''
+    }
+  ];
+  
+  samples.forEach(s => addIncident(s));
+  toast('📋 Sample incidents loaded');
+});
+
+// Export
+$('#btn-export').addEventListener('click', () => {
+  const exportable = incidents
+    .filter(i => statusFrom(i) !== 'redacted')
+    .map(i => ({
+      id: i.id,
+      time: i.timeISO,
+      lat: i.lat,
+      lon: i.lon,
+      parties: i.parties,
+      category: i.category,
+      summary: i.desc,
+      // Redact raw evidence; only show presence
+      evidence: {
+        remote: !!i.evidence.e1,
+        telemetry: !!i.evidence.e2,
+        ngo: !!i.evidence.e3,
+        media: !!i.evidence.e4
+      },
+      confidence: i.confidence,
+      sources: i.corroboratedSources,
+      status: statusFrom(i)
+    }));
+  
+  const pkg = {
+    exportedAt: new Date().toISOString(),
+    attribution: 'Created by Ricky Foster | Planetary Restoration Archive | planetaryrestorationarchive.com',
+    license: 'MIT License - Attribution Required',
+    incidents: exportable,
+    metadata: {
+      total: incidents.length,
+      exported: exportable.length,
+      redacted: incidents.length - exportable.length
+    }
+  };
+  
+  const blob = new Blob([JSON.stringify(pkg, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `egypt-monitor-report-${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  
+  toast('📥 Report exported (redacted incidents excluded)');
+});
+
+// Import
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'o') {
+    e.preventDefault();
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json';
+    input.onchange = async () => {
+      try {
+        const text = await input.files[0].text();
+        const data = JSON.parse(text);
+        const imported = data.incidents || data.items || [];
+        
+        imported.forEach(i => {
+          const inc = {
+            id: i.id || crypto.randomUUID(),
+            timeISO: i.time || i.timeISO || new Date().toISOString(),
+            lat: i.lat ?? null,
+            lon: i.lon ?? null,
+            parties: i.parties || [],
+            category: i.category || 'other',
+            desc: i.summary || i.desc || '',
+            evidence: i.evidence?.remote !== undefined
+              ? {
+                  e1: i.evidence.remote ? 'imported' : '',
+                  e2: i.evidence.telemetry ? 'imported' : '',
+                  e3: i.evidence.ngo ? 'imported' : '',
+                  e4: i.evidence.media ? 'imported' : ''
+                }
+              : (i.evidence || { e1: '', e2: '', e3: '', e4: '' }),
+            corroboratedSources: i.sources || i.corroboratedSources || 0,
+            confidence: i.confidence || 0,
+            status: i.status || 'unverified'
+          };
+          incidents.push(inc);
+        });
+        
+        render();
+        save();
+        toast(`✅ Imported ${imported.length} incidents`);
+      } catch (err) {
+        toast('❌ Import failed: ' + err.message);
+      }
+    };
+    input.click();
+  }
+  
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+    e.preventDefault();
+    $('#btn-export').click();
+  }
+});
+
+// Theme system
+const themes = ['default', 'medieval', 'space', 'anime'];
+let currentThemeIndex = 0;
+
+$('#btn-theme').addEventListener('click', () => {
+  currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+  const theme = themes[currentThemeIndex];
+  
+  if (theme === 'default') {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+  
+  save();
+  toast(`🎨 Theme: ${theme}`);
+});
+
+// Settings modal
+$('#btn-settings').addEventListener('click', () => {
+  const settings = getSettings();
+  openModal('Settings & Governance', `
+    <div class="grid cols-2" style="gap: 1rem;">
+      <div class="card">
+        <h3>Confidence Thresholds</h3>
+        <p style="color: var(--muted); font-size: 0.875rem;">
+          <strong>Publishable:</strong> ${settings.tPublish.toFixed(2)}<br>
+          <strong>Notify Parties:</strong> ${settings.tNotify.toFixed(2)}
+        </p>
+      </div>
+      <div class="card">
+        <h3>Response Tiers</h3>
+        <ol style="color: var(--muted); font-size: 0.875rem; margin-left: 1.25rem;">
+          <li>Rapid Inquiry (liaisons)</li>
+          <li>Joint Commission Review</li>
+          <li>External Mediator Escalation</li>
+        </ol>
+      </div>
+    </div>
+    <div style="margin-top: 1rem;">
+      <button onclick="closeModal()">Close</button>
+    </div>
+  `);
+});
+
+// Charter modal
+$('#btn-charter').addEventListener('click', () => {
+  openModal('Monitoring Charter (Draft MoU)', `
+    <p style="color: var(--muted); margin-bottom: 1rem;">
+      Compact language suitable for Egypt-specific humanitarian monitoring contexts.
+    </p>
+    <div class="card" style="white-space: pre-wrap; font-family: var(--mono); font-size: 0.875rem; line-height: 1.6;">
+<strong>Mandate:</strong> Observe and verify alleged incidents neutrally to prevent escalation and enable peaceful remediation.
+
+<strong>Verification Rule:</strong> No public attribution without at least two independent corroborations from distinct evidence channels.
+
+<strong>Access:</strong> Parties facilitate safe passage for civilian monitors; where access is denied, remote sensing and OSINT are permissible.
+
+<strong>Privacy:</strong> Human sources are protected; public outputs are aggregated and redacted to prevent identification.
+
+<strong>Response Pathway:</strong>
+  1. Rapid Inquiry via liaison officers
+  2. Joint Commission Review (civilian-led)
+  3. External Mediator referral for binding/non-binding outcomes
+
+<strong>Limits:</strong> No intelligence collection or targeting support; tooling is for de-escalation and humanitarian protection only.
+
+<strong>License:</strong> MIT with Attribution Requirement
+    </div>
+    <div style="margin-top: 1rem;">
+      <button onclick="closeModal()">Close</button>
+    </div>
+  `);
+});
+
+// Reset
+$('#btn-reset').addEventListener('click', () => {
+  if (confirm('Reset console? This will clear all incidents and settings.')) {
+    incidents = [];
+    localStorage.removeItem(STORE_KEY);
+    render();
+    applySettings({});
+    toast('🔄 Console reset');
+  }
+});
+
+// Canvas visualization
+function drawCanvas() {
+  const canvas = $('#viz');
+  canvas.querySelectorAll('.dot').forEach(d => d.remove());
+  
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
+  
+  const rng = (seed) => {
+    let x = seed;
+    return () => (x = (x * 1664525 + 1013904223) % 4294967296) / 4294967296;
+  };
+  
+  incidents.forEach((inc) => {
+    if (inc.lat == null || inc.lon == null) return;
+    
+    const r = rng(parseInt(inc.id.slice(0, 8), 16));
+    
+    // Privacy jitter
+    const jx = (r() - 0.5) * 0.8;
+    const jy = (r() - 0.5) * 0.8;
+    
+    // Fake projection
+    const px = ((inc.lon + 180) / 360 + jx / 100) * w;
+    const py = ((90 - inc.lat) / 180 + jy / 100) * h;
+    
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.style.left = (px % w) + 'px';
+    dot.style.top = (py % h) + 'px';
+    
+    const st = statusFrom(inc);
+    if (st === 'verified') dot.style.background = 'var(--good)';
+    else if (st === 'notify') dot.style.background = 'var(--warn)';
+    else if (st === 'redacted') dot.style.background = 'var(--bad)';
+    
+    dot.title = `${inc.category} · ${inc.confidence.toFixed(2)}`;
+    canvas.appendChild(dot);
+  });
+}
+
+// Explainer interactions
+$('#btn-expand').addEventListener('click', () => {
+  $('#explainer').classList.add('fullscreen');
+  $('#btn-close').style.display = 'inline-block';
+});
+
+$('#btn-close').addEventListener('click', () => {
+  $('#explainer').classList.remove('fullscreen');
+  $('#btn-close').style.display = 'none';
+});
+
+$('#explainer').addEventListener('mouseenter', () => {
+  setTimeout(() => {
+    if ($('#explainer:hover').length) {
+      $('#explainer').classList.add('fullscreen');
+      $('#btn-close').style.display = 'inline-block';
+    }
+  }, 150);
+});
+
+// Parallax
+const stage = $('#stage');
+const layers = $$('#stage .layer');
+let targetX = 0, targetY = 0, curX = 0, curY = 0;
+
+stage.addEventListener('mousemove', (e) => {
+  const rect = stage.getBoundingClientRect();
+  const mx = (e.clientX - rect.left) / rect.width;
+  const my = (e.clientY - rect.top) / rect.height;
+  targetX = (mx - 0.5) * 2;
+  targetY = (my - 0.5) * 2;
+});
+
+function animateParallax() {
+  curX += (targetX - curX) * 0.07;
+  curY += (targetY - curY) * 0.07;
+  
+  const w = stage.clientWidth;
+  const h = stage.clientHeight;
+  
+  layers.forEach(el => {
+    const depth = parseFloat(el.dataset.depth || '0.05');
+    const x = curX * depth * w;
+    const y = curY * depth * h;
+    el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+  });
+  
+  requestAnimationFrame(animateParallax);
+}
+
+animateParallax();
+
+// Print
+$('#btn-print').addEventListener('click', () => window.print());
+
+// Save source
+$('#btn-save').addEventListener('click', () => {
+  try {
+    const doc = document.documentElement.cloneNode(true);
+    
+    // Add metadata
+    const meta = document.createElement('meta');
+    meta.setAttribute('name', 'x-saved-at');
+    meta.setAttribute('content', new Date().toISOString());
+    doc.querySelector('head')?.appendChild(meta);
+    
+    // Embed state
+    const state = localStorage.getItem(STORE_KEY);
+    if (state) {
+      const seed = document.createElement('script');
+      seed.type = 'application/json';
+      seed.id = 'egypt-monitor-state';
+      seed.textContent = state;
+      doc.querySelector('body')?.appendChild(seed);
+      
+      const boot = document.createElement('script');
+      boot.textContent = `
+        (function() {
+          const seed = document.getElementById('egypt-monitor-state');
+          if (seed && seed.textContent) {
+            try {
+              localStorage.setItem('egypt-monitor:v1', seed.textContent);
+            } catch(e) {}
+          }
+        })();
+      `;
+      doc.querySelector('body')?.appendChild(boot);
+    }
+    
+    const serializer = new XMLSerializer();
+    const doctype = '<!DOCTYPE html>';
+    const html = serializer.serializeToString(doc);
+    const blob = new Blob([doctype + '\n' + html], { type: 'text/html;charset=utf-8' });
+    
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'egypt-humanitarian-monitor.html';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(a.href);
+    
+    toast('💾 Source saved with current data');
+  } catch (err) {
+    toast('❌ Save failed: ' + err.message);
+  }
+});
+
+// Boot
+(function boot() {
+  const state = load();
+  
+  applySettings(state.settings);
+  
+  if (state.theme && state.theme !== 'default') {
+    document.documentElement.setAttribute('data-theme', state.theme);
+    currentThemeIndex = themes.indexOf(state.theme);
+  }
+  
+  incidents = Array.isArray(state.incidents) ? state.incidents : [];
+  incidents.forEach(scoreConfidence);
+  
+  // Set default datetime to now
+  const now = new Date();
+  now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+  $('#f-time').value = now.toISOString().slice(0, 16);
+  
+  render();
+})();
+
+// Service Worker registration
+if ('serviceWorker' in navigator) {
+  const swCode = `
+    const CACHE = 'egypt-monitor-v1';
+    self.addEventListener('install', e => {
+      e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./', './index.html'])));
+      self.skipWaiting();
+    });
+    self.addEventListener('activate', e => {
+      self.clients.claim();
+    });
+    self.addEventListener('fetch', e => {
+      const req = e.request;
+      e.respondWith(
+        fetch(req)
+          .then(res => {
+            if (res.ok) {
+              const copy = res.clone();
+              caches.open(CACHE).then(c => c.put(req, copy));
+            }
+            return res;
+          })
+          .catch(() => caches.match(req).then(r => r || caches.match('./')))
+      );
+    });
+  `;
+  
+  const blob = new Blob([swCode], { type: 'text/javascript' });
+  const url = URL.createObjectURL(blob);
+  
+  navigator.serviceWorker.register(url)
+    .then(() => console.log('✅ Service Worker registered - offline ready'))
+    .catch(err => console.warn('⚠️ Service Worker registration failed:', err));
+}
+</script>
+
+</body>
+</html>
