@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌍 Regen Archive Governance Framework</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background: #0a0e1a;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Cosmic Background */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(ellipse at top, #1e3a8a 0%, transparent 50%),
+                radial-gradient(ellipse at bottom left, #581c87 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, #0f172a 0%, transparent 50%),
+                radial-gradient(ellipse at center, #1e40af 0%, transparent 70%);
+            animation: cosmicShift 30s ease-in-out infinite;
+        }
+
+        @keyframes cosmicShift {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(1deg); }
+        }
+
+        /* Animated Stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Galactic Navigation */
+        .galactic-nav {
+            position: fixed;
+            top: 50%;
+            left: 30px;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(147, 197, 253, 0.2);
+            border-radius: 50px;
+            padding: 20px 10px;
+            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+        }
+
+        .nav-item {
+            display: block;
+            width: 50px;
+            height: 50px;
+            margin: 15px 0;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px solid transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 50%;
+        }
+
+        .nav-item span {
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            transform: scale(1.1);
+        }
+
+        .nav-item:hover::before {
+            opacity: 1;
+        }
+
+        .nav-item:hover span {
+            transform: scale(1.2);
+        }
+
+        .nav-item.active {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.2);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
+        }
+
+        .nav-item.active::before {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            opacity: 0.8;
+        }
+
+        /* Tooltip for navigation */
+        .nav-tooltip {
+            position: absolute;
+            left: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(15, 23, 42, 0.95);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .nav-item:hover .nav-tooltip {
+            opacity: 1;
+            left: 80px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            position: relative;
+            max-width: 900px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 20px rgba(59, 130, 246, 0.5);
+            animation: slideInDown 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: linear-gradient(45deg, #ffffff, #93c5fd, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            animation: slideInUp 1.2s ease-out 0.3s both;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .hero-tagline {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            animation: slideInUp 1.2s ease-out 0.6s both;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-100px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            margin-left: 120px; /* Account for sidebar nav */
+        }
+
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Collapsible Cards */
+        .collapsible-container {
+            display: grid;
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .collapsible-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .collapsible-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);
+        }
+
+        .card-header {
+            padding: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(59, 130, 246, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .card-header:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            padding: 0.5rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .expand-icon {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .collapsible-card.expanded .card-content {
+            max-height: 2000px;
+        }
+
+        .card-body {
+            padding: 2rem;
+            color: #e2e8f0;
+            line-height: 1.7;
+        }
+
+        /* Governance Tiers */
+        .governance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .tier-card {
+            background: rgba(30, 58, 138, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-5px);
+            background: rgba(30, 58, 138, 0.2);
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .tier-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .tier-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #93c5fd;
+        }
+
+        .tier-description {
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        /* Review Process Grid */
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .criteria-card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(147, 197, 253, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .criteria-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
+        }
+
+        .criteria-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .criteria-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #93c5fd;
+        }
+
+        .criteria-desc {
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        /* Outcome Badges */
+        .outcomes-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .outcome-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .outcome-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .badge-approved { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-conditions { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .badge-guidance { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-delayed { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); }
+        .badge-declined { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+        /* Timeline for Bootstrap */
+        .timeline {
+            position: relative;
+            margin: 3rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #3b82f6, #10b981);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 80px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: #10b981;
+            border-radius: 50%;
+            border: 4px solid rgba(15, 23, 42, 1);
+        }
+
+        .timeline-content {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #93c5fd;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .galactic-nav {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .governance-grid, .review-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 15px;
+            }
+            
+            .timeline-item {
+                padding-left: 50px;
+            }
+            
+            .timeline-marker {
+                left: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg"></div>
+    
+    <!-- Animated Stars -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Galactic Navigation -->
+    <nav class="galactic-nav">
+        <a href="#layers" class="nav-item active" data-section="layers">
+            <span>🔑</span>
+            <div class="nav-tooltip">Governance Layers</div>
+        </a>
+        <a href="#review" class="nav-item" data-section="review">
+            <span>⚖️</span>
+            <div class="nav-tooltip">Impact Review</div>
+        </a>
+        <a href="#stewardship" class="nav-item" data-section="stewardship">
+            <span>👥</span>
+            <div class="nav-tooltip">Stewardship</div>
+        </a>
+        <a href="#enforcement" class="nav-item" data-section="enforcement">
+            <span>📢</span>
+            <div class="nav-tooltip">Enforcement</div>
+        </a>
+        <a href="#precedent" class="nav-item" data-section="precedent">
+            <span>📘</span>
+            <div class="nav-tooltip">Precedent Index</div>
+        </a>
+        <a href="#bootstrap" class="nav-item" data-section="bootstrap">
+            <span>🌱</span>
+            <div class="nav-tooltip">Bootstrap Path</div>
+        </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>🌍 Governance Framework</h1>
+            <div class="hero-subtitle">Regen Archive</div>
+            <div class="hero-tagline">
+                Balancing legal enforceability with community stewardship and ethical continuity
+            </div>
+        </div>
+    </section>
+
+    <div class="main-content">
+        <!-- Governance Layers Section -->
+        <section class="section fade-in" id="layers">
+            <div class="section-header">
+                <h2 class="section-title">🔑 Governance Layers</h2>
+                <p class="section-subtitle">Three-tier federated structure for distributed decision-making</p>
+            </div>
+            
+            <div class="collapsible-container">
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-title">
+                            <div class="card-icon">🌍</div>
+                            <div>
+                                <h3>Global Circle</h3>
+                                <small style="color: #94a3b8;">Final arbiter for complex decisions</small>
+                            </div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p><strong>Primary Functions:</strong></p>
+                            <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                                <li>Handles appeals from Regional/Bioregional Circles</li>
+                                <li>Oversees cross-regional projects affecting multiple bioregions</li>
+                                <li>Maintains the comprehensive Ethics & Precedent Archive</li>
+                                <li>Sets global policy and framework updates</li>
+                            </ul>
+                            <p style="margin-top: 1.5rem;"><strong>Composition:</strong> 8 members representing global expertise across technical, ecological, community, ethics, and legal domains.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-title">
+                            <div class="card-icon">🏔️</div>
+                            <div>
+                                <h3>Bioregional Councils</h3>
+                                <small style="color: #94a3b8;">Ecosystem-based coordination</small>
+                            </div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p><strong>Scope:</strong></p>
+                            <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                                <li>Coordinate across shared ecosystems (watersheds, migratory routes, forests)</li>
+                                <li>Maintain BIOREGISTRY.md with project documentation</li>
+                                <li>Host quarterly coordination calls with published summaries</li>
+                                <li>Handle projects that span multiple local regions within a bioregion</li>
+                            </ul>
+                            <p style="margin-top: 1.5rem;"><strong>Examples:</strong> Great Lakes Council, Amazon Basin Council, Sahel Restoration Council</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-title">
+                            <div class="card-icon">🏘️</div>
+                            <div>
+                                <h3>Local/Regional Circles</h3>
+                                <small style="color: #94a3b8;">Community-level governance</small>
+                            </div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p><strong>Core Responsibilities:</strong></p>
+                            <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                                <li>Review and approve local regenerative projects</li>
+                                <li>Issue compatible use permissions for Regen Archive materials</li>
+                                <li>Document decisions in local ethics logs</li>
+                                <li>First point of contact for community members</li>
+                            </ul>
+                            <p style="margin-top: 1.5rem;"><strong>Minimum composition:</strong> 3 members representing technical, ecological, and community perspectives.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Review Process -->
+        <section class="section fade-in" id="review">
+            <div class="section-header">
+                <h2 class="section-title">⚖️ Impact Review Process</h2>
+                <p class="section-subtitle">IRB-style evaluation framework ensuring ethical alignment</p>
+            </div>
+            
+            <div class="review-grid">
+                <div class="criteria-card">
+                    <span class="criteria-icon">🌍</span>
+                    <h3 class="criteria-title">Environmental Impact</h3>
+                    <p class="criteria-desc">Measurable environmental benefit or neutral footprint through lifecycle analysis</p>
+                </div>
+                <div class="criteria-card">
+                    <span class="criteria-icon">⚔️</span>
+                    <h3 class="criteria-title">Dual-Use Potential</h3>
+                    <p class="criteria-desc">Assessment of potential weaponization or extractive misuse</p>
+                </div>
+                <div class="criteria-card">
+                    <span class="criteria-icon">🤲</span>
+                    <h3 class="criteria-title">Community Benefit</h3>
+                    <p class="criteria-desc">Strengthens resilience, equity, and shared capacity with fair risk distribution</p>
+                </div>
+                <div class="criteria-card">
+                    <span class="criteria-icon">⏳</span>
+                    <h3 class="criteria-title">Continuity Check</h3>
+                    <p class="criteria-desc">Seven-generation impact assessment for intergenerational stewardship</p>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 4rem;">
+                <h3 style="font-size: 2rem; color: #93c5fd;">Review Outcomes</h3>
+            </div>
+            
+            <div class="outcomes-container">
+                <div class="outcome-badge badge-approved">
+                    <span>✅</span> Approved
+                </div>
+                <div class="outcome-badge badge-conditions">
+                    <span>⚠️</span> Approved with Conditions
+                </div>
+                <div class="outcome-badge badge-guidance">
+                    <span>📘</span> Educational Guidance
+                </div>
+                <div class="outcome-badge badge-delayed">
+                    <span>⏸️</span> Delayed Release
+                </div>
+                <div class="outcome-badge badge-declined">
+                    <span>❌</span> Declined
+                </div>
+            </div>
+        </section>
+
+        <!-- Stewardship Section -->
+        <section class="section fade-in" id="stewardship">
+            <div class="section-header">
+                <h2 class="section-title">👥 Stewardship Circle Composition</h2>
+                <p class="section-subtitle">Balanced expertise ensuring comprehensive decision-making</p>
+            </div>
+            
+            <div class="collapsible-container">
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-title">
+                            <div class="card-icon">👨‍💻</div>
+                            <div>
+                                <h3>Technical Experts (2)</h3>
+                                <small style="color: #94a3b8;">AI, Engineering, Systems Design</small>
+                            </div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p>Specialists who understand implementation complexities, technical implications, and system architectures. They assess feasibility, security implications, and technical risks of proposed projects.</p>
+                            <p style="margin-top: 1rem;"><strong>Expertise areas:</strong> Software engineering, AI/ML systems, distributed systems, cybersecurity, data governance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-title">
+                            <div class="card-icon">🌳</div>
+                            <div>
+                                <h3>Ecological Specialists (2)</h3>
+                                <small style="color: #94a3b8;">Restoration Science, Water Systems</small>
+                            </div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p>Scientists and practitioners with deep understanding of ecological systems, restoration methodologies, and environmental impact assessment.</p>
+                            <p style="margin-top: 1rem;"><strong>Expertise areas:</strong> Forestry, hydrology, soil science, biodiversity conservation, climate adaptation, ecosystem services.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-title">
+                            <div class="card-icon">🤝</div>
+                            <div>
+                                <h3>Community Representatives (2)</h3>
+                                <small style="color: #94a3b8;">Indigenous Voices, Grassroots Organizers</small>
+                            </div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p>Representatives from communities directly affected by environmental challenges, bringing lived experience and traditional ecological knowledge.</p>
+                            <p style="margin-top: 1rem;"><strong>Background:</strong> Indigenous leaders, community organizers, environmental justice advocates, local practitioners of regenerative practices.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-title">
+                            <div class="card-icon">⚖️</div>
+                            <div>
+                                <h3>Ethics & Legal Advisors (2)</h3>
+                                <small style="color: #94a3b8;">Philosophy, Environmental Law</small>
+                            </div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p><strong>Ethics Advisor:</strong> Philosopher or ethicist specializing in environmental ethics, technology ethics, or applied ethics. Provides moral framework analysis and ethical impact assessment.</p>
+                            <p style="margin-top: 1rem;"><strong>Legal Advisor:</strong> Environmental law specialist familiar with intellectual property, commons governance, and international environmental frameworks.</p>
+                            <p style="margin-top: 1rem;"><strong>Terms:</strong> 2-3 years with staggered renewal every 6-12 months. Maximum 2 consecutive terms to prevent institutional capture.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enforcement Section -->
+        <section class="section fade-in" id="enforcement">
+            <div class="section-header">
+                <h2 class="section-title">📢 Enforcement Spectrum</h2>
+                <p class="section-subtitle">Graduated responses ensuring proportional accountability</p>
+            </div>
+            
+            <div class="collapsible-container">
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-title">
+                            <div class="card-icon">💬</div>
+                            <div>
+                                <h3>Level 1: Gentle Guidance</h3>
+                                <small style="color: #94a3b8;">Private feedback and advisory notes</small>
+                            </div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p>Initial response to minor misalignments or potential concerns. Private communication offering constructive feedback, clarification of guidelines, and suggestions for better alignment.</p>
+                            <p style="margin-top: 1rem;"><strong>Triggers:</strong> Unintentional misuse, unclear project descriptions, minor deviations from best practices.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-title">
+                            <div class="card-icon">📢</div>
+                            <div>
+                                <h3>Level 2: Public Clarification</h3>
+                                <small style="color: #94a3b8;">Distinguish aligned vs. independent use</small>
+                            </div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p>Public statement clarifying the relationship between a project and Regen Archive values, distinguishing officially aligned work from independent projects using similar materials.</p>
+                            <p style="margin-top: 1rem;"><strong>Purpose:</strong> Prevent confusion while allowing legitimate independent work to continue.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-title">
+                            <div class="card-icon">⚠️</div>
+                            <div>
+                                <h3>Level 3: Formal Misalignment Notice</h3>
+                                <small style="color: #94a3b8;">Recorded warning with reputational impact</small>
+                            </div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p>Official documentation of misalignment, published in the Ethics Log. Creates public record and reputational accountability while providing opportunity for correction.</p>
+                            <p style="margin-top: 1rem;"><strong>Documentation includes:</strong> Nature of misalignment, evidence reviewed, recommendations for correction, timeline for response.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-title">
+                            <div class="card-icon">🚫</div>
+                            <div>
+                                <h3>Level 4: Trademark Revocation</h3>
+                                <small style="color: #94a3b8;">Loss of right to use Regen Archive marks</small>
+                            </div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p>Removal of permission to use Regen Archive trademarks, names, and symbols. Project may continue using underlying open-source materials but cannot claim official alignment.</p>
+                            <p style="margin-top: 1rem;"><strong>Applied when:</strong> Serious ethical violations, continued misalignment after formal notice, harm to regenerative mission.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-title">
+                            <div class="card-icon">🔀</div>
+                            <div>
+                                <h3>Level 5: Protective Fork</h3>
+                                <small style="color: #94a3b8;">Last resort safeguard against harmful use</small>
+                            </div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p>Creation of stewarded fork to prevent misuse of critical infrastructure or knowledge. Reserved for cases where harmful use could cause significant damage to ecosystems or communities.</p>
+                            <p style="margin-top: 1rem;"><strong>Process:</strong> Emergency review, community notification, technical implementation, transition planning.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Precedent Index -->
+        <section class="section fade-in" id="precedent">
+            <div class="section-header">
+                <h2 class="section-title">📘 Precedent Index</h2>
+                <p class="section-subtitle">Ethics Log tags for systematic precedent building</p>
+            </div>
+            
+            <div class="governance-grid">
+                <div class="tier-card">
+                    <span class="tier-icon">🌍</span>
+                    <h3 class="tier-title">Environmental Impact</h3>
+                    <p class="tier-description">Cases involving ecosystem effects, sustainability assessments, and environmental risk evaluations</p>
+                </div>
+                <div class="tier-card">
+                    <span class="tier-icon">⚔️</span>
+                    <h3 class="tier-title">Dual-Use Technology</h3>
+                    <p class="tier-description">Reviews of technologies with potential for both beneficial and harmful applications</p>
+                </div>
+                <div class="tier-card">
+                    <span class="tier-icon">🤲</span>
+                    <h3 class="tier-title">Community Benefit</h3>
+                    <p class="tier-description">Disputes over community impact, benefit distribution, and stakeholder involvement</p>
+                </div>
+                <div class="tier-card">
+                    <span class="tier-icon">🛡️</span>
+                    <h3 class="tier-title">Trademark Dispute</h3>
+                    <p class="tier-description">Cases involving misuse of Regen Archive marks, names, or symbols</p>
+                </div>
+                <div class="tier-card">
+                    <span class="tier-icon">🔄</span>
+                    <h3 class="tier-title">Bioregional Coordination</h3>
+                    <p class="tier-description">Cross-regional projects, ecosystem management, and bioregional governance decisions</p>
+                </div>
+                <div class="tier-card">
+                    <span class="tier-icon">⏸️</span>
+                    <h3 class="tier-title">Delayed Release</h3>
+                    <p class="tier-description">Projects temporarily withheld pending safety assessments or preparatory conditions</p>
+                </div>
+                <div class="tier-card">
+                    <span class="tier-icon">📝</span>
+                    <h3 class="tier-title">Educational Guidance</h3>
+                    <p class="tier-description">Advisory decisions providing clarification without prohibition or restriction</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bootstrap Path -->
+        <section class="section fade-in" id="bootstrap">
+            <div class="section-header">
+                <h2 class="section-title">🌱 Bootstrapping Path</h2>
+                <p class="section-subtitle">From pilot to global federation</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Phase 1: Pilot Governance</h3>
+                        <p class="timeline-desc">Launch in a single city-node (e.g., RegenNode–Jakarta). Establish mini-circle with 3-4 trusted members spanning technical, ecological, and community expertise. Begin documenting decisions and building precedent.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Phase 2: Ethics Log Foundation</h3>
+                        <p class="timeline-desc">Publish first Ethics Log entries as precedent-setting examples. Develop standardized documentation processes. Create transparent decision-making protocols and community feedback mechanisms.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Phase 3: Regional Expansion</h3>
+                        <p class="timeline-desc">Scale to neighboring regions within the same bioregion. Establish coordination protocols between local circles. Begin quarterly bioregional coordination calls and shared project registries.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Phase 4: Global Federation</h3>
+                        <p class="timeline-desc">Connect regional circles into global governance network. Establish Global Circle with appeals processes. Mature the precedent archive into comprehensive decision-making resource for future stewards.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Create animated stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 150;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Toggle collapsible cards
+        function toggleCard(header) {
+            const card = header.parentElement;
+            card.classList.toggle('expanded');
+        }
+
+        // Navigation highlighting
+        function updateActiveNav() {
+            const sections = document.querySelectorAll('.section');
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    currentSection = section.id;
+                }
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.section === currentSection) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = item.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            });
+        });
+
+        // Fade-in animation on scroll
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            elements.forEach(el => observer.observe(el));
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            handleScrollAnimations();
+            updateActiveNav();
+            
+            // Update navigation on scroll
+            window.addEventListener('scroll', updateActiveNav);
+            
+            // Add some initial expanded cards for better UX
+            setTimeout(() => {
+                const firstCards = document.querySelectorAll('.collapsible-card');
+                if (firstCards.length > 0) {
+                    firstCards[0].classList.add('expanded'); // First card in each section
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

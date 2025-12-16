@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌍 Regen Archive - Planetary Restoration Commons</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .parallax-container {
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            perspective: 1px;
+        }
+
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .parallax-back {
+            transform: translateZ(-1px) scale(2);
+        }
+
+        .parallax-base {
+            transform: translateZ(0);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="60" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="30" r="1" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            position: relative;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            animation: slideInUp 1s ease-out 0.6s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .nav.visible {
+            transform: translateY(0);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4299e1;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #4299e1;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4299e1;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #718096;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        .card p {
+            color: #718096;
+            line-height: 1.6;
+        }
+
+        /* License badges */
+        .license-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+
+        /* Governance visualization */
+        .governance-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .governance-level {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+        }
+
+        .governance-level::after {
+            content: '⬇️';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+        }
+
+        .governance-level:last-child::after {
+            display: none;
+        }
+
+        /* Ethics log styling */
+        .ethics-log {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 4px solid #4299e1;
+        }
+
+        .log-entry {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .log-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-approved {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status-conditions {
+            background: #fef5e7;
+            color: #744210;
+        }
+
+        .status-declined {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        /* Floating elements */
+        .floating-emoji {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: float-random 15s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes float-random {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Call to action */
+        .cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 4rem 0 0 0;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">🌍 Regen Archive</div>
+            <ul class="nav-links">
+                <li><a href="#licenses">Licenses</a></li>
+                <li><a href="#governance">Governance</a></li>
+                <li><a href="#ethics">Ethics</a></li>
+                <li><a href="#implementation">Implementation</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>🌍 Regen Archive</h1>
+            <div class="hero-subtitle">Planetary Restoration Commons</div>
+            <div class="hero-description">
+                A global framework for open-source planetary healing, combining legal protection with community governance to ensure regenerative knowledge remains accessible to all while preventing extractive misuse.
+            </div>
+        </div>
+    </section>
+
+    <!-- Legal Backbone Section -->
+    <section class="section fade-in" id="licenses">
+        <div class="section-header">
+            <h2 class="section-title">⚖️ Legal Backbone</h2>
+            <p class="section-subtitle">Multi-layered licensing protecting code, knowledge, and symbols</p>
+        </div>
+        
+        <div class="card-grid">
+            <div class="card">
+                <span class="card-icon">💻</span>
+                <h3>Software Components</h3>
+                <div class="license-badge">AGPL-3.0</div>
+                <p>Ensures all modified versions remain open source, including network-facing services. Protects against privatization of distributed software infrastructure.</p>
+            </div>
+            
+            <div class="card">
+                <span class="card-icon">📚</span>
+                <h3>Documentation & Blueprints</h3>
+                <div class="license-badge">CC-BY-SA 4.0</div>
+                <p>Encourages free use, remixing, and adaptation with attribution plus share-alike requirements. Ideal for educational and regenerative knowledge transfer.</p>
+            </div>
+            
+            <div class="card">
+                <span class="card-icon">🎨</span>
+                <h3>Logos & Symbols</h3>
+                <div class="license-badge">CC-BY-ND 4.0</div>
+                <p>Freely shareable but not alterable. Preserves symbolic and narrative continuity while allowing wide distribution.</p>
+            </div>
+            
+            <div class="card">
+                <span class="card-icon">™️</span>
+                <h3>Trademarks</h3>
+                <div class="license-badge">Community Protected</div>
+                <p>Regen Archive™ and aligned marks protected as community trademarks. Used for attribution and alignment, not enclosure.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Governance Section -->
+    <section class="section fade-in" id="governance">
+        <div class="section-header">
+            <h2 class="section-title">🏛️ Federated Governance</h2>
+            <p class="section-subtitle">Distributed stewardship circles ensuring ethical alignment</p>
+        </div>
+        
+        <div class="governance-flow">
+            <div class="governance-level">
+                <h3>🌍 Global Circle</h3>
+                <p>Handles appeals, cross-regional projects, and maintains the Ethics & Precedent Archive. Final arbiter for complex decisions.</p>
+            </div>
+            
+            <div class="governance-level">
+                <h3>🏔️ Bioregional Councils</h3>
+                <p>Coordinate shared ecosystems like watersheds and migratory routes. Host quarterly calls and maintain project registries.</p>
+            </div>
+            
+            <div class="governance-level">
+                <h3>🏘️ Local/Regional Circles</h3>
+                <p>Review local projects, approve compatible uses, and log decisions. Minimum 3 members spanning technical, ecological, and community expertise.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="card-icon">👥</span>
+            <h3>Stewardship Circle Composition</h3>
+            <p><strong>Balanced representation:</strong> 2× Technical architects, 2× Ecological experts, 2× Community voices, 1× Ethics advisor, 1× Legal advisor</p>
+            <p><strong>Terms:</strong> 2-3 years with staggered rotation every 6-12 months. Maximum 2 consecutive terms to prevent capture.</p>
+        </div>
+    </section>
+
+    <!-- Ethics Section -->
+    <section class="section fade-in" id="ethics">
+        <div class="section-header">
+            <h2 class="section-title">🛡️ Impact Review Process</h2>
+            <p class="section-subtitle">IRB-style evaluation ensuring projects align with planetary healing</p>
+        </div>
+        
+        <div class="card-grid">
+            <div class="card">
+                <span class="card-icon">🌍</span>
+                <h3>Environmental Impact</h3>
+                <p>Does the project create measurable environmental benefit or maintain at least neutral footprint?</p>
+            </div>
+            
+            <div class="card">
+                <span class="card-icon">⚔️</span>
+                <h3>Dual-Use Risk</h3>
+                <p>Could the work be misapplied to harm ecosystems, communities, or planetary stability?</p>
+            </div>
+            
+            <div class="card">
+                <span class="card-icon">🤲</span>
+                <h3>Community Benefit</h3>
+                <p>Does it strengthen resilience, equity, and shared capacity? Who gains and who bears risks?</p>
+            </div>
+            
+            <div class="card">
+                <span class="card-icon">⏳</span>
+                <h3>Continuity Check</h3>
+                <p>Does it align with intergenerational stewardship values and long-term planetary healing?</p>
+            </div>
+        </div>
+
+        <div class="ethics-log">
+            <h3>📋 Ethics Log Examples</h3>
+            <p>All governance decisions are recorded in a transparent, public log to build precedent and enable self-assessment.</p>
+            
+            <div class="log-entry">
+                <div class="log-status status-conditions">⚠️ Approved with conditions</div>
+                <div>
+                    <strong>Mangrove Shield Project</strong> - Jakarta Node<br>
+                    <small>Requires biodiversity monitoring before scaling</small>
+                </div>
+            </div>
+            
+            <div class="log-entry">
+                <div class="log-status status-approved">✅ Approved</div>
+                <div>
+                    <strong>Community Seed Bank</strong> - Bioregional Council<br>
+                    <small>Open-source genetic preservation aligned with food sovereignty</small>
+                </div>
+            </div>
+            
+            <div class="log-entry">
+                <div class="log-status status-declined">❌ Declined</div>
+                <div>
+                    <strong>[Redacted Mining Application]</strong><br>
+                    <small>Extractive application incompatible with regenerative mission</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Implementation Section -->
+    <section class="section fade-in" id="implementation">
+        <div class="section-header">
+            <h2 class="section-title">🚀 Implementation Path</h2>
+            <p class="section-subtitle">From pilot to global federation</p>
+        </div>
+        
+        <div class="card-grid">
+            <div class="card">
+                <span class="card-icon">🌱</span>
+                <h3>Phase 1: Jakarta Pilot</h3>
+                <p>Start with single city-node, seed mini-circle (3-4 trusted voices), publish first Ethics Log entries as precedent.</p>
+            </div>
+            
+            <div class="card">
+                <span class="card-icon">🌿</span>
+                <h3>Phase 2: Bioregional Expansion</h3>
+                <p>Scale to neighboring regions, establish bioregional councils for shared ecosystems, develop coordination protocols.</p>
+            </div>
+            
+            <div class="card">
+                <span class="card-icon">🌳</span>
+                <h3>Phase 3: Global Federation</h3>
+                <p>Connect regional circles into global governance network, establish appeals processes, mature the precedent archive.</p>
+            </div>
+            
+            <div class="card">
+                <span class="card-icon">📁</span>
+                <h3>Technical Infrastructure</h3>
+                <p><code>LICENSES.md</code>, <code>GOVERNANCE.md</code>, <code>ETHICS_LOG.md</code>, <code>BIOREGISTRY.json</code> - Git-based governance with IPFS distribution.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <h2>🌍 Join the Planetary Restoration Commons</h2>
+        <p>Help build the framework that protects regenerative knowledge while keeping it accessible to all</p>
+        <a href="#" class="cta-button">Get Involved 🚀</a>
+    </section>
+
+    <!-- Floating elements -->
+    <div class="floating-emoji" style="left: 10%; animation-delay: 0s;">🌱</div>
+    <div class="floating-emoji" style="left: 20%; animation-delay: 3s;">🌍</div>
+    <div class="floating-emoji" style="left: 30%; animation-delay: 6s;">🌿</div>
+    <div class="floating-emoji" style="left: 40%; animation-delay: 9s;">🌳</div>
+    <div class="floating-emoji" style="left: 50%; animation-delay: 12s;">🍃</div>
+    <div class="floating-emoji" style="left: 60%; animation-delay: 15s;">💚</div>
+    <div class="floating-emoji" style="left: 70%; animation-delay: 18s;">🌺</div>
+    <div class="floating-emoji" style="left: 80%; animation-delay: 21s;">🦋</div>
+    <div class="floating-emoji" style="left: 90%; animation-delay: 24s;">✨</div>
+
+    <script>
+        // Navbar show/hide on scroll
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                if (scrollTop > lastScrollTop) {
+                    navbar.classList.remove('visible');
+                } else {
+                    navbar.classList.add('visible');
+                }
+            } else {
+                navbar.classList.remove('visible');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                const rate = scrolled * -0.5;
+                hero.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Add more floating emojis dynamically
+        function addFloatingEmoji() {
+            const emojis = ['🌱', '🌍', '🌿', '🌳', '🍃', '💚', '🌺', '🦋', '✨', '🌊', '🌸', '🌼'];
+            const emoji = document.createElement('div');
+            emoji.className = 'floating-emoji';
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * 100 + '%';
+            emoji.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            emoji.style.animationDelay = '0s';
+            document.body.appendChild(emoji);
+            
+            // Remove emoji after animation completes
+            setTimeout(() => {
+                emoji.remove();
+            }, 25000);
+        }
+
+        // Add floating emoji every few seconds
+        setInterval(addFloatingEmoji, 3000);
+    </script>
+</body>
+</html>
