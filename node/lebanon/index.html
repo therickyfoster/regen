@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PRA | Ultra Long‑Form Water & Food Sovereignty Guide — Syria (NW & NE), Lebanon (Bekaa/Tripoli)</title>
+  <meta name="description" content="Ultra long-form, gamified water & food sovereignty guide for Syria (Northwest & Northeast) and Lebanon (Bekaa & Tripoli peripheries). Offline-first with starfield UI, IndexedDB progress, Habitica sync, WebLLM planner, calculators, and a service worker. Focus: water-grid fragility and food price shocks; likely no PRA node." />
+  <link rel="canonical" href="https://planetaryrestorationarchive.com/ultra-long/index.html" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta property="og:title" content="PRA | Ultra Long‑Form Water & Food Sovereignty — Syria (NW & NE), Lebanon (Bekaa/Tripoli)" />
+  <meta property="og:description" content="Gamified, offline-first regional guide with calculators, quests, Habitica & WebLLM integration. Start with water, then food. Links to /water/ and /food/." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://planetaryrestorationarchive.com/ultra-long/index.html" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="theme-color" content="#04060a" />
+
+  <!-- JSON-LD: WebPage + three region LearningResources using your schema extension -->
+  <script type="application/ld+json">
+  {
+    "@context": ["https://schema.org", "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid/schema.json"],
+    "@type": "WebPage",
+    "@id": "https://planetaryrestorationarchive.com/ultra-long/index.html",
+    "name": "Ultra Long‑Form Water & Food Sovereignty — Syria (NW & NE), Lebanon (Bekaa/Tripoli)",
+    "isBasedOn": "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid",
+    "description": "Gamified, offline-first sovereignty guide for water-grid fragility and food price shocks; likely no PRA node.",
+    "inLanguage": "en",
+    "hasPart": [
+      {
+        "@type": "LearningResource",
+        "@id": "https://planetaryrestorationarchive.com/ultra-long/index.html#region-syria-nw",
+        "name": "Water & Food Sovereignty — Syria (Northwest)",
+        "audience": { "@type": "Audience", "audienceType": "Local community stewards, mutual-aid groups, WASH volunteers" },
+        "about": ["water sovereignty","food sovereignty","price shocks","NW Syria","water-grid fragility"],
+        "educationalUse": "self-guided, community workshop",
+        "interactivityType": "mixed",
+        "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      {
+        "@type": "LearningResource",
+        "@id": "https://planetaryrestorationarchive.com/ultra-long/index.html#region-syria-ne",
+        "name": "Water & Food Sovereignty — Syria (Northeast)",
+        "audience": { "@type": "Audience", "audienceType": "Households, cooperatives, WASH volunteers" },
+        "about": ["water sovereignty","food sovereignty","aridity","tanker logistics","NE Syria","price shocks"],
+        "educationalUse": "self-guided, community workshop",
+        "interactivityType": "mixed",
+        "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      {
+        "@type": "LearningResource",
+        "@id": "https://planetaryrestorationarchive.com/ultra-long/index.html#region-lebanon-bt",
+        "name": "Water & Food Sovereignty — Lebanon (Bekaa & Tripoli Peripheries)",
+        "audience": { "@type": "Audience", "audienceType": "Households, neighborhood co-ops, smallholders" },
+        "about": ["water sovereignty","food sovereignty","price shocks","Lebanon","Bekaa","Tripoli"],
+        "educationalUse": "self-guided, workshop",
+        "interactivityType": "mixed",
+        "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --ink:#e7eefc; --muted:#9fb3c8; --bg:#04060a; --panel:#0e1420;
+      --accent:#6bd4ff; --good:#A6E3A1; --warn:#F9E2AF; --bad:#F38BA8;
+      --link:#8cc8ff; --shadow:rgba(0,0,0,.5); --glow:rgba(130,190,255,.15);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--ink);
+      font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      overflow-x:hidden;
+    }
+    canvas#starfield{position:fixed; inset:0; width:100%; height:100%; display:block; z-index:-2}
+    .nebula{
+      position:fixed; inset:0; z-index:-1; pointer-events:none;
+      background:
+        radial-gradient(1200px 800px at 70% 20%, rgba(14,40,90,.35), transparent 60%),
+        radial-gradient(1000px 600px at 20% 60%, rgba(115,29,107,.25), transparent 60%),
+        radial-gradient(800px 500px at 50% 80%, rgba(13,95,120,.2), transparent 60%);
+      filter: blur(4px) saturate(120%);
+    }
+    header{
+      position:sticky; top:0; z-index:10;
+      background:linear-gradient(to bottom, rgba(4,6,10,.92), rgba(4,6,10,.45));
+      border-bottom:1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(8px);
+    }
+    .wrap{max-width:1140px; margin:0 auto; padding:16px}
+    h1,h2,h3,h4{margin:0 0 .55rem 0; line-height:1.23}
+    h1{font-size:1.9rem}
+    h2{font-size:1.5rem; margin-top:2rem}
+    h3{font-size:1.18rem; margin-top:1.25rem}
+    h4{font-size:1.05rem; margin-top:.9rem}
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .grid{display:grid; gap:16px}
+    .cols-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .cols-3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .panel{
+      background:rgba(10,14,24,.82);
+      border:1px solid rgba(255,255,255,.09);
+      border-radius:14px; padding:16px;
+      box-shadow:0 14px 36px var(--shadow), inset 0 0 0 1px var(--glow);
+    }
+    .badge{display:inline-block; padding:.3rem .6rem; border-radius:999px; font-size:.78rem; background:rgba(255,255,255,.08)}
+    .btn{
+      appearance:none; border:1px solid rgba(255,255,255,.15); border-radius:10px;
+      padding:.6rem .9rem; background:linear-gradient(to bottom, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      color:var(--ink); cursor:pointer; font-weight:650;
+    }
+    .btn:hover{border-color:rgba(255,255,255,.35)}
+    .btn.ghost{background:transparent}
+    .btn.good{border-color:rgba(166,227,161,.5)}
+    .btn.warn{border-color:rgba(249,226,175,.5)}
+    .btn.bad{border-color:rgba(243,139,168,.5)}
+    .muted{color:var(--muted)}
+    .xp{font-weight:800; color:var(--good)}
+    .xpbar{height:12px; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden}
+    .xpbar>span{display:block; height:100%; background:linear-gradient(90deg, #7bf, #9df); width:0}
+    .list{margin:.6rem 0; padding-left:1rem}
+    .list li{margin:.28rem 0}
+    .kpi{font-size:1.85rem; font-weight:850}
+    .kpi small{display:block; font-size:.9rem; color:var(--muted); font-weight:500}
+    .hr{height:1px; background:linear-gradient(to right, transparent, rgba(255,255,255,.25), transparent); margin:1.25rem 0}
+    .pill{display:inline-flex; gap:.5rem; align-items:center; padding:.3rem .7rem; border:1px solid rgba(255,255,255,.12); border-radius:999px}
+    .kbd{font-weight:700; font-size:.78rem; padding:.18rem .42rem; border-radius:6px; border:1px solid rgba(255,255,255,.15)}
+    .toast{
+      position:fixed; bottom:16px; right:16px; background:rgba(15,22,35,.92);
+      border:1px solid rgba(255,255,255,.15); border-radius:12px; padding:.7rem 1rem; z-index:60; display:none
+    }
+    .toast.show{display:block}
+    .sr{position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden}
+    nav.breadcrumbs{font-size:.92rem}
+    nav.breadcrumbs a{margin-right:.6rem}
+
+    /* Tabs for quick jump */
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:.45rem .7rem; border:1px solid rgba(255,255,255,.15); border-radius:10px; cursor:pointer}
+    .tab.active{background:rgba(255,255,255,.08)}
+
+    /* Modals */
+    .modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:80}
+    .modal.open{display:flex}
+    .sheet{max-width:780px; width:96%; background:var(--panel); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:16px}
+    .row{display:flex; gap:8px; flex-wrap:wrap}
+    .row > *{flex:1}
+    input, select, textarea{
+      width:100%; padding:.6rem .7rem; border-radius:10px; border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.05); color:var(--ink)
+    }
+    label{font-size:.9rem; color:var(--muted)}
+    code{background:rgba(255,255,255,.06); padding:.1rem .3rem; border-radius:6px}
+    footer{opacity:.85; font-size:.86rem; padding:2rem 1rem}
+    .link-row{display:flex; gap:1rem; flex-wrap:wrap; margin-top:.5rem}
+    .region-title{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+    .region-deck{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+    .sticky-anchors{position:sticky; top:64px; z-index:5}
+  </style>
+</head>
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="nebula" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav class="breadcrumbs">
+        <a href="/water/">/water/</a> • <a href="/food/">/food/</a>
+        <span class="pill"><span class="badge">Offline‑first</span><span class="badge">Starfield</span><span class="badge">WebLLM</span><span class="badge">Habitica</span></span>
+      </nav>
+      <div class="region-title">
+        <h1>Ultra Long‑Form: Water & Food Sovereignty — Syria (NW & NE), Lebanon (Bekaa/Tripoli)</h1>
+        <div class="row" style="flex:0 0 auto">
+          <button class="btn" id="btnGlobalExport" title="Export all progress as JSON">Export All</button>
+          <label class="btn" for="globalImport">Import</label>
+          <input id="globalImport" type="file" accept="application/json" style="display:none" />
+          <button class="btn" id="btnHabitica">Habitica Sync</button>
+          <button class="btn" id="btnLLM">Open WebLLM Planner</button>
+        </div>
+      </div>
+      <div class="hr"></div>
+      <div class="grid cols-3">
+        <div class="panel">
+          <div class="kpi" id="xpAll">0 XP<small>Total XP across all regions</small></div>
+          <div class="xpbar" aria-label="XP progress"><span id="xpBarAll"></span></div>
+          <p class="muted">Complete quests to gain XP. Progress saves locally in your browser via IndexedDB.</p>
+        </div>
+        <div class="panel">
+          <h3>Quick Jump</h3>
+          <div class="tabs" role="tablist">
+            <a class="tab" href="#region-syria-nw">Syria — NW</a>
+            <a class="tab" href="#region-syria-ne">Syria — NE</a>
+            <a class="tab" href="#region-lebanon-bt">Lebanon — Bekaa/Tripoli</a>
+          </div>
+          <p class="muted">Each region starts with <strong>Water Sovereignty</strong> and then <strong>Food Sovereignty</strong>. Links up to <a href="/water/">/water/</a> and <a href="/food/">/food/</a>.</p>
+        </div>
+        <div class="panel">
+          <h3>Safety Snapshot</h3>
+          <ul class="list">
+            <li>Disinfect unclear sources. For clear water, target ~<strong>2 mg/L free chlorine</strong> with a <strong>30‑minute</strong> wait.</li>
+            <li>Use <strong>unscented</strong> bleach only; avoid mixing with acids/ammonia. If water is turbid, settle/filter first.</li>
+            <li>Prefer <strong>narrow‑neck</strong> containers with taps; keep caps on; avoid hands inside.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- ========================= SYRIA — NORTHWEST ========================= -->
+    <section id="region-syria-nw" aria-labelledby="title-syria-nw">
+      <div class="region-title sticky-anchors">
+        <h2 id="title-syria-nw">Syria — Northwest</h2>
+        <div class="pill"><span class="badge">Water‑grid fragility</span><span class="badge">Price shocks</span><span class="badge">Likely no PRA node</span></div>
+      </div>
+
+      <div class="region-deck">
+        <div class="panel">
+          <div class="kpi" id="xp--syria-nw">0 XP<small>Region XP</small></div>
+          <div class="xpbar"><span id="xpbar--syria-nw"></span></div>
+          <div class="link-row">
+            <a class="btn ghost" href="/water/">Parent /water/</a>
+            <a class="btn ghost" href="/food/">Parent /food/</a>
+            <button class="btn" data-export="syria-nw">Export (NW)</button>
+            <label class="btn" for="import--syria-nw">Import</label>
+            <input id="import--syria-nw" type="file" accept="application/json" style="display:none" />
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Context & Constraints</h3>
+          <ul class="list">
+            <li><strong>Intermittent mains</strong>, frequent <strong>electricity outages</strong>, and <strong>tanker dependence</strong>.</li>
+            <li><strong>Retail volatility</strong>: staples & fuel swing fast; maintain price logs and co‑op procurement.</li>
+            <li><strong>No PRA node</strong>: stand up <em>block‑level proto‑nodes</em> with paper + offline copies.</li>
+          </ul>
+        </div>
+
+        <!-- WATER FIRST: NW -->
+        <div class="panel">
+          <h3>Water Sovereignty — 72 Hours (Horizon A)</h3>
+          <ul class="list" id="q--syria-nw--water-a"></ul>
+          <details class="muted"><summary>Why these steps?</summary>
+            <p>Seal storage, ensure fast disinfection, and map fallback sources. Outage‑proof access with gravity taps and lidded containers.</p>
+          </details>
+        </div>
+
+        <div class="panel">
+          <h3>Water Sovereignty — 30 Days (Horizon B)</h3>
+          <ul class="list" id="q--syria-nw--water-b"></ul>
+        </div>
+
+        <div class="panel">
+          <h3>Water Sovereignty — 12 Months (Horizon C)</h3>
+          <ul class="list" id="q--syria-nw--water-c"></ul>
+        </div>
+
+        <div class="panel">
+          <h3>Calculators — Water Planning (NW)</h3>
+
+          <h4>Minimum Household Need</h4>
+          <div class="row">
+            <label>People <input id="w_people__syria-nw" type="number" min="1" value="5"></label>
+            <label>Liters/person/day (7–15) <input id="w_lppd__syria-nw" type="number" min="1" value="10"></label>
+            <label>Days <input id="w_days__syria-nw" type="number" min="1" value="7"></label>
+          </div>
+          <p><button class="btn calc-need" data-region="syria-nw">Calculate</button></p>
+          <p class="kpi"><span id="w_need_l__syria-nw">0</span> L<small>Total water needed</small></p>
+
+          <h4>Rainwater Capture (Roof)</h4>
+          <div class="row">
+            <label>Roof area (m²) <input id="rw_roof__syria-nw" type="number" value="80"></label>
+            <label>Monthly rain (mm) <input id="rw_mm__syria-nw" type="number" value="40"></label>
+            <label>Runoff coefficient (0.6–0.9) <input id="rw_c__syria-nw" type="number" step="0.05" value="0.8"></label>
+          </div>
+          <p><button class="btn calc-rain" data-region="syria-nw">Estimate Yield</button></p>
+          <p class="kpi"><span id="rw_yield__syria-nw">0</span> L<small>Estimated monthly capture</small></p>
+
+          <h4>Chlorination Helper</h4>
+          <div class="row">
+            <label>Bleach % (3–12%) <input id="cl_pct__syria-nw" type="number" step="0.1" value="5"></label>
+            <label>Water volume (L) <input id="cl_vol__syria-nw" type="number" value="10"></label>
+          </div>
+          <p><button class="btn calc-chlorine" data-region="syria-nw">Dose</button></p>
+          <p class="kpi"><span id="cl_ml__syria-nw">0.00</span> mL<small>Approx bleach required (then wait 30 min)</small></p>
+        </div>
+
+        <!-- FOOD: NW -->
+        <div class="panel">
+          <h3>Food Sovereignty — 14 Days (Horizon A)</h3>
+          <ul class="list" id="q--syria-nw--food-a"></ul>
+        </div>
+        <div class="panel">
+          <h3>Food Sovereignty — 90 Days (Horizon B)</h3>
+          <ul class="list" id="q--syria-nw--food-b"></ul>
+        </div>
+        <div class="panel">
+          <h3>Food Sovereignty — 12 Months (Horizon C)</h3>
+          <ul class="list" id="q--syria-nw--food-c"></ul>
+        </div>
+
+        <div class="panel">
+          <h3>Micro‑Production Kits (Low Water)</h3>
+          <ul class="list">
+            <li><strong>Wicking boxes/sacks</strong> for greens, onions, herbs.</li>
+            <li><strong>Gravity drip</strong> (1–2 L/hr emitters), night irrigation, thick mulch.</li>
+            <li><strong>Seeds:</strong> barley, sorghum, lentil/chickpea, tomato/pepper, olive/fig (long game).</li>
+            <li><strong>Fuel hedges:</strong> rocket stove + pressure cooker.</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>Proto‑Node (Block‑Level)</h3>
+          <ul class="list">
+            <li>Registry: 20–60 households; contact + water source + storage volume.</li>
+            <li>Water cell: chlorine test kit, spare filters, tanker QA ledger.</li>
+            <li>Food cell: price log, quarterly reserve audit, seed calendar.</li>
+            <li>Comms: paper board + offline copy; optional LoRa/local Wi‑Fi.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- ========================= SYRIA — NORTHEAST ========================= -->
+    <section id="region-syria-ne" aria-labelledby="title-syria-ne">
+      <div class="region-title sticky-anchors">
+        <h2 id="title-syria-ne">Syria — Northeast</h2>
+        <div class="pill"><span class="badge">Chronic aridity</span><span class="badge">Tanker logistics</span><span class="badge">Power volatility</span></div>
+      </div>
+
+      <div class="region-deck">
+        <div class="panel">
+          <div class="kpi" id="xp--syria-ne">0 XP<small>Region XP</small></div>
+          <div class="xpbar"><span id="xpbar--syria-ne"></span></div>
+          <div class="link-row">
+            <a class="btn ghost" href="/water/">Parent /water/</a>
+            <a class="btn ghost" href="/food/">Parent /food/</a>
+            <button class="btn" data-export="syria-ne">Export (NE)</button>
+            <label class="btn" for="import--syria-ne">Import</label>
+            <input id="import--syria-ne" type="file" accept="application/json" style="display:none" />
+          </div>
+        </div>
+
+        <!-- WATER FIRST: NE -->
+        <div class="panel">
+          <h3>Water Sovereignty — 72 Hours (Horizon A)</h3>
+          <ul class="list" id="q--syria-ne--water-a"></ul>
+          <details class="muted"><summary>Notes</summary>
+            <p>Where wells are brackish, prioritize tanker + disinfection, with separate “utility water” tank for washing.</p>
+          </details>
+        </div>
+        <div class="panel">
+          <h3>Water Sovereignty — 30 Days (Horizon B)</h3>
+          <ul class="list" id="q--syria-ne--water-b"></ul>
+        </div>
+        <div class="panel">
+          <h3>Water Sovereignty — 12 Months (Horizon C)</h3>
+          <ul class="list" id="q--syria-ne--water-c"></ul>
+        </div>
+
+        <div class="panel">
+          <h3>Calculators — Water Planning (NE)</h3>
+          <h4>Minimum Household Need</h4>
+          <div class="row">
+            <label>People <input id="w_people__syria-ne" type="number" min="1" value="6"></label>
+            <label>Liters/person/day <input id="w_lppd__syria-ne" type="number" min="1" value="9"></label>
+            <label>Days <input id="w_days__syria-ne" type="number" min="1" value="14"></label>
+          </div>
+          <p><button class="btn calc-need" data-region="syria-ne">Calculate</button></p>
+          <p class="kpi"><span id="w_need_l__syria-ne">0</span> L<small>Total water needed</small></p>
+
+          <h4>Chlorination Helper</h4>
+          <div class="row">
+            <label>Bleach % <input id="cl_pct__syria-ne" type="number" step="0.1" value="5"></label>
+            <label>Volume (L) <input id="cl_vol__syria-ne" type="number" value="20"></label>
+          </div>
+          <p><button class="btn calc-chlorine" data-region="syria-ne">Dose</button></p>
+          <p class="kpi"><span id="cl_ml__syria-ne">0.00</span> mL<small>Target ~2 mg/L; wait 30 min</small></p>
+        </div>
+
+        <!-- FOOD: NE -->
+        <div class="panel">
+          <h3>Food Sovereignty — 21 Days (Horizon A)</h3>
+          <ul class="list" id="q--syria-ne--food-a"></ul>
+        </div>
+        <div class="panel">
+          <h3>Food Sovereignty — 120 Days (Horizon B)</h3>
+          <ul class="list" id="q--syria-ne--food-b"></ul>
+        </div>
+        <div class="panel">
+          <h3>Food Sovereignty — 12 Months (Horizon C)</h3>
+          <ul class="list" id="q--syria-ne--food-c"></ul>
+        </div>
+
+        <div class="panel">
+          <h3>Arid‑Friendly Micro‑Production</h3>
+          <ul class="list">
+            <li><strong>Sorghum & barley</strong> as dryland cereal backbone.</li>
+            <li><strong>Lentil/chickpea</strong> for protein & soil nitrogen.</li>
+            <li><strong>Drip from elevated tank</strong>, night irrigation, heavy mulch.</li>
+            <li><strong>Solar dehydrator</strong> for tomatoes/peppers.</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>Proto‑Node — Tanker QA</h3>
+          <ul class="list">
+            <li>Supplier list w/ plate numbers; last tank clean date.</li>
+            <li>Residual chlorine check on delivery; record in ledger.</li>
+            <li>Salinity watch (TDS); reserve low‑TDS water for drinking.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- ========================= LEBANON — BEKAA & TRIPOLI PERIPHERIES ========================= -->
+    <section id="region-lebanon-bt" aria-labelledby="title-lebanon-bt">
+      <div class="region-title sticky-anchors">
+        <h2 id="title-lebanon-bt">Lebanon — Bekaa & Tripoli Peripheries</h2>
+        <div class="pill"><span class="badge">Intermittent grid</span><span class="badge">Municipal + tanker blend</span><span class="badge">Food price spikes</span></div>
+      </div>
+
+      <div class="region-deck">
+        <div class="panel">
+          <div class="kpi" id="xp--lebanon-bt">0 XP<small>Region XP</small></div>
+          <div class="xpbar"><span id="xpbar--lebanon-bt"></span></div>
+          <div class="link-row">
+            <a class="btn ghost" href="/water/">Parent /water/</a>
+            <a class="btn ghost" href="/food/">Parent /food/</a>
+            <button class="btn" data-export="lebanon-bt">Export (LB)</button>
+            <label class="btn" for="import--lebanon-bt">Import</label>
+            <input id="import--lebanon-bt" type="file" accept="application/json" style="display:none" />
+          </div>
+        </div>
+
+        <!-- WATER FIRST: LB -->
+        <div class="panel">
+          <h3>Water Sovereignty — 72 Hours (Horizon A)</h3>
+          <ul class="list" id="q--lebanon-bt--water-a"></ul>
+          <details class="muted"><summary>Why</summary>
+            <p>Blend municipal on‑hours with stored & tanker water. Protect with disinfection and blackout‑proof gravity taps.</p>
+          </details>
+        </div>
+        <div class="panel">
+          <h3>Water Sovereignty — 30 Days (Horizon B)</h3>
+          <ul class="list" id="q--lebanon-bt--water-b"></ul>
+        </div>
+        <div class="panel">
+          <h3>Water Sovereignty — 12 Months (Horizon C)</h3>
+          <ul class="list" id="q--lebanon-bt--water-c"></ul>
+        </div>
+
+        <div class="panel">
+          <h3>Calculators — Water Planning (LB)</h3>
+          <div class="row">
+            <label>People <input id="w_people__lebanon-bt" type="number" min="1" value="5"></label>
+            <label>Liters/person/day <input id="w_lppd__lebanon-bt" type="number" min="1" value="10"></label>
+            <label>Days <input id="w_days__lebanon-bt" type="number" min="1" value="10"></label>
+          </div>
+          <p><button class="btn calc-need" data-region="lebanon-bt">Need</button> <span class="kpi"><span id="w_need_l__lebanon-bt">0</span> L</span></p>
+
+          <h4>Chlorination Helper</h4>
+          <div class="row">
+            <label>Bleach % <input id="cl_pct__lebanon-bt" type="number" step="0.1" value="5"></label>
+            <label>Volume (L) <input id="cl_vol__lebanon-bt" type="number" value="10"></label>
+          </div>
+          <p><button class="btn calc-chlorine" data-region="lebanon-bt">Dose</button> <strong><span id="cl_ml__lebanon-bt">0.00</span> mL</strong></p>
+
+          <h4>Rainwater Capture (if applicable)</h4>
+          <div class="row">
+            <label>Roof area (m²) <input id="rw_roof__lebanon-bt" type="number" value="70"></label>
+            <label>Monthly rain (mm) <input id="rw_mm__lebanon-bt" type="number" value="55"></label>
+            <label>Runoff coefficient (0.6–0.9) <input id="rw_c__lebanon-bt" type="number" step="0.05" value="0.8"></label>
+          </div>
+          <p><button class="btn calc-rain" data-region="lebanon-bt">Estimate Yield</button> <strong><span id="rw_yield__lebanon-bt">0</span> L</strong></p>
+        </div>
+
+        <!-- FOOD: LB -->
+        <div class="panel">
+          <h3>Food Sovereignty — 21 Days (Horizon A)</h3>
+          <ul class="list" id="q--lebanon-bt--food-a"></ul>
+        </div>
+        <div class="panel">
+          <h3>Food Sovereignty — 120 Days (Horizon B)</h3>
+          <ul class="list" id="q--lebanon-bt--food-b"></ul>
+        </div>
+        <div class="panel">
+          <h3>Food Sovereignty — 12 Months (Horizon C)</h3>
+          <ul class="list" id="q--lebanon-bt--food-c"></ul>
+        </div>
+
+        <div class="panel">
+          <h3>Neighborhood Co‑ops</h3>
+          <ul class="list">
+            <li>Transparent price board; weekly survey of 3–5 suppliers.</li>
+            <li>Bulk staples (sacks) + fair markup; rotate treasurer.</li>
+            <li>Fuel savings: pressure cooker; shared batch‑cook days.</li>
+            <li>Micro‑production: wicking greens, drip tomatoes/peppers, herb cuttings.</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>Proto‑Node Minimal Viable Setup</h3>
+          <ul class="list">
+            <li>Household registry (water sources, storage, special needs).</li>
+            <li>Container sanitation SOP: rinse → 1 tsp bleach per 3.8 L → 30 min → drain (do not rinse).</li>
+            <li>Co‑op tanker contract: written terms + QA (residual chlorine, visual inspection, last wash date).</li>
+            <li>Reserve thresholds: pantry min/max; publish monthly audit.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- ========================= APPENDIX / UTILITIES ========================= -->
+    <section id="appendix">
+      <h2>Appendix — Tools, Data & Disclaimers</h2>
+      <div class="grid cols-2">
+        <div class="panel">
+          <h3>What’s Stored Locally</h3>
+          <ul class="list">
+            <li>Quest completion per region (IndexedDB).</li>
+            <li>Optional Habitica credentials in <code>localStorage</code> (your device only).</li>
+            <li>Service worker caches this page for offline use.</li>
+          </ul>
+          <p class="muted">This resource is educational and not a substitute for professional testing or local regulations. When in doubt, disinfect and test.</p>
+        </div>
+        <div class="panel">
+          <h3>Chlorination Rules of Thumb</h3>
+          <ul class="list">
+            <li>Use unscented household bleach. Typical strength ≈ 3–12% available chlorine.</li>
+            <li>Target ~2 mg/L free chlorine in clear water; wait 30 minutes; faint chlorine smell should remain.</li>
+            <li>Very turbid water: settle and/or filter first; consider boil as backup.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================= MODALS ========================= -->
+
+  <!-- Habitica Modal -->
+  <div class="modal" id="habiticaModal" role="dialog" aria-modal="true" aria-labelledby="habTitle">
+    <div class="sheet">
+      <h3 id="habTitle">Habitica Sync</h3>
+      <p class="muted">Enter your Habitica <span class="kbd">User ID</span> and <span class="kbd">API Token</span>. Tasks are created/updated as TODOs grouped by region. Credentials are stored locally only.</p>
+      <div class="row">
+        <label>User ID <input id="habUser" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" autocomplete="off"></label>
+        <label>API Token <input id="habKey" placeholder="secret token" autocomplete="off"></label>
+      </div>
+      <div class="row">
+        <button class="btn good" id="habSync">Sync Quests</button>
+        <button class="btn" id="habClose">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WebLLM Modal -->
+  <div class="modal" id="llmModal" role="dialog" aria-modal="true" aria-labelledby="llmTitle">
+    <div class="sheet">
+      <h3 id="llmTitle">On‑Device Planner (WebLLM)</h3>
+      <div class="row">
+        <label>Region
+          <select id="llmRegion">
+            <option value="syria-nw">Syria — Northwest</option>
+            <option value="syria-ne">Syria — Northeast</option>
+            <option value="lebanon-bt">Lebanon — Bekaa/Tripoli</option>
+          </select>
+        </label>
+        <label>Prompt starter
+          <select id="llmStarter">
+            <option value="30-day water plan with sources, storage, disinfection, and QA.">30‑day water plan</option>
+            <option value="120-day pantry & co-op sourcing plan with price logs and rotation.">120‑day pantry plan</option>
+            <option value="proto-node setup for 40 households: registries, tanker QA, pantry thresholds.">Proto‑node setup</option>
+          </select>
+        </label>
+      </div>
+      <div id="llmStatus" class="muted">Loading WebLLM… if WebGPU is available, a small model will run in‑browser.</div>
+      <div id="llmChat" class="panel" style="max-height:48vh; overflow:auto; margin-top:.6rem"></div>
+      <div class="row" style="margin-top:.5rem">
+        <input id="llmInput" placeholder="Ask for a plan tuned to your roof area, rainfall, fuel, and budget…">
+        <button class="btn" id="llmSend">Send</button>
+        <button class="btn" id="llmClose">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================= TOAST ========================= -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ========================= SCRIPTS ========================= -->
+  <script>
+  /*************** Photorealistic-ish Starfield ***************/
+  (function(){
+    const c = document.getElementById('starfield');
+    const ctx = c.getContext('2d', { alpha:false });
+    let w, h, cx, cy;
+    const DPR = Math.min(2, window.devicePixelRatio || 1);
+    let stars = [];
+    function resize(){
+      w = c.width = Math.floor(innerWidth * DPR);
+      h = c.height = Math.floor(innerHeight * DPR);
+      c.style.width = innerWidth + 'px';
+      c.style.height = innerHeight + 'px';
+      cx = w / 2; cy = h / 2;
+    }
+    function spawn(n=1500){
+      stars = new Array(n).fill(0).map(()=>({
+        x:(Math.random()*w - cx),
+        y:(Math.random()*h - cy),
+        z: Math.random()*1.15 + 0.2,
+        r: Math.random()*1.6 + 0.2,
+        tw: Math.random()*Math.PI*2,
+      }));
+    }
+    function draw(){
+      ctx.fillStyle = '#03050a';
+      ctx.fillRect(0,0,w,h);
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w,h)*0.7);
+      g.addColorStop(0, 'rgba(0,10,30,0.2)');
+      g.addColorStop(1, 'rgba(0,0,0,0.9)');
+      ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+      for(const s of stars){
+        s.tw += 0.02 + s.z*0.01;
+        const b = 0.75 + 0.25*Math.sin(s.tw);
+        ctx.beginPath();
+        const sx = cx + s.x*s.z, sy = cy + s.y*s.z;
+        ctx.shadowBlur = 8*s.z; ctx.shadowColor = 'rgba(255,255,255,0.6)';
+        ctx.fillStyle = `rgba(255,255,255,${0.6*b})`;
+        ctx.arc(sx, sy, s.r*s.z, 0, Math.PI*2);
+        ctx.fill();
+        s.x -= 0.018*s.z; s.y += 0.011*s.z;
+        if (sx< -60 || sy>h+60){ s.x = (Math.random()*w - cx); s.y = (Math.random()*h - cy); }
+      }
+      requestAnimationFrame(draw);
+    }
+    addEventListener('resize', ()=>{resize(); spawn(stars.length)});
+    resize(); spawn(1600); draw();
+  })();
+
+  /*************** IndexedDB (one DB for all regions) ***************/
+  const DB_NAME = 'PRA_ULTRA_LONG';
+  const DB_VER = 1;
+  let db;
+  function openDB(){
+    return new Promise((res, rej)=>{
+      const rq = indexedDB.open(DB_NAME, DB_VER);
+      rq.onupgradeneeded = (e)=>{
+        const d = e.target.result;
+        if(!d.objectStoreNames.contains('tasks')) d.createObjectStore('tasks', { keyPath:'id' });
+        if(!d.objectStoreNames.contains('meta')) d.createObjectStore('meta', { keyPath:'key' });
+      };
+      rq.onsuccess = ()=>{ db = rq.result; res(db); };
+      rq.onerror = ()=>rej(rq.error);
+    });
+  }
+  function put(store, val){ return new Promise((res, rej)=>{ const tx=db.transaction(store,'readwrite'); tx.objectStore(store).put(val); tx.oncomplete=()=>res(); tx.onerror=()=>rej(tx.error); }); }
+  function get(store, key){ return new Promise((res, rej)=>{ const tx=db.transaction(store); const rq=tx.objectStore(store).get(key); rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error); }); }
+  function all(store){ return new Promise((res, rej)=>{ const tx=db.transaction(store); const rq=tx.objectStore(store).getAll(); rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error); }); }
+
+  /*************** Quests per Region (gamified) ***************/
+  const XP_PER = 25;
+  const REGIONS = ['syria-nw','syria-ne','lebanon-bt'];
+
+  const QUESTS = {
+    // ---------- SYRIA NW ----------
+    'syria-nw': {
+      waterA: [
+        {id:'nw-w-a-1', txt:'Store 3 days of potable water (≥10 L/person). Label date + source.'},
+        {id:'nw-w-a-2', txt:'Acquire two disinfectants: unscented bleach + hollow‑fiber filter (0.1 μm).'},
+        {id:'nw-w-a-3', txt:'Designate clean containers with narrow necks + tap; keep off floor.'},
+        {id:'nw-w-a-4', txt:'Map fallback sources: roof, neighbor well, spring, reliable tanker.'},
+        {id:'nw-w-a-5', txt:'Build a 30‑minute disinfection routine + taste/smell checks.'}
+      ],
+      waterB: [
+        {id:'nw-w-b-1', txt:'Install first‑flush diverter on roof gutters + mesh screens.'},
+        {id:'nw-w-b-2', txt:'Set up gravity tank (≥500 L) before the house for outages.'},
+        {id:'nw-w-b-3', txt:'Weekly chlorine residual test at point‑of‑use.'},
+        {id:'nw-w-b-4', txt:'Backup heat for boiling (rocket stove / LPG) and lidded pot.'},
+        {id:'nw-w-b-5', txt:'Negotiate block‑level tanker rate: price per 1,000 L + quality checks.'}
+      ],
+      waterC: [
+        {id:'nw-w-c-1', txt:'Rooftop rain capture: at least one month’s storage matching yield.'},
+        {id:'nw-w-c-2', txt:'Solar or pedal pump for well/spring; gravity feed where possible.'},
+        {id:'nw-w-c-3', txt:'Two treatment lines: filter→chlorinate and boil→cool→safe storage.'},
+        {id:'nw-w-c-4', txt:'Train 3 neighbors on disinfection; maintain a shared logbook.'},
+        {id:'nw-w-c-5', txt:'Protect intake points (fencing, signage) from recontamination.'}
+      ],
+      foodA: [
+        {id:'nw-f-a-1', txt:'Build a 14‑day pantry: grains, pulses, oil, salt, sugar, tea/coffee.'},
+        {id:'nw-f-a-2', txt:'Start a price log (3 shops + market). Update weekly.'},
+        {id:'nw-f-a-3', txt:'Fuel‑efficient cooking: rocket stove or pressure cooker.'},
+        {id:'nw-f-a-4', txt:'Greens kit: wicking box or sacks for leafy veg + herbs.'},
+        {id:'nw-f-a-5', txt:'Protein hedge: lentil/chickpea rotation + sprouting jar.'}
+      ],
+      foodB: [
+        {id:'nw-f-b-1', txt:'Join/seed a buyer co‑op (8–20 households). Shared transport.'},
+        {id:'nw-f-b-2', txt:'Drip lines from gravity tank; heavy mulch to cut evaporation.'},
+        {id:'nw-f-b-3', txt:'Seed saving basics: dry, label, rodent‑proof storage.'},
+        {id:'nw-f-b-4', txt:'Staple reserve: 90 days of foods you actually eat.'},
+        {id:'nw-f-b-5', txt:'Map barter options; establish fair, posted norms.'}
+      ],
+      foodC: [
+        {id:'nw-f-c-1', txt:'Perennials: olive/fig starts; plan subsurface greywater.'},
+        {id:'nw-f-c-2', txt:'Small greenhouse/low tunnel for season extension.'},
+        {id:'nw-f-c-3', txt:'Community pantry with transparent ledger + thresholds.'},
+        {id:'nw-f-c-4', txt:'Quarterly reserve audit + rotation parties.'},
+        {id:'nw-f-c-5', txt:'Price bulletin posted publicly; fair‑supplier pact.'}
+      ]
+    },
+
+    // ---------- SYRIA NE ----------
+    'syria-ne': {
+      waterA: [
+        {id:'ne-w-a-1', txt:'Store 3 days potable (≥10 L/person); separate utility tank for washing.'},
+        {id:'ne-w-a-2', txt:'Two treatment lines: filter + chlorine; keep a boil backup.'},
+        {id:'ne-w-a-3', txt:'Tanker journal: supplier, plate, last clean date, delivery chlorine check.'},
+        {id:'ne-w-a-4', txt:'Label containers; keep raised off floor, capped.'}
+      ],
+      waterB: [
+        {id:'ne-w-b-1', txt:'1,000–2,000 L gravity tank with sediment tap.'},
+        {id:'ne-w-b-2', txt:'Block‑level tanker co‑op: bulk rate + fixed schedule.'},
+        {id:'ne-w-b-3', txt:'Salinity/TDS log; reserve low‑TDS water for drinking.'},
+        {id:'ne-w-b-4', txt:'Solar or pedal pumping; avoid dependency on grid.'},
+        {id:'ne-w-b-5', txt:'Weekly chlorine residual checks at point‑of‑use.'}
+      ],
+      waterC: [
+        {id:'ne-w-c-1', txt:'Protected well head + fence; drain away from pit latrines.'},
+        {id:'ne-w-c-2', txt:'Add roughing filter (settling barrel + sand), then fine filter.'},
+        {id:'ne-w-c-3', txt:'Community training for 3 households; maintain a QA board.'},
+        {id:'ne-w-c-4', txt:'Add shade/insulation to tanks to reduce chlorine decay.'},
+        {id:'ne-w-c-5', txt:'Emergency buffer: +7 days per household in co‑op.'}
+      ],
+      foodA: [
+        {id:'ne-f-a-1', txt:'21‑day pantry: cereals + pulses + oil + salt + tea.'},
+        {id:'ne-f-a-2', txt:'Fuel‑efficient stove; standardize pot lids & pressure cooker.'},
+        {id:'ne-f-a-3', txt:'Sprouting kit for fresh micronutrients.'},
+        {id:'ne-f-a-4', txt:'Price log across 3 vendors; pick two “fair suppliers”.'}
+      ],
+      foodB: [
+        {id:'ne-f-b-1', txt:'Drip irrigation from elevated tank; irrigate at night.'},
+        {id:'ne-f-b-2', txt:'Drought set: sorghum/barley + lentil/chickpea.'},
+        {id:'ne-f-b-3', txt:'Dehydration: tomatoes/peppers; pickle onions/cabbage.'},
+        {id:'ne-f-b-4', txt:'Expand buyer co‑op to 20 households; rotate buyers.'}
+      ],
+      foodC: [
+        {id:'ne-f-c-1', txt:'Perennials: hardy figs/olives; greywater subsurface watering.'},
+        {id:'ne-f-c-2', txt:'Community pantry with thresholds & monthly audit.'},
+        {id:'ne-f-c-3', txt:'Seed bank (drought‑hardy varieties) with lending rules.'},
+        {id:'ne-f-c-4', txt:'Quarterly audits; publish a simple price bulletin.'}
+      ]
+    },
+
+    // ---------- LEBANON BEKAA/TRIPOLI ----------
+    'lebanon-bt': {
+      waterA: [
+        {id:'lb-w-a-1', txt:'Store 3 days potable (≥10 L/person). Label source/date.'},
+        {id:'lb-w-a-2', txt:'Inline carbon/ceramic filter at kitchen tap + bleach for disinfection.'},
+        {id:'lb-w-a-3', txt:'Gravity tap from elevated tank for blackout operations.'},
+        {id:'lb-w-a-4', txt:'Map municipal on‑hours + top‑up schedule; keep logs.'}
+      ],
+      waterB: [
+        {id:'lb-w-b-1', txt:'Roof capture with first‑flush; clean gutters/screens monthly.'},
+        {id:'lb-w-b-2', txt:'1,000–2,000 L storage; separate “utility water” if quality varies.'},
+        {id:'lb-w-b-3', txt:'Neighborhood tanker contract (bulk rate + QA checklist).'},
+        {id:'lb-w-b-4', txt:'Weekly residual chlorine checks at point‑of‑use.'}
+      ],
+      waterC: [
+        {id:'lb-w-c-1', txt:'Solar assist for pump; insulate/shade tanks to reduce chlorine decay.'},
+        {id:'lb-w-c-2', txt:'Two independent treatment trains; practice changeover.'},
+        {id:'lb-w-c-3', txt:'Community training + public SOP board for container sanitation.'},
+        {id:'lb-w-c-4', txt:'Emergency buffer: +7 days per household.'}
+      ],
+      foodA: [
+        {id:'lb-f-a-1', txt:'21‑day pantry of eaten staples; rotate monthly.'},
+        {id:'lb-f-a-2', txt:'Price board (3 shops + market); pick two “fair suppliers”.'},
+        {id:'lb-f-a-3', txt:'Fuel saver: pressure cooker; shared batch‑cook weekends.'},
+        {id:'lb-f-a-4', txt:'Leafy greens via wicking boxes; herb cuttings for flavor security.'}
+      ],
+      foodB: [
+        {id:'lb-f-b-1', txt:'Drip lines (1–2 L/hr) from roof tank; night irrigation; mulch.'},
+        {id:'lb-f-b-2', txt:'Seed circle: tomatoes, peppers, beans; drying/pickling parties.'},
+        {id:'lb-f-b-3', txt:'Reserve 120 days staples; track FIFO rotations.'},
+        {id:'lb-f-b-4', txt:'Co‑op bulk buys; transparent ledger; rotate treasurer.'}
+      ],
+      foodC: [
+        {id:'lb-f-c-1', txt:'Perennials: olives/figs/grapes where viable; greywater subsurface.'},
+        {id:'lb-f-c-2', txt:'Neighborhood pantry with thresholds and monthly audit.'},
+        {id:'lb-f-c-3', txt:'Local price bulletin; supplier pact for fair margins.'},
+        {id:'lb-f-c-4', txt:'Season extension: low tunnels; solar dehydrator.'}
+      ]
+    }
+  };
+
+  /*************** Render quest lists ***************/
+  function renderRegion(region){
+    const map = {
+      'syria-nw': [
+        ['q--syria-nw--water-a', QUESTS['syria-nw'].waterA],
+        ['q--syria-nw--water-b', QUESTS['syria-nw'].waterB],
+        ['q--syria-nw--water-c', QUESTS['syria-nw'].waterC],
+        ['q--syria-nw--food-a',  QUESTS['syria-nw'].foodA],
+        ['q--syria-nw--food-b',  QUESTS['syria-nw'].foodB],
+        ['q--syria-nw--food-c',  QUESTS['syria-nw'].foodC]
+      ],
+      'syria-ne': [
+        ['q--syria-ne--water-a', QUESTS['syria-ne'].waterA],
+        ['q--syria-ne--water-b', QUESTS['syria-ne'].waterB],
+        ['q--syria-ne--water-c', QUESTS['syria-ne'].waterC],
+        ['q--syria-ne--food-a',  QUESTS['syria-ne'].foodA],
+        ['q--syria-ne--food-b',  QUESTS['syria-ne'].foodB],
+        ['q--syria-ne--food-c',  QUESTS['syria-ne'].foodC]
+      ],
+      'lebanon-bt': [
+        ['q--lebanon-bt--water-a', QUESTS['lebanon-bt'].waterA],
+        ['q--lebanon-bt--water-b', QUESTS['lebanon-bt'].waterB],
+        ['q--lebanon-bt--water-c', QUESTS['lebanon-bt'].waterC],
+        ['q--lebanon-bt--food-a',  QUESTS['lebanon-bt'].foodA],
+        ['q--lebanon-bt--food-b',  QUESTS['lebanon-bt'].foodB],
+        ['q--lebanon-bt--food-c',  QUESTS['lebanon-bt'].foodC]
+      ]
+    }[region];
+
+    for(const [ulId, list] of map){
+      const ul = document.getElementById(ulId);
+      if(!ul) continue;
+      ul.innerHTML = '';
+      list.forEach(q=>{
+        const id = region + '::' + q.id;
+        const li = document.createElement('li');
+        li.innerHTML = `<label><input type="checkbox" data-qid="${id}" aria-label="${q.txt.replace(/"/g,'&quot;')}"> ${q.txt} <span class="xp">+${XP_PER}</span></label>`;
+        ul.appendChild(li);
+      });
+    }
+  }
+
+  /*************** Load quest state and compute XP ***************/
+  async function loadQuestState(){
+    const allTasks = await all('tasks');
+    const doneMap = new Map(allTasks.map(t=>[t.id, t.done]));
+    document.querySelectorAll('input[type="checkbox"][data-qid]').forEach(ch=>{
+      ch.checked = !!doneMap.get(ch.dataset.qid);
+    });
+    updateXPAll();
+    for(const r of REGIONS) updateXPRegion(r);
+  }
+
+  async function toggleQuest(e){
+    const ch = e.target;
+    if(ch && ch.matches('input[type="checkbox"][data-qid]')){
+      const id = ch.dataset.qid;
+      await put('tasks', {id, done: ch.checked, ts: Date.now()});
+      toast(ch.checked ? 'Quest completed!' : 'Quest unchecked.');
+      updateXPAll();
+      const region = id.split('::')[0];
+      updateXPRegion(region);
+    }
+  }
+
+  async function updateXPAll(){
+    const allTasks = await all('tasks');
+    const doneCt = allTasks.filter(t=>t.done).length;
+    const xp = doneCt * XP_PER;
+    document.getElementById('xpAll').innerHTML = `${xp} XP<small>Total XP across all regions</small>`;
+    const pct = Math.min(100, Math.floor((xp % 1000) / 10));
+    document.getElementById('xpBarAll').style.width = pct + '%';
+  }
+
+  async function updateXPRegion(region){
+    const allTasks = await all('tasks');
+    const done = allTasks.filter(t=>t.done && t.id.startsWith(region+'::')).length;
+    const xp = done * XP_PER;
+    const el = document.getElementById('xp--'+region);
+    const bar = document.getElementById('xpbar--'+region);
+    if(el) el.innerHTML = `${xp} XP<small>Region XP</small>`;
+    if(bar) bar.style.width = Math.min(100, (xp % 1000) / 10) + '%';
+  }
+
+  /*************** Calculators ***************/
+  function calcNeed(region){
+    const p = +document.getElementById('w_people__'+region).value || 0;
+    const lppd = +document.getElementById('w_lppd__'+region).value || 0;
+    const d = +document.getElementById('w_days__'+region).value || 0;
+    const L = p*lppd*d;
+    document.getElementById('w_need_l__'+region).textContent = L.toLocaleString();
+  }
+  function calcRain(region){
+    const A = +document.getElementById('rw_roof__'+region).value || 0;
+    const mm = +document.getElementById('rw_mm__'+region).value || 0;
+    const c = +document.getElementById('rw_c__'+region).value || 0.8;
+    const L = A * (mm/1000) * c * 1000; // m² * m * coeff * 1000 L/m³
+    const out = document.getElementById('rw_yield__'+region);
+    if(out) out.textContent = Math.round(L).toLocaleString();
+  }
+  function calcChlorine(region){
+    const pct = (+document.getElementById('cl_pct__'+region).value || 5)/100;
+    const volL = +document.getElementById('cl_vol__'+region).value || 1;
+    const avail_mg_per_mL = pct*1000 /* g/L */ *1000 /* mg/g */ /1000 /* mL/L */; // mg/mL
+    const target_mg_per_L = 2;
+    const needed_mL = (target_mg_per_L * volL) / (avail_mg_per_mL);
+    document.getElementById('cl_ml__'+region).textContent = (needed_mL||0).toFixed(2);
+  }
+
+  /*************** Export / Import (global & per-region) ***************/
+  async function exportAll(){
+    const tasks = await all('tasks');
+    const blob = new Blob([JSON.stringify({tasks, when:Date.now()}, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download='pra_ultra_long_progress.json'; a.click();
+    URL.revokeObjectURL(url);
+  }
+  async function exportRegion(region){
+    const tasks = await all('tasks');
+    const subset = tasks.filter(t=>t.id.startsWith(region+'::'));
+    const blob = new Blob([JSON.stringify({region, tasks:subset, when:Date.now()}, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download=`pra_${region}_progress.json`; a.click();
+    URL.revokeObjectURL(url);
+  }
+  async function importFrom(file){
+    const text = await file.text();
+    const data = JSON.parse(text);
+    if(Array.isArray(data.tasks)){
+      for(const t of data.tasks) await put('tasks', t);
+      toast('Progress imported.');
+      await loadQuestState();
+    }else{
+      // Assume region‑subset JSON
+      if(Array.isArray(data.tasks)){
+        for(const t of data.tasks) await put('tasks', t);
+      }
+      await loadQuestState();
+      toast('Region progress imported.');
+    }
+  }
+
+  /*************** Habitica Sync (optional) ***************/
+  function getHabCreds(){ return JSON.parse(localStorage.getItem('habCredsULTRA')||'{}'); }
+  function setHabCreds(c){ localStorage.setItem('habCredsULTRA', JSON.stringify(c)); }
+  async function syncHabitica(){
+    const creds = getHabCreds();
+    if(!creds.user || !creds.key){ toast('Missing Habitica credentials.'); return; }
+    const tasks = await all('tasks');
+    const allQuests = Object.values(QUESTS).flatMap(block => Object.values(block).flat());
+    function labelForId(id){
+      const qid = id.split('::')[1];
+      for(const regionKey of Object.keys(QUESTS)){
+        const block = QUESTS[regionKey];
+        for(const k of Object.keys(block)){
+          const found = block[k].find(q=>q.id===qid);
+          if(found) return `[PRA ${regionKey}] ${found.txt}`;
+        }
+      }
+      return id;
+    }
+    try{
+      for(const t of tasks){
+        const text = labelForId(t.id);
+        await fetch('https://habitica.com/api/v3/tasks/user', {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json','x-api-user':creds.user,'x-api-key':creds.key },
+          body: JSON.stringify({ text, type:'todo', completed: !!t.done })
+        });
+      }
+      toast('Habitica sync complete.');
+    }catch(e){ toast('Habitica sync failed. Check network/keys.'); }
+  }
+
+  /*************** WebLLM Minimal Chat ***************/
+  let llmEngine=null, llmReady=false, llmBootTried=false;
+  async function initLLM(){
+    if(llmBootTried) return;
+    llmBootTried = true;
+    const status = document.getElementById('llmStatus');
+    try{
+      const script = document.createElement('script');
+      script.src = "https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm/dist/webllm.min.js";
+      script.onload = async ()=>{
+        try{
+          llmEngine = new window.webllm.MLCEngine();
+          await llmEngine.reload({model_id: "Qwen2.5-0.5B-Instruct-q4f16_1-MLC"});
+          llmReady = true; status.textContent = "Ready. Running in your browser (if WebGPU available).";
+        }catch(err){ status.textContent = "WebLLM loaded; model init failed (device may lack WebGPU). Using notepad fallback."; }
+      };
+      script.onerror = ()=>{ status.textContent = "WebLLM script unavailable. Planner falls back to structured notepad."; };
+      document.head.appendChild(script);
+    }catch(e){ status.textContent = "Planner unavailable in this environment."; }
+  }
+  function appendChat(role, text){
+    const box = document.getElementById('llmChat');
+    const div = document.createElement('div');
+    div.className = 'panel';
+    div.innerHTML = `<div class="badge">${role}</div><div>${(text||'').toString().replace(/\n/g,'<br>')}</div>`;
+    box.appendChild(div); box.scrollTop = box.scrollHeight;
+  }
+
+  /*************** Service Worker (inline) ***************/
+  (function(){
+    if('serviceWorker' in navigator){
+      const swCode = `
+        self.addEventListener('install', e=>{
+          e.waitUntil(caches.open('pra-ultra-v1').then(c=>c.addAll(['./'])));
+          self.skipWaiting();
+        });
+        self.addEventListener('activate', e=>self.clients.claim());
+        self.addEventListener('fetch', e=>{
+          e.respondWith(caches.match(e.request).then(r=>r || fetch(e.request)));
+        });
+      `;
+      const blob = new Blob([swCode], {type:'text/javascript'});
+      const url = URL.createObjectURL(blob);
+      navigator.serviceWorker.register(url);
+    }
+  })();
+
+  /*************** UI wiring ***************/
+  function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2000); }
+
+  document.addEventListener('click', (e)=>{
+    // Quest toggles
+    if(e.target.matches('input[type="checkbox"][data-qid]')){ toggleQuest(e); }
+
+    // Calculators
+    if(e.target.matches('.calc-need')){ calcNeed(e.target.dataset.region); }
+    if(e.target.matches('.calc-rain')){ calcRain(e.target.dataset.region); }
+    if(e.target.matches('.calc-chlorine')){ calcChlorine(e.target.dataset.region); }
+
+    // Exporters
+    if(e.target.id==='btnGlobalExport'){ exportAll(); }
+    if(e.target.matches('button[data-export]')){ exportRegion(e.target.getAttribute('data-export')); }
+
+    // Habitica modal
+    if(e.target.id==='btnHabitica'){ document.getElementById('habiticaModal').classList.add('open'); }
+    if(e.target.id==='habClose'){ document.getElementById('habiticaModal').classList.remove('open'); }
+    if(e.target.id==='habSync'){ syncHabitica(); }
+
+    // WebLLM modal
+    if(e.target.id==='btnLLM'){ document.getElementById('llmModal').classList.add('open'); initLLM(); }
+    if(e.target.id==='llmClose'){ document.getElementById('llmModal').classList.remove('open'); }
+    if(e.target.id==='llmSend'){
+      const input = document.getElementById('llmInput');
+      let text = input.value.trim();
+      if(!text){ text = document.getElementById('llmStarter').value; }
+      const region = document.getElementById('llmRegion').value;
+      input.value='';
+      appendChat('You', `[${region}] ${text}`);
+      if(llmReady && llmEngine){
+        llmEngine.chat.completions.create({
+          messages:[
+            {role:'system', content:`You are a PRA planner. Region: ${region}. Output: concise checklists with quantities and clear steps.`},
+            {role:'user', content:text}
+          ]
+        }).then(out=>{
+          appendChat('Planner', out.choices?.[0]?.message?.content || '…');
+        }).catch(()=>appendChat('Planner', 'Model error. Use the notes below:\
+\n- Water sources & yield\
+\n- Storage volumes & layout\
+\n- Disinfection SOP & QA\
+\n- Pantry days & rotation\
+\n- Co‑op roles & schedule'));
+      }else{
+        appendChat('Planner (offline note)', 'Draft here:\n- Water sources & yield\n- Storage volumes & layout\n- Disinfection SOP & QA\n- Pantry days & rotation\n- Co‑op roles & schedule');
+      }
+    }
+  });
+
+  // Import handlers
+  document.getElementById('globalImport').addEventListener('change', (e)=>{ const f=e.target.files[0]; if(f) importFrom(f); });
+  document.getElementById('import--syria-nw').addEventListener('change', (e)=>{ const f=e.target.files[0]; if(f) importFrom(f); });
+  document.getElementById('import--syria-ne').addEventListener('change', (e)=>{ const f=e.target.files[0]; if(f) importFrom(f); });
+  document.getElementById('import--lebanon-bt').addEventListener('change', (e)=>{ const f=e.target.files[0]; if(f) importFrom(f); });
+
+  // Persist Habitica creds live
+  document.getElementById('habUser').addEventListener('input', (e)=>{ const c=getHabCreds(); c.user=e.target.value; setHabCreds(c); });
+  document.getElementById('habKey').addEventListener('input', (e)=>{ const c=getHabCreds(); c.key=e.target.value; setHabCreds(c); });
+
+  (async function init(){
+    await openDB();
+    // Render all regions
+    for(const r of REGIONS) renderRegion(r);
+    await loadQuestState();
+    // Restore Habitica creds
+    const c = getHabCreds(); if(c.user) document.getElementById('habUser').value=c.user; if(c.key) document.getElementById('habKey').value=c.key;
+  })();
+  </script>
+</body>
+<footer class="wrap">
+  <div class="hr"></div>
+  <p>© Planetary Restoration Archive — Ultra Long‑Form Module. Licensed CC BY‑SA 4.0. Educational use only.
+    <span class="muted">Presentation schema: <code>/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid</code></span>
+    · Links: <a href="/water/">/water/</a> · <a href="/food/">/food/</a>
+  </p>
+</footer>
+</html>

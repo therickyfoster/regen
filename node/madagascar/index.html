@@ -1,0 +1,1948 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>PRA Madagascar — Restoration Coordination Hub</title>
+  <meta name="description" content="Modular restoration dashboard with collaborative action coordination, offline-first architecture, and extractable action modules."/>
+  <meta name="theme-color" content="#081221"/>
+  
+  <!-- 
+    ═══════════════════════════════════════════════════════════════════════════
+    PLANETARY RESTORATION ARCHIVE — MADAGASCAR NODE
+    ═══════════════════════════════════════════════════════════════════════════
+    
+    ZERO-HARM DECLARATION:
+    This coordination platform is designed exclusively for ecological restoration
+    and community wellbeing. It must not be weaponized or repurposed for 
+    surveillance, extraction, exploitation, harm to people, biosphere degradation,
+    or sovereignty violation.
+    
+    ARCHITECTURE:
+    This dashboard implements a modular action system where each restoration
+    activity exists as a self-contained component that can be extracted into
+    a standalone HTML file. The architecture prioritizes offline functionality,
+    transparent coordination, and decentralized collaboration.
+    
+    MODULARITY APPROACH:
+    Each action is demarcated with clear comment boundaries. To extract an action
+    as a standalone file, locate the action module in the JavaScript section,
+    copy the entire block including its associated HTML template and functions,
+    then paste into a new file with the base infrastructure code.
+    
+    LICENSE: MIT for peaceful restoration purposes. Commercial surveillance
+    or extractive applications are explicitly prohibited.
+    
+    ═══════════════════════════════════════════════════════════════════════════
+  -->
+  
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════════
+       CORE THEME SYSTEM
+       ═══════════════════════════════════════════════════════════════════════
+       PURPOSE: Multi-theme visual customization system
+       THEMES: Default, Medieval, Space, Anime, Forest, Ocean
+       USAGE: Themes auto-detect system preference and persist selections
+    */
+    :root {
+      --bg: #04060b;
+      --card: rgba(10,14,20,0.68);
+      --glass: rgba(255,255,255,0.03);
+      --accent: #7fe3c7;
+      --accent-2: #ffd36e;
+      --glass-border: rgba(255,255,255,0.06);
+      --blur: 12px;
+      --muted: #8fb9bd;
+      --ink: #e6f0ff;
+      --danger: #ff6b6b;
+      --success: #51cf66;
+      --action-open: #4dabf7;
+      --action-claimed: #ffd43b;
+      --action-complete: #51cf66;
+    }
+    
+    [data-theme="medieval"] {
+      --bg: #1a0f0a;
+      --accent: #d4af37;
+      --accent-2: #8b4513;
+      --ink: #f5e6d3;
+    }
+    
+    [data-theme="space"] {
+      --bg: #000000;
+      --accent: #00d4ff;
+      --accent-2: #ff00ff;
+      --ink: #ffffff;
+    }
+    
+    [data-theme="anime"] {
+      --bg: #fff5f5;
+      --card: rgba(255,240,245,0.9);
+      --accent: #ff6b9d;
+      --accent-2: #c92a2a;
+      --ink: #2d3748;
+      --muted: #718096;
+    }
+    
+    [data-theme="forest"] {
+      --bg: #0d1b0d;
+      --accent: #4ade80;
+      --accent-2: #86efac;
+      --ink: #dcfce7;
+    }
+    
+    [data-theme="ocean"] {
+      --bg: #001428;
+      --accent: #38bdf8;
+      --accent-2: #0ea5e9;
+      --ink: #e0f2fe;
+    }
+
+    * { box-sizing: border-box; }
+    
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial;
+      line-height: 1.6;
+    }
+    
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    
+    a:hover { text-decoration: underline; }
+    
+    main {
+      position: relative;
+      min-height: 100vh;
+      z-index: 2;
+    }
+    
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    /* Sticky navigation */
+    header.site-head {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(180deg, var(--bg) 0%, rgba(4,6,11,0.95) 100%);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 12px 0;
+    }
+    
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    
+    .brand h1 {
+      font-size: 18px;
+      margin: 0;
+      letter-spacing: 0.6px;
+    }
+    
+    .brand .subtitle {
+      margin: 0;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    
+    .nav {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    /* Table of contents */
+    .toc {
+      position: fixed;
+      right: 20px;
+      top: 100px;
+      width: 220px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      background: var(--card);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 16px;
+      backdrop-filter: blur(var(--blur));
+      display: none;
+      z-index: 90;
+    }
+    
+    .toc.active { display: block; }
+    
+    .toc h3 {
+      margin: 0 0 12px 0;
+      font-size: 14px;
+    }
+    
+    .toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .toc li { margin: 6px 0; }
+    
+    .toc a {
+      font-size: 13px;
+      color: var(--muted);
+      display: block;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    
+    .toc a:hover {
+      background: var(--glass);
+      color: var(--accent);
+      text-decoration: none;
+    }
+    
+    /* Button system */
+    .btn {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border: none;
+      color: #012;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(127, 227, 199, 0.3);
+    }
+    
+    .btn:active { transform: translateY(0); }
+    
+    .btn.alt {
+      background: linear-gradient(90deg, #102329, #0b1620);
+      color: #cfe;
+    }
+    
+    .btn.danger {
+      background: linear-gradient(90deg, var(--danger), #e03131);
+      color: white;
+    }
+    
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .btn.small {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+    
+    /* Form controls */
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--glass-border);
+      background: rgba(0,18,26,0.6);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 14px;
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(127, 227, 199, 0.1);
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    /* Glass card system */
+    .glass-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(var(--blur));
+      border-radius: 14px;
+      padding: 24px;
+      margin: 20px 0;
+    }
+    
+    /* Collapsible sections */
+    .collapsible { margin: 20px 0; }
+    
+    .collapsible-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: var(--card);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      user-select: none;
+    }
+    
+    .collapsible-header:hover {
+      background: var(--glass);
+      border-color: var(--accent);
+    }
+    
+    .collapsible-header h2,
+    .collapsible-header h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    
+    .collapsible-icon {
+      transition: transform 0.3s;
+      font-size: 20px;
+    }
+    
+    .collapsible.active .collapsible-icon {
+      transform: rotate(180deg);
+    }
+    
+    .collapsible-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .collapsible.active .collapsible-content {
+      max-height: 5000px;
+      transition: max-height 0.5s ease-in;
+    }
+    
+    .collapsible-inner { padding: 20px; }
+    
+    /* Modal system */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .modal.active { display: flex; }
+    
+    .modal-content {
+      background: var(--bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+    
+    .modal-close:hover {
+      background: var(--glass);
+      color: var(--ink);
+    }
+    
+    /* Search system */
+    .search-container {
+      position: relative;
+      margin: 20px 0;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 12px 40px 12px 16px;
+      border-radius: 12px;
+      border: 2px solid var(--glass-border);
+      background: rgba(0,18,26,0.6);
+      color: var(--ink);
+      font-size: 15px;
+    }
+    
+    .search-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+    
+    .search-results {
+      margin-top: 12px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    .search-result-item {
+      padding: 12px;
+      background: var(--card);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      margin: 8px 0;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .search-result-item:hover {
+      border-color: var(--accent);
+      background: var(--glass);
+    }
+    
+    .highlight {
+      background: var(--accent);
+      color: #000;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+    
+    /* Action card system */
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    
+    .action-card {
+      background: var(--card);
+      border: 2px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .action-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--action-open);
+    }
+    
+    .action-card.claimed::before { background: var(--action-claimed); }
+    .action-card.complete::before { background: var(--action-complete); }
+    
+    .action-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(127, 227, 199, 0.15);
+    }
+    
+    .action-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 12px 0;
+    }
+    
+    .action-status {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    
+    .action-status.open {
+      background: rgba(77, 171, 247, 0.2);
+      color: var(--action-open);
+    }
+    
+    .action-status.claimed {
+      background: rgba(255, 212, 59, 0.2);
+      color: var(--action-claimed);
+    }
+    
+    .action-status.complete {
+      background: rgba(81, 207, 102, 0.2);
+      color: var(--action-complete);
+    }
+    
+    .action-description {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 8px 0 12px 0;
+      line-height: 1.5;
+    }
+    
+    .action-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--glass-border);
+    }
+    
+    .action-xp {
+      font-weight: 600;
+      color: var(--accent-2);
+    }
+    
+    /* HUD system */
+    .hud {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+    }
+    
+    .hud .mini {
+      background: linear-gradient(180deg, rgba(2,16,24,0.9), rgba(0,16,20,0.85));
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(8px);
+      min-width: 140px;
+    }
+    
+    .hud-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 6px 0;
+      font-size: 13px;
+    }
+    
+    .hud-label { color: var(--muted); }
+    
+    .hud-value {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 15px;
+    }
+    
+    .badge {
+      background: linear-gradient(135deg, #0b1f13, #051810);
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(127, 227, 199, 0.2);
+      font-weight: 700;
+      color: var(--accent-2);
+      font-size: 11px;
+      display: inline-block;
+      margin: 2px;
+    }
+    
+    /* Community chat */
+    .chat-container {
+      position: fixed;
+      bottom: 80px;
+      right: 18px;
+      width: 380px;
+      height: 500px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      display: none;
+      z-index: 90;
+    }
+    
+    .chat-container.active { display: block; }
+    
+    .chat-header {
+      background: var(--card);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .chat-header h3 {
+      margin: 0;
+      font-size: 14px;
+    }
+    
+    #tlkFrame {
+      width: 100%;
+      height: calc(100% - 48px);
+      border: none;
+      display: block;
+    }
+    
+    /* Theme selector */
+    .theme-selector {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+    }
+    
+    .theme-btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--glass-border);
+      background: var(--card);
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    
+    .theme-btn:hover {
+      border-color: var(--accent);
+      background: var(--glass);
+    }
+    
+    .theme-btn.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+    
+    /* Dashboard grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    
+    .dashboard-card {
+      background: var(--card);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    
+    .dashboard-card h3 {
+      margin: 0 0 12px 0;
+      font-size: 16px;
+    }
+    
+    /* Utility classes */
+    .small { font-size: 13px; }
+    .muted { color: var(--muted); }
+    .text-center { text-align: center; }
+    .mt-1 { margin-top: 8px; }
+    .mt-2 { margin-top: 16px; }
+    .mb-1 { margin-bottom: 8px; }
+    .mb-2 { margin-bottom: 16px; }
+    .flex { display: flex; }
+    .flex-wrap { flex-wrap: wrap; }
+    .gap-1 { gap: 8px; }
+    .gap-2 { gap: 16px; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .hidden { display: none; }
+    
+    .chip {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      border: 1px solid var(--glass-border);
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(0,20,18,0.35);
+      font-size: 13px;
+    }
+    
+    /* Print stylesheet */
+    @media print {
+      body { background: white; color: black; }
+      .no-print, .hud, .toc, .chat-container, .modal { display: none !important; }
+      .glass-card { border: 1px solid #ccc; background: white; }
+      .collapsible-content { max-height: none !important; }
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrap { padding: 12px; }
+      .header-inner { flex-direction: column; align-items: flex-start; }
+      .toc { position: fixed; inset: 0; width: 100%; max-height: 100vh; border-radius: 0; }
+      .action-grid { grid-template-columns: 1fr; }
+      .chat-container { width: calc(100% - 36px); height: 400px; left: 18px; right: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <noscript>
+    <div style="padding:20px;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:8px;margin:20px">
+      <strong>JavaScript Required:</strong> This dashboard requires JavaScript for full functionality.
+    </div>
+  </noscript>
+
+  <!-- Parallax canvas layers -->
+  <canvas id="stars" style="position:fixed;inset:0;z-index:0;display:block"></canvas>
+  <canvas id="nebula" style="position:fixed;inset:0;z-index:1;mix-blend-mode:screen;pointer-events:none"></canvas>
+  <canvas id="myco" style="position:fixed;inset:0;z-index:1;mix-blend-mode:lighten;pointer-events:none"></canvas>
+
+  <main>
+    <!-- Header -->
+    <header class="site-head">
+      <div class="wrap">
+        <div class="header-inner">
+          <div class="brand">
+            <svg width="40" height="40" viewBox="0 0 48 48">
+              <defs>
+                <linearGradient id="g" x1="0" x2="1">
+                  <stop offset="0" stop-color="#7fe3c7"/>
+                  <stop offset="1" stop-color="#ffd36e"/>
+                </linearGradient>
+              </defs>
+              <rect width="48" height="48" rx="10" fill="#02121a"/>
+              <path d="M8 34c8-12 16-14 32-26" stroke="url(#g)" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+            </svg>
+            <div>
+              <h1>PRA Madagascar — Restoration Hub</h1>
+              <p class="subtitle" id="userGreeting">Collaborative Action Coordination</p>
+            </div>
+          </div>
+
+          <nav class="nav no-print">
+            <button class="btn" onclick="scrollToSection('actions')">📋 Actions</button>
+            <button class="btn" onclick="toggleChat()">💬 Chat</button>
+            <button class="btn alt" onclick="toggleTOC()">☰ Menu</button>
+          </nav>
+        </div>
+
+        <div class="search-container no-print">
+          <input 
+            type="search" 
+            class="search-input" 
+            id="searchInput" 
+            placeholder="Search actions, documentation..."
+          />
+          <span class="search-icon">🔍</span>
+        </div>
+        <div id="searchResults" class="search-results hidden"></div>
+      </div>
+    </header>
+
+    <!-- Table of contents -->
+    <aside class="toc no-print" id="tocSidebar">
+      <h3>Contents</h3>
+      <ul id="tocList"></ul>
+    </aside>
+
+    <div class="wrap">
+      <!-- Hero -->
+      <section id="hero" class="glass-card">
+        <h2>Madagascar Restoration Node</h2>
+        <p style="max-width:74ch;line-height:1.6;color:#d7fffb">
+          This coordination hub organizes grassroots restoration activities through a modular action bank. Each action represents a specific restoration task that contributors can claim, complete, and verify through community coordination. The system operates offline-first with optional cloud synchronization, enabling decentralized collaboration without central authentication requirements.
+        </p>
+        
+        <div class="flex flex-wrap gap-2 mt-2">
+          <button class="btn" onclick="scrollToSection('actions')">🌱 View Actions</button>
+          <button class="btn" onclick="scrollToSection('overview')">🌍 Overview</button>
+          <button class="btn" onclick="exportData()">📥 Export Data</button>
+        </div>
+        
+        <div class="flex flex-wrap gap-1 mt-2">
+          <span class="chip">🍄 Modular Actions</span>
+          <span class="chip">📱 Offline-First</span>
+          <span class="chip">💬 TLK.io Chat</span>
+          <span class="chip">🔒 Privacy-First</span>
+        </div>
+
+        <div class="mt-2">
+          <label class="small">Visual Theme:</label>
+          <div class="theme-selector">
+            <button class="theme-btn active" onclick="setTheme('default')">🌊 Default</button>
+            <button class="theme-btn" onclick="setTheme('medieval')">🏰 Medieval</button>
+            <button class="theme-btn" onclick="setTheme('space')">🚀 Space</button>
+            <button class="theme-btn" onclick="setTheme('anime')">🌸 Anime</button>
+            <button class="theme-btn" onclick="setTheme('forest')">🌲 Forest</button>
+            <button class="theme-btn" onclick="setTheme('ocean')">🐋 Ocean</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Overview -->
+      <section id="overview">
+        <div class="collapsible active">
+          <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h2>🌍 Project Overview</h2>
+            <span class="collapsible-icon">▼</span>
+          </div>
+          <div class="collapsible-content">
+            <div class="collapsible-inner glass-card">
+              <p>Madagascar represents a unique biodiversity hotspot with exceptional endemism rates. This restoration node coordinates three interconnected program pillars that address ecological degradation through community-led interventions.</p>
+              
+              <div class="dashboard-grid mt-2">
+                <div class="dashboard-card">
+                  <h3>🍄 Myco-Corridors</h3>
+                  <p class="small">Mycorrhizal inoculation plots link fragmented forest patches through fungal network connectivity, enhancing soil restoration efficacy and seedling survival rates.</p>
+                </div>
+                
+                <div class="dashboard-card">
+                  <h3>🌊 Mangrove Rebuilds</h3>
+                  <p class="small">Coastal mangrove restoration provides cyclone resilience buffers while supporting fishery productivity and marine ecosystem health through community-led programs.</p>
+                </div>
+                
+                <div class="dashboard-card">
+                  <h3>🌾 Community Seed Vaults</h3>
+                  <p class="small">Decentralized seed provenance systems ensure food sovereignty through cryptographically timestamped ledgers tracking seed origin and exchange history.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Action Bank -->
+      <section id="actions">
+        <div class="collapsible active">
+          <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h2>🍄 Action Bank</h2>
+            <span class="collapsible-icon">▼</span>
+          </div>
+          <div class="collapsible-content">
+            <div class="collapsible-inner">
+              <p>The action bank organizes restoration activities as discrete, claimable tasks. Contributors may optionally provide a nickname for attribution. Actions progress through states: open (available), claimed (assigned), and complete (finished).</p>
+              
+              <div class="flex flex-wrap gap-1 items-center mt-2 mb-2">
+                <label class="small" style="margin:0">Filter:</label>
+                <button class="btn small" onclick="filterActions('all')">All</button>
+                <button class="btn small" onclick="filterActions('open')">Open</button>
+                <button class="btn small" onclick="filterActions('claimed')">Claimed</button>
+                <button class="btn small" onclick="filterActions('complete')">Complete</button>
+                <button class="btn alt small" onclick="proposeAction()">➕ Propose</button>
+              </div>
+
+              <div class="action-grid" id="actionGrid"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="glass-card">
+        <div class="flex justify-between items-center flex-wrap gap-2">
+          <div>
+            <strong>Planetary Restoration Archive — Madagascar</strong>
+            <p class="small muted">
+              All contributions are intended exclusively for ecological restoration and community wellbeing.
+            </p>
+          </div>
+          <div class="small muted text-right">
+            Offline-first • Privacy-minded<br/>
+            Use responsibly • Not legal advice
+          </div>
+        </div>
+
+        <details class="mt-2">
+          <summary class="small" style="cursor:pointer">📜 Attributions & Licenses</summary>
+          <div class="small muted mt-1">
+            <p><strong>Third-Party Components:</strong></p>
+            <ul style="margin:8px 0;padding-left:20px">
+              <li>IndexedDB Architecture: MDN Web Docs patterns (CC-BY-SA 2.5)</li>
+              <li>Service Worker Pattern: Workbox-inspired (Apache 2.0)</li>
+              <li>TLK.io: Third-party chat service</li>
+            </ul>
+            <p>All original code released under MIT License for peaceful restoration purposes.</p>
+          </div>
+        </details>
+
+        <div class="text-center mt-2 small muted">
+          <p><strong>Zero-Harm Declaration:</strong> This system coordinates ecological restoration and must not be repurposed for surveillance, extraction, exploitation, harm to people, biosphere degradation, or sovereignty violation.</p>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <!-- HUD -->
+  <div class="hud no-print">
+    <div class="mini glass-card">
+      <div class="hud-item">
+        <span class="hud-label">XP</span>
+        <span class="hud-value" id="xpVal">0</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">Level</span>
+        <span class="hud-value" id="levelVal">1</span>
+      </div>
+      <div class="small muted" style="margin-top:6px">
+        Actions: <span id="actionCount">0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Community chat -->
+  <div class="chat-container no-print" id="chatContainer">
+    <div class="chat-header">
+      <h3>💬 Community Chat</h3>
+      <button class="modal-close" onclick="toggleChat()" style="width:24px;height:24px;font-size:18px">&times;</button>
+    </div>
+    <iframe id="tlkFrame" title="Community Chat" src="https://tlk.io/pra-madagascar"></iframe>
+  </div>
+
+  <!-- Action detail modal -->
+  <div class="modal" id="actionModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="actionModalTitle">Action Details</h2>
+        <button class="modal-close" onclick="closeModal('actionModal')">&times;</button>
+      </div>
+      <div id="actionModalBody"></div>
+    </div>
+  </div>
+
+  <script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   CORE INFRASTRUCTURE
+   ═══════════════════════════════════════════════════════════════════════════
+   
+   This section contains base infrastructure that all action modules depend on.
+   When extracting an action to a standalone file, include this entire section.
+*/
+
+/* Service Worker for offline functionality */
+(function initServiceWorker() {
+  const swCode = `
+    const CACHE_VERSION = 'pra-hub-v1';
+    const CORE_ASSETS = ['/', '/index.html'];
+    
+    self.addEventListener('install', e => {
+      self.skipWaiting();
+      e.waitUntil(caches.open(CACHE_VERSION).then(c => c.addAll(CORE_ASSETS)));
+    });
+    
+    self.addEventListener('activate', e => {
+      e.waitUntil(caches.keys().then(keys =>
+        Promise.all(keys.map(k => k !== CACHE_VERSION && caches.delete(k)))
+      ));
+      self.clients.claim();
+    });
+    
+    self.addEventListener('fetch', e => {
+      if (e.request.method !== 'GET') return;
+      e.respondWith((async () => {
+        const cache = await caches.open(CACHE_VERSION);
+        const cached = await cache.match(e.request);
+        if (cached) return cached;
+        try {
+          const res = await fetch(e.request);
+          if (res?.ok) cache.put(e.request, res.clone());
+          return res;
+        } catch {
+          return cached || new Response('Offline', { status: 503 });
+        }
+      })());
+    });
+  `;
+  
+  try {
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(blob);
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register(swUrl).catch(() => {});
+    }
+  } catch (e) {
+    console.warn('Service worker registration failed', e);
+  }
+})();
+
+/* IndexedDB Layer */
+const DB_NAME = 'pra-restoration-hub';
+const DB_VERSION = 1;
+let db = null;
+
+async function openDB() {
+  if (db) return db;
+  
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
+    
+    request.onupgradeneeded = (event) => {
+      const database = event.target.result;
+      
+      if (!database.objectStoreNames.contains('actions')) {
+        database.createObjectStore('actions', { keyPath: 'id' });
+      }
+      if (!database.objectStoreNames.contains('contributions')) {
+        database.createObjectStore('contributions', { keyPath: 'id' });
+      }
+      if (!database.objectStoreNames.contains('prefs')) {
+        database.createObjectStore('prefs', { keyPath: 'key' });
+      }
+    };
+    
+    request.onsuccess = () => {
+      db = request.result;
+      resolve(db);
+    };
+    
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function saveLocal(store, item) {
+  const database = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction(store, 'readwrite');
+    transaction.objectStore(store).put(item);
+    transaction.oncomplete = () => resolve(true);
+    transaction.onerror = () => reject(transaction.error);
+  });
+}
+
+async function getAll(store) {
+  const database = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction(store, 'readonly');
+    const request = transaction.objectStore(store).getAll();
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function getOne(store, key) {
+  const database = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction(store, 'readonly');
+    const request = transaction.objectStore(store).get(key);
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function getPref(key) {
+  const result = await getOne('prefs', key);
+  return result?.val;
+}
+
+async function setPref(key, val) {
+  return saveLocal('prefs', { key, val });
+}
+
+/* Global state */
+let currentNickname = null;
+let currentXP = 0;
+let currentLevel = 1;
+
+/* Parallax Canvas System */
+(function initParallax() {
+  const stars = document.getElementById('stars');
+  const ctx = stars.getContext('2d');
+  let w = stars.width = innerWidth;
+  let h = stars.height = innerHeight;
+  
+  const layers = [];
+  function rng(seed) {
+    let x = Math.sin(seed) * 1e4;
+    return () => (x = Math.sin(x) * 1e4, x - Math.floor(x));
+  }
+  
+  const r = rng(117);
+  
+  function createLayer(count, speed, size, color) {
+    const starArray = [];
+    for (let i = 0; i < count; i++) {
+      starArray.push({
+        x: r() * w,
+        y: r() * h,
+        z: r(),
+        r: 1 + r() * size,
+        t: r() * 6.28
+      });
+    }
+    layers.push({ stars: starArray, speed, color });
+  }
+  
+  createLayer(200, 0.02, 1.6, '255,255,255');
+  createLayer(100, 0.06, 2.4, '180,220,255');
+  createLayer(50, 0.12, 3.4, '200,255,220');
+  
+  let mx = 0, my = 0, t = 0;
+  
+  addEventListener('mousemove', e => {
+    mx = (e.clientX - w / 2) / w;
+    my = (e.clientY - h / 2) / h;
+  });
+  
+  addEventListener('resize', () => {
+    w = stars.width = innerWidth;
+    h = stars.height = innerHeight;
+  });
+  
+  function drawStars() {
+    t += 0.01;
+    
+    const gradient = ctx.createLinearGradient(0, 0, 0, h);
+    gradient.addColorStop(0, '#02141c');
+    gradient.addColorStop(1, '#061019');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, w, h);
+    
+    for (let i = 0; i < layers.length; i++) {
+      const layer = layers[i];
+      for (const star of layer.stars) {
+        const px = (star.x + mx * (i + 1) * 40 + Math.sin(t + star.t) * 6) % w;
+        const py = (star.y + my * (i + 1) * 30 + Math.cos(t + star.t) * 6) % h;
+        ctx.fillStyle = `rgba(${layer.color},${0.8 * (0.6 + star.z * 0.4)})`;
+        ctx.beginPath();
+        ctx.arc(px, py, star.r * (0.6 + Math.sin(t + star.t) * 0.4), 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    
+    requestAnimationFrame(drawStars);
+  }
+  
+  drawStars();
+  
+  const nebula = document.getElementById('nebula');
+  const nctx = nebula.getContext('2d');
+  nebula.width = w;
+  nebula.height = h;
+  
+  function noise(x, y, s) {
+    return (Math.sin(x * 0.01 * s) + Math.cos(y * 0.008 * s) + 
+            Math.sin((x + y) * 0.005 * s)) * 0.5 + 0.5;
+  }
+  
+  function paintNebula() {
+    nebula.width = innerWidth;
+    nebula.height = innerHeight;
+    const img = nctx.createImageData(nebula.width, nebula.height);
+    
+    for (let y = 0; y < nebula.height; y += 2) {
+      for (let x = 0; x < nebula.width; x += 2) {
+        const n1 = noise(x, y, 1.2);
+        const n2 = noise(x + 200, y + 50, 0.6);
+        const n3 = noise(x * 1.4, y * 1.2, 0.9);
+        let v = Math.max(0, (n1 * 0.6 + n2 * 0.3 + n3 * 0.4) - 0.85);
+        v = Math.min(1, v * 4);
+        
+        const r = 127 + 128 * v;
+        const g = 200 * v;
+        const b = 255 * v * 0.8;
+        const a = v * 70;
+        
+        for (let dy = 0; dy < 2; dy++) {
+          for (let dx = 0; dx < 2; dx++) {
+            const idx = ((y + dy) * nebula.width + (x + dx)) * 4;
+            img.data[idx] = r;
+            img.data[idx + 1] = g;
+            img.data[idx + 2] = b;
+            img.data[idx + 3] = a;
+          }
+        }
+      }
+    }
+    
+    nctx.putImageData(img, 0, 0);
+  }
+  
+  paintNebula();
+  
+  const myco = document.getElementById('myco');
+  const mctx = myco.getContext('2d');
+  let W = myco.width = innerWidth;
+  let H = myco.height = innerHeight;
+  
+  addEventListener('resize', () => {
+    W = myco.width = innerWidth;
+    H = myco.height = innerHeight;
+  });
+  
+  const nodes = [];
+  
+  function seedMycelium(count = 30) {
+    for (let i = 0; i < count; i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        a: Math.random() * 6.28,
+        v: 0.3 + 0.4 * Math.random()
+      });
+    }
+  }
+  
+  seedMycelium();
+  
+  function stepMycelium() {
+    mctx.clearRect(0, 0, W, H);
+    mctx.globalCompositeOperation = 'lighter';
+    
+    for (const node of nodes) {
+      const nx = node.x + Math.cos(node.a) * node.v;
+      const ny = node.y + Math.sin(node.a) * node.v;
+      
+      mctx.strokeStyle = 'rgba(127,227,199,.08)';
+      mctx.lineWidth = 1.2;
+      mctx.beginPath();
+      mctx.moveTo(node.x, node.y);
+      mctx.lineTo(nx, ny);
+      mctx.stroke();
+      
+      node.x = nx;
+      node.y = ny;
+      node.a += (Math.random() - 0.5) * 0.6;
+      
+      if (node.x < 0) node.x += W;
+      if (node.x > W) node.x -= W;
+      if (node.y < 0) node.y += H;
+      if (node.y > H) node.y -= H;
+      
+      if (Math.random() < 0.004 && nodes.length < 400) {
+        nodes.push({
+          x: node.x,
+          y: node.y,
+          a: node.a + (Math.random() - 0.5),
+          v: node.v * (0.9 + Math.random() * 0.2)
+        });
+      }
+    }
+    
+    requestAnimationFrame(stepMycelium);
+  }
+  
+  stepMycelium();
+  
+  window.__mycoBoost = function() {
+    for (let i = 0; i < 15; i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        a: Math.random() * 6.28,
+        v: 0.3 + 0.5 * Math.random()
+      });
+    }
+  };
+})();
+
+/* UI Controllers */
+function toggleCollapsible(header) {
+  const collapsible = header.closest('.collapsible');
+  collapsible.classList.toggle('active');
+}
+
+function toggleTOC() {
+  document.getElementById('tocSidebar').classList.toggle('active');
+}
+
+function scrollToSection(id) {
+  const section = document.getElementById(id);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function generateTOC() {
+  const sections = document.querySelectorAll('section[id]');
+  const tocList = document.getElementById('tocList');
+  
+  sections.forEach(section => {
+    const heading = section.querySelector('h2, h3');
+    if (!heading) return;
+    
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = `#${section.id}`;
+    a.textContent = heading.textContent.replace(/[▼▲]/g, '').trim();
+    a.onclick = (e) => {
+      e.preventDefault();
+      scrollToSection(section.id);
+      if (window.innerWidth <= 768) toggleTOC();
+    };
+    li.appendChild(a);
+    tocList.appendChild(li);
+  });
+}
+
+/* Search */
+let searchIndex = [];
+
+function buildSearchIndex() {
+  searchIndex = [];
+  const sections = document.querySelectorAll('section');
+  
+  sections.forEach(section => {
+    const title = section.querySelector('h2, h3')?.textContent || '';
+    const content = section.textContent || '';
+    searchIndex.push({
+      id: section.id,
+      title,
+      content: content.slice(0, 500)
+    });
+  });
+}
+
+function search(query) {
+  if (!query || query.length < 2) {
+    document.getElementById('searchResults').classList.add('hidden');
+    return;
+  }
+  
+  query = query.toLowerCase();
+  const results = searchIndex
+    .map(item => {
+      const titleMatch = item.title.toLowerCase().includes(query);
+      const contentMatch = item.content.toLowerCase().includes(query);
+      
+      if (!titleMatch && !contentMatch) return null;
+      
+      const index = item.content.toLowerCase().indexOf(query);
+      const snippet = index >= 0 
+        ? '...' + item.content.slice(Math.max(0, index - 50), index + 100) + '...'
+        : item.content.slice(0, 150) + '...';
+      
+      return { ...item, snippet, score: titleMatch ? 10 : 1 };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 5);
+  
+  const container = document.getElementById('searchResults');
+  
+  if (results.length === 0) {
+    container.innerHTML = '<div class="small muted" style="padding:12px">No results found</div>';
+  } else {
+    container.innerHTML = results.map(result => `
+      <div class="search-result-item" onclick="scrollToSection('${result.id}')">
+        <div style="font-weight:600;margin-bottom:4px">${escapeHtml(result.title)}</div>
+        <div class="small muted">${escapeHtml(result.snippet)}</div>
+      </div>
+    `).join('');
+  }
+  
+  container.classList.remove('hidden');
+}
+
+let searchTimeout;
+document.getElementById('searchInput')?.addEventListener('input', (e) => {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => search(e.target.value), 300);
+});
+
+/* Theme system */
+async function setTheme(theme) {
+  document.body.setAttribute('data-theme', theme);
+  await setPref('theme', theme);
+  
+  document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+async function restoreTheme() {
+  const savedTheme = await getPref('theme');
+  if (savedTheme) {
+    document.body.setAttribute('data-theme', savedTheme);
+    const btn = Array.from(document.querySelectorAll('.theme-btn'))
+      .find(b => b.textContent.toLowerCase().includes(savedTheme));
+    if (btn) {
+      document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  }
+}
+
+/* Chat */
+function toggleChat() {
+  document.getElementById('chatContainer').classList.toggle('active');
+}
+
+/* Modals */
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+}
+
+/* Helper functions */
+function toast(message) {
+  console.log('[Toast]', message);
+  
+  const toast = document.createElement('div');
+  toast.textContent = message;
+  toast.style.cssText = `
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #000;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    max-width: 90%;
+    text-align: center;
+  `;
+  
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transition = 'all 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+function escapeHtml(text) {
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  };
+  return String(text).replace(/[&<>"']/g, char => map[char]);
+}
+
+function saveFile(data, filename, type) {
+  const blob = new Blob([data], { type });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function updateHUD() {
+  document.getElementById('xpVal').textContent = currentXP;
+  document.getElementById('levelVal').textContent = currentLevel;
+  
+  getAll('actions').then(actions => {
+    const completed = actions.filter(a => a.status === 'complete').length;
+    document.getElementById('actionCount').textContent = completed;
+  });
+}
+
+async function increaseXP(amount) {
+  currentXP += amount;
+  currentLevel = Math.floor(currentXP / 100) + 1;
+  await setPref('xp', currentXP);
+  await setPref('level', currentLevel);
+  updateHUD();
+  
+  if (currentXP % 100 < amount) {
+    toast(`🎉 Level up! You are now level ${currentLevel}`);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MODULAR ACTION SYSTEM
+   ═══════════════════════════════════════════════════════════════════════════
+   
+   Each action module below is self-contained and can be extracted to create
+   a standalone HTML file. To extract an action:
+   
+   1. Copy the action definition from DEFAULT_ACTIONS array
+   2. Copy the associated action-specific functions (if any)
+   3. Copy the core infrastructure section above
+   4. Create a new HTML file with the base structure
+   5. Paste all components and initialize
+   
+   Each action should be structured with:
+   - Unique ID
+   - Title and description
+   - Category classification
+   - XP reward value
+   - Status tracking (open/claimed/complete)
+   - Attribution fields
+*/
+
+/* Default action definitions */
+const DEFAULT_ACTIONS = [
+  /* ──────────────────────────────────────────────────────────────────────
+     ACTION MODULE: Soil Sampling — Tamatave Corridor
+     ──────────────────────────────────────────────────────────────────────
+     CATEGORY: Myco-Corridor
+     XP: 25
+     EXTRACTION: Copy this entire block to create standalone soil sampling page
+  */
+  {
+    id: 'myco-001',
+    title: 'Soil Sampling — Tamatave Corridor',
+    description: 'Collect soil samples from three designated plots along the eastern corridor. Record GPS coordinates, depth profiles, and visual characteristics. Samples should be delivered to the field station for fungal DNA analysis.',
+    category: 'myco-corridor',
+    xp: 25,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  
+  /* ──────────────────────────────────────────────────────────────────────
+     ACTION MODULE: Inoculation Protocol Documentation
+     ──────────────────────────────────────────────────────────────────────
+     CATEGORY: Myco-Corridor
+     XP: 15
+     EXTRACTION: Copy this entire block to create standalone documentation page
+  */
+  {
+    id: 'myco-002',
+    title: 'Inoculation Protocol Documentation',
+    description: 'Document the mycorrhizal inoculation protocol currently used in the pilot plots. Include photographs, measurements, and timing details. This documentation will be shared with partner institutions.',
+    category: 'myco-corridor',
+    xp: 15,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  
+  /* ──────────────────────────────────────────────────────────────────────
+     ACTION MODULE: Seedling Survival Monitoring
+     ──────────────────────────────────────────────────────────────────────
+     CATEGORY: Myco-Corridor
+     XP: 30
+     EXTRACTION: Copy this entire block to create standalone monitoring page
+  */
+  {
+    id: 'myco-003',
+    title: 'Seedling Survival Monitoring — Month 3',
+    description: 'Conduct third-month survival assessment for inoculated seedlings in plots A through D. Record survival rates, growth measurements, and any observed symbiotic indicators.',
+    category: 'myco-corridor',
+    xp: 30,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  
+  /* ──────────────────────────────────────────────────────────────────────
+     ACTION MODULE: Propagule Collection
+     ──────────────────────────────────────────────────────────────────────
+     CATEGORY: Mangrove
+     XP: 20
+     EXTRACTION: Copy this entire block to create standalone collection page
+  */
+  {
+    id: 'mang-001',
+    title: 'Propagule Collection — Mahajamba Bay',
+    description: 'Collect mangrove propagules from healthy parent trees in designated collection zones. Target species include Rhizophora mucronata and Avicennia marina. Record collection locations and parent tree characteristics.',
+    category: 'mangrove',
+    xp: 20,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  
+  /* ──────────────────────────────────────────────────────────────────────
+     ACTION MODULE: Nursery Infrastructure Setup
+     ──────────────────────────────────────────────────────────────────────
+     CATEGORY: Mangrove
+     XP: 40
+     EXTRACTION: Copy this entire block to create standalone infrastructure page
+  */
+  {
+    id: 'mang-002',
+    title: 'Nursery Infrastructure Setup',
+    description: 'Construct shadehouse infrastructure for mangrove nursery at the community center. Includes building shade structures, organizing container systems, and establishing water access.',
+    category: 'mangrove',
+    xp: 40,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  
+  /* ──────────────────────────────────────────────────────────────────────
+     ACTION MODULE: Planting Transect Preparation
+     ──────────────────────────────────────────────────────────────────────
+     CATEGORY: Mangrove
+     XP: 25
+     EXTRACTION: Copy this entire block to create standalone transect page
+  */
+  {
+    id: 'mang-003',
+    title: 'Planting Transect Preparation',
+    description: 'Prepare planting transects in the restoration zone. Clear debris, mark planting positions, and document baseline conditions with photographs and measurements.',
+    category: 'mangrove',
+    xp: 25,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  
+  /* ──────────────────────────────────────────────────────────────────────
+     ACTION MODULE: Seed Vault Cataloging
+     ──────────────────────────────────────────────────────────────────────
+     CATEGORY: Seed Vault
+     XP: 20
+     EXTRACTION: Copy this entire block to create standalone cataloging page
+  */
+  {
+    id: 'seed-001',
+    title: 'Seed Vault Cataloging — Rice Varieties',
+    description: 'Catalog local rice varieties in the seed vault system. Document variety names, traditional uses, growing requirements, and provenance information. Photograph seeds and create standardized entries.',
+    category: 'seed-vault',
+    xp: 20,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  
+  /* ──────────────────────────────────────────────────────────────────────
+     ACTION MODULE: Provenance Verification Interview
+     ──────────────────────────────────────────────────────────────────────
+     CATEGORY: Seed Vault
+     XP: 30
+     EXTRACTION: Copy this entire block to create standalone interview page
+  */
+  {
+    id: 'seed-002',
+    title: 'Provenance Verification Interview',
+    description: 'Conduct interviews with community elders regarding seed provenance and traditional cultivation practices. Record oral histories and document seed exchange networks.',
+    category: 'seed-vault',
+    xp: 30,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  
+  /* ──────────────────────────────────────────────────────────────────────
+     ACTION MODULE: Digital Ledger Entry Creation
+     ──────────────────────────────────────────────────────────────────────
+     CATEGORY: Seed Vault
+     XP: 15
+     EXTRACTION: Copy this entire block to create standalone ledger page
+  */
+  {
+    id: 'seed-003',
+    title: 'Digital Ledger Entry Creation',
+    description: 'Create cryptographically timestamped entries for twenty seed accessions in the digital provenance ledger. Include all required metadata fields and verification checksums.',
+    category: 'seed-vault',
+    xp: 15,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  }
+];
+
+/* Action management functions */
+async function initializeActions() {
+  const existing = await getAll('actions');
+  
+  if (existing.length === 0) {
+    for (const action of DEFAULT_ACTIONS) {
+      await saveLocal('actions', action);
+    }
+  }
+}
+
+async function loadActions() {
+  const actions = await getAll('actions');
+  const grid = document.getElementById('actionGrid');
+  
+  if (actions.length === 0) {
+    grid.innerHTML = '<p class="small muted">No actions available.</p>';
+    return;
+  }
+  
+  grid.innerHTML = actions.map(action => {
+    const statusClass = action.status || 'open';
+    const canClaim = statusClass === 'open';
+    const canComplete = statusClass === 'claimed';
+    
+    return `
+      <div class="action-card ${statusClass}" data-status="${statusClass}">
+        <h3 class="action-title">${escapeHtml(action.title)}</h3>
+        <div class="action-status ${statusClass}">${statusClass}</div>
+        
+        <p class="action-description">${escapeHtml(action.description)}</p>
+        
+        <div class="flex flex-wrap gap-1">
+          ${canClaim ? `<button class="btn small" onclick="claimAction('${action.id}')">Claim</button>` : ''}
+          ${canComplete ? `<button class="btn small" onclick="completeAction('${action.id}')">Complete</button>` : ''}
+          <button class="btn alt small" onclick="viewAction('${action.id}')">Details</button>
+        </div>
+        
+        <div class="action-meta">
+          <span class="action-xp">+${action.xp} XP</span>
+          <span class="small">${action.category || 'general'}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+  
+  updateHUD();
+}
+
+function filterActions(status) {
+  const cards = document.querySelectorAll('.action-card');
+  cards.forEach(card => {
+    if (status === 'all' || card.dataset.status === status) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+async function claimAction(actionId) {
+  if (!currentNickname) {
+    const nickname = prompt('Enter a nickname for attribution (optional):');
+    if (nickname && nickname.trim()) {
+      currentNickname = nickname.trim();
+      await setPref('nickname', currentNickname);
+      document.getElementById('userGreeting').textContent = `Contributor: ${currentNickname}`;
+    }
+  }
+  
+  const action = await getOne('actions', actionId);
+  if (!action) return;
+  
+  if (action.status !== 'open') {
+    toast('This action has already been claimed');
+    return;
+  }
+  
+  action.status = 'claimed';
+  action.claimedBy = currentNickname || 'anonymous';
+  action.claimedAt = new Date().toISOString();
+  
+  await saveLocal('actions', action);
+  await loadActions();
+  
+  toast('Action claimed! Coordinate in chat for details.');
+  
+  if (window.__mycoBoost) {
+    window.__mycoBoost();
+  }
+}
+
+async function completeAction(actionId) {
+  const action = await getOne('actions', actionId);
+  if (!action) return;
+  
+  const note = prompt('Briefly describe what you completed:');
+  if (!note) return;
+  
+  action.status = 'complete';
+  action.completionNote = note;
+  action.completedAt = new Date().toISOString();
+  
+  await saveLocal('actions', action);
+  await increaseXP(action.xp);
+  await loadActions();
+  
+  toast(`Action completed! Earned ${action.xp} XP.`);
+  
+  if (window.__mycoBoost) {
+    window.__mycoBoost();
+  }
+}
+
+async function viewAction(actionId) {
+  const action = await getOne('actions', actionId);
+  if (!action) return;
+  
+  const modal = document.getElementById('actionModal');
+  const title = document.getElementById('actionModalTitle');
+  const body = document.getElementById('actionModalBody');
+  
+  title.textContent = action.title;
+  body.innerHTML = `
+    <div class="small">
+      <p><strong>Status:</strong> <span class="action-status ${action.status}">${action.status}</span></p>
+      <p><strong>Category:</strong> ${action.category || 'general'}</p>
+      <p><strong>XP Reward:</strong> ${action.xp}</p>
+      <p><strong>Created:</strong> ${new Date(action.createdAt).toLocaleDateString()}</p>
+      
+      ${action.claimedBy ? `<p><strong>Claimed By:</strong> ${escapeHtml(action.claimedBy)}</p>` : ''}
+      ${action.completionNote ? `<p><strong>Completion:</strong> ${escapeHtml(action.completionNote)}</p>` : ''}
+    </div>
+    
+    <div class="mt-2">
+      <h4>Description</h4>
+      <p class="small">${escapeHtml(action.description)}</p>
+    </div>
+  `;
+  
+  modal.classList.add('active');
+}
+
+function proposeAction() {
+  const modal = document.getElementById('actionModal');
+  const title = document.getElementById('actionModalTitle');
+  const body = document.getElementById('actionModalBody');
+  
+  title.textContent = 'Propose New Action';
+  body.innerHTML = `
+    <form onsubmit="event.preventDefault(); executeProposal();">
+      <div class="mb-2">
+        <label>Action Title</label>
+        <input id="newTitle" type="text" required maxlength="100" placeholder="Brief, descriptive title">
+      </div>
+      
+      <div class="mb-2">
+        <label>Description</label>
+        <textarea id="newDesc" rows="4" required placeholder="Detailed description"></textarea>
+      </div>
+      
+      <div class="mb-2">
+        <label>Category</label>
+        <select id="newCategory">
+          <option value="myco-corridor">Myco-Corridor</option>
+          <option value="mangrove">Mangrove</option>
+          <option value="seed-vault">Seed Vault</option>
+          <option value="general">General</option>
+        </select>
+      </div>
+      
+      <div class="mb-2">
+        <label>XP Reward</label>
+        <input id="newXP" type="number" min="5" max="100" value="20" required>
+      </div>
+      
+      <button class="btn" type="submit" style="width:100%">Propose Action</button>
+    </form>
+  `;
+  
+  modal.classList.add('active');
+}
+
+async function executeProposal() {
+  const title = document.getElementById('newTitle').value;
+  const description = document.getElementById('newDesc').value;
+  const category = document.getElementById('newCategory').value;
+  const xp = parseInt(document.getElementById('newXP').value);
+  
+  const action = {
+    id: 'custom-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6),
+    title,
+    description,
+    category,
+    xp,
+    status: 'open',
+    proposedBy: currentNickname || 'anonymous',
+    createdAt: new Date().toISOString()
+  };
+  
+  await saveLocal('actions', action);
+  await loadActions();
+  
+  closeModal('actionModal');
+  toast('Action proposed. Share in chat for community review.');
+}
+
+/* Export */
+async function exportData() {
+  const actions = await getAll('actions');
+  const contributions = await getAll('contributions');
+  
+  const payload = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    contributor: currentNickname || 'anonymous',
+    actions,
+    contributions,
+    stats: {
+      totalActions: actions.length,
+      completed: actions.filter(a => a.status === 'complete').length,
+      xp: currentXP,
+      level: currentLevel
+    }
+  };
+  
+  saveFile(
+    JSON.stringify(payload, null, 2),
+    `pra-export-${Date.now()}.json`,
+    'application/json'
+  );
+  
+  toast('Data exported successfully');
+}
+
+/* Initialization */
+(async function init() {
+  try {
+    await openDB();
+    console.info('✅ Database initialized');
+    
+    await initializeActions();
+    console.info('✅ Actions initialized');
+    
+    const savedNickname = await getPref('nickname');
+    if (savedNickname) {
+      currentNickname = savedNickname;
+      document.getElementById('userGreeting').textContent = `Contributor: ${currentNickname}`;
+    }
+    
+    const savedXP = await getPref('xp');
+    if (savedXP) currentXP = savedXP;
+    
+    const savedLevel = await getPref('level');
+    if (savedLevel) currentLevel = savedLevel;
+    
+    await loadActions();
+    console.info('✅ Actions loaded');
+    
+    await restoreTheme();
+    console.info('✅ Theme restored');
+    
+    buildSearchIndex();
+    console.info('✅ Search index built');
+    
+    generateTOC();
+    console.info('✅ TOC generated');
+    
+    updateHUD();
+    console.info('✅ HUD updated');
+    
+    console.info('✅ Restoration hub initialized');
+    
+  } catch (error) {
+    console.error('❌ Initialization error:', error);
+    toast('Error initializing. Please refresh.');
+  }
+})();
+  </script>
+</body>
+</html>

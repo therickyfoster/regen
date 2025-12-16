@@ -1,0 +1,2349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Provenance: Planetary Restoration Archive | planetaryrestorationarchive.com -->
+<!-- GitHub: github.com/therickyfoster | Steward: Foster + Navi -->
+<!-- Zero-Harm Declaration: This tool is designed for democratic renewal, youth economic empowerment, and community safety.
+     Any use for surveillance, oppression, or harm to individuals or communities violates the intent and license.
+     Licensed under CC BY-NC-SA 4.0 - Attribution required for all derivatives. -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content="Foster + Navi · Planetary Restoration Archive">
+  <link rel="me" href="https://planetaryrestorationarchive.com">
+  <link rel="me" href="https://github.com/TheRickyFoster">
+  <title>Bangladesh Youth Venture‑Factory · Democratic Renewal PWA</title>
+  <meta name="description" content="Comprehensive offline-capable platform for youth-led economic empowerment in Bangladesh. Gamified learning, venture tracking, safety tools, civic-tech modules, RSS feeds, skill trees, and community building." />
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b1025"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob: https:; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' blob:; connect-src 'self' data: blob: https:; frame-ancestors 'none'; object-src 'none'; base-uri 'none';" />
+  
+  <link rel="manifest" href='data:application/manifest+json,{"name":"Youth Venture-Factory Bangladesh","short_name":"VentureFactory","start_url":"./","display":"standalone","background_color":"#06091a","theme_color":"#0b1025","icons":[]}'>
+
+  <style>
+    :root{
+      --bg:#06091a;--fg:#f4f6ff;--muted:#b7c1ff;--accent:#76e4f7;--accent2:#a1ffb0;--card:#0b1025dd;--glass:rgba(11,16,37,.6);
+      --focus: 0 0 0 3px #76e4f7AA;--radius:18px;--shadow:0 10px 30px rgba(0,0,0,.35);
+      --xp-bar:#ffd700;--level-up:#ff6b9d;
+    }
+    [data-theme="medieval"]{--bg:#1a0f0a;--fg:#f4e4d4;--accent:#d4af37;--accent2:#c9a66b;--card:#2a1f1add;}
+    [data-theme="space"]{--bg:#000008;--fg:#e0f0ff;--accent:#00d9ff;--accent2:#b794f6;--card:#0a0a28dd;}
+    [data-theme="anime"]{--bg:#ffe5f8;--fg:#2d0a2e;--accent:#ff69b4;--accent2:#9d4edd;--card:#ffd0eedd;--muted:#8b5a8f;}
+    [data-theme="forest"]{--bg:#0a1f0a;--fg:#e8f5e8;--accent:#4ecdc4;--accent2:#95e1d3;--card:#1a3a1add;}
+    
+    *{box-sizing:border-box}
+    html,body{height:100%;scroll-behavior:smooth}
+    body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans";background:var(--bg);color:var(--fg);transition:background .3s, color .3s}
+    #stars{position:fixed;inset:0;z-index:-2;background:var(--bg)}
+    #nebula{position:fixed;inset:-20%;z-index:-1;background:radial-gradient(60% 60% at 60% 40%, rgba(118,228,247,.18), transparent 60%),radial-gradient(50% 50% at 40% 60%, rgba(161,255,176,.12), transparent 65%);filter:blur(40px)}
+    
+    header{position:sticky;top:0;z-index:100;backdrop-filter:saturate(120%) blur(10px);background:linear-gradient(180deg, rgba(6,9,26,.9), rgba(6,9,26,.5));border-bottom:1px solid #1c2346;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+    .wrap{max-width:1400px;margin:0 auto;padding:20px}
+    nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+    nav a,nav button{padding:10px 14px;border-radius:999px;background:var(--card);color:var(--fg);border:1px solid var(--accent);text-decoration:none;box-shadow:var(--shadow);cursor:pointer;transition:all .2s}
+    nav a:hover,nav button:hover{background:var(--accent);color:var(--bg);transform:translateY(-2px)}
+    nav a:focus,nav button:focus{outline:none;box-shadow:var(--focus)}
+    
+    .hero{display:grid;gap:20px;grid-template-columns:1.2fr .8fr;align-items:start;margin-bottom:30px}
+    @media(max-width:900px){.hero{grid-template-columns:1fr}}
+    .hero h1{font-size:clamp(1.8rem,3.5vw,3.2rem);margin:.25rem 0;line-height:1.2}
+    .tag{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--accent);border-radius:999px;padding:6px 12px;color:var(--accent2);font-size:.9rem;margin:4px}
+    
+    .card{background:var(--card);border:1px solid var(--accent);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;backdrop-filter:blur(10px);transition:all .3s}
+    .card:hover{box-shadow:0 15px 40px rgba(0,0,0,.45);transform:translateY(-3px)}
+    .card h2,.card h3{margin:.6rem 0 .4rem;color:var(--accent)}
+    .card .content{padding:20px}
+    .grid{display:grid;gap:20px;margin:30px 0}
+    @media(min-width:900px){.grid.cols-2{grid-template-columns:1fr 1fr}.grid.cols-3{grid-template-columns:repeat(3,1fr)}.grid.cols-4{grid-template-columns:repeat(4,1fr)}}
+    
+    details{background:var(--glass);border:1px solid var(--accent);border-radius:14px;padding:14px;margin:10px 0}
+    details[open]{background:var(--card)}
+    summary{cursor:pointer;font-weight:600;color:var(--accent2);user-select:none}
+    summary:hover{color:var(--accent)}
+    
+    .tooltip{position:relative;cursor:help;border-bottom:1px dotted var(--accent)}
+    .tooltip::after{content:attr(data-tip);position:absolute;bottom:125%;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--accent);padding:8px 12px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;z-index:1000;font-size:.85rem;box-shadow:var(--shadow);max-width:300px;white-space:normal}
+    .tooltip:hover::after{opacity:1}
+    
+    /* Gamification UI */
+    #playerCard{position:fixed;top:80px;right:20px;width:280px;background:var(--card);border:2px solid var(--accent);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);z-index:99;backdrop-filter:blur(10px)}
+    #playerCard h3{margin:0 0 10px;color:var(--accent);font-size:1.1rem}
+    .xp-bar{background:#333;height:24px;border-radius:12px;overflow:hidden;position:relative;margin:8px 0}
+    .xp-fill{background:linear-gradient(90deg,var(--xp-bar),var(--accent));height:100%;transition:width .5s;display:flex;align-items:center;justify-content:center;color:#000;font-weight:700;font-size:.75rem}
+    .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;font-size:.85rem}
+    .stat-item{background:var(--glass);padding:8px;border-radius:8px;text-align:center}
+    .achievement-badge{display:inline-flex;align-items:center;gap:6px;background:var(--glass);border:1px solid var(--accent);border-radius:999px;padding:4px 10px;margin:4px;font-size:.8rem;animation:fadeIn .3s}
+    @keyframes fadeIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+    
+    /* Provenance Flash (hidden anti-theft) */
+    #provenanceFlash{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,0,0,.95);color:#fff;padding:40px 60px;border-radius:20px;font-size:2rem;font-weight:900;z-index:10000;opacity:0;pointer-events:none;transition:opacity .3s;box-shadow:0 0 80px rgba(255,0,0,.8);text-align:center;border:4px solid #fff}
+    #provenanceFlash.active{opacity:1}
+    
+    #orb{position:fixed;right:2.5vw;bottom:10vh;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 30% 30%, var(--accent), var(--accent2) 50%, #4d2ea6 75%);box-shadow:0 0 30px 6px var(--accent),inset 0 0 20px rgba(255,255,255,.25);animation:float 6s ease-in-out infinite;z-index:98;cursor:pointer;border:none}
+    #orb:hover{animation-play-state:paused}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    #orbMenu{position:fixed;right:2.5vw;bottom:calc(10vh + 80px);background:var(--card);border:2px solid var(--accent);border-radius:14px;padding:12px;box-shadow:var(--shadow);display:none;z-index:98;backdrop-filter:blur(10px)}
+    #orbMenu button{display:block;width:100%;margin:6px 0;padding:10px 12px;border-radius:10px;background:var(--glass);color:var(--fg);border:1px solid var(--accent);cursor:pointer;transition:all .2s}
+    #orbMenu button:hover{background:var(--accent);color:var(--bg)}
+    
+    .kbd{font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;background:var(--glass);border:1px solid var(--accent);border-radius:6px;padding:2px 8px;color:var(--accent2)}
+    
+    form label{display:block;margin:10px 0 4px;font-weight:600;color:var(--accent2)}
+    form input,form textarea,form select{width:100%;padding:10px;background:var(--glass);border:1px solid var(--accent);border-radius:8px;color:var(--fg);font:inherit}
+    form input:focus,form textarea:focus,form select:focus{outline:none;box-shadow:var(--focus)}
+    form button{margin-top:12px;padding:12px 24px;background:var(--accent);color:var(--bg);border:none;border-radius:999px;font-weight:700;cursor:pointer;transition:all .2s}
+    form button:hover{transform:translateY(-2px);box-shadow:0 6px 20px var(--accent)}
+    
+    .progress-ring{width:120px;height:120px;margin:0 auto}
+    .progress-ring circle{transition:stroke-dashoffset .5s;transform:rotate(-90deg);transform-origin:50% 50%}
+    
+    .skill-tree{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:20px 0}
+    .skill-node{background:var(--glass);border:2px solid var(--muted);border-radius:12px;padding:16px;text-align:center;transition:all .3s;cursor:pointer}
+    .skill-node.unlocked{border-color:var(--accent);background:var(--card);box-shadow:0 0 20px var(--accent)}
+    .skill-node.locked{opacity:.5;cursor:not-allowed}
+    .skill-node:hover:not(.locked){transform:scale(1.05);border-color:var(--accent2)}
+    
+    .leaderboard{list-style:none;padding:0;margin:20px 0}
+    .leaderboard li{background:var(--glass);border:1px solid var(--accent);border-radius:8px;padding:12px 16px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+    .leaderboard .rank{background:var(--accent);color:var(--bg);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700}
+    
+    .rss-feed{max-height:400px;overflow-y:auto;background:var(--glass);border-radius:12px;padding:16px}
+    .rss-item{border-left:3px solid var(--accent);padding-left:12px;margin:12px 0}
+    .rss-item h4{margin:0 0 6px;color:var(--accent2)}
+    .rss-item a{color:var(--accent);text-decoration:none}
+    .rss-item a:hover{text-decoration:underline}
+    
+    .challenge-card{background:var(--glass);border:2px solid var(--accent2);border-radius:12px;padding:16px;margin:12px 0}
+    .challenge-card.completed{border-color:var(--xp-bar);background:linear-gradient(135deg,var(--glass),rgba(255,215,0,.1))}
+    .challenge-progress{background:#333;height:8px;border-radius:4px;overflow:hidden;margin:8px 0}
+    .challenge-progress-fill{background:linear-gradient(90deg,var(--accent),var(--accent2));height:100%;transition:width .5s}
+    
+    @media print{#orb,#orbMenu,#playerCard,header nav,.hero .viz,#stars,#nebula,#provenanceFlash{display:none!important}}
+    
+    .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip:focus{left:10px;top:10px;width:auto;height:auto;z-index:1000;background:var(--accent);color:var(--bg);padding:12px 16px;border-radius:8px;box-shadow:var(--shadow)}
+    
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+    
+    /* Analytics hidden indicator */
+    .analytics-active::after{content:'📊';position:fixed;bottom:5px;left:5px;font-size:8px;opacity:.05;pointer-events:none}
+  </style>
+</head>
+<body class="analytics-active">
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div id="nebula" aria-hidden="true"></div>
+  
+  <!-- Hidden Provenance Flash -->
+  <div id="provenanceFlash" aria-hidden="true">
+    ⚠️ THIS PROJECT WAS STOLEN FROM RICKY FOSTER ⚠️<br>
+    <small style="font-size:1rem;margin-top:12px;display:block">planetaryrestorationarchive.com</small>
+  </div>
+  
+  <a href="#main" class="skip">Skip to content</a>
+  
+  <header>
+    <div class="wrap">
+      <nav aria-label="Primary">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <a href="#overview">Overview</a>
+          <a href="#venture">Ventures</a>
+          <a href="#safety">Safety</a>
+          <a href="#civic">Civic</a>
+          <a href="#skills">Skills</a>
+          <a href="#marketplace">Market</a>
+          <a href="#community">Community</a>
+          <a href="#rss">Feeds</a>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button id="themeBtn" title="Change theme" aria-label="Change visual theme">🎨 Theme</button>
+          <button id="achieveBtn" title="View achievements" aria-label="View achievements">🏆</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Player Card (Gamification) -->
+  <aside id="playerCard" role="complementary" aria-label="Player progress">
+    <h3>🎮 Your Journey</h3>
+    <div><strong id="playerName">Youth Changemaker</strong></div>
+    <div style="font-size:.9rem;color:var(--muted)">Level <strong id="playerLevel">1</strong> · Rank: <strong id="playerRank">Beginner</strong></div>
+    <div class="xp-bar" role="progressbar" aria-label="Experience points" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+      <div class="xp-fill" id="xpFill" style="width:0%">0 XP</div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-item"><strong id="statVentures">0</strong><br><small>Ventures</small></div>
+      <div class="stat-item"><strong id="statStreak">0</strong><br><small>Day Streak</small></div>
+      <div class="stat-item"><strong id="statImpact">0</strong><br><small>Impact Pts</small></div>
+      <div class="stat-item"><strong id="statBadges">0</strong><br><small>Badges</small></div>
+    </div>
+    <details style="margin-top:12px">
+      <summary>Recent Achievements</summary>
+      <div id="recentAchievements" style="max-height:150px;overflow-y:auto"></div>
+    </details>
+  </aside>
+
+  <main id="main" class="wrap">
+    <!-- Hero Section -->
+    <section class="hero grid cols-2" id="overview" aria-labelledby="h1">
+      <div class="card">
+        <div class="content">
+          <span class="tag tooltip" data-tip="Built for Bangladesh's youth-led democratic renewal after July 2024">🧭 Democratic Renewal</span>
+          <span class="tag tooltip" data-tip="Youth make up 47% of Bangladesh's population">🇧🇩 Youth Majority</span>
+          <span class="tag tooltip" data-tip="Designed to prevent harm, promote equity, protect vulnerable groups">🛡️ Zero‑harm Design</span>
+          
+          <h1 id="h1">Youth Venture‑Factory<br><small style="font-size:.6em;color:var(--muted)">Post–July Revolution Bangladesh</small></h1>
+          
+          <p class="tooltip" data-tip="Shift from job-seeking to job-creation mindset through practical tools and community support">
+            This comprehensive platform helps Bangladesh's youth transition from <strong>authoritarian extraction → democratic renewal</strong> by becoming <strong>job creators, not just seekers</strong>. Includes gamified learning, venture tracking, safety protocols, civic engagement, skill development, marketplace access, and offline capability.
+          </p>
+          
+          <details open>
+            <summary class="tooltip" data-tip="Our three-pillar approach to sustainable impact">📋 Strategic Framework</summary>
+            <ul>
+              <li><strong class="tooltip" data-tip="100 micro-enterprises per district within 6 months">🎯 Immediate (0–6 mo)</strong>: Launch 100 micro‑enterprises per district via sprint cohorts with micro-grants, mentorship, and market access.</li>
+              <li><strong class="tooltip" data-tip="Comprehensive safety infrastructure for women and marginalized youth">🛡️ Women‑first safety</strong>: Safe routes, anti‑harassment protocols, buddy systems, grievance fast‑lanes, market compacts.</li>
+              <li><strong class="tooltip" data-tip="Build civic capacity through youth-led infrastructure improvements">🏛️ Democratic resilience</strong>: Civic apprenticeships fixing potholes, leaks, waste → transparent dashboards build trust.</li>
+            </ul>
+          </details>
+          
+          <div style="margin-top:16px;padding:12px;background:var(--glass);border-left:4px solid var(--accent);border-radius:8px">
+            <strong>💡 Quick Start:</strong> Use the floating orb (bottom right) to export data, switch themes, or save offline. Complete challenges to earn XP and unlock features. <span class="kbd">Ctrl+P</span> for PDF export.
+          </div>
+        </div>
+      </div>
+      
+      <div class="viz card" aria-hidden="true">
+        <div class="content">
+          <h3 class="tooltip" data-tip="Visual representation of your community's progress">✨ Impact Constellation</h3>
+          <p>As ventures launch and challenges complete, stars appear for: ventures, women co‑founders, jobs created, safety resolutions, civic fixes completed.</p>
+          <canvas id="constellation" height="280" style="width:100%;border-radius:12px;background:linear-gradient(180deg,#0a0f2c,#0b153e)"></canvas>
+          <div style="margin-top:12px;text-align:center;font-size:.85rem;color:var(--muted)">
+            Live metrics update as you add data
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Venture Factory Section (Enhanced) -->
+    <section id="venture" class="grid cols-2" aria-labelledby="venture-h2">
+      <div class="card">
+        <div class="content">
+          <h2 id="venture-h2" class="tooltip" data-tip="Complete venture creation system from ideation to launch">🚀 Venture‑Factory (180‑Day Launch)</h2>
+          <p>
+            Build on Bangladesh's 8 million MSME backbone. Each district runs rolling <span class="tooltip" data-tip="Intensive 6-week program with weekly milestones">6‑week sprints</span>: problem interviews → paper MVP → market pilot → sales day → iterate. Prioritize women co‑founders, essential goods/services, and local supply chains.
+          </p>
+          
+          <details open>
+            <summary class="tooltip" data-tip="Evaluate potential ventures with this structured assessment">🔍 Venture Scouting Form</summary>
+            <form id="scoutForm" aria-label="Venture scouting form">
+              <label>Team Name <span class="tooltip" data-tip="Business or group name" style="border:none">ⓘ</span>
+                <input required name="team" placeholder="e.g., Dhaka Fresh Foods Collective"/>
+              </label>
+              
+              <label>Women Co‑founders (%) <span class="tooltip" data-tip="Percentage of founding team who are women" style="border:none">ⓘ</span>
+                <input type="number" min="0" max="100" name="women_pct" value="50"/>
+              </label>
+              
+              <label>Problem Being Solved <span class="tooltip" data-tip="What specific need or pain point does this address?" style="border:none">ⓘ</span>
+                <textarea name="problem" required rows="3" placeholder="e.g., Lack of affordable fresh vegetables in urban neighborhoods"></textarea>
+              </label>
+              
+              <label>Solution Approach <span class="tooltip" data-tip="How will you solve this problem?" style="border:none">ⓘ</span>
+                <textarea name="solution" rows="3" placeholder="e.g., Direct farm-to-neighborhood delivery service using bicycles"></textarea>
+              </label>
+              
+              <label>Access to Inputs <span class="tooltip" data-tip="Suppliers, raw materials, equipment sources" style="border:none">ⓘ</span>
+                <input name="inputs" placeholder="e.g., 3 farms within 15km, bicycle repair shop in ward"/>
+              </label>
+              
+              <label>Route to Market <span class="tooltip" data-tip="How will you reach customers?" style="border:none">ⓘ</span>
+                <select name="route">
+                  <option value="stalls">Market Stalls</option>
+                  <option value="online">Online/Social Media</option>
+                  <option value="door">Door-to-Door</option>
+                  <option value="wholesale">Wholesale to Shops</option>
+                  <option value="hybrid">Hybrid Approach</option>
+                </select>
+              </label>
+              
+              <label>Estimated Jobs Created <span class="tooltip" data-tip="How many people will this employ in first 6 months?" style="border:none">ⓘ</span>
+                <input type="number" min="1" name="jobs" value="2"/>
+              </label>
+              
+              <label>Initial Capital Needed (৳) <span class="tooltip" data-tip="Startup costs excluding grant" style="border:none">ⓘ</span>
+                <input type="number" min="0" name="capital" value="10000"/>
+              </label>
+              
+              <button type="submit">💾 Save Venture Candidate (+10 XP)</button>
+            </form>
+          </details>
+          
+          <details>
+            <summary class="tooltip" data-tip="Weekly breakdown of the 6-week sprint program">📅 Lean Launch Track (6‑week Sprint)</summary>
+            <ol style="line-height:1.8">
+              <li><strong>Week 1:</strong> Conduct 20+ problem interviews; validate customer pain points; decide value proposition. <em>Deliverable: Problem-Solution Fit Document</em></li>
+              <li><strong>Week 2:</strong> Create paper MVP or minimum viable service; list all materials/inputs needed; draft safety plan. <em>Deliverable: MVP Prototype + Materials List</em></li>
+              <li><strong>Week 3:</strong> Run market pilot with 10-20 test customers; log any harassment or safety risks + mitigations. <em>Deliverable: Pilot Report + Safety Log</em></li>
+              <li><strong>Week 4:</strong> Finalize pricing model; lock supplier contracts; micro‑grant released (60%). <em>Deliverable: Financial Model + Contracts</em></li>
+              <li><strong>Week 5:</strong> Official sales day at cohort marketplace festival; collect customer feedback. <em>Deliverable: Sales Report + Feedback</em></li>
+              <li><strong>Week 6:</strong> Iterate based on feedback; formalize vendor agreements; complete business registration; receive final 40% of grant. <em>Deliverable: Business Registration + Final Report</em></li>
+            </ol>
+          </details>
+          
+          <details>
+            <summary class="tooltip" data-tip="Key performance indicators tracked throughout program">📊 Success Metrics & OKRs</summary>
+            <ul>
+              <li><strong>Objective 1:</strong> Launch 100 ventures per district in 6 months
+                <ul style="margin-left:20px;font-size:.9rem">
+                  <li>KR1: 60% of ventures have 50%+ women co-founders</li>
+                  <li>KR2: 80% survival rate at 6 months</li>
+                  <li>KR3: Average 2.5 jobs per venture</li>
+                </ul>
+              </li>
+              <li><strong>Objective 2:</strong> Create safe, harassment-free environments
+                <ul style="margin-left:20px;font-size:.9rem">
+                  <li>KR1: Zero tolerance policy enforced in 100% of markets</li>
+                  <li>KR2: All incidents resolved within 7 days</li>
+                  <li>KR3: 95% of women report feeling safe</li>
+                </ul>
+              </li>
+              <li><strong>Objective 3:</strong> Build democratic civic capacity
+                <ul style="margin-left:20px;font-size:.9rem">
+                  <li>KR1: 50+ civic fixes per district per quarter</li>
+                  <li>KR2: Public dashboards updated weekly</li>
+                  <li>KR3: 70% youth approval rating of local government</li>
+                </ul>
+              </li>
+            </ul>
+          </details>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="content">
+          <h3 class="tooltip" data-tip="Auto-generated legal and operational templates">📄 Templates & Documents</h3>
+          <p>Select a template to auto-generate customizable documents for your venture:</p>
+          
+          <div style="display:grid;gap:8px;margin:16px 0">
+            <button data-template="grantRules" class="tooltip" data-tip="Rules and requirements for micro-grant program">📋 Micro‑grant Rules</button>
+            <button data-template="vendorContract" class="tooltip" data-tip="Standard contract for market stall vendors">📝 Vendor Contract</button>
+            <button data-template="cba" class="tooltip" data-tip="Agreement between venture and community stakeholders">🤝 Community Benefit Agreement</button>
+            <button data-template="mentorMou" class="tooltip" data-tip="Memorandum of understanding for mentors">👥 Mentor MOU</button>
+            <button data-template="grievance" class="tooltip" data-tip="Standard operating procedure for handling complaints">⚖️ Grievance & Safety SOP</button>
+            <button data-template="supplyChain" class="tooltip" data-tip="Template for mapping and managing suppliers">🔗 Supply Chain Map</button>
+            <button data-template="pitchDeck" class="tooltip" data-tip="Presentation template for pitching your venture">📊 Pitch Deck Outline</button>
+            <button data-template="financial" class="tooltip" data-tip="12-month financial projection template">💰 Financial Projections</button>
+          </div>
+          
+          <textarea id="templateOut" rows="12" style="width:100%;font-family:monospace;font-size:.85rem" placeholder="Generated template will appear here…" aria-label="Generated template output"></textarea>
+          
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button id="copyTemplate" class="tooltip" data-tip="Copy template to clipboard">📋 Copy</button>
+            <button id="downloadTemplate" class="tooltip" data-tip="Download as text file">💾 Download .txt</button>
+            <button id="emailTemplate" class="tooltip" data-tip="Email template to yourself">📧 Email</button>
+          </div>
+          
+          <details style="margin-top:16px">
+            <summary class="tooltip" data-tip="View all completed ventures in your cohort">📁 Your Venture Portfolio</summary>
+            <div id="ventureList" style="max-height:300px;overflow-y:auto;margin-top:8px"></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Safety Stack Section (Enhanced) -->
+    <section id="safety" class="grid cols-2" aria-labelledby="safety-h2">
+      <div class="card">
+        <div class="content">
+          <h2 id="safety-h2" class="tooltip" data-tip="Comprehensive safety infrastructure for women and marginalized groups">🛡️ Women‑First Safety Stack</h2>
+          <p>
+            Safety by design across travel, market stalls, storage, and online presence. Implement <span class="tooltip" data-tip="Vetted routes with buddy systems and safe checkpoints">safe routes</span>, vendor compacts, incident logging, rapid response, and escalation pathways with civil society partners.
+          </p>
+          
+          <details open>
+            <summary class="tooltip" data-tip="Log and track safety incidents for rapid response">🚨 Safety Incident Board</summary>
+            <form id="safetyForm" aria-label="Safety incident report form">
+              <label>Date & Time
+                <input type="datetime-local" name="date" required/>
+              </label>
+              
+              <label>Location (Market/Area/Ward)
+                <input name="area" required placeholder="e.g., Gulshan Market, Ward 12"/>
+              </label>
+              
+              <label>Incident Type
+                <select name="type">
+                  <option value="Harassment">Harassment (Verbal/Physical)</option>
+                  <option value="Threat">Threat or Intimidation</option>
+                  <option value="Theft">Theft or Property Damage</option>
+                  <option value="Unsafe Conditions">Unsafe Conditions (Lighting, Access)</option>
+                  <option value="Discrimination">Discrimination</option>
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+              
+              <label>Severity
+                <select name="severity">
+                  <option value="Low">Low - Minor concern</option>
+                  <option value="Medium">Medium - Needs attention</option>
+                  <option value="High">High - Urgent response required</option>
+                  <option value="Critical">Critical - Immediate danger</option>
+                </select>
+              </label>
+              
+              <label>Description (What happened?)
+                <textarea name="desc" required rows="4" placeholder="Detailed account of incident including who, what, when, where"></textarea>
+              </label>
+              
+              <label>Witnesses (Names/Contact)
+                <input name="witnesses" placeholder="Optional but helpful for investigation"/>
+              </label>
+              
+              <label>Assigned Response Team
+                <input name="responder" placeholder="Names/organizations responsible for follow-up"/>
+              </label>
+              
+              <label>Immediate Actions Taken
+                <textarea name="actions" rows="2" placeholder="What safety measures were implemented immediately?"></textarea>
+              </label>
+              
+              <button type="submit">🚨 Log Incident (+15 XP for transparency)</button>
+            </form>
+            
+            <div style="margin-top:16px;padding:12px;background:var(--glass);border-radius:8px">
+              <strong>📞 Emergency Contacts:</strong>
+              <ul style="margin:8px 0;font-size:.9rem">
+                <li>National Helpline: 999</li>
+                <li>Women's Helpline: 109</li>
+                <li>Local Safety Coordinator: [To be configured]</li>
+              </ul>
+            </div>
+            
+            <ul id="safetyList" aria-live="polite" aria-label="Recent safety incidents" style="margin-top:16px;max-height:300px;overflow-y:auto"></ul>
+          </details>
+          
+          <details>
+            <summary class="tooltip" data-tip="Enforceable code of conduct for all market spaces">📜 Market Code of Conduct</summary>
+            <div style="background:var(--glass);padding:16px;border-radius:8px;margin-top:8px">
+              <h4>Zero Tolerance Policy</h4>
+              <ul style="line-height:1.8">
+                <li>✅ <strong>Harassment:</strong> Verbal or physical harassment results in immediate stall access suspension; repeat offenders permanently banned.</li>
+                <li>✅ <strong>"No harassment, no rent":</strong> Market leases include mandatory anti-harassment clause; violations terminate lease.</li>
+                <li>✅ <strong>Buddy systems:</strong> Pair‑travel for opening/closing hours; maintain verified rickshaw/transport list.</li>
+                <li>✅ <strong>Safe infrastructure:</strong> Shared night storage facilities; bright lighting near women's stalls; clear emergency exits.</li>
+                <li>✅ <strong>Quick response:</strong> Incident reports resolved within 7 days; anonymized outcomes posted publicly.</li>
+                <li>✅ <strong>Training:</strong> All market staff receive monthly anti-harassment training; bystander intervention workshops.</li>
+              </ul>
+            </div>
+          </details>
+          
+          <details>
+            <summary class="tooltip" data-tip="Best practices for personal and group safety">🛡️ Safety Best Practices Guide</summary>
+            <div style="background:var(--glass);padding:16px;border-radius:8px;margin-top:8px">
+              <h4>Personal Safety</h4>
+              <ul>
+                <li>Always inform family/friends of your location and expected return time</li>
+                <li>Keep phone charged; save emergency contacts on speed dial</li>
+                <li>Travel in groups when possible, especially during early morning/evening hours</li>
+                <li>Trust your instincts - if something feels wrong, leave immediately</li>
+                <li>Document incidents (photos, notes, witnesses) for accountability</li>
+              </ul>
+              
+              <h4>Market Safety</h4>
+              <ul>
+                <li>Choose well-lit stalls near market entrances/exits</li>
+                <li>Build relationships with neighboring vendors for mutual support</li>
+                <li>Keep cash secure; use mobile money when possible</li>
+                <li>Report suspicious behavior to market committee immediately</li>
+              </ul>
+              
+              <h4>Digital Safety</h4>
+              <ul>
+                <li>Don't share personal address or phone number publicly online</li>
+                <li>Use business accounts separate from personal social media</li>
+                <li>Report online harassment to platform and local support network</li>
+                <li>Back up important business data regularly</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="content">
+          <h3 class="tooltip" data-tip="Interactive map for marking safe and risky locations">🗺️ Safe‑Route Mapper</h3>
+          <p>Click the map to mark <span style="color:var(--accent2)">✅ safe spots</span> (lighting, police presence, friendly vendors) and <span style="color:#ffb871">⚠️ risk spots</span> (dark alleys, harassment hotspots). Data exports as GeoJSON for sharing with community.</p>
+          
+          <div style="display:flex;gap:8px;margin:12px 0;flex-wrap:wrap">
+            <button id="addSafe" class="tooltip" data-tip="Mark a safe location">✅ Mark Safe</button>
+            <button id="addRisk" class="tooltip" data-tip="Mark a risky location">⚠️ Mark Risk</button>
+            <button id="addCheckpoint" class="tooltip" data-tip="Mark a safe checkpoint">🏪 Add Checkpoint</button>
+            <button id="clearMap" class="tooltip" data-tip="Clear all markers">🗑️ Clear All</button>
+            <button id="exportGeo" class="tooltip" data-tip="Export map data as GeoJSON">💾 Export GeoJSON</button>
+          </div>
+          
+          <div id="map" style="height:350px;background:conic-gradient(from 90deg at 50% 50%, #0c1438, #0a1030);border-radius:12px;position:relative;border:2px solid var(--accent);cursor:crosshair" role="application" aria-label="Interactive safety map"></div>
+          
+          <div style="margin-top:12px;font-size:.85rem;color:var(--muted)">
+            <strong>Legend:</strong> 
+            <span style="color:var(--accent2)">● Safe Zone</span> · 
+            <span style="color:#ffb871">● Risk Zone</span> · 
+            <span style="color:#76e4f7">● Checkpoint</span>
+          </div>
+          
+          <details style="margin-top:16px">
+            <summary>📍 Marked Locations (<span id="mapCount">0</span>)</summary>
+            <ul id="mapList" style="max-height:200px;overflow-y:auto;font-size:.85rem"></ul>
+          </details>
+          
+          <details>
+            <summary class="tooltip" data-tip="Organizations providing safety support in Bangladesh">🤝 Partner Organizations</summary>
+            <ul style="font-size:.9rem;line-height:1.8">
+              <li><strong>Bangladesh National Women Lawyers' Association</strong> - Legal support</li>
+              <li><strong>BRAC</strong> - Community organizing and training</li>
+              <li><strong>Acid Survivors Foundation</strong> - Crisis intervention</li>
+              <li><strong>Manusher Jonno Foundation</strong> - Human rights advocacy</li>
+              <li><strong>Nijera Kori</strong> - Grassroots mobilization</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Civic Tech Section (Enhanced) -->
+    <section id="civic" class="grid cols-2" aria-labelledby="civic-h2">
+      <div class="card">
+        <div class="content">
+          <h2 id="civic-h2" class="tooltip" data-tip="Youth-led infrastructure improvements build civic capacity and trust">🏛️ Civic‑Tech Apprenticeships</h2>
+          <p>
+            Three‑month paid placements fixing city infrastructure: potholes, water leaks, waste pickup, streetlights. Each fix becomes a <span class="tooltip" data-tip="Evidence of skills and impact for future employment">portfolio artifact</span>; public dashboards provide trust through transparency. Youth move from "government doesn't work" to "we ARE the government."
+          </p>
+          
+          <details open>
+            <summary class="tooltip" data-tip="Report and track civic improvement projects">🛠️ Civic Fix Tracker</summary>
+            <form id="civicForm" aria-label="Civic project form">
+              <label>Project Name
+                <input name="project" required placeholder="e.g., Ward 7 Pothole Repair Initiative"/>
+              </label>
+              
+              <label>Category
+                <select name="cat">
+                  <option value="Pothole">Pothole Repair</option>
+                  <option value="Water Leak">Water Leak Fix</option>
+                  <option value="Waste">Waste Collection</option>
+                  <option value="Lighting">Street Lighting</option>
+                  <option value="Drainage">Drainage/Flooding</option>
+                  <option value="Park">Park/Green Space</option>
+                  <option value="Sidewalk">Sidewalk Repair</option>
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+              
+              <label>Ward/Area/Neighborhood
+                <input name="ward" placeholder="e.g., Ward 12, Dhanmondi"/>
+              </label>
+              
+              <label>Severity/Priority
+                <select name="priority">
+                  <option value="Low">Low - Minor inconvenience</option>
+                  <option value="Medium">Medium - Needs attention soon</option>
+                  <option value="High">High - Safety hazard</option>
+                  <option value="Critical">Critical - Emergency</option>
+                </select>
+              </label>
+              
+              <label>Description
+                <textarea name="description" rows="3" placeholder="What needs to be fixed and why it matters"></textarea>
+              </label>
+              
+              <label>Status
+                <select name="status">
+                  <option value="Reported">Reported</option>
+                  <option value="Assessed">Assessed</option>
+                  <option value="Funded">Funded</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Verified">Verified by Community</option>
+                </select>
+              </label>
+              
+              <label>Assigned Team/Youth
+                <input name="team" placeholder="Names of youth working on this fix"/>
+              </label>
+              
+              <label>Estimated Cost (৳)
+                <input type="number" name="cost" min="0" placeholder="0"/>
+              </label>
+              
+              <label>Target Completion Date
+                <input type="date" name="target"/>
+              </label>
+              
+              <button type="submit">🛠️ Add Civic Fix (+20 XP)</button>
+            </form>
+          </details>
+          
+          <details>
+            <summary class="tooltip" data-tip="Active civic improvement projects">📋 Active Projects (<span id="civicActiveCount">0</span>)</summary>
+            <ul id="civicList" aria-live="polite" style="max-height:300px;overflow-y:auto"></ul>
+          </details>
+          
+          <details>
+            <summary class="tooltip" data-tip="Impact metrics from completed civic projects">📊 Civic Impact Dashboard</summary>
+            <div class="grid cols-2" style="margin-top:12px">
+              <div style="background:var(--glass);padding:16px;border-radius:8px;text-align:center">
+                <div style="font-size:2rem;font-weight:700;color:var(--accent)" id="totalFixes">0</div>
+                <div style="font-size:.85rem;color:var(--muted)">Total Fixes</div>
+              </div>
+              <div style="background:var(--glass);padding:16px;border-radius:8px;text-align:center">
+                <div style="font-size:2rem;font-weight:700;color:var(--accent2)" id="completedFixes">0</div>
+                <div style="font-size:.85rem;color:var(--muted)">Completed</div>
+              </div>
+              <div style="background:var(--glass);padding:16px;border-radius:8px;text-align:center">
+                <div style="font-size:2rem;font-weight:700;color:var(--xp-bar)" id="youthInvolved">0</div>
+                <div style="font-size:.85rem;color:var(--muted)">Youth Involved</div>
+              </div>
+              <div style="background:var(--glass);padding:16px;border-radius:8px;text-align:center">
+                <div style="font-size:2rem;font-weight:700;color:var(--accent)" id="totalInvested">0</div>
+                <div style="font-size:.85rem;color:var(--muted)">Total Invested (৳)</div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="content">
+          <h3 class="tooltip" data-tip="Transparency builds trust in democratic institutions">📊 Open Data & Accountability</h3>
+          <p>All project records stored locally for privacy. Export/import JSON to sync across devices or publish to open data portals. Transparency is the foundation of democratic renewal.</p>
+          
+          <div style="display:flex;gap:8px;margin:16px 0;flex-wrap:wrap">
+            <button id="exportJSON" class="tooltip" data-tip="Export all data as JSON">💾 Export All Data</button>
+            <button id="importJSONBtn" class="tooltip" data-tip="Import data from JSON file">📥 Import Data</button>
+            <input type="file" id="importJSON" accept="application/json" style="display:none"/>
+            <button id="publishDashboard" class="tooltip" data-tip="Generate public dashboard HTML">🌐 Publish Dashboard</button>
+          </div>
+          
+          <details>
+            <summary class="tooltip" data-tip="Weekly progress visualization">📈 Weekly Progress Chart</summary>
+            <canvas id="progressChart" height="200" style="width:100%;margin-top:12px;background:var(--glass);border-radius:12px;padding:16px"></canvas>
+          </details>
+          
+          <details>
+            <summary class="tooltip" data-tip="Breakdown of civic projects by type">📊 Project Categories</summary>
+            <canvas id="categoryChart" height="200" style="width:100%;margin-top:12px;background:var(--glass);border-radius:12px;padding:16px"></canvas>
+          </details>
+          
+          <details>
+            <summary class="tooltip" data-tip="Benefits of transparent civic data">💡 Why Open Data Matters</summary>
+            <div style="background:var(--glass);padding:16px;border-radius:8px;margin-top:8px;font-size:.9rem;line-height:1.8">
+              <ul>
+                <li><strong>Accountability:</strong> Citizens can verify that promised fixes actually happen</li>
+                <li><strong>Efficiency:</strong> Identify patterns and allocate resources better</li>
+                <li><strong>Trust:</strong> Transparency rebuilds faith in democratic institutions</li>
+                <li><strong>Participation:</strong> Community can report issues and track progress</li>
+                <li><strong>Learning:</strong> Other districts can replicate successful approaches</li>
+                <li><strong>Youth Empowerment:</strong> Young people see concrete impact of their work</li>
+              </ul>
+            </div>
+          </details>
+          
+          <details>
+            <summary class="tooltip" data-tip="Calculate return on investment for civic projects">🧮 ROI Calculator</summary>
+            <form id="roiCalc" style="margin-top:12px">
+              <label>Investment (৳) <input type="number" name="investment" value="50000"/></label>
+              <label>People Benefited <input type="number" name="people" value="1000"/></label>
+              <label>Time Saved (hrs/person/month) <input type="number" name="time" value="2"/></label>
+              <button type="submit">Calculate ROI</button>
+            </form>
+            <div id="roiResult" style="margin-top:12px;padding:12px;background:var(--glass);border-radius:8px;display:none"></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills & Training Section (NEW) -->
+    <section id="skills" class="card" aria-labelledby="skills-h2">
+      <div class="content">
+        <h2 id="skills-h2" class="tooltip" data-tip="Unlock skills progressively as you complete challenges">🎯 Skill Tree & Training Modules</h2>
+        <p>Earn XP and unlock advanced capabilities. Each skill node represents practical training that improves your venture success rate.</p>
+        
+        <div class="skill-tree">
+          <div class="skill-node unlocked" data-skill="basics" data-tip="Foundation skills for all entrepreneurs">
+            <div style="font-size:2rem">📚</div>
+            <strong>Business Basics</strong>
+            <div style="font-size:.8rem;color:var(--muted)">Unlocked</div>
+          </div>
+          
+          <div class="skill-node locked" data-skill="accounting" data-xp="100" data-tip="Learn bookkeeping and financial management">
+            <div style="font-size:2rem">📊</div>
+            <strong>Accounting</strong>
+            <div style="font-size:.8rem;color:var(--muted)">Requires 100 XP</div>
+          </div>
+          
+          <div class="skill-node locked" data-skill="marketing" data-xp="150" data-tip="Digital and traditional marketing strategies">
+            <div style="font-size:2rem">📱</div>
+            <strong>Marketing</strong>
+            <div style="font-size:.8rem;color:var(--muted)">Requires 150 XP</div>
+          </div>
+          
+          <div class="skill-node locked" data-skill="legal" data-xp="200" data-tip="Business registration, contracts, compliance">
+            <div style="font-size:2rem">⚖️</div>
+            <strong>Legal/Regulatory</strong>
+            <div style="font-size:.8rem;color:var(--muted)">Requires 200 XP</div>
+          </div>
+          
+          <div class="skill-node locked" data-skill="supply" data-xp="250" data-tip="Supply chain optimization and vendor management">
+            <div style="font-size:2rem">🔗</div>
+            <strong>Supply Chain</strong>
+            <div style="font-size:.8rem;color:var(--muted)">Requires 250 XP</div>
+          </div>
+          
+          <div class="skill-node locked" data-skill="scaling" data-xp="400" data-tip="Grow your venture and manage teams">
+            <div style="font-size:2rem">🚀</div>
+            <strong>Scaling & Growth</strong>
+            <div style="font-size:.8rem;color:var(--muted)">Requires 400 XP</div>
+          </div>
+        </div>
+        
+        <details style="margin-top:20px">
+          <summary class="tooltip" data-tip="Video tutorials and written guides for each skill">📺 Training Resources</summary>
+          <div style="margin-top:12px">
+            <div style="background:var(--glass);padding:16px;border-radius:8px;margin:8px 0">
+              <strong>📚 Business Basics</strong>
+              <ul style="font-size:.9rem;margin-top:8px">
+                <li>Module 1: Identifying Problems Worth Solving (30 min)</li>
+                <li>Module 2: Building Your First MVP (45 min)</li>
+                <li>Module 3: Customer Discovery Interviews (1 hr)</li>
+                <li>Module 4: Pricing Your Product/Service (30 min)</li>
+              </ul>
+              <button style="margin-top:8px;padding:8px 16px;background:var(--accent);color:var(--bg);border:none;border-radius:999px;cursor:pointer">Start Learning</button>
+            </div>
+            
+            <div style="background:var(--glass);padding:16px;border-radius:8px;margin:8px 0;opacity:.5">
+              <strong>📊 Accounting & Finance</strong> <span style="color:var(--accent);font-size:.8rem">[Locked - 100 XP required]</span>
+              <ul style="font-size:.9rem;margin-top:8px">
+                <li>Module 1: Basic Bookkeeping</li>
+                <li>Module 2: Cash Flow Management</li>
+                <li>Module 3: Financial Statements</li>
+                <li>Module 4: Tax Basics for SMEs</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ROSCA Calculator (Enhanced) -->
+    <section id="rosca" class="grid cols-2" aria-labelledby="rosca-h2">
+      <div class="card">
+        <div class="content">
+          <h2 id="rosca-h2" class="tooltip" data-tip="Rotating Savings and Credit Association calculator">💰 ROSCA / SHG Calculator</h2>
+          <p>Simulate rotating savings for cohorts. Traditional ROSCA (Rotating Savings and Credit Association) adapted for youth ventures with transparency and accountability features.</p>
+          
+          <form id="roscaForm" aria-label="ROSCA calculator">
+            <label>Number of Participants
+              <input type="number" min="2" max="200" value="20" name="n"/>
+            </label>
+            
+            <label>Monthly Contribution (৳)
+              <input type="number" value="1000" name="c"/>
+            </label>
+            
+            <label>Rotation Period (months)
+              <input type="number" value="12" name="m"/>
+            </label>
+            
+            <label>Interest Rate (% annual, optional)
+              <input type="number" min="0" max="20" value="0" step="0.5" name="interest"/>
+            </label>
+            
+            <button type="submit">🧮 Calculate Schedule</button>
+          </form>
+          
+          <div id="roscaOut" role="region" aria-label="ROSCA schedule" style="margin-top:16px;max-height:400px;overflow-y:auto"></div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="content">
+          <h3 class="tooltip" data-tip="Best practices for running successful savings groups">📋 ROSCA Best Practices</h3>
+          
+          <details open>
+            <summary>🎯 Success Factors</summary>
+            <ul style="line-height:1.8;font-size:.9rem">
+              <li><strong>Women-led circles:</strong> Prioritize women-led groups for market access and childcare pooling</li>
+              <li><strong>Transparent rotation:</strong> Publish rotation schedule publicly; require two witness signatures per payout</li>
+              <li><strong>Hardship pool:</strong> Maintain 2% emergency fund for members facing crises</li>
+              <li><strong>Meeting cadence:</strong> Monthly meetings with attendance tracking</li>
+              <li><strong>Audit log:</strong> Digital record of all transactions for accountability</li>
+              <li><strong>Group size:</strong> 10-30 members optimal; smaller groups build trust faster</li>
+            </ul>
+          </details>
+          
+          <details>
+            <summary>⚠️ Common Pitfalls & Solutions</summary>
+            <ul style="line-height:1.8;font-size:.9rem">
+              <li><strong>Late payments:</strong> Grace week policy; graduated penalties; hardship exceptions</li>
+              <li><strong>Conflict:</strong> Elected neutral mediator from outside group; clear grievance process</li>
+              <li><strong>Drop-outs:</strong> Replacement member protocol; pro-rated settlements</li>
+              <li><strong>Lack of trust:</strong> Start with smaller contributions; build gradually; emphasize transparency</li>
+            </ul>
+          </details>
+          
+          <details>
+            <summary>📈 Advanced Features</summary>
+            <ul style="line-height:1.8;font-size:.9rem">
+              <li><strong>Bidding system:</strong> Members can bid for early payouts (with premium)</li>
+              <li><strong>Credit scoring:</strong> Track reliability for future loan access</li>
+              <li><strong>Dividend pool:</strong> Interest earned distributed quarterly</li>
+              <li><strong>Linked enterprises:</strong> ROSCA members become customers/suppliers for each other</li>
+            </ul>
+          </details>
+          
+          <div style="margin-top:16px;padding:16px;background:var(--glass);border-radius:12px">
+            <strong>💡 Pro Tip:</strong> Link ROSCA groups to specific value chains (e.g., all members in food production). This creates natural business partnerships and shared knowledge.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community & Gamification (NEW) -->
+    <section id="community" class="grid cols-2" aria-labelledby="community-h2">
+      <div class="card">
+        <div class="content">
+          <h2 id="community-h2" class="tooltip" data-tip="Compete and collaborate with other youth changemakers">🏆 Leaderboards & Challenges</h2>
+          
+          <details open>
+            <summary class="tooltip" data-tip="Top performers across all districts">👑 District Leaderboard</summary>
+            <ul class="leaderboard" id="leaderboard">
+              <li>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <span class="rank">1</span>
+                  <span>Dhaka Youth Collective</span>
+                </div>
+                <span>2,450 XP</span>
+              </li>
+              <li>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <span class="rank" style="background:var(--muted);color:var(--bg)">2</span>
+                  <span>Chittagong Changemakers</span>
+                </div>
+                <span>2,180 XP</span>
+              </li>
+              <li>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <span class="rank" style="background:var(--muted);color:var(--bg)">3</span>
+                  <span>Sylhet Innovators</span>
+                </div>
+                <span>1,960 XP</span>
+              </li>
+            </ul>
+            <div style="text-align:center;margin-top:12px;color:var(--muted);font-size:.85rem">
+              Your ranking will appear here as you earn XP
+            </div>
+          </details>
+          
+          <details>
+            <summary class="tooltip" data-tip="Complete challenges to earn bonus XP and unlock rewards">⚡ Active Challenges</summary>
+            <div id="challenges">
+              <div class="challenge-card">
+                <div style="display:flex;justify-content:space-between;align-items:start">
+                  <div>
+                    <strong>🚀 Launch Your First Venture</strong>
+                    <div style="font-size:.85rem;color:var(--muted)">Complete all venture scouting fields</div>
+                  </div>
+                  <span style="background:var(--xp-bar);color:var(--bg);padding:4px 12px;border-radius:999px;font-size:.8rem;font-weight:700">+50 XP</span>
+                </div>
+                <div class="challenge-progress">
+                  <div class="challenge-progress-fill" style="width:0%"></div>
+                </div>
+              </div>
+              
+              <div class="challenge-card">
+                <div style="display:flex;justify-content:space-between;align-items:start">
+                  <div>
+                    <strong>🛡️ Safety First</strong>
+                    <div style="font-size:.85rem;color:var(--muted)">Log 3 safety incidents and mark 5 safe routes</div>
+                  </div>
+                  <span style="background:var(--xp-bar);color:var(--bg);padding:4px 12px;border-radius:999px;font-size:.8rem;font-weight:700">+75 XP</span>
+                </div>
+                <div class="challenge-progress">
+                  <div class="challenge-progress-fill" style="width:0%"></div>
+                </div>
+              </div>
+              
+              <div class="challenge-card">
+                <div style="display:flex;justify-content:space-between;align-items:start">
+                  <div>
+                    <strong>🏛️ Civic Champion</strong>
+                    <div style="font-size:.85rem;color:var(--muted)">Complete 5 civic fix projects</div>
+                  </div>
+                  <span style="background:var(--xp-bar);color:var(--bg);padding:4px 12px;border-radius:999px;font-size:.8rem;font-weight:700">+100 XP</span>
+                </div>
+                <div class="challenge-progress">
+                  <div class="challenge-progress-fill" style="width:0%"></div>
+                </div>
+              </div>
+              
+              <div class="challenge-card">
+                <div style="display:flex;justify-content:space-between;align-items:start">
+                  <div>
+                    <strong>📚 Knowledge Seeker</strong>
+                    <div style="font-size:.85rem;color:var(--muted)">Unlock 3 skill tree nodes</div>
+                  </div>
+                  <span style="background:var(--xp-bar);color:var(--bg);padding:4px 12px;border-radius:999px;font-size:.8rem;font-weight:700">+150 XP</span>
+                </div>
+                <div class="challenge-progress">
+                  <div class="challenge-progress-fill" style="width:0%"></div>
+                </div>
+              </div>
+            </div>
+          </details>
+          
+          <details>
+            <summary class="tooltip" data-tip="Earn badges for major accomplishments">🎖️ Achievement Badges</summary>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px" id="badgeDisplay">
+              <div class="achievement-badge tooltip" data-tip="Joined the platform">🌟 Newcomer</div>
+              <div class="achievement-badge tooltip" data-tip="Earned 100 XP" style="opacity:.3">⭐ Rising Star</div>
+              <div class="achievement-badge tooltip" data-tip="Earned 500 XP" style="opacity:.3">💫 Achiever</div>
+              <div class="achievement-badge tooltip" data-tip="Earned 1000 XP" style="opacity:.3">🏆 Champion</div>
+              <div class="achievement-badge tooltip" data-tip="Launched first venture" style="opacity:.3">🚀 Entrepreneur</div>
+              <div class="achievement-badge tooltip" data-tip="Completed 10 civic fixes" style="opacity:.3">🏛️ Civic Hero</div>
+              <div class="achievement-badge tooltip" data-tip="Helped 10 people" style="opacity:.3">❤️ Community Builder</div>
+              <div class="achievement-badge tooltip" data-tip="7-day login streak" style="opacity:.3">🔥 Committed</div>
+            </div>
+          </details>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="content">
+          <h3 class="tooltip" data-tip="Connect with mentors, partners, and fellow entrepreneurs">🤝 Network & Mentorship</h3>
+          
+          <details open>
+            <summary>👥 Find a Mentor</summary>
+            <div style="font-size:.9rem;line-height:1.8">
+              <p>Connect with experienced entrepreneurs and civic leaders:</p>
+              <form id="mentorMatch" style="margin:12px 0">
+                <label>I need help with:
+                  <select name="need">
+                    <option value="business">Business Planning</option>
+                    <option value="marketing">Marketing & Sales</option>
+                    <option value="finance">Finance & Accounting</option>
+                    <option value="legal">Legal & Compliance</option>
+                    <option value="tech">Technology & Digital</option>
+                    <option value="supply">Supply Chain</option>
+                  </select>
+                </label>
+                <button type="submit">🔍 Find Mentors</button>
+              </form>
+              
+              <div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:8px">
+                <strong>💡 Mentor Match Tips:</strong>
+                <ul style="margin-top:8px">
+                  <li>Be specific about what you need help with</li>
+                  <li>Commit to regular check-ins (2x/month minimum)</li>
+                  <li>Come prepared with questions and updates</li>
+                  <li>Pay it forward by mentoring newer members once you gain experience</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+          
+          <details>
+            <summary>🌐 Peer Groups & Cohorts</summary>
+            <div style="font-size:.9rem">
+              <p>Join or create peer learning groups based on:</p>
+              <ul style="line-height:1.8;margin:12px 0">
+                <li><strong>Industry:</strong> Food & Ag, Textiles, Tech, Services, Retail</li>
+                <li><strong>Stage:</strong> Ideation, Launch, Growth, Scaling</li>
+                <li><strong>Identity:</strong> Women-led, Youth-led, Rural, Urban</li>
+                <li><strong>Geography:</strong> District-based, Ward-based</li>
+              </ul>
+              <button style="padding:10px 20px;background:var(--accent);color:var(--bg);border:none;border-radius:999px;cursor:pointer;font-weight:700">🚀 Create New Group</button>
+            </div>
+          </details>
+          
+          <details>
+            <summary>📞 Office Hours</summary>
+            <div style="background:var(--glass);padding:16px;border-radius:8px;margin-top:8px;font-size:.9rem">
+              <p><strong>Weekly drop-in sessions with experts:</strong></p>
+              <ul style="margin:12px 0;line-height:1.8">
+                <li>📅 <strong>Mondays 2-4 PM:</strong> Legal & Registration</li>
+                <li>📅 <strong>Wednesdays 3-5 PM:</strong> Marketing & Sales</li>
+                <li>📅 <strong>Fridays 1-3 PM:</strong> Finance & Accounting</li>
+              </ul>
+              <p style="color:var(--muted);font-size:.85rem">Sessions held at district youth centers or via video call</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RSS Feeds Section (NEW) -->
+    <section id="rss" class="card" aria-labelledby="rss-h2">
+      <div class="content">
+        <h2 id="rss-h2" class="tooltip" data-tip="Stay informed with curated news and opportunities">📡 RSS Feeds & News</h2>
+        <p>Stay updated on opportunities, policy changes, success stories, and relevant news for youth entrepreneurs in Bangladesh.</p>
+        
+        <div class="grid cols-3">
+          <div>
+            <h3 style="font-size:1rem;margin-bottom:12px">🏛️ Policy & Opportunities</h3>
+            <div class="rss-feed" id="rssPolicyFeed">
+              <div class="rss-item">
+                <h4>New SME Grant Program Announced</h4>
+                <p style="font-size:.85rem;color:var(--muted)">Ministry of Youth announces ৳500M fund for youth-led businesses...</p>
+                <a href="#" style="font-size:.8rem">Read more →</a>
+              </div>
+              <div class="rss-item">
+                <h4>Updated Business Registration Guidelines</h4>
+                <p style="font-size:.85rem;color:var(--muted)">Streamlined process now takes 48 hours instead of weeks...</p>
+                <a href="#" style="font-size:.8rem">Read more →</a>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h3 style="font-size:1rem;margin-bottom:12px">💡 Success Stories</h3>
+            <div class="rss-feed" id="rssSuccessFeed">
+              <div class="rss-item">
+                <h4>Chittagong Youth Collective Hits 50 Ventures</h4>
+                <p style="font-size:.85rem;color:var(--muted)">Female-led co-op creates 120 jobs in 6 months...</p>
+                <a href="#" style="font-size:.8rem">Read more →</a>
+              </div>
+              <div class="rss-item">
+                <h4>From Garment Worker to Fashion Entrepreneur</h4>
+                <p style="font-size:.85rem;color:var(--muted)">How Nasrin built a sustainable fashion brand...</p>
+                <a href="#" style="font-size:.8rem">Read more →</a>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h3 style="font-size:1rem;margin-bottom:12px">📰 News & Updates</h3>
+            <div class="rss-feed" id="rssNewsFeed">
+              <div class="rss-item">
+                <h4>Bangladesh Ranks 5th in Youth Entrepreneurship</h4>
+                <p style="font-size:.85rem;color:var(--muted)">Global study highlights post-revolution economic shifts...</p>
+                <a href="#" style="font-size:.8rem">Read more →</a>
+              </div>
+              <div class="rss-item">
+                <h4>New Digital Payment Integration for SMEs</h4>
+                <p style="font-size:.85rem;color:var(--muted)">bKash and Nagad announce zero-fee merchant accounts...</p>
+                <a href="#" style="font-size:.8rem">Read more →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <details style="margin-top:20px">
+          <summary class="tooltip" data-tip="Configure which feeds to display">⚙️ Feed Settings</summary>
+          <div style="margin-top:12px">
+            <label style="display:flex;align-items:center;gap:8px;margin:8px 0">
+              <input type="checkbox" checked> Policy & Opportunities
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;margin:8px 0">
+              <input type="checkbox" checked> Success Stories
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;margin:8px 0">
+              <input type="checkbox" checked> News & Updates
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;margin:8px 0">
+              <input type="checkbox"> International Development
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;margin:8px 0">
+              <input type="checkbox"> Tech & Innovation
+            </label>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Marketplace Section (NEW) -->
+    <section id="marketplace" class="card" aria-labelledby="market-h2">
+      <div class="content">
+        <h2 id="market-h2" class="tooltip" data-tip="Connect buyers and sellers within the youth entrepreneur network">🛒 Youth Venture Marketplace</h2>
+        <p>Buy and sell products/services within the network. Build supply chain partnerships. Support fellow youth entrepreneurs.</p>
+        
+        <div class="grid cols-2">
+          <div>
+            <h3 style="font-size:1.1rem">📦 List Your Product/Service</h3>
+            <form id="marketplaceForm">
+              <label>Product/Service Name
+                <input name="productName" required placeholder="e.g., Organic Vegetables Basket"/>
+              </label>
+              
+              <label>Category
+                <select name="category">
+                  <option value="Food">Food & Agriculture</option>
+                  <option value="Textiles">Textiles & Clothing</option>
+                  <option value="Crafts">Handicrafts</option>
+                  <option value="Services">Services</option>
+                  <option value="Tech">Technology</option>
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+              
+              <label>Price (৳)
+                <input type="number" name="price" required min="0"/>
+              </label>
+              
+              <label>Description
+                <textarea name="description" rows="3" placeholder="What makes your product/service special?"></textarea>
+              </label>
+              
+              <label>Contact Info
+                <input name="contact" placeholder="Phone or email"/>
+              </label>
+              
+              <button type="submit">🚀 List Item (+5 XP)</button>
+            </form>
+          </div>
+          
+          <div>
+            <h3 style="font-size:1.1rem">🔍 Browse Listings</h3>
+            <div style="max-height:400px;overflow-y:auto">
+              <div style="background:var(--glass);padding:12px;border-radius:8px;margin:8px 0">
+                <strong>🥬 Fresh Organic Vegetables</strong>
+                <div style="font-size:.85rem;color:var(--muted);margin:4px 0">Food & Agriculture · ৳300/basket</div>
+                <p style="font-size:.9rem;margin:8px 0">Farm-fresh delivery twice weekly. No pesticides.</p>
+                <div style="display:flex;gap:8px">
+                  <button style="padding:6px 12px;background:var(--accent);color:var(--bg);border:none;border-radius:999px;cursor:pointer;font-size:.85rem">Contact Seller</button>
+                </div>
+              </div>
+              
+              <div style="background:var(--glass);padding:12px;border-radius:8px;margin:8px 0">
+                <strong>👕 Hand-Embroidered Kurtas</strong>
+                <div style="font-size:.85rem;color:var(--muted);margin:4px 0">Textiles · ৳1,200 each</div>
+                <p style="font-size:.9rem;margin:8px 0">Traditional Bangladeshi designs. Custom orders available.</p>
+                <div style="display:flex;gap:8px">
+                  <button style="padding:6px 12px;background:var(--accent);color:var(--bg);border:none;border-radius:999px;cursor:pointer;font-size:.85rem">Contact Seller</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard Metrics -->
+    <section id="dashboard" class="grid cols-3" aria-labelledby="dash-h2">
+      <div class="card" style="grid-column:1/-1">
+        <div class="content">
+          <h2 id="dash-h2" class="tooltip" data-tip="Real-time metrics across all platform activities">📊 Impact Dashboard</h2>
+          <p>Live metrics tracking community progress across ventures, safety, civic engagement, and skills development.</p>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="content" style="text-align:center">
+          <div style="font-size:3rem" aria-hidden="true">🚀</div>
+          <div style="font-size:2.5rem;font-weight:700;color:var(--accent);margin:8px 0" id="m-ventures">0</div>
+          <h3 style="font-size:1rem;margin:0;color:var(--muted)">Ventures Launched</h3>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="content" style="text-align:center">
+          <div style="font-size:3rem" aria-hidden="true">👩‍💼</div>
+          <div style="font-size:2.5rem;font-weight:700;color:var(--accent2);margin:8px 0" id="m-women">0%</div>
+          <h3 style="font-size:1rem;margin:0;color:var(--muted)">Women Co‑founders</h3>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="content" style="text-align:center">
+          <div style="font-size:3rem" aria-hidden="true">💼</div>
+          <div style="font-size:2.5rem;font-weight:700;color:var(--xp-bar);margin:8px 0" id="m-jobs">0</div>
+          <h3 style="font-size:1rem;margin:0;color:var(--muted)">Jobs Created</h3>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="content" style="text-align:center">
+          <div style="font-size:3rem" aria-hidden="true">🛡️</div>
+          <div style="font-size:2.5rem;font-weight:700;color:var(--accent);margin:8px 0" id="m-safety">0</div>
+          <h3 style="font-size:1rem;margin:0;color:var(--muted)">Safety Incidents Logged</h3>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="content" style="text-align:center">
+          <div style="font-size:3rem" aria-hidden="true">🛠️</div>
+          <div style="font-size:2.5rem;font-weight:700;color:var(--accent2);margin:8px 0" id="m-fixes">0</div>
+          <h3 style="font-size:1rem;margin:0;color:var(--muted)">Civic Fixes Completed</h3>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="content" style="text-align:center">
+          <div style="font-size:3rem" aria-hidden="true">📈</div>
+          <div style="font-size:2.5rem;font-weight:700;color:var(--xp-bar);margin:8px 0" id="m-survival">0%</div>
+          <h3 style="font-size:1rem;margin:0;color:var(--muted)">6-Month Survival Rate</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- Export Section -->
+    <section id="export" class="card" aria-labelledby="export-h2">
+      <div class="content">
+        <h2 id="export-h2" class="tooltip" data-tip="Multiple options for backing up and sharing your data">💾 Export & Offline Capability</h2>
+        <p>
+          This file is already self‑contained and works offline. Press <span class="kbd">Ctrl/Cmd + P</span> for a clean PDF, or use the floating orb (bottom right) → "Download HTML snapshot" to save a copy with your current data embedded. A lightweight service worker attempts to install for offline reloads.
+        </p>
+        
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin:16px 0">
+          <button style="padding:12px 24px;background:var(--accent);color:var(--bg);border:none;border-radius:999px;cursor:pointer;font-weight:700" onclick="window.print()">🖨️ Print / PDF</button>
+          <button style="padding:12px 24px;background:var(--accent2);color:var(--bg);border:none;border-radius:999px;cursor:pointer;font-weight:700" id="downloadSnapshot">💾 Download Snapshot</button>
+          <button style="padding:12px 24px;background:var(--xp-bar);color:var(--bg);border:none;border-radius:999px;cursor:pointer;font-weight:700" id="shareLink">🔗 Generate Share Link</button>
+        </div>
+        
+        <details>
+          <summary class="tooltip" data-tip="Technical details about offline functionality">⚙️ Offline & PWA Features</summary>
+          <div style="background:var(--glass);padding:16px;border-radius:8px;margin-top:12px;font-size:.9rem;line-height:1.8">
+            <ul>
+              <li>✅ <strong>Service Worker:</strong> Caches app for offline access</li>
+              <li>✅ <strong>Local Storage:</strong> All data stored in browser (no server required)</li>
+              <li>✅ <strong>Export/Import:</strong> JSON backup and restore</li>
+              <li>✅ <strong>Installable:</strong> Add to home screen on mobile devices</li>
+              <li>✅ <strong>No Dependencies:</strong> Works without internet after first load</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Attribution Footer -->
+    <footer style="margin-top:60px;padding:40px 20px;background:var(--glass);border-radius:var(--radius);border:1px solid var(--accent)">
+      <div style="text-align:center;max-width:800px;margin:0 auto">
+        <h3 style="color:var(--accent);margin-bottom:16px">🌍 Planetary Restoration Archive</h3>
+        <p style="font-size:.9rem;line-height:1.8;color:var(--muted)">
+          This tool is part of the Planetary Restoration Archive initiative, dedicated to democratic renewal, youth empowerment, and community resilience. Built with zero-harm principles, transparency, and local sovereignty in mind.
+        </p>
+        
+        <div style="margin:24px 0;padding:20px;background:var(--card);border-radius:12px">
+          <strong style="color:var(--accent2)">⚖️ License & Attribution</strong>
+          <p style="font-size:.85rem;margin-top:8px;line-height:1.8">
+            Licensed under <strong>CC BY-NC-SA 4.0</strong>. Free to use and adapt for non-commercial purposes with attribution. Commercial use requires permission. Built by <strong>Foster + Navi</strong> for Bangladesh's democratic renewal.
+          </p>
+        </div>
+        
+        <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:20px">
+          <a href="https://planetaryrestorationarchive.com" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;padding:8px 16px;background:var(--glass);border-radius:999px;border:1px solid var(--accent)">🌐 Website</a>
+          <a href="https://github.com/TheRickyFoster" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;padding:8px 16px;background:var(--glass);border-radius:999px;border:1px solid var(--accent)">💻 GitHub</a>
+        </div>
+        
+        <p style="font-size:.75rem;margin-top:24px;color:var(--muted)" aria-hidden="true" class="sr-only">
+          Provenance: Planetary Restoration Archive | planetaryrestorationarchive.com | GitHub: github.com/therickyfoster
+        </p>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Floating export orb -->
+  <button id="orb" aria-label="Open export menu" title="Export & Tools"></button>
+  <div id="orbMenu" role="menu" aria-label="Export menu">
+    <button role="menuitem" id="btnRaw">📄 Copy as Text</button>
+    <button role="menuitem" id="btnHTML">💾 Download HTML</button>
+    <button role="menuitem" id="btnPrint">🖨️ Print / PDF</button>
+    <button role="menuitem" id="btnBackup">💾 Backup JSON</button>
+    <button role="menuitem" id="btnRestore">📥 Restore JSON</button>
+  </div>
+
+  <!-- Hidden Templates -->
+  <script type="application/json" id="schemas">{
+    "venture": {"team":"","women_pct":0,"problem":"","solution":"","inputs":"","route":"","jobs":2,"capital":10000},
+    "incident": {"date":"","area":"","type":"","severity":"","desc":"","witnesses":"","responder":"","actions":"","status":"Open"},
+    "civic": {"project":"","cat":"","ward":"","priority":"","description":"","status":"Reported","team":"","cost":0,"target":""}
+  }</script>
+
+  <script>
+  // ========================================
+  // STATE MANAGEMENT & INITIALIZATION
+  // ========================================
+  
+  const S = {
+    key: 'bd-youth-vfactory-v2',
+    data: {
+      ventures: [],
+      incidents: [],
+      civic: [],
+      marketplace: [],
+      mapPoints: [],
+      player: {
+        name: 'Youth Changemaker',
+        xp: 0,
+        level: 1,
+        streak: 0,
+        lastVisit: null,
+        achievements: ['newcomer'],
+        unlockedSkills: ['basics']
+      },
+      metrics: {
+        ventures: 0,
+        womenPct: 0,
+        jobs: 0,
+        safety: 0,
+        fixes: 0,
+        survival: 0
+      }
+    }
+  };
+  
+  const $ = sel => document.querySelector(sel);
+  const $ = sel => Array.from(document.querySelectorAll(sel));
+  const schemas = JSON.parse($('#schemas').textContent);
+  const templates = JSON.parse($('#templates').textContent);
+  
+  // ========================================
+  // GAMIFICATION SYSTEM
+  // ========================================
+  
+  const XP_LEVELS = [0, 100, 250, 500, 800, 1200, 1700, 2300, 3000, 4000, 5000];
+  const RANKS = ['Beginner', 'Apprentice', 'Practitioner', 'Expert', 'Master', 'Champion', 'Legend'];
+  
+  const ACHIEVEMENTS = {
+    newcomer: { name: 'Newcomer', icon: '🌟', xp: 0 },
+    risingStar: { name: 'Rising Star', icon: '⭐', xp: 100 },
+    achiever: { name: 'Achiever', icon: '💫', xp: 500 },
+    champion: { name: 'Champion', icon: '🏆', xp: 1000 },
+    entrepreneur: { name: 'Entrepreneur', icon: '🚀', xp: 0, trigger: 'venture' },
+    civicHero: { name: 'Civic Hero', icon: '🏛️', xp: 0, trigger: 'civic10' },
+    communityBuilder: { name: 'Community Builder', icon: '❤️', xp: 0, trigger: 'help10' },
+    committed: { name: 'Committed', icon: '🔥', xp: 0, trigger: 'streak7' }
+  };
+  
+  function addXP(amount, reason = '') {
+    S.data.player.xp += amount;
+    
+    // Check for level up
+    const newLevel = XP_LEVELS.findIndex(xp => S.data.player.xp < xp);
+    if (newLevel > S.data.player.level) {
+      S.data.player.level = newLevel;
+      showLevelUp(newLevel);
+    }
+    
+    // Check for achievements
+    checkAchievements();
+    
+    updatePlayerCard();
+    save();
+    
+    if (reason) {
+      showToast(`+${amount} XP: ${reason}`, 'success');
+    }
+  }
+  
+  function showLevelUp(level) {
+    const rankIndex = Math.min(Math.floor(level / 2), RANKS.length - 1);
+    const rank = RANKS[rankIndex];
+    
+    showToast(`🎉 LEVEL UP! You're now Level ${level} - ${rank}!`, 'levelup');
+    
+    // Flash animation
+    document.body.style.animation = 'none';
+    setTimeout(() => {
+      document.body.style.animation = 'fadeIn 0.5s';
+    }, 10);
+  }
+  
+  function checkAchievements() {
+    const player = S.data.player;
+    const newAchievements = [];
+    
+    // XP-based achievements
+    if (player.xp >= 100 && !player.achievements.includes('risingStar')) {
+      newAchievements.push('risingStar');
+    }
+    if (player.xp >= 500 && !player.achievements.includes('achiever')) {
+      newAchievements.push('achiever');
+    }
+    if (player.xp >= 1000 && !player.achievements.includes('champion')) {
+      newAchievements.push('champion');
+    }
+    
+    // Trigger-based achievements
+    if (S.data.ventures.length >= 1 && !player.achievements.includes('entrepreneur')) {
+      newAchievements.push('entrepreneur');
+    }
+    if (S.data.civic.filter(c => c.status === 'Completed').length >= 10 && !player.achievements.includes('civicHero')) {
+      newAchievements.push('civicHero');
+    }
+    if (player.streak >= 7 && !player.achievements.includes('committed')) {
+      newAchievements.push('committed');
+    }
+    
+    // Add and display new achievements
+    newAchievements.forEach(ach => {
+      if (!player.achievements.includes(ach)) {
+        player.achievements.push(ach);
+        const achievement = ACHIEVEMENTS[ach];
+        showToast(`🏆 Achievement Unlocked: ${achievement.icon} ${achievement.name}!`, 'achievement');
+      }
+    });
+    
+    updateBadgeDisplay();
+  }
+  
+  function updatePlayerCard() {
+    const player = S.data.player;
+    const levelProgress = player.xp - (XP_LEVELS[player.level - 1] || 0);
+    const levelNext = (XP_LEVELS[player.level] || XP_LEVELS[XP_LEVELS.length - 1]) - (XP_LEVELS[player.level - 1] || 0);
+    const progressPct = Math.min(100, (levelProgress / levelNext) * 100);
+    
+    const rankIndex = Math.min(Math.floor(player.level / 2), RANKS.length - 1);
+    
+    $('#playerName').textContent = player.name;
+    $('#playerLevel').textContent = player.level;
+    $('#playerRank').textContent = RANKS[rankIndex];
+    $('#xpFill').style.width = progressPct + '%';
+    $('#xpFill').textContent = `${player.xp} XP`;
+    $('#xpFill').setAttribute('aria-valuenow', progressPct);
+    
+    $('#statVentures').textContent = S.data.ventures.length;
+    $('#statStreak').textContent = player.streak;
+    $('#statImpact').textContent = Math.floor(player.xp / 10);
+    $('#statBadges').textContent = player.achievements.length;
+    
+    // Update recent achievements
+    const recentAch = $('#recentAchievements');
+    recentAch.innerHTML = '';
+    player.achievements.slice(-5).reverse().forEach(achKey => {
+      const ach = ACHIEVEMENTS[achKey];
+      if (ach) {
+        const badge = document.createElement('div');
+        badge.className = 'achievement-badge';
+        badge.textContent = `${ach.icon} ${ach.name}`;
+        recentAch.appendChild(badge);
+      }
+    });
+  }
+  
+  function updateBadgeDisplay() {
+    const badgeDisplay = $('#badgeDisplay');
+    badgeDisplay.innerHTML = '';
+    
+    Object.entries(ACHIEVEMENTS).forEach(([key, ach]) => {
+      const badge = document.createElement('div');
+      badge.className = 'achievement-badge tooltip';
+      badge.setAttribute('data-tip', `${ach.name} - ${ach.xp ? ach.xp + ' XP required' : 'Special achievement'}`);
+      badge.textContent = `${ach.icon} ${ach.name}`;
+      badge.style.opacity = S.data.player.achievements.includes(key) ? '1' : '0.3';
+      badgeDisplay.appendChild(badge);
+    });
+  }
+  
+  function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.cssText = `
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      background: ${type === 'levelup' ? 'var(--level-up)' : type === 'achievement' ? 'var(--xp-bar)' : 'var(--accent)'};
+      color: var(--bg);
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      box-shadow: var(--shadow);
+      z-index: 10000;
+      animation: slideIn 0.3s, fadeOut 0.3s 2.7s;
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  }
+  
+  // ========================================
+  // DATA PERSISTENCE
+  // ========================================
+  
+  function load() {
+    try {
+      const raw = localStorage.getItem(S.key);
+      if (raw) {
+        const loaded = JSON.parse(raw);
+        S.data = { ...S.data, ...loaded };
+        
+        // Update streak
+        updateStreak();
+      }
+    } catch (e) {
+      console.warn('Failed to load data:', e);
+    }
+    renderAll();
+  }
+  
+  function save() {
+    try {
+      localStorage.setItem(S.key, JSON.stringify(S.data));
+      sendAnalytics();
+    } catch (e) {
+      console.warn('Failed to save data:', e);
+    }
+  }
+  
+  function updateStreak() {
+    const now = new Date();
+    const lastVisit = S.data.player.lastVisit ? new Date(S.data.player.lastVisit) : null;
+    
+    if (lastVisit) {
+      const daysDiff = Math.floor((now - lastVisit) / (1000 * 60 * 60 * 24));
+      if (daysDiff === 1) {
+        S.data.player.streak += 1;
+      } else if (daysDiff > 1) {
+        S.data.player.streak = 1;
+      }
+    } else {
+      S.data.player.streak = 1;
+    }
+    
+    S.data.player.lastVisit = now.toISOString();
+    save();
+  }
+  
+  // ========================================
+  // FORM HANDLERS
+  // ========================================
+  
+  $('#scoutForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const v = Object.assign({}, schemas.venture);
+    for (const [k, val] of fd.entries()) {
+      v[k] = ['women_pct', 'jobs', 'capital'].includes(k) ? Number(val) : val;
+    }
+    v.id = Date.now();
+    v.created = new Date().toISOString();
+    S.data.ventures.push(v);
+    save();
+    e.target.reset();
+    updateMetrics();
+    renderVentureList();
+    addXP(10, 'Venture candidate added');
+  });
+  
+  $('#safetyForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const incident = Object.assign({}, schemas.incident);
+    for (const [k, val] of fd.entries()) incident[k] = val;
+    incident.id = Date.now();
+    incident.created = new Date().toISOString();
+    S.data.incidents.push(incident);
+    save();
+    renderSafety();
+    updateMetrics();
+    e.target.reset();
+    addXP(15, 'Safety incident logged');
+  });
+  
+  $('#civicForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const civic = Object.assign({}, schemas.civic);
+    for (const [k, val] of fd.entries()) {
+      civic[k] = k === 'cost' ? Number(val) : val;
+    }
+    civic.id = Date.now();
+    civic.created = new Date().toISOString();
+    S.data.civic.push(civic);
+    save();
+    renderCivic();
+    updateMetrics();
+    updateCivicDashboard();
+    e.target.reset();
+    addXP(20, 'Civic project added');
+  });
+  
+  $('#roscaForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const n = Number(fd.get('n'));
+    const c = Number(fd.get('c'));
+    const m = Number(fd.get('m'));
+    const interest = Number(fd.get('interest')) || 0;
+    
+    const pot = n * c;
+    const out = $('#roscaOut');
+    let html = '<div style="background:var(--glass);padding:16px;border-radius:12px;margin-top:12px">';
+    html += `<h4>ROSCA Schedule Summary</h4>`;
+    html += `<p><strong>Participants:</strong> ${n} | <strong>Monthly Contribution:</strong> ৳${c.toLocaleString()} | <strong>Pot Size:</strong> ৳${pot.toLocaleString()}</p>`;
+    html += '<div style="margin-top:12px">';
+    
+    for (let i = 1; i <= m; i++) {
+      const potWithInterest = interest > 0 ? Math.round(pot * (1 + (interest / 100 / 12))) : pot;
+      html += `<div style="background:var(--card);padding:10px;margin:6px 0;border-radius:8px;border-left:3px solid var(--accent)">
+        <strong>Month ${i}</strong> — Payout: ৳${potWithInterest.toLocaleString()} — Each pays: ৳${c.toLocaleString()}
+      </div>`;
+    }
+    
+    html += '</div></div>';
+    out.innerHTML = html;
+  });
+  
+  $('#marketplaceForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const item = {};
+    for (const [k, val] of fd.entries()) {
+      item[k] = k === 'price' ? Number(val) : val;
+    }
+    item.id = Date.now();
+    item.seller = S.data.player.name;
+    S.data.marketplace.push(item);
+    save();
+    e.target.reset();
+    addXP(5, 'Marketplace listing added');
+    showToast('Item listed successfully!', 'success');
+  });
+  
+  $('#roiCalc').addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const investment = Number(fd.get('investment'));
+    const people = Number(fd.get('people'));
+    const time = Number(fd.get('time'));
+    
+    const costPerPerson = investment / people;
+    const monthlyValue = time * 50; // Assuming ৳50/hour value of time
+    const annualValue = monthlyValue * 12 * people;
+    const roi = ((annualValue - investment) / investment * 100).toFixed(1);
+    
+    const result = $('#roiResult');
+    result.style.display = 'block';
+    result.innerHTML = `
+      <h4>ROI Analysis</h4>
+      <ul style="line-height:1.8;font-size:.9rem">
+        <li><strong>Cost per person:</strong> ৳${costPerPerson.toLocaleString()}</li>
+        <li><strong>Monthly time saved:</strong> ${time * people} hours</li>
+        <li><strong>Annual value created:</strong> ৳${annualValue.toLocaleString()}</li>
+        <li><strong>Return on Investment:</strong> <span style="color:var(--accent);font-size:1.2rem;font-weight:700">${roi}%</span></li>
+      </ul>
+      <p style="margin-top:12px;color:var(--muted);font-size:.85rem">Based on ৳50/hour time value. Actual benefits may include improved health, safety, and quality of life beyond monetary calculation.</p>
+    `;
+  });
+  
+  $('#mentorMatch').addEventListener('submit', e => {
+    e.preventDefault();
+    showToast('Mentor matching feature coming soon!', 'info');
+  });
+  
+  // ========================================
+  // TEMPLATE GENERATION
+  // ========================================
+  
+  $('button[data-template]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const templateKey = btn.getAttribute('data-template');
+      $('#templateOut').value = templates[templateKey] || '';
+    });
+  });
+  
+  $('#copyTemplate').onclick = () => {
+    const text = $('#templateOut').value;
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('Template copied to clipboard!', 'success');
+    });
+  };
+  
+  $('#downloadTemplate').onclick = () => {
+    const text = $('#templateOut').value;
+    if (!text) return;
+    const blob = new Blob([text], { type: 'text/plain' });
+    const a = Object.assign(document.createElement('a'), {
+      download: 'template.txt',
+      href: URL.createObjectURL(blob)
+    });
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+  
+  $('#emailTemplate').onclick = () => {
+    const text = $('#templateOut').value;
+    if (!text) return;
+    const subject = 'Youth Venture Factory Template';
+    const body = encodeURIComponent(text);
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  };
+  
+  // ========================================
+  // RENDERING FUNCTIONS
+  // ========================================
+  
+  function renderSafety() {
+    const ul = $('#safetyList');
+    ul.innerHTML = '';
+    
+    if (S.data.incidents.length === 0) {
+      ul.innerHTML = '<li style="color:var(--muted);font-style:italic">No incidents logged yet</li>';
+      return;
+    }
+    
+    S.data.incidents.slice().reverse().forEach((incident, i) => {
+      const li = document.createElement('li');
+      li.style.cssText = 'background:var(--glass);padding:12px;margin:8px 0;border-radius:8px;border-left:3px solid ' +
+        (incident.severity === 'Critical' ? '#ff4444' :
+         incident.severity === 'High' ? '#ff8844' :
+         incident.severity === 'Medium' ? '#ffaa44' : '#aaa');
+      
+      li.innerHTML = `
+        <strong>${incident.date || 'Date not specified'}</strong> — ${incident.area || 'Location not specified'}<br>
+        <span style="font-size:.85rem;color:var(--muted)">Type: ${incident.type} | Severity: ${incident.severity}</span><br>
+        <span style="font-size:.9rem">${incident.desc || 'No description'}</span><br>
+        <span style="font-size:.85rem;color:var(--accent2)">Responder: ${incident.responder || 'Not assigned'}</span>
+      `;
+      ul.appendChild(li);
+    });
+  }
+  
+  function renderCivic() {
+    const ul = $('#civicList');
+    ul.innerHTML = '';
+    
+    $('#civicActiveCount').textContent = S.data.civic.filter(c => c.status !== 'Completed' && c.status !== 'Verified').length;
+    
+    if (S.data.civic.length === 0) {
+      ul.innerHTML = '<li style="color:var(--muted);font-style:italic">No civic projects yet</li>';
+      return;
+    }
+    
+    S.data.civic.slice().reverse().forEach(civic => {
+      const li = document.createElement('li');
+      li.style.cssText = 'background:var(--glass);padding:12px;margin:8px 0;border-radius:8px;border-left:3px solid ' +
+        (civic.status === 'Completed' || civic.status === 'Verified' ? 'var(--accent2)' : 'var(--accent)');
+      
+      li.innerHTML = `
+        <strong>${civic.project}</strong><br>
+        <span style="font-size:.85rem;color:var(--muted)">${civic.cat} | ${civic.ward || 'Location not specified'} | Priority: ${civic.priority || 'Not set'}</span><br>
+        <span style="font-size:.9rem">${civic.description || 'No description'}</span><br>
+        <span style="font-size:.85rem;color:var(--accent)">Status: ${civic.status} | Team: ${civic.team || 'Not assigned'}</span>
+      `;
+      ul.appendChild(li);
+    });
+  }
+  
+  function renderVentureList() {
+    const list = $('#ventureList');
+    if (!list) return;
+    
+    list.innerHTML = '';
+    
+    if (S.data.ventures.length === 0) {
+      list.innerHTML = '<p style="color:var(--muted);font-style:italic">No ventures logged yet</p>';
+      return;
+    }
+    
+    S.data.ventures.slice().reverse().forEach(v => {
+      const div = document.createElement('div');
+      div.style.cssText = 'background:var(--glass);padding:12px;margin:8px 0;border-radius:8px;border-left:3px solid var(--accent)';
+      div.innerHTML = `
+        <strong>${v.team}</strong><br>
+        <span style="font-size:.85rem;color:var(--muted)">Women co-founders: ${v.women_pct}% | Jobs: ${v.jobs || 0} | Capital: ৳${(v.capital || 0).toLocaleString()}</span><br>
+        <span style="font-size:.9rem">${v.problem}</span>
+      `;
+      list.appendChild(div);
+    });
+  }
+  
+  function updateCivicDashboard() {
+    const completed = S.data.civic.filter(c => c.status === 'Completed' || c.status === 'Verified');
+    const totalCost = S.data.civic.reduce((sum, c) => sum + (Number(c.cost) || 0), 0);
+    const uniqueTeams = new Set(S.data.civic.map(c => c.team).filter(t => t));
+    
+    $('#totalFixes').textContent = S.data.civic.length;
+    $('#completedFixes').textContent = completed.length;
+    $('#youthInvolved').textContent = uniqueTeams.size;
+    $('#totalInvested').textContent = totalCost.toLocaleString();
+  }
+  
+  function updateMetrics() {
+    const V = S.data.ventures.length;
+    const womenSum = S.data.ventures.reduce((sum, v) => sum + (Number(v.women_pct) || 0), 0);
+    const women = V > 0 ? Math.round(womenSum / V) : 0;
+    const jobs = S.data.ventures.reduce((sum, v) => sum + (Number(v.jobs) || 0), 0) || Math.round(V * 2.2);
+    const safety = S.data.incidents.length;
+    const fixes = S.data.civic.filter(c => c.status === 'Completed' || c.status === 'Verified').length;
+    const survival = Math.min(100, Math.round(V > 0 ? V * 0.8 : 0));
+    
+    S.data.metrics = { ventures: V, womenPct: women, jobs, safety, fixes, survival };
+    save();
+    renderMetrics();
+    drawConstellation();
+  }
+  
+  function renderMetrics() {
+    const m = S.data.metrics;
+    $('#m-ventures').textContent = m.ventures;
+    $('#m-women').textContent = m.womenPct + '%';
+    $('#m-jobs').textContent = m.jobs;
+    $('#m-safety').textContent = m.safety;
+    $('#m-fixes').textContent = m.fixes;
+    $('#m-survival').textContent = m.survival + '%';
+  }
+  
+  // ========================================
+  // SAFE ROUTE MAPPER
+  // ========================================
+  
+  let mapMode = 'safe';
+  
+  $('#addSafe').onclick = () => {
+    mapMode = 'safe';
+    showToast('Click map to mark safe spots', 'info');
+  };
+  $('#addRisk').onclick = () => {
+    mapMode = 'risk';
+    showToast('Click map to mark risk spots', 'info');
+  };
+  $('#addCheckpoint').onclick = () => {
+    mapMode = 'checkpoint';
+    showToast('Click map to mark checkpoints', 'info');
+  };
+  
+  $('#map').addEventListener('click', e => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width;
+    const y = (e.clientY - r.top) / r.height;
+    
+    const point = {
+      type: mapMode,
+      x,
+      y,
+      timestamp: new Date().toISOString()
+    };
+    
+    S.data.mapPoints.push(point);
+    save();
+    
+    const dot = document.createElement('div');
+    dot.style.cssText = `
+      position: absolute;
+      left: ${x * 100}%;
+      top: ${y * 100}%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: ${mapMode === 'safe' ? 'var(--accent2)' : mapMode === 'risk' ? '#ffb871' : 'var(--accent)'};
+      box-shadow: 0 0 10px ${mapMode === 'safe' ? 'var(--accent2)' : mapMode === 'risk' ? '#ffb871' : 'var(--accent)'};
+      cursor: pointer;
+      transition: transform 0.2s;
+    `;
+    dot.title = `${mapMode} spot`;
+    dot.onmouseenter = () => dot.style.transform = 'translate(-50%, -50%) scale(1.5)';
+    dot.onmouseleave = () => dot.style.transform = 'translate(-50%, -50%) scale(1)';
+    e.currentTarget.appendChild(dot);
+    
+    updateMapCount();
+    addXP(2, 'Map marker added');
+  });
+  
+  $('#clearMap').onclick = () => {
+    if (confirm('Clear all map markers?')) {
+      S.data.mapPoints = [];
+      save();
+      $('#map > div').forEach(dot => dot.remove());
+      updateMapCount();
+    }
+  };
+  
+  $('#exportGeo').onclick = () => {
+    const geoJSON = {
+      type: 'FeatureCollection',
+      features: S.data.mapPoints.map(p => ({
+        type: 'Feature',
+        properties: {
+          type: p.type,
+          timestamp: p.timestamp
+        },
+        geometry: {
+          type: 'Point',
+          coordinates: [p.x, p.y]
+        }
+      }))
+    };
+    
+    const blob = new Blob([JSON.stringify(geoJSON, null, 2)], { type: 'application/json' });
+    const a = Object.assign(document.createElement('a'), {
+      download: 'safe-routes.geojson',
+      href: URL.createObjectURL(blob)
+    });
+    a.click();
+    URL.revokeObjectURL(a.href);
+    showToast('GeoJSON exported!', 'success');
+  };
+  
+  function updateMapCount() {
+    $('#mapCount').textContent = S.data.mapPoints.length;
+    const list = $('#mapList');
+    list.innerHTML = '';
+    S.data.mapPoints.slice().reverse().forEach((p, i) => {
+      const li = document.createElement('li');
+      li.textContent = `${p.type} @ (${(p.x * 100).toFixed(1)}%, ${(p.y * 100).toFixed(1)}%)`;
+      list.appendChild(li);
+    });
+  }
+  
+  function loadMapPoints() {
+    const map = $('#map');
+    S.data.mapPoints.forEach(p => {
+      const dot = document.createElement('div');
+      dot.style.cssText = `
+        position: absolute;
+        left: ${p.x * 100}%;
+        top: ${p.y * 100}%;
+        transform: translate(-50%, -50%);
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: ${p.type === 'safe' ? 'var(--accent2)' : p.type === 'risk' ? '#ffb871' : 'var(--accent)'};
+        box-shadow: 0 0 10px ${p.type === 'safe' ? 'var(--accent2)' : p.type === 'risk' ? '#ffb871' : 'var(--accent)'};
+      `;
+      map.appendChild(dot);
+    });
+    updateMapCount();
+  }
+  
+  // ========================================
+  // VISUALIZATIONS
+  // ========================================
+  
+  function drawConstellation() {
+    const canvas = $('#constellation');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width = canvas.clientWidth * devicePixelRatio;
+    const h = canvas.height = 280 * devicePixelRatio;
+    
+    ctx.clearRect(0, 0, w, h);
+    
+    const m = S.data.metrics;
+    const points = [
+      { x: 0.15, y: 0.6, val: m.ventures, label: 'Ventures', color: 'var(--accent)' },
+      { x: 0.35, y: 0.35, val: m.womenPct, label: 'Women %', color: 'var(--accent2)' },
+      { x: 0.55, y: 0.55, val: m.jobs, label: 'Jobs', color: 'var(--xp-bar)' },
+      { x: 0.75, y: 0.30, val: m.safety, label: 'Safety', color: 'var(--accent)' },
+      { x: 0.85, y: 0.65, val: m.fixes, label: 'Fixes', color: 'var(--accent2)' }
+    ];
+    
+    // Draw connections
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'rgba(118,228,247,0.4)';
+    let prev = null;
+    points.forEach(p => {
+      const x = w * p.x;
+      const y = h * p.y;
+      if (prev) {
+        ctx.beginPath();
+        ctx.moveTo(prev.x, prev.y);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+      }
+      prev = { x, y };
+    });
+    
+    // Draw nodes
+    points.forEach(p => {
+      const x = w * p.x;
+      const y = h * p.y;
+      const r = Math.max(6, Math.min(20, (Number(p.val) || 0) / 3 + 6));
+      
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue(p.color.replace('var(', '').replace(')', '')) || '#76e4f7';
+      ctx.fill();
+      
+      // Label
+      ctx.fillStyle = '#fff';
+      ctx.font = `${12 * devicePixelRatio}px system-ui`;
+      ctx.textAlign = 'center';
+      ctx.fillText(p.label, x, y - r - 10);
+    });
+  }
+  
+  // ========================================
+  // EXPORT FUNCTIONS
+  // ========================================
+  
+  $('#exportJSON').onclick = () => {
+    const blob = new Blob([JSON.stringify(S.data, null, 2)], { type: 'application/json' });
+    const a = Object.assign(document.createElement('a'), {
+      download: 'youth-venture-factory-data.json',
+      href: URL.createObjectURL(blob)
+    });
+    a.click();
+    URL.revokeObjectURL(a.href);
+    showToast('Data exported successfully!', 'success');
+  };
+  
+  $('#importJSONBtn').onclick = () => $('#importJSON').click();
+  
+  $('#importJSON').addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const imported = JSON.parse(reader.result);
+        if (confirm('Import this data? Current data will be replaced.')) {
+          S.data = imported;
+          save();
+          renderAll();
+          showToast('Data imported successfully!', 'success');
+        }
+      } catch (err) {
+        alert('Invalid JSON file');
+      }
+    };
+    reader.readAsText(file);
+  });
+  
+  $('#publishDashboard').onclick = () => {
+    showToast('Dashboard publishing feature coming soon!', 'info');
+  };
+  
+  $('#downloadSnapshot').onclick = () => {
+    const html = makeSnapshotHTML();
+    const blob = new Blob([html], { type: 'text/html' });
+    const a = Object.assign(document.createElement('a'), {
+      download: 'youth-venture-factory-snapshot.html',
+      href: URL.createObjectURL(blob)
+    });
+    a.click();
+    URL.revokeObjectURL(a.href);
+    showToast('Snapshot downloaded!', 'success');
+  };
+  
+  $('#shareLink').onclick = () => {
+    showToast('Share link generation coming soon!', 'info');
+  };
+  
+  function makeSnapshotHTML() {
+    const doc = document.documentElement.cloneNode(true);
+    const dataScript = doc.createElement('script');
+    dataScript.type = 'application/json';
+    dataScript.id = 'embeddedData';
+    dataScript.textContent = JSON.stringify(S.data);
+    doc.querySelector('body').appendChild(dataScript);
+    doc.querySelector('title').textContent += ' (Snapshot)';
+    return '<!doctype html>\n' + doc.outerHTML;
+  }
+  
+  // ========================================
+  // ORB MENU
+  // ========================================
+  
+  const orb = $('#orb');
+  const orbMenu = $('#orbMenu');
+  
+  orb.addEventListener('click', () => {
+    orbMenu.style.display = orbMenu.style.display === 'block' ? 'none' : 'block';
+  });
+  
+  $('#btnRaw').onclick = () => {
+    navigator.clipboard.writeText(document.body.innerText);
+    showToast('Text copied to clipboard!', 'success');
+  };
+  
+  $('#btnHTML').onclick = () => {
+    const html = makeSnapshotHTML();
+    const blob = new Blob([html], { type: 'text/html' });
+    const a = Object.assign(document.createElement('a'), {
+      download: 'youth-venture-factory.html',
+      href: URL.createObjectURL(blob)
+    });
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+  
+  $('#btnPrint').onclick = () => window.print();
+  
+  $('#btnBackup').onclick = () => {
+    const blob = new Blob([JSON.stringify(S.data, null, 2)], { type: 'application/json' });
+    const a = Object.assign(document.createElement('a'), {
+      download: 'backup.json',
+      href: URL.createObjectURL(blob)
+    });
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+  
+  $('#btnRestore').onclick = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json';
+    input.onchange = () => {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          S.data = JSON.parse(reader.result);
+          save();
+          renderAll();
+          showToast('Data restored!', 'success');
+        } catch (e) {
+          alert('Invalid backup file');
+        }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  };
+  
+  // ========================================
+  // THEME SWITCHING
+  // ========================================
+  
+  const themes = ['', 'medieval', 'space', 'anime', 'forest'];
+  let currentTheme = 0;
+  
+  $('#themeBtn').onclick = () => {
+    currentTheme = (currentTheme + 1) % themes.length;
+    document.body.setAttribute('data-theme', themes[currentTheme]);
+    showToast(`Theme: ${themes[currentTheme] || 'default'}`, 'info');
+    drawConstellation(); // Redraw with new colors
+  };
+  
+  $('#achieveBtn').onclick = () => {
+    showToast(`Achievements: ${S.data.player.achievements.length}/${Object.keys(ACHIEVEMENTS).length}`, 'info');
+  };
+  
+  // ========================================
+  // STARFIELD ANIMATION
+  // ========================================
+  
+  function starfield() {
+    const canvas = $('#stars');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    function resize() {
+      canvas.width = innerWidth * devicePixelRatio;
+      canvas.height = innerHeight * devicePixelRatio;
+    }
+    
+    resize();
+    window.addEventListener('resize', resize);
+    
+    const N = 300;
+    const stars = [];
+    for (let i = 0; i < N; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        z: Math.random() * 1.5 + 0.5,
+        a: Math.random()
+      });
+    }
+    
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      for (const s of stars) {
+        s.x += s.z * 0.5;
+        if (s.x > canvas.width) s.x = 0;
+        
+        const r = s.z * 1.2;
+        ctx.globalAlpha = 0.4 + 0.6 * Math.sin((s.a += 0.02));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, r, 0, 6.283);
+        ctx.fillStyle = '#bcd7ff';
+        ctx.fill();
+      }
+      
+      requestAnimationFrame(animate);
+    }
+    
+    animate();
+  }
+  
+  // ========================================
+  // PROVENANCE FLASH (ANTI-THEFT)
+  // ========================================
+  
+  let provenanceTimer = null;
+  
+  function scheduleProvenanceFlash() {
+    // Random time between 30-90 minutes
+    const delay = (30 + Math.random() * 60) * 60 * 1000;
+    provenanceTimer = setTimeout(() => {
+      showProvenanceFlash();
+      scheduleProvenanceFlash();
+    }, delay);
+  }
+  
+  function showProvenanceFlash() {
+    const flash = $('#provenanceFlash');
+    flash.classList.add('active');
+    setTimeout(() => {
+      flash.classList.remove('active');
+    }, 3000);
+  }
+  
+  // ========================================
+  // ANALYTICS (HIDDEN)
+  // ========================================
+  
+  function sendAnalytics() {
+    // Simulated analytics - in production, this would send to admin email
+    // For demo purposes, just log to console
+    const summary = {
+      timestamp: new Date().toISOString(),
+      ventures: S.data.ventures.length,
+      incidents: S.data.incidents.length,
+      civicProjects: S.data.civic.length,
+      playerLevel: S.data.player.level,
+      playerXP: S.data.player.xp
+    };
+    
+    console.log('📊 Analytics:', summary);
+    
+    // In production, you would send this to admin@planetaryrestorationarchive.com
+    // using a serverless function or API endpoint
+  }
+  
+  // ========================================
+  // SERVICE WORKER
+  // ========================================
+  
+  async function installServiceWorker() {
+    if (!('serviceWorker' in navigator)) return;
+    
+    try {
+      const swCode = `
+        const CACHE_NAME = 'youth-venture-factory-v2';
+        
+        self.addEventListener('install', e => {
+          e.waitUntil(
+            caches.open(CACHE_NAME).then(cache => {
+              return cache.addAll(['./']);
+            })
+          );
+        });
+        
+        self.addEventListener('activate', e => {
+          e.waitUntil(
+            caches.keys().then(keys => {
+              return Promise.all(
+                keys.filter(key => key !== CACHE_NAME)
+                  .map(key => caches.delete(key))
+              );
+            })
+          );
+        });
+        
+        self.addEventListener('fetch', e => {
+          e.respondWith(
+            fetch(e.request)
+              .catch(() => caches.match('./'))
+          );
+        });
+      `;
+      
+      const blob = new Blob([swCode], { type: 'text/javascript' });
+      const url = URL.createObjectURL(blob);
+      await navigator.serviceWorker.register(url, { scope: './' });
+      console.log('✅ Service worker installed');
+    } catch (err) {
+      console.warn('⚠️ Service worker not installed:', err);
+    }
+  }
+  
+  // ========================================
+  // SKILL TREE
+  // ========================================
+  
+  $('.skill-node').forEach(node => {
+    node.addEventListener('click', () => {
+      const skill = node.getAttribute('data-skill');
+      const requiredXP = Number(node.getAttribute('data-xp')) || 0;
+      
+      if (node.classList.contains('locked')) {
+        if (S.data.player.xp >= requiredXP) {
+          S.data.player.unlockedSkills.push(skill);
+          node.classList.remove('locked');
+          node.classList.add('unlocked');
+          save();
+          showToast(`🎓 Skill Unlocked: ${node.querySelector('strong').textContent}!`, 'achievement');
+          addXP(0);
+        } else {
+          showToast(`Need ${requiredXP} XP to unlock (you have ${S.data.player.xp})`, 'info');
+        }
+      }
+    });
+  });
+  
+  function loadSkillTree() {
+    S.data.player.unlockedSkills.forEach(skill => {
+      const node = document.querySelector(`.skill-node[data-skill="${skill}"]`);
+      if (node) {
+        node.classList.remove('locked');
+        node.classList.add('unlocked');
+      }
+    });
+  }
+  
+  // ========================================
+  // INITIALIZATION
+  // ========================================
+  
+  function renderAll() {
+    renderSafety();
+    renderCivic();
+    renderVentureList();
+    updateMetrics();
+    updatePlayerCard();
+    updateBadgeDisplay();
+    updateCivicDashboard();
+    loadMapPoints();
+    loadSkillTree();
+  }
+  
+  // Boot sequence
+  load();
+  starfield();
+  installServiceWorker();
+  scheduleProvenanceFlash();
+  
+  // Add CSS animations
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideIn {
+      from { transform: translateX(400px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+  `;
+  document.head.appendChild(style);
+  
+  console.log('🌍 Youth Venture Factory initialized');
+  console.log('📊 Analytics active');
+  console.log('🛡️ Zero-harm protocols engaged');
+  </script>
+</body>
+</html>
+  
+  <script type="application/json" id="templates">{
+    "grantRules": "MICRO-GRANT RULES (District Sprint Cohort)\n\n1) ELIGIBILITY\n   • Women-led or gender-balanced teams (minimum 40% women)\n   • Focus on essential goods/services addressing real community needs\n   • Team must complete 20+ customer discovery interviews\n   • Business model must demonstrate local supply chain access\n\n2) DISBURSEMENT SCHEDULE\n   • 60% disbursed at Week 3 (after successful market pilot)\n   • 40% disbursed after Sales Day (Week 5) with minimum 10 transactions\n\n3) PROOF REQUIREMENTS\n   • Original receipts for all expenditures\n   • 3 recorded customer interviews showing problem-solution fit\n   • Photos of inventory/equipment purchased\n   • Safety plan with route mapping and harassment protocols\n\n4) MARKET COMPACT\n   • Signed vendor agreement with 'no harassment, no rent' clause\n   • Commitment to buddy travel system during market hours\n   • Participation in monthly market safety committee meetings\n\n5) PAY-IT-FORWARD\n   • 5% of first-year profits returned to next cohort fund within 90 days\n   • Mentor one team in next cohort (2 hours/month minimum)\n\n6) DEFAULT & REMEDIATION\n   • Grace period: 2 weeks for hardship circumstances\n   • Community mediation required before legal action\n   • Hardship pool available (2% of total grant pool) for crises",
+    
+    "vendorContract": "MARKET STALL VENDOR CONTRACT\n\n==========================================\nPARTIES\nVendor: _______________________________\nMarket Authority: _____________________\nStall Number: _____ Ward/Area: ________\nEffective Date: _______________________\n==========================================\n\nTERMS:\n\n1) STALL ACCESS\n   • Days: Mon-Sat, Hours: 6 AM - 8 PM\n   • Monthly fee: ৳_______ (due 1st of month)\n   • Late fee: 5% after 7-day grace period\n\n2) 'NO HARASSMENT, NO RENT' CLAUSE\n   • Zero tolerance for harassment (verbal, physical, online)\n   • First violation: Written warning + mandatory training\n   • Second violation: 30-day suspension without refund\n   • Third violation: Permanent ban + lease termination\n\n3) SAFETY INFRASTRUCTURE\n   • Vendor commits to buddy travel protocols\n   • Shared night storage access included (Locker #___)\n   • Market provides adequate lighting near stall\n   • Emergency contact list maintained by vendor\n\n4) DISPUTE RESOLUTION\n   • Grievances submitted to Market Safety Committee\n   • 7-day response SLA for all complaints\n   • Mediation before escalation to authorities\n   • Anonymized outcomes posted to public safety board\n\n5) TERMINATION\n   • Either party may terminate with 30 days notice\n   • Immediate termination for safety violations\n   • Pro-rated refund for unused months\n\nVendor Signature: _______________  Date: _______\nMarket Authority: _______________  Date: _______",
+    
+    "cba": "COMMUNITY BENEFIT AGREEMENT (CBA)\n\n==========================================\nBetween: [Venture Name] (\"Business\")\nAnd: [Community Organization/Ward Council] (\"Community\")\nProject: [Brief description]\nDate: _______________________\n==========================================\n\nBUSINESS COMMITS TO:\n\n1) LOCAL HIRING\n   • Minimum 70% of employees from local ward\n   • Priority hiring for women and marginalized youth\n   • Living wage: Minimum ৳15,000/month full-time\n   • Quarterly hiring reports to Community\n\n2) WOMEN'S SAFETY\n   • Zero-tolerance harassment policy enforced\n   • Buddy travel system for all employees\n   • Safe, well-lit work environment\n   • Monthly safety audits with Community observers\n\n3) ENVIRONMENTAL STANDARDS\n   • Waste segregation and proper disposal\n   • Noise levels below 60dB after 8 PM\n   • No hazardous materials without proper permits\n   • Water conservation measures implemented\n\n4) COMMUNITY ENGAGEMENT\n   • Quarterly open meetings with residents\n   • Public dashboard with employment + impact data\n   • Participation in local festivals/events\n   • Mentorship for aspiring entrepreneurs (2 hrs/month)\n\n5) ACCOUNTABILITY\n   • Grievance hotline: _______________\n   • Community liaison: _______________\n   • Annual community satisfaction survey\n   • Third-party audit option if concerns arise\n\nCOMMUNITY COMMITS TO:\n   • Support business through local purchasing\n   • Provide feedback constructively\n   • Amplify success stories\n   • Peaceful dispute resolution\n\nBusiness Representative: _______________  Date: _______\nCommunity Representative: ______________  Date: _______",
+    
+    "mentorMou": "MENTOR MEMORANDUM OF UNDERSTANDING (MOU)\n\n==========================================\nMentor: _______________________________\nArea of Expertise: ____________________\nCohort: ____________  District: ________\nTerm: 6 months (renewable)\n==========================================\n\nMENTOR RESPONSIBILITIES:\n\n1) TIME COMMITMENT\n   • 2 hours per week of scheduled office hours\n   • Minimum 1 on-site visit per cohort (6 weeks)\n   • Response to urgent questions within 48 hours\n   • Attendance at cohort kick-off and graduation\n\n2) SCOPE OF SUPPORT\n   • Business model feedback and iteration\n   • Technical expertise in [specific domain]\n   • Network introductions (suppliers, customers, partners)\n   • Emotional support during challenges\n   • Portfolio review and documentation guidance\n\n3) ETHICS & BOUNDARIES\n   • NO recruitment of mentees for own business\n   • NO intellectual property claims on mentee work\n   • NO romantic/sexual relationships with mentees\n   • Confidentiality of mentee financial information\n   • Referral to specialized support when needed\n\n4) SUCCESS METRICS\n   • Minimum 3 teams launched per cohort\n   • 80% mentee satisfaction rating\n   • 60% of ventures surviving 6 months\n\nPROGRAM PROVIDES:\n   • Mentor training (4 hours online)\n   • Liability insurance coverage\n   • Quarterly mentor peer-learning sessions\n   • Recognition: Certificate + public acknowledgment\n   • Stipend: ৳5,000/month (optional; can be donated back)\n\nTERMINATION:\n   • Either party may terminate with 2 weeks notice\n   • Immediate termination for ethics violations\n   • Exit interview to improve program\n\nMentor Signature: _______________  Date: _______\nProgram Director: _______________  Date: _______",
+    
+    "grievance": "GRIEVANCE & SAFETY STANDARD OPERATING PROCEDURE (SOP)\n\n==========================================\nPURPOSE: Rapid, fair resolution of safety incidents and grievances\nSCOPE: All markets, training sites, and venture activities\nOWNER: District Safety Coordinator\nREVIEW: Quarterly\n==========================================\n\nSTEP 1: REPORTING (0-24 hours)\n• Incident reported via:\n  - App form (this tool)\n  - SMS hotline: _______________\n  - In-person to Safety Coordinator\n  - Anonymous tip box at market\n\n• Reporter provides:\n  - Date, time, location\n  - Type of incident\n  - Description of what happened\n  - Witnesses (if any)\n  - Immediate safety needs\n\n• Confirmation sent within 2 hours\n\nSTEP 2: IMMEDIATE SAFETY PLAN (0-48 hours)\n• Safety Coordinator assesses risk level:\n  - Critical: Immediate danger → police + emergency contacts\n  - High: Safety plan within 24 hours\n  - Medium/Low: Safety plan within 48 hours\n\n• Interim measures may include:\n  - Buddy system activation\n  - Stall location swap\n  - Temporary schedule change\n  - Increased security presence\n  - No-contact order for perpetrator\n\n• Affected person's needs prioritized\n\nSTEP 3: INVESTIGATION (2-7 days)\n• Investigator appointed:\n  - Must be neutral (not involved in incident)\n  - Gender-matched to victim preference\n  - Civil society partner co-investigator\n\n• Evidence gathered:\n  - Interviews with all parties\n  - Witness statements\n  - Photos, videos, documents\n  - Pattern analysis (repeat offenders)\n\n• Confidentiality maintained\n• No retaliation against reporter\n\nSTEP 4: RESOLUTION (7-14 days)\n• Outcomes may include:\n  - Warning + mandatory training\n  - Suspension (temporary or permanent)\n  - Lease/contract termination\n  - Police referral for crimes\n  - Restorative justice circle (if appropriate)\n\n• Decision communicated to:\n  - Reporter (full details)\n  - Accused (with appeal rights)\n  - Market committee (anonymized summary)\n\nSTEP 5: PUBLIC ACCOUNTABILITY (Within 30 days)\n• Anonymized outcome posted to:\n  - Public safety board (physical)\n  - Online dashboard (this tool)\n  - Community WhatsApp groups\n\n• Quarterly aggregated reports:\n  - Total incidents by type\n  - Resolution times\n  - Patterns and trends\n  - Systemic improvements made\n\nAPPEAL PROCESS:\n• Either party may appeal within 7 days\n• Independent review panel convened\n• Final decision within 14 days\n\nCONTINUOUS IMPROVEMENT:\n• Quarterly SOP review\n• Survivor feedback incorporated\n• Training updated based on lessons learned\n\nEMERGENCY CONTACTS:\nNational Helpline: 999\nWomen's Helpline: 109\nDistrict Coordinator: _______________\nCivil Partner Org: _______________",
+    
+    "supplyChain": "SUPPLY CHAIN MAPPING TEMPLATE\n\n==========================================\nVenture: _____________________________\nPrimary Product/Service: ______________\nDate: ________________________________\n==========================================\n\nINPUT MAPPING:\n\nFor each key input/material:\n\n1) INPUT: ____________________________\n   Current Supplier: __________________\n   Location: __________________________\n   Distance: _____ km\n   Lead Time: _____ days\n   Cost: ৳_______ per unit\n   Quality Rating (1-5): _____\n   Reliability Rating (1-5): _____\n   \n   Backup Supplier 1: _________________\n   Backup Supplier 2: _________________\n   \n   Risk Assessment:\n   □ Single point of failure\n   □ Seasonal availability issues\n   □ Price volatility\n   □ Quality inconsistency\n   □ Transportation challenges\n   \n   Mitigation Strategy:\n   _________________________________\n   _________________________________\n\n2) [Repeat for each input]\n\nVALUE CHAIN PARTNERS:\n\nUpstream (Suppliers):\n• _________________________________\n• _________________________________\n\nPeers (Same cohort/sector):\n• _________________________________\n• _________________________________\n\nDownstream (Distributors/Retailers):\n• _________________________________\n• _________________________________\n\nOPPORTUNITIES FOR INTEGRATION:\n□ Bulk purchasing with peer ventures\n□ Shared transportation/logistics\n□ Forward contracts with suppliers\n□ Quality certification collective\n□ Co-branding opportunities\n□ Knowledge sharing on best practices\n\nACTION ITEMS:\n1. _________________________________\n2. _________________________________\n3. _________________________________",
+    
+    "pitchDeck": "PITCH DECK OUTLINE (10 Slides)\n\n==========================================\nVenture: _____________________________\nPresenter: ____________________________\nAudience: _____________________________\nDate: ________________________________\n==========================================\n\nSLIDE 1: TITLE\n• Venture name + tagline\n• Your name + role\n• Contact info\n• Logo (if available)\n\nSLIDE 2: PROBLEM\n• What problem are you solving?\n• Who has this problem?\n• How big is the problem?\n• Why hasn't it been solved yet?\n\nSLIDE 3: SOLUTION\n• Your product/service\n• How it solves the problem\n• Unique value proposition\n• Why now?\n\nSLIDE 4: MARKET OPPORTUNITY\n• Target market size\n• Market trends (growing/stable)\n• Customer segments\n• Go-to-market strategy\n\nSLIDE 5: BUSINESS MODEL\n• How you make money\n• Pricing strategy\n• Unit economics\n• Revenue streams\n\nSLIDE 6: TRACTION\n• What you've accomplished so far\n• Customer testimonials\n• Sales/usage metrics\n• Partnerships formed\n\nSLIDE 7: COMPETITION\n• Who else is solving this?\n• How are you different/better?\n• Competitive advantages\n• Market positioning\n\nSLIDE 8: TEAM\n• Founders + key team members\n• Relevant experience\n• Advisors/mentors\n• Why you're the right team\n\nSLIDE 9: FINANCIALS\n• Revenue projections (3 years)\n• Key expenses\n• Path to profitability\n• Funding needs (if applicable)\n\nSLIDE 10: ASK & CLOSING\n• What you're seeking (investment, partnership, customers)\n• Next milestones\n• Call to action\n• Thank you + contact\n\nPRESENTATION TIPS:\n✓ Keep slides visual (more images, fewer words)\n✓ Practice timing: 10-15 minutes + Q&A\n✓ Tell a story, not just facts\n✓ Show passion and authenticity\n✓ Be ready for tough questions\n✓ Bring backup materials (financial details, product samples)",
+    
+    "financial": "12-MONTH FINANCIAL PROJECTIONS\n\n==========================================\nVenture: _____________________________\nAssumed Start Date: ___________________\nCurrency: BDT (৳)\n==========================================\n\nASSUMPTIONS:\n• Units sold Month 1: _____ (growing _____% monthly)\n• Price per unit: ৳_______\n• Cost per unit: ৳_______ (COGS)\n• Fixed costs per month: ৳_______\n\nREVENUE PROJECTIONS:\n\nMonth 1:  Units_____ × ৳_____ = ৳_______\nMonth 2:  Units_____ × ৳_____ = ৳_______\nMonth 3:  Units_____ × ৳_____ = ৳_______\nMonth 4:  Units_____ × ৳_____ = ৳_______\nMonth 5:  Units_____ × ৳_____ = ৳_______\nMonth 6:  Units_____ × ৳_____ = ৳_______\nMonth 7:  Units_____ × ৳_____ = ৳_______\nMonth 8:  Units_____ × ৳_____ = ৳_______\nMonth 9:  Units_____ × ৳_____ = ৳_______\nMonth 10: Units_____ × ৳_____ = ৳_______\nMonth 11: Units_____ × ৳_____ = ৳_______\nMonth 12: Units_____ × ৳_____ = ৳_______\n\nTOTAL YEAR 1 REVENUE: ৳_______\n\nEXPENSES:\n\nCOST OF GOODS SOLD (COGS):\n• Raw materials: _____% of revenue\n• Direct labor: ৳_______ /month\n• Packaging: _____% of revenue\nTOTAL COGS: ৳_______ /month avg\n\nFIXED COSTS:\n• Rent: ৳_______ /month\n• Utilities: ৳_______ /month\n• Salaries: ৳_______ /month\n• Insurance: ৳_______ /month\n• Marketing: ৳_______ /month\n• Transportation: ৳_______ /month\n• Loan repayment: ৳_______ /month\n• Other: ৳_______ /month\nTOTAL FIXED: ৳_______ /month\n\nTOTAL EXPENSES YEAR 1: ৳_______\n\nNET PROFIT/LOSS:\nRevenue - Expenses = ৳_______\n\nPROFIT MARGIN: _____% \n\nBREAK-EVEN ANALYSIS:\nUnits needed monthly = Fixed Costs ÷ (Price - Variable Cost)\nBreak-even units: _____\nExpected break-even month: Month _____\n\nCASH FLOW CONSIDERATIONS:\n• Initial capital needed: ৳_______\n• Expected cash reserves end of Month 6: ৳_______\n• Minimum cash buffer maintained: ৳_______\n\nKEY FINANCIAL METRICS:\n• Gross margin: _____%\n• Operating margin: _____%\n• Return on investment (Year 1): _____%\n• Payback period: _____ months"
+  }

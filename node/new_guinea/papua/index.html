@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>Food Sovereignty Quest — Papua New Guinea Highlands Edition</title>
+
+  <meta name="description" content="An ultra long-form, gamified field guide to food sovereignty for the Papua New Guinea Highlands: seed & tuber security, composted mounds, sweet potato systems, legumes, agroforestry with casuarina & coffee, frost/drought risk, storage, nutrition, and clan-led governance. Offline-ready with IndexedDB, Habitica sync, and an in-browser AI coach."/>
+  <meta name="keywords" content="Papua New Guinea Highlands, food sovereignty, sweet potato, kaukau, aibika, Rungia, peanut rotation, compost mounds, casuarina, coffee shade, agroforestry, frost, El Niño, PNG Highlands, Enga, Simbu, Eastern Highlands, Western Highlands, Goroka, Tambul, soil fertility, PNG agriculture"/>
+  <link rel="canonical" href="/food/"/>
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"/>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Food Sovereignty Quest — PNG Highlands"/>
+  <meta property="og:description" content="Gamified, offline-first guide to village-scale food security in the PNG Highlands."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="/food/"/>
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Food Sovereignty Quest — PNG Highlands"/>
+  <meta name="twitter:description" content="Quests, calculators, Habitica sync, offline progress, and a WebLLM Food Coach."/>
+
+  <!-- JSON-LD using your presentation schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid",
+    "@type": "Guide",
+    "name": "Food Sovereignty Quest — Papua New Guinea Highlands Edition",
+    "url": "/food/",
+    "inLanguage": "en",
+    "audience": {"@type":"Audience","audienceType":"PNG Highlands communities"},
+    "about": [
+      "Sweet potato-based systems", "Legume rotations", "Soil fertility & composting",
+      "Agroforestry with Casuarina & coffee", "Frost & drought buffers", "Storage & markets", "Nutrition & micronutrients"
+    ],
+    "creator": {"@type":"Organization","name":"Planetary Restoration Archive"},
+    "educationalUse": ["Field","Self-paced","Community workshop"],
+    "learningResourceType": ["HowTo","Checklist","Calculator","Game"],
+    "isPartOf": {"@type":"CreativeWorkSeries","name":"Food & Water Sovereignty PNG"},
+    "license": "https://creativecommons.org/licenses/by/4.0/"
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#030611; --card:rgba(255,255,255,0.08); --ink:#e8eefc; --ink-dim:#bcd;
+      --accent:#71ffe1; --accent2:#9bb8ff; --ok:#6ef773; --warn:#ffd86b; --bad:#ff6f6f;
+      --shadow:0 10px 30px rgba(0,0,0,0.35); --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,"Helvetica Neue",Arial,"Noto Sans";overflow-x:hidden}
+    canvas#starfield{position:fixed;inset:0;width:100vw;height:100vh;display:block;z-index:-2;background:radial-gradient(1200px 800px at 60% 10%,rgba(140,170,255,0.08),transparent 60%)}
+    .veil{position:fixed;inset:0;background:radial-gradient(1200px 800px at 40% 0%,rgba(0,0,0,0.35),transparent 60%);z-index:-1}
+    header{position:sticky;top:0;backdrop-filter:blur(6px);background:linear-gradient(180deg,rgba(3,6,17,0.85),rgba(3,6,17,0.55));z-index:10;border-bottom:1px solid rgba(255,255,255,0.08)}
+    .wrap{max-width:1100px;margin:0 auto;padding:22px}
+    nav a{color:var(--ink);text-decoration:none;margin-right:14px;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.08)}
+    nav a:hover{background:rgba(255,255,255,0.06)}
+    .hero{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center;padding:36px 22px 10px}
+    .hero h1{font-size:clamp(28px,5vw,48px);margin:0 0 8px;line-height:1.15}
+    .hero p{color:var(--ink-dim);margin:0}
+    .badgebar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .badge{background:var(--card);border:1px solid rgba(255,255,255,0.08);padding:8px 12px;border-radius:999px;font-size:13px}
+    .hud{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+    .hud .tile{background:var(--card);border:1px solid rgba(255,255,255,0.08);padding:14px;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hud .tile h3{margin:0 0 6px;font-size:14px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.06em}
+    .hud .value{font-size:22px}
+    section{padding:24px 22px}
+    section h2{font-size:22px;letter-spacing:.02em;margin:0 0 10px}
+    section h3{font-size:18px;margin:22px 0 8px}
+    .card,.callout{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .callout{border-left:3px solid var(--accent)}
+    .grid{display:grid;gap:16px}
+    .grid.cols2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.cols3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    @media (max-width:980px){.hero{grid-template-columns:1fr}.grid.cols2,.grid.cols3{grid-template-columns:1fr}}
+    .checklist li{list-style:none;display:grid;grid-template-columns:22px 1fr;gap:10px;padding:8px 0;align-items:start}
+    .checklist input[type=checkbox]{inline-size:20px;block-size:20px;margin-top:2px}
+    .btn{border:1px solid rgba(255,255,255,0.12);background:transparent;color:var(--ink);padding:10px 14px;border-radius:12px;cursor:pointer}
+    .btn:hover{background:rgba(255,255,255,0.06)}
+    .btn.primary{border-color:var(--accent)}
+    .muted{color:var(--ink-dim)}
+    .calc label{font-size:13px;color:var(--ink-dim)}
+    .calc input,.calc select,.calc textarea{width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.25);color:var(--ink);border-radius:10px}
+    .stack{display:grid;gap:10px}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+    footer{padding:40px 22px;color:var(--ink-dim)}
+    footer a{color:var(--accent2);text-decoration:none}
+    .tiny{font-size:12px;color:var(--ink-dim)}
+
+    /* WebLLM UI */
+    #coach { display: grid; gap: 8px; }
+    #coach-log { height: 260px; overflow: auto; padding: 10px; border-radius: 12px; border:1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.25); }
+    #coach-log .u{color:var(--accent)} #coach-log .a{color:var(--ink)}
+
+    :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="veil" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/water/">Water Sovereignty</a>
+        <a href="/food/" aria-current="page">Food Sovereignty</a>
+        <a href="#quests">Quests</a>
+        <a href="#calculators">Calculators</a>
+        <a href="#habitica">Habitica</a>
+        <a href="#coach">AI Coach</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap hero">
+    <div>
+      <h1>Food Sovereignty Quest<br><span class="muted">Papua New Guinea Highlands Edition</span></h1>
+      <p>Ground‑truth seed & tuber security, build fertile soils with composted mounds, keep protein & micronutrients steady, and weave agroforestry (casuarina, coffee, bananas) into clan‑led gardens. Offline‑ready. Field‑practical. Joyfully rigorous.</p>
+      <div class="badgebar">
+        <span class="badge">Offline progress (IndexedDB)</span>
+        <span class="badge">Sync tasks to Habitica</span>
+        <span class="badge">In‑browser AI Coach (WebLLM)</span>
+        <span class="badge">PNG Highlands field notes</span>
+      </div>
+
+      <div class="hud" role="status" aria-live="polite">
+        <div class="tile"><h3>Village XP</h3><div class="value mono" id="xp">0</div></div>
+        <div class="tile"><h3>Food Score</h3><div class="value mono" id="fscore">0%</div></div>
+        <div class="tile"><h3>Calories Secured</h3><div class="value mono" id="kcals">0</div></div>
+        <div class="tile"><h3>Last Saved</h3><div class="value mono" id="saved">—</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>PNG Highlands Quick Facts</h2>
+      <ul class="tiny" style="margin:0; padding-left:18px;">
+        <li>Sweet potato (<em>kaukau</em>) is the dominant staple in the Highlands; typical on‑farm yields are often ~20–40 t/ha at altitude (wide range). Casuarina trees frequently co‑grow with coffee and gardens. <em>[context for mounds, rotations, agroforestry]</em></li>
+        <li>Customary tenure covers most land; consent and clan governance are foundational to food plans.</li>
+        <li>El Niño droughts and high‑altitude frosts (e.g., 1997; 2015/16) disrupt tubers and greens — plan seasonal buffers and frost‑tolerant rotations.</li>
+      </ul>
+      <p class="tiny">Full evidence & references in Appendix A.</p>
+    </div>
+  </div>
+
+  <!-- QUESTS -->
+  <section id="quests" class="wrap">
+    <h2>Quest Log</h2>
+    <div class="grid cols2">
+
+      <div class="card">
+        <h3>Quest 01 — Seed & Tuber Security (1–3 days to set up; ongoing)</h3>
+        <p class="muted">Guarantee planting material year‑round: vines & tubers for sweet potato; seed for beans/maize; cuttings for aibika; suckers for bananas; slips for cassava. Map sources, rotate, and multiply.</p>
+        <ul class="checklist" id="q01">
+          <li><input type="checkbox" data-xp="15"><label>Create a community seed/tuber ledger: varieties, sources, dates, vigor notes</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Designate mother plots for sweet potato vine multiplication (disease‑free)</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Collect/produce bean & peanut seed (dry, insect‑safe storage; labeled)</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Set cassava slip garden; banana sucker registry; aibika cuttings bed</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Seasonal swap day: exchange clean material across hamlets</label></li>
+        </ul>
+        <button class="btn primary" data-save="q01">Save Progress</button>
+      </div>
+
+      <div class="card">
+        <h3>Quest 02 — Fertile Mounds & Compost (2–7 days build; ongoing)</h3>
+        <p class="muted">Composted mounds and planted fallows (e.g., casuarina) raise yields and keep soils breathing. Aim compost mixes near C:N ≈ 25–30:1; keep moisture 50–60%.</p>
+        <ul class="checklist" id="q02">
+          <li><input type="checkbox" data-xp="15"><label>Build test mounds with layered greens/browns (coffee pulp, grass, leaves, pig manure, husks)</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Use the C:N Mixer to balance materials; cover to shed heavy rain</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Plant vigorous sweet potato cuttings on composted mounds</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Start casuarina seedlings in a corner bed for planted fallow next year</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Keep a soil‑health log: texture, worms, smell, soil cover, runoff signs</label></li>
+        </ul>
+        <button class="btn primary" data-save="q02">Save Progress</button>
+      </div>
+
+      <div class="card">
+        <h3>Quest 03 — Crop Guilds & Agroforestry</h3>
+        <p class="muted">Stack food + trees: sweet potato with bananas on contour; casuarina rows feeding coffee shade and mulch; peanut/bean rotations to return N.</p>
+        <ul class="checklist" id="q03">
+          <li><input type="checkbox" data-xp="15"><label>Lay out contour lines; interplant bananas as living stakes & shade</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Plant casuarina strips (planted fallow) where gardens will rest 1–3 years</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Plan coffee under mixed shade (casuarina + fruit trees) near gardens</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Rotate peanuts/beans after tubers to rebalance soil; incorporate residues</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Leafy nutrient ladder: aibika, Rungia, pumpkin tips, amaranth in every plot</label></li>
+        </ul>
+        <button class="btn primary" data-save="q03">Save Progress</button>
+      </div>
+
+      <div class="card">
+        <h3>Quest 04 — Calendar, Frost & Drought Buffers</h3>
+        <p class="muted">El Niño droughts and highland frosts can hit hard. Hedge with staggered plantings, reserve plots, and starchy backups (cassava/banana at warmer sites).</p>
+        <ul class="checklist" id="q04">
+          <li><input type="checkbox" data-xp="10"><label>Draw a 12‑month crop calendar (planting, flowering, harvest windows)</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Stagger vine planting every 4–6 weeks for continuous roots</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Assign a lower‑frost reserve plot (or lower slope) for backup plantings</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Mulch aggressively pre‑frost; retain water with swales/groundcover</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Keep a 4–8 week starchy reserve (dried foods, faster crops like maize/beans)</label></li>
+        </ul>
+        <button class="btn primary" data-save="q04">Save Progress</button>
+      </div>
+
+      <div class="card">
+        <h3>Quest 05 — Protein & Micronutrient Ladder</h3>
+        <p class="muted">Staples feed calories; greens and legumes carry the vitamins/minerals and protein. Normalize beans + leafy greens with every meal.</p>
+        <ul class="checklist" id="q05">
+          <li><input type="checkbox" data-xp="10"><label>Set weekly bean/peanut targets; dry & store seed safely</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Plant aibika borders (cut‑and‑come again); add Rungia pockets</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Kitchen garden for herbs & vitamin‑rich leaves; add orange‑flesh SP varieties</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Solar dry greens surplus for lean months</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Track meals for a month; adjust garden layout to fix gaps</label></li>
+        </ul>
+        <button class="btn primary" data-save="q05">Save Progress</button>
+      </div>
+
+      <div class="card">
+        <h3>Quest 06 — Storage & Market Path (1–3 days set‑up + ongoing)</h3>
+        <p class="muted">Cure roots gently, reduce damage in transport, and shorten chains where possible. Use pit/clamp methods or ventilated store; know local price cycles.</p>
+        <ul class="checklist" id="q06">
+          <li><input type="checkbox" data-xp="10"><label>Trial curing (warm, humid, ventilated) for 3–7 days after harvest</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Pick a storage method (pit/clamp or cool ventilated store)</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Crate & cushion to reduce bruising on rough roads</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Record losses to city markets; test a closer market or bulk sell</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Post a “quality checklist” for harvest crew</label></li>
+        </ul>
+        <button class="btn primary" data-save="q06">Save Progress</button>
+      </div>
+
+      <div class="card">
+        <h3>Quest 07 — Pests & Diseases (Continuous)</h3>
+        <p class="muted">Prevent sweet potato weevil & scab with clean planting material, short field duration, rotation, sanitation, and variety choice.</p>
+        <ul class="checklist" id="q07">
+          <li><input type="checkbox" data-xp="10"><label>Plant only clean vines/slips; avoid wet, infected fields</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Harvest on time (don’t leave roots too long in dry spells)</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Rotate fields; destroy infected residues; avoid sequential planting on scabbed plots</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Mulch & cover cracks to deter weevil entry; trial traps if available</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Keep a pest diary: cultivar, symptoms, weather, actions</label></li>
+        </ul>
+        <button class="btn primary" data-save="q07">Save Progress</button>
+      </div>
+
+      <div class="card">
+        <h3>Quest 08 — Governance & Commons</h3>
+        <p class="muted">Food sovereignty is village sovereignty. Planting rights, land access, tuber/seed bank rules, and benefit sharing should be clan‑led and documented.</p>
+        <ul class="checklist" id="q08">
+          <li><input type="checkbox" data-xp="10"><label>Agree a seed/tuber bank charter (custodians, lending rules, disease checks)</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Document consent for new gardens on customary land; map sacred sites</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Annual agroforestry audit: shade balance, fallow plan, firebreaks</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Publish a community food calendar & reserve policy (lean‑season priorities)</label></li>
+          <li><input type="checkbox" data-xp="10"><label>Training rota: youth as soil testers, elders as crop historians</label></li>
+        </ul>
+        <button class="btn primary" data-save="q08">Save Progress</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CALCULATORS -->
+  <section id="calculators" class="wrap">
+    <h2>Calculators & Tools</h2>
+
+    <div class="grid cols3">
+
+      <div class="card calc">
+        <h3>Garden Area & Calories Planner</h3>
+        <div class="stack">
+          <label>People in household <input id="ga-people" type="number" min="1" step="1" value="7"></label>
+          <label>Target kcal/person/day <input id="ga-kppd" type="number" min="1200" step="50" value="2400"></label>
+          <label>% calories from sweet potato <input id="ga-spc" type="number" min="0" max="100" step="1" value="60"></label>
+          <label>% from cassava <input id="ga-cas" type="number" min="0" max="100" step="1" value="5"></label>
+          <label>% from banana/plantain <input id="ga-ban" type="number" min="0" max="100" step="1" value="10"></label>
+          <label>% from maize/other staples <input id="ga-oth" type="number" min="0" max="100" step="1" value="5"></label>
+          <label>Sweet potato yield (t/ha) <input id="ga-spy" type="number" min="5" max="60" step="1" value="28"></label>
+          <label>Cassava yield (t/ha) <input id="ga-casy" type="number" min="5" max="40" step="1" value="18"></label>
+          <label>Banana/plantain yield (t/ha) <input id="ga-bany" type="number" min="5" max="40" step="1" value="20"></label>
+          <label>Maize grain yield (t/ha) <input id="ga-maiy" type="number" min="0.5" max="8" step="0.1" value="2.0"></label>
+          <button class="btn primary" id="ga-go">Compute</button>
+          <div id="ga-out" class="mono tiny"></div>
+        </div>
+        <p class="tiny muted">Defaults reflect common Highlands conditions; edit for your cultivars and site. Sweet potato ~86 kcal/100 g raw; cassava ~160 kcal/100 g; banana/plantain ~89–122 kcal/100 g; maize ~365 kcal/100 g (dry). See Appendix A for sources.</p>
+      </div>
+
+      <div class="card calc">
+        <h3>Sweet Potato Multiplication & Harvest Stagger</h3>
+        <div class="stack">
+          <label>Starting vine bundles <input id="vm-start" type="number" min="1" step="1" value="10"></label>
+          <label>Cuttings per bundle <input id="vm-cpb" type="number" min="5" step="1" value="50"></label>
+          <label>New cuttings per plant (per cycle) <input id="vm-ncpp" type="number" min="2" step="1" value="8"></label>
+          <label>Cycles to build stock <input id="vm-cyc" type="number" min="1" step="1" value="2"></label>
+          <button class="btn" id="vm-go">Estimate Plantable Cuttings</button>
+          <div id="vm-out" class="mono tiny"></div>
+          <label>Harvest intervals (weeks) <input id="vm-int" type="number" min="3" step="1" value="4"></label>
+          <button class="btn" id="vm-plan">Make Harvest Plan</button>
+          <div id="vm-plan-out" class="mono tiny"></div>
+        </div>
+        <p class="tiny muted">Use clean, vigorous vines. Shorter field duration reduces weevil damage. Adjust cycles to match rains and frost windows.</p>
+      </div>
+
+      <div class="card calc">
+        <h3>Compost C:N Mixer (target 25–30:1)</h3>
+        <div class="stack">
+          <label>Greens (kg) — N‑rich
+            <select id="cn-green">
+              <option value="grass:17">Grass clippings (~17:1)</option>
+              <option value="coffee:20">Coffee pulp (~20:1)</option>
+              <option value="legume:16">Legume leaves (~16:1)</option>
+              <option value="manure:14">Pig manure (~14:1)</option>
+            </select>
+            <input id="cn-green-w" type="number" min="1" step="1" value="30">
+          </label>
+          <label>Browns (choose)
+            <select id="cn-brown">
+              <option value="leaves:60">Dry leaves (~60:1)</option>
+              <option value="banana:40">Banana leaves (~40:1)</option>
+              <option value="straw:80">Straw (~80:1)</option>
+              <option value="sawdust:400">Sawdust (~400:1)</option>
+            </select>
+          </label>
+          <button class="btn primary" id="cn-go">Balance Mix</button>
+          <div id="cn-out" class="mono tiny"></div>
+        </div>
+        <p class="tiny muted">Aim moisture 50–60%; keep pile aerated; cover in heavy rain. Expect mature compost C:N ≈ 8–14:1.</p>
+      </div>
+
+    </div>
+
+    <div class="callout" style="margin-top:14px;">
+      <strong>Field notes:</strong> Peanut/bean rotations after sweet potato help nitrogen; planted casuarina fallows restore fertility and supply mulch. Gentle curing improves root keeping quality; reduce bruising during transport.
+    </div>
+  </section>
+
+  <!-- HABITICA SYNC -->
+  <section id="habitica" class="wrap">
+    <h2>Habitica: Turn Quests into XP & Gold</h2>
+    <div class="grid cols2">
+      <div class="card">
+        <p>Enter your Habitica credentials locally (kept in your browser via IndexedDB). Push quest checklists as Habitica tasks (<em>To‑Dos</em> or <em>Dailies</em>).</p>
+        <div class="stack">
+          <label>User ID (UUID) <input id="h-user" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"></label>
+          <label>API Token <input id="h-key" placeholder="keep secret"></label>
+          <label>Task Type
+            <select id="h-type">
+              <option value="todo">To‑Dos</option>
+              <option value="daily">Dailies</option>
+            </select>
+          </label>
+          <button class="btn primary" id="h-save">Store Keys</button>
+          <button class="btn" id="h-push">Push Quests to Habitica</button>
+          <div class="tiny mono" id="h-msg"></div>
+        </div>
+        <p class="tiny muted">Docs: Habitica API v3 uses <code>x-api-user</code> and <code>x-api-key</code> headers with POST to <code>/tasks/user</code>. See Appendix A for link.</p>
+      </div>
+
+      <div class="card">
+        <h3>What gets created</h3>
+        <ul class="tiny">
+          <li>One parent task per Quest (e.g., “Quest 02 — Fertile Mounds & Compost”).</li>
+          <li>Checklist items mirror the steps above.</li>
+          <li>Metadata: tag = <code>Food Sovereignty PNG</code>, notes = source URL (/food/), and quick safety notes.</li>
+        </ul>
+        <p class="tiny muted">You can delete/edit tasks anytime in Habitica. Use “Reset All” below to clear local keys and progress.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEBLLM COACH -->
+  <section id="coach" class="wrap">
+    <h2>In‑Browser AI Coach (WebLLM)</h2>
+    <div class="grid cols2">
+      <div class="card">
+        <p class="muted">Runs locally with WebGPU. First load fetches a small model; cached after. If WebGPU isn’t available, you’ll see guidance below.</p>
+        <div id="coach-log" aria-live="polite"></div>
+        <div class="stack">
+          <textarea id="coach-prompt" rows="3" placeholder="Ask about compost C:N, frost buffers, casuarina fallow, peanut rotations, or curing sweet potato…"></textarea>
+          <div style="display:flex;gap:8px;">
+            <button class="btn primary" id="coach-init">Start Coach</button>
+            <button class="btn" id="coach-send">Send</button>
+          </div>
+          <div class="tiny mono" id="coach-status">Status: idle</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Safety & Scope</h3>
+        <p class="tiny muted">Coach focuses on Highlands cropping & storage basics and standard agronomy references. It won’t replace local agronomists or elders; it translates them into step‑by‑step plans you can test.</p>
+        <p class="tiny muted">Good prompts: “We farm at ~2,200 m with frost; plan a rotation mixing SP, beans, aibika, and bananas.”</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPENDIX A -->
+  <section id="appendix-a" class="wrap">
+    <h2>Appendix A — Field Specs & Quick References</h2>
+
+    <div class="grid cols2">
+      <div class="card">
+        <h3>Staples & energy hints (defaults)</h3>
+        <ul class="tiny">
+          <li>Sweet potato ~86 kcal/100 g raw; typical Highlands yields often 20–40 t/ha (site/variety dependent).</li>
+          <li>Cassava ~160 kcal/100 g raw; banana/plantain ~89–122 kcal/100 g.</li>
+          <li>Maize (dry grain) ~365 kcal/100 g.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Compost targets</h3>
+        <ul class="tiny">
+          <li>Initial C:N ≈ 25–30:1; moisture ~50–60% (hand‑squeeze test).</li>
+          <li>Mature compost C:N ~8–14:1; integrate residues after legumes.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Agroforestry motifs</h3>
+        <ul class="tiny">
+          <li>Casuarina planted fallows (and as coffee shade) help fertility & mulch.</li>
+          <li>Bananas on contour: living stakes + shade + food.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Frost & drought tips</h3>
+        <ul class="tiny">
+          <li>Stagger plantings; keep reserve plots lower on slope.</li>
+          <li>Mulch heavily before cold snaps; diversify starchy backups.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Storage & curing</h3>
+        <ul class="tiny">
+          <li>Cure 25–30 °C, RH 80–95% for ~3–7 days (ventilated); then cool storage ~14–16 °C, RH 85–90% where feasible.</li>
+          <li>Pit/clamp stores: line with dry grass, elevate from seepage; monitor rot weekly.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Pests & diseases</h3>
+        <ul class="tiny">
+          <li>Sweet potato weevil: use clean vines; harvest on time; reduce cracks/mulch; rotate.</li>
+          <li>Scab: avoid infected fields for next plantings; use tolerant varieties and clean cuttings; rotate.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="tiny muted">Cultural note: gardens are knowledge archives; document local names, calendars of winds/rains, and frost stories in every field log.</p>
+  </section>
+
+  <footer class="wrap">
+    <div style="display:flex;gap:14px;flex-wrap:wrap;">
+      <a href="/food/">/food/</a>
+      <a href="/water/">/water/</a>
+      <a href="#quests">Quests</a>
+      <a href="#calculators">Calculators</a>
+      <a href="#habitica">Habitica</a>
+      <a href="#coach">AI Coach</a>
+    </div>
+    <p class="tiny">Extend freely. Append new sections below or split into additional HTML files and link here.</p>
+    <button class="btn" id="reset-all">Reset All (local)</button>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    // Photorealistic(ish) star field
+    (function(){
+      const c = document.getElementById('starfield'); const ctx = c.getContext('2d');
+      let w,h,dpr,stars=[];
+      function resize(){ dpr=Math.max(1,Math.min(window.devicePixelRatio||1,2));
+        w=c.width=Math.floor(innerWidth*dpr); h=c.height=Math.floor(innerHeight*dpr);
+        c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px'; }
+      function rand(a,b){return a+Math.random()*(b-a)}
+      function init(){ stars.length=0; const count=Math.floor((innerWidth*innerHeight)/2200);
+        for(let i=0;i<count;i++){ stars.push({x:rand(0,w),y:rand(0,h),z:rand(0.2,1),r:rand(0.4,1.6),
+          tw:rand(0.002,0.01),ph:rand(0,Math.PI*2),tint:Math.random()<0.7?'white':(Math.random()<0.5?'#9bb8ff':'#ffd9a8')});}}
+      function draw(){ ctx.clearRect(0,0,w,h);
+        for(const s of stars){ s.ph+=s.tw; const pulse=0.6+Math.sin(s.ph)*0.4; const parallax=(s.z-0.5)*0.2;
+          s.x+=parallax; if(s.x<0)s.x+=w; if(s.x>w)s.x-=w; const r=(s.r*pulse)*dpr;
+          const g=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,r*2.2);
+          g.addColorStop(0,'rgba(255,255,255,0.9)');
+          g.addColorStop(0.4,s.tint==='white'?'rgba(255,255,255,0.55)':(s.tint==='#9bb8ff'?'rgba(155,184,255,0.55)':'rgba(255,217,168,0.55)'));
+          g.addColorStop(1,'rgba(0,0,0,0)'); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(s.x,s.y,r*2.2,0,Math.PI*2); ctx.fill(); }
+        requestAnimationFrame(draw); }
+      addEventListener('resize',()=>{resize();init()}); resize(); init(); draw();
+    })();
+
+    // IndexedDB minimal wrapper (same DB as /water/, different keys)
+    const DB = {
+      _db:null,
+      async open(){return new Promise((res,rej)=>{const r=indexedDB.open('pra-sovereignty',1);
+        r.onupgradeneeded=e=>{const db=e.target.result;
+          if(!db.objectStoreNames.contains('progress')) db.createObjectStore('progress');
+          if(!db.objectStoreNames.contains('kv')) db.createObjectStore('kv');};
+        r.onsuccess=()=>{DB._db=r.result;res(DB._db)}; r.onerror=()=>rej(r.error);});},
+      async set(store,key,val){await DB.open();return new Promise((res,rej)=>{const tx=DB._db.transaction(store,'readwrite');
+        tx.objectStore(store).put(val,key); tx.oncomplete=res; tx.onerror=()=>rej(tx.error);});},
+      async get(store,key){await DB.open();return new Promise((res,rej)=>{const tx=DB._db.transaction(store,'readonly');
+        const rq=tx.objectStore(store).get(key); rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error);});},
+      async clearAll(){await DB.open();return new Promise((res,rej)=>{const tx=DB._db.transaction(['progress','kv'],'readwrite');
+        tx.objectStore('progress').clear(); tx.objectStore('kv').clear(); tx.oncomplete=res; tx.onerror=()=>rej(tx.error);});}
+    };
+
+    // Quest save/restore
+    const quests=['q01','q02','q03','q04','q05','q06','q07','q08'];
+    const xpEl=document.getElementById('xp'), fscoreEl=document.getElementById('fscore'), kcalsEl=document.getElementById('kcals'), savedEl=document.getElementById('saved');
+
+    async function loadProgress(){
+      let xp=await DB.get('kv','food-xp')||0; xpEl.textContent=xp;
+      let done=0,total=0;
+      for(const q of quests){
+        const saved=(await DB.get('progress','food-'+q))||[];
+        const list=document.getElementById(q);
+        if(list){
+          const boxes=[...list.querySelectorAll('input[type=checkbox]')];
+          boxes.forEach((box,i)=>{box.checked=!!saved[i];});
+          done+=boxes.filter(b=>b.checked).length; total+=boxes.length;
+        }
+      }
+      fscoreEl.textContent=total? Math.round((done/total)*100)+'%':'0%';
+      kcalsEl.textContent=(await DB.get('kv','food-kcals'))||0;
+      const savedAt=await DB.get('kv','food-savedAt'); savedEl.textContent=savedAt?new Date(savedAt).toLocaleString():'—';
+    }
+
+    function bumpXP(delta){
+      const val=Math.max(0,(parseInt(xpEl.textContent,10)||0)+delta);
+      xpEl.textContent=val; DB.set('kv','food-xp',val);
+    }
+
+    document.addEventListener('click',async(e)=>{
+      const b=e.target.closest('button[data-save]'); if(!b) return;
+      const id=b.getAttribute('data-save'); const ul=document.getElementById(id);
+      const boxes=[...ul.querySelectorAll('input[type=checkbox]')];
+      const state=boxes.map(b=>b.checked);
+      await DB.set('progress','food-'+id,state); await DB.set('kv','food-savedAt',Date.now());
+      savedEl.textContent=new Date().toLocaleString();
+      let xpAdd=0; boxes.forEach(box=>{if(box.checked && !box._counted){xpAdd+=parseInt(box.dataset.xp||'0',10); box._counted=true;}});
+      if(xpAdd>0) bumpXP(xpAdd);
+      const all=quests.map(q=>document.getElementById(q)).flatMap(ul=>[...ul.querySelectorAll('input[type=checkbox]')]);
+      const done=all.filter(b=>b.checked).length; fscoreEl.textContent=all.length?Math.round((done/all.length)*100)+'%':'0%';
+    });
+
+    // === Calculators ===
+    // Calorie densities (kcal/kg) defaults; editable upstream via inputs:
+    const KCAL = { sp: 860, cassava: 1600, banana: 900, maize: 3650 };
+
+    function kgFromYieldHa(t_per_ha){ return t_per_ha*1000; } // kg/ha
+    function areaForCalories(kcalNeeded, shares, yields){
+      // shares: fraction per crop; yields: kg/ha yield + kcal/kg constants above
+      const out = {};
+      for(const crop of Object.keys(shares)){
+        const frac = shares[crop];
+        if(frac<=0) { out[crop]={ha:0, kcal:0}; continue; }
+        const kcalCrop = kcalNeeded * frac;
+        const kcalPerHa = (kgFromYieldHa(yields[crop]) * KCAL[crop]);
+        const ha = kcalCrop / Math.max(1,kcalPerHa);
+        out[crop] = {ha, kcal:kcalCrop};
+      }
+      const totalHa = Object.values(out).reduce((a,b)=>a+b.ha,0);
+      return {byCrop: out, totalHa};
+    }
+
+    document.getElementById('ga-go').addEventListener('click', ()=>{
+      const ppl = +document.getElementById('ga-people').value;
+      const kppd = +document.getElementById('ga-kppd').value;
+      const spc = +document.getElementById('ga-spc').value/100;
+      const cas = +document.getElementById('ga-cas').value/100;
+      const ban = +document.getElementById('ga-ban').value/100;
+      const oth = +document.getElementById('ga-oth').value/100;
+      const tot = spc+cas+ban+oth; if(Math.abs(tot-1)>0.0001){ alert('Calorie shares must add to 100%.'); return; }
+      const yields = {
+        sp: +document.getElementById('ga-spy').value,
+        cassava: +document.getElementById('ga-casy').value,
+        banana: +document.getElementById('ga-bany').value,
+        maize: +document.getElementById('ga-maiy').value
+      };
+      const annualKcal = ppl * kppd * 365;
+      const res = areaForCalories(annualKcal, {sp:spc,cassava:cas,banana:ban,maize:oth}, yields);
+      const fmtHa = v => (v*1).toFixed(3);
+      const o = res.byCrop;
+      const msg =
+        `Annual kcal need ≈ ${annualKcal.toLocaleString()} kcal.\n`+
+        `Area by crop (ha): SP ${fmtHa(o.sp.ha)}, Cassava ${fmtHa(o.cassava.ha)}, Banana ${fmtHa(o.banana.ha)}, Maize ${fmtHa(o.maize.ha)}.\n`+
+        `Total area ≈ ${fmtHa(res.totalHa)} ha (edit yields/shares to fit your site).`;
+      document.getElementById('ga-out').textContent = msg;
+      DB.set('kv','food-kcals', annualKcal);
+    });
+
+    document.getElementById('vm-go').addEventListener('click', ()=>{
+      const start = +document.getElementById('vm-start').value;
+      const cpb = +document.getElementById('vm-cpb').value;
+      const ncpp = +document.getElementById('vm-ncpp').value;
+      const cyc = +document.getElementById('vm-cyc').value;
+      let cuttings = start * cpb;
+      for(let i=0;i<cyc;i++){ cuttings += cuttings * ncpp; } // simplistic upper bound
+      document.getElementById('vm-out').textContent = `Rough upper-bound cuttings available after ${cyc} cycle(s): ~${Math.floor(cuttings).toLocaleString()} (assumes vigorous vines & disease-free beds).`;
+    });
+
+    document.getElementById('vm-plan').addEventListener('click', ()=>{
+      const w = +document.getElementById('vm-int').value;
+      const plan = Array.from({length:6},(_,i)=>`Harvest batch ${i+1} at week ${i*w}–${i*w+w-1}`);
+      document.getElementById('vm-plan-out').textContent = plan.join(' | ');
+    });
+
+    // C:N mixer (two-component balance)
+    function balanceCN(gName, gCN, gW, bName, bCN){
+      const target = 28; // middle of 25–30
+      // Solve for brown weight Wb: (Cg*Wg + Cb*Wb)/(Ng*Wg + Nb*Wb) = target
+      // where C:N means C/N ratio; assume N=1 unit reference => C = CN; rearrange:
+      // (gCN*Wg + bCN*Wb) / (1*Wg + 1*Wb) = target  => (gCN*Wg + bCN*Wb) = target*(Wg + Wb)
+      // => (bCN - target)*Wb = (target - gCN)*Wg
+      const numerator = (target - gCN) * gW;
+      const denom = (bCN - target);
+      const Wb = denom !== 0 ? Math.max(0, numerator/denom) : 0;
+      return {greens:{name:gName, kg:gW, cn:gCN}, browns:{name:bName, kg:Wb, cn:bCN}, target};
+    }
+
+    document.getElementById('cn-go').addEventListener('click', ()=>{
+      const gSel = document.getElementById('cn-green').value.split(':'); const gName=gSel[0], gCN=+gSel[1];
+      const gW = +document.getElementById('cn-green-w').value;
+      const bSel = document.getElementById('cn-brown').value.split(':'); const bName=bSel[0], bCN=+bSel[1];
+      const res = balanceCN(gName,gCN,gW,bName,bCN);
+      document.getElementById('cn-out').textContent =
+        `To hit C:N≈${res.target}: mix ${res.greens.kg} kg ${res.greens.name} with ~${res.browns.kg.toFixed(1)} kg ${res.browns.name}. Check moisture (squeeze: damp, not dripping).`;
+    });
+
+    // Habitica integration (same pattern as /water/, different namespace)
+    async function hGet(k){ return await DB.get('kv', 'food-'+k); }
+    async function hSet(k,v){ return await DB.set('kv','food-'+k, v); }
+    const hUser=document.getElementById('h-user'), hKey=document.getElementById('h-key'), hType=document.getElementById('h-type'), hMsg=document.getElementById('h-msg');
+    (async()=>{ hUser.value=await hGet('habitica-user')||''; hKey.value=await hGet('habitica-key')||''; hType.value=await hGet('habitica-type')||'todo'; })();
+    document.getElementById('h-save').addEventListener('click', async ()=>{
+      await hSet('habitica-user', hUser.value.trim());
+      await hSet('habitica-key', hKey.value.trim());
+      await hSet('habitica-type', hType.value);
+      hMsg.textContent='Keys stored locally.';
+    });
+    function collectQuestPayloads(){
+      const all=[];
+      for(const q of quests){
+        const ul=document.getElementById(q);
+        const title=ul.parentElement.querySelector('h3').textContent.trim();
+        const notes=(ul.parentElement.querySelector('p')?.textContent||'').trim()+'\n\nSource: /food/';
+        const checks=[...ul.querySelectorAll('label')].map(l=>({text:l.textContent.trim(),completed:false}));
+        all.push({title,notes,checklist:checks});
+      }
+      return all;
+    }
+    async function pushToHabitica(){
+      hMsg.textContent='Pushing…';
+      const uid=hUser.value.trim(), key=hKey.value.trim(), ttype=hType.value;
+      if(!uid||!key){ hMsg.textContent='Missing User ID or API Token.'; return; }
+      const tasks=collectQuestPayloads().map(t=>({text:t.title,type:ttype,notes:t.notes,tags:[],checklist:t.checklist}));
+      try{
+        for(const task of tasks){
+          const res=await fetch('https://habitica.com/api/v3/tasks/user',{method:'POST',headers:{
+            'Content-Type':'application/json','x-api-user':uid,'x-api-key':key,'x-client':'pra-food-guide'
+          }, body:JSON.stringify(task)});
+          if(!res.ok){ const t=await res.text(); throw new Error('Habitica error: '+res.status+' '+t); }
+        }
+        hMsg.textContent=`Created ${tasks.length} tasks in Habitica.`;
+      }catch(err){ hMsg.textContent = (''+err).slice(0,300); }
+    }
+    document.getElementById('h-push').addEventListener('click', pushToHabitica);
+
+    // WebLLM Coach
+    let coachEngine=null;
+    async function ensureWebLLM(){
+      if(!('gpu' in navigator)){ document.getElementById('coach-status').textContent='Status: WebGPU not available. Try a Chromium-based browser with WebGPU.'; return null; }
+      if(coachEngine) return coachEngine;
+      document.getElementById('coach-status').textContent='Status: loading model…';
+      const mod = await import('https://unpkg.com/@mlc-ai/web-llm/dist/webllm.min.js');
+      const model = "Llama-3-8B-Instruct-q4f32_1-MLC";
+      coachEngine = await mod.CreateMLCEngine(model,{logLevel:"INFO"});
+      document.getElementById('coach-status').textContent='Status: ready';
+      return coachEngine;
+    }
+    const coachLog=document.getElementById('coach-log');
+    function addMsg(kind,text){ const d=document.createElement('div'); d.className=kind==='user'?'u':'a'; d.textContent=(kind==='user'?'You: ':'Coach: ')+text; coachLog.appendChild(d); coachLog.scrollTop=coachLog.scrollHeight; }
+    document.getElementById('coach-init').addEventListener('click', ensureWebLLM);
+    document.getElementById('coach-send').addEventListener('click', async ()=>{
+      const q=document.getElementById('coach-prompt').value.trim(); if(!q) return;
+      addMsg('user', q);
+      const engine=await ensureWebLLM(); if(!engine) return;
+      const sys=`You are a Food Sovereignty Coach for PNG Highlands. Ground your steps in these points:
+- Sweet potato is the core staple at altitude; typical yields can be 20–40 t/ha in Highlands (wide range).
+- Use composted mounds and planted casuarina fallows; rotate peanuts/beans after sweet potato.
+- Compost targets: C:N ~25–30:1, moisture ~50–60%.
+- Cure sweet potato at ~25–30°C, RH 80–95% for ~3–7 days; then store near 14–16°C, RH 85–90% where feasible.
+- Frost & El Niño droughts: stagger plantings and keep lower-slope reserve plots.
+Keep answers stepwise, pragmatic, and respectful of customary governance.`;
+      const reply = await coachEngine.chat.completions.create({
+        messages:[{role:'system',content:sys},{role:'user',content:q}], temperature:0.4, stream:false
+      });
+      addMsg('assistant', reply.choices?.[0]?.message?.content || '(no reply)');
+    });
+
+    // Reset
+    document.getElementById('reset-all').addEventListener('click', async ()=>{
+      if(confirm('Clear all locally stored progress and keys?')){ await DB.clearAll(); location.reload(); }
+    });
+
+    // Service Worker (cache for offline)
+    if('serviceWorker' in navigator){
+      const swCode = `
+        const CACHE='pra-food-v1';
+        self.addEventListener('install', e=>{ e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./']))); self.skipWaiting(); });
+        self.addEventListener('activate', e=>{ e.waitUntil(self.clients.claim()); });
+        self.addEventListener('fetch', e=>{
+          const url=new URL(e.request.url);
+          if(url.origin===location.origin){
+            e.respondWith(caches.match(e.request).then(r=> r || fetch(e.request).then(res=>{
+              const copy=res.clone(); caches.open(CACHE).then(c=>c.put(e.request, copy)); return res;
+            })));
+          }
+        });
+      `;
+      const blob = new Blob([swCode], {type:'text/javascript'});
+      navigator.serviceWorker.register(URL.createObjectURL(blob));
+    }
+
+    // Initial load
+    loadProgress();
+  </script>
+</body>
+</html>

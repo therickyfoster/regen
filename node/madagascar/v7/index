@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Madagascar Food & Water Sovereignty • Field Handbook (v1)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="description" content="Ultra-long-form, offline-first guide to food & water sovereignty for Madagascar: what to grow, where to source, how to build, how to use—plus safety notes, references, gamified mnemonics, HUD, IndexedDB notepad, tlk.io chat (collapsed), and service-worker caching.">
+  <link rel="manifest" href="data:application/manifest+json,{&quot;name&quot;:&quot;Madagascar Sovereignty&quot;,&quot;short_name&quot;:&quot;MDG Sovereignty&quot;,&quot;start_url&quot;:&quot;.&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#000010&quot;,&quot;theme_color&quot;:&quot;#000010&quot;}" />
+  <style>
+    :root{
+      --bg:#000010; --ink:#eef2ff; --muted:#9aa4c7; --accent:#7ee0ff; --ok:#6cfacc; --warn:#ffd166; --bad:#ff6b6b;
+      --glass: rgba(255,255,255,.06); --glass-2: rgba(255,255,255,.14); --shadow: 0 10px 40px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;overflow-x:hidden}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+    h1,h2,h3{line-height:1.1;margin:0 0 .5rem} h1{font-size:clamp(1.6rem,3vw,2.2rem)}
+    h2{font-size:clamp(1.3rem,2.2vw,1.6rem)} h3{font-size:clamp(1.1rem,2vw,1.3rem)}
+    p,li{color:#e8ebff}
+    code,kbd{background:rgba(255,255,255,.06);padding:.15rem .35rem;border-radius:.35rem}
+    /* Parallax constellation canvas & depth layers */
+    #space{position:fixed;inset:0;z-index:-3}
+    .layer{position:fixed;inset:0;pointer-events:none;z-index:-2;background:radial-gradient(1200px 800px at 60% -10%, rgba(120,180,255,.08), transparent 60%), radial-gradient(900px 700px at 10% 110%, rgba(160,120,255,.06), transparent 60%)}
+    /* Glass cards */
+    .card{backdrop-filter: blur(10px) saturate(120%); background:var(--glass); border:1px solid var(--glass-2); border-radius:16px; padding:1.1rem; box-shadow:var(--shadow)}
+    .wrap{max-width:1200px;margin:0 auto;padding:3.5rem 1.2rem}
+    header.nav{position:sticky;top:.6rem;z-index:30;display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;justify-content:space-between;background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,0)); padding:.6rem 1rem;border-radius:14px}
+    .nav a{padding:.45rem .7rem;border-radius:12px;background:var(--glass);border:1px solid var(--glass-2)}
+    .grid{display:grid;gap:1rem}
+    @media (min-width:900px){ .grid.cols-2{grid-template-columns:1fr 1fr} .grid.cols-3{grid-template-columns:repeat(3,1fr)} }
+    /* HUD */
+    #hud{position:fixed;right:1rem;bottom:1rem;z-index:40;display:flex;flex-direction:column;gap:.5rem}
+    .hud-panel{width:min(380px,90vw);max-height:65vh;overflow:auto}
+    .hud-btn{border-radius:50%;width:56px;height:56px;background:var(--glass);border:1px solid var(--glass-2);display:grid;place-items:center;cursor:pointer}
+    .pill{display:inline-flex;gap:.4rem;align-items:center;padding:.3rem .6rem;border-radius:999px;border:1px solid var(--glass-2);background:var(--glass)}
+    .muted{color:var(--muted)}
+    /* Sections & tooltips */
+    section{scroll-margin-top:90px}
+    [data-tip]{position:relative;cursor:help;border-bottom:1px dotted var(--muted)}
+    [data-tip]:hover::after{content:attr(data-tip);position:absolute;left:0;top:110%;width:max-content;max-width:280px;background:#0b1025;color:#eef2ff;padding:.55rem .7rem;border-radius:10px;border:1px solid var(--glass-2);box-shadow:var(--shadow);white-space:normal}
+    /* Tables */
+    table{width:100%;border-collapse:separate;border-spacing:0 8px}
+    th,td{text-align:left;padding:.55rem .7rem}
+    th{color:#bcd1ff;font-weight:600}
+    tr{background:var(--glass);border:1px solid var(--glass-2)}
+    tr td:first-child, tr th:first-child {border-top-left-radius:10px;border-bottom-left-radius:10px}
+    tr td:last-child, tr th:last-child {border-top-right-radius:10px;border-bottom-right-radius:10px}
+    /* Collapsibles */
+    details{background:var(--glass);border:1px solid var(--glass-2);border-radius:12px;padding:.7rem}
+    details>summary{cursor:pointer;font-weight:700}
+    /* tlk.io toggle panel (collapsed by default) */
+    #chatWrap{position:fixed;left:1rem;bottom:1rem;z-index:40;display:flex;flex-direction:column;gap:.5rem;align-items:flex-start}
+    #chatPanel{display:none;width:min(420px,92vw);height:min(60vh,520px)}
+    /* IndexedDB notepad styles */
+    textarea{width:100%;min-height:140px;border-radius:10px;background:#0a0f25;color:#e8ebff;border:1px solid var(--glass-2);padding:.7rem}
+    .ok{color:var(--ok)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+    footer{opacity:.9}
+    .badge{font-size:.85rem}
+  </style>
+</head>
+<body>
+<canvas id="space" aria-hidden="true"></canvas>
+<div class="layer" aria-hidden="true"></div>
+
+<header class="nav wrap card">
+  <div class="pill"><strong>Madagascar Sovereignty HUD</strong><span class="badge">v1</span></div>
+  <nav class="nav" aria-label="Jump">
+    <a href="#overview">Overview</a>
+    <a href="#food-systems">Food</a>
+    <a href="#water-systems">Water</a>
+    <a href="#sourcing">Sourcing</a>
+    <a href="#edibles">Edible Safety</a>
+    <a href="#builds">DIY Builds</a>
+    <a href="#mnemonics">Mnemonics</a>
+    <a href="#notes">Notes</a>
+    <a href="#refs">References</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section id="overview" class="card">
+    <h1>Food & Water Sovereignty for Madagascar — Ultra-Field Guide</h1>
+    <p class="muted">Climate bands: humid coasts, temperate highlands, <em>arid south</em>. Staples are rice (lowland & irrigated), cassava, maize, sweet potato; pulses & groundnut are vital proteins and cash. SRI (System of Rice Intensification) was pioneered <em>in Madagascar</em> to grow more rice with less water and seed. 0</p>
+    <p><strong>Mission:</strong> decentralize calories, protein, micronutrients, and safe water with <em>local species, local skills, local governance</em>. The build patterns here prefer low-cost, repairable designs and community maintenance.</p>
+    <p class="warn"><strong>Safety first.</strong> Foraging and water treatment can be dangerous. Do <em>not</em> consume any wild plant or untreated water without positive identification and proper treatment. Where chemicals or fuel contamination is suspected, choose a different source. 1</p>
+  </section>
+
+  <section id="food-systems" class="grid cols-2">
+    <article class="card">
+      <h2>Priority Crops by Zone</h2>
+      <table aria-describedby="crop-notes">
+        <thead><tr><th>Zone</th><th>High-value staples & allies</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Lowland irrigated</td><td>Rice (SRI methods), fish-rice, azolla</td><td>SRI = younger seedlings, wider spacing, intermittent irrigation; boosts yield & water efficiency. 2</td></tr>
+          <tr><td>Highlands</td><td>Potato, beans, vegetables, fruit trees</td><td>Contour beds & compost teas help counter erosion and low soil fertility. 3</td></tr>
+          <tr><td>Arid South</td><td>Cassava, sorghum, maize, <span data-tip="Kappaphycus alvarezii (red seaweed ‘cottonii’)">seaweed</span>, <span data-tip="Opuntia spp. (pads & fruit edible once properly prepared, but invasive)">prickly pear</span>, pigeon pea</td><td>Drought-tolerant mix; community aquaculture adds income & food; manage <em>Opuntia</em> carefully. 4</td></tr>
+          <tr><td>Coasts</td><td>Breadfruit, coconut, banana, taro, fish, seaweed</td><td>Breadfruit = climate-resilient starch & flour; agroforestry with root crops. 5</td></tr>
+        </tbody>
+      </table>
+      <p id="crop-notes" class="muted">Crop patterns adapted from FAO/GIEWS & agronomic sources. 6</p>
+    </article>
+
+    <article class="card">
+      <h2>Nutrition-Dense Trees & Plants</h2>
+      <ul>
+        <li><strong>Moringa oleifera</strong> — edible leaves, pods, seeds; exceptional vitamins A, C, E; use as leaf powder supplement. <span class="muted">Introduce gradually to avoid GI upset.</span> 7</li>
+        <li><strong>Breadfruit (Artocarpus altilis)</strong> — starchy staple, gluten-free flour; resilient under heat; pairs well with root crops in agroforestry. 8</li>
+        <li><strong>Pigeon pea (Cajanus cajan)</strong> — protein, fixes nitrogen; hedgerows reduce wind & feed goats.</li>
+        <li><strong>Sweet potato, cassava</strong> — lean-season calories; practice cyanide-safe cassava processing (soak/ferment/dry). 9</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Community Aquaculture (Coasts)</h2>
+      <p>Women-led seaweed (<em>cottonii</em>) and sea cucumber (<em>Holothuria scabra</em>) farming in LMMAs (locally managed marine areas) increases food security & income while reducing fishing pressure. 10</p>
+    </article>
+
+    <article class="card">
+      <h2>Wild Foods: Caution + Opportunity</h2>
+      <p>During <em>kere</em> (hunger seasons), well-identified wild foods can support diet diversity—<em>but misidentification is dangerous</em>. Train local ID skills and keep laminated guides. 11</p>
+      <details>
+        <summary>Example: Prickly pear (<em>Opuntia</em> spp.) — edible pads & fruit</summary>
+        <p>Used by Malagasy communities in the southwest. De-spine carefully; glochids can injure skin—sear over flame, then peel. Cook pads as a vegetable; fruit (“tuna”) eaten ripe. Also invasive; manage responsibly. 12</p>
+      </details>
+    </article>
+  </section>
+
+  <section id="water-systems" class="grid cols-2">
+    <article class="card">
+      <h2>Safe Water: Principles</h2>
+      <ul>
+        <li><strong>Protect source</strong> (spring caps, sealed tanks) → <strong>Pre-filter</strong> (screen/sediment) → <strong>Treat</strong> (boil, chlorinate, SODIS, biosand) → <strong>Safe storage</strong> (narrow-neck, lids). 13</li>
+        <li>Boiling inactivates microbes; chlorination works when dosed correctly; sunlight (SODIS) works with clear PET bottles & full sun; <em>none</em> of these remove fuel/chemical contamination. 14</li>
+      </ul>
+      <p class="muted">National context: rainfall variability & drought in the south; rural coverage for safely managed water is low—designs must be rugged & locally serviceable. 15</p>
+    </article>
+
+    <article class="card">
+      <h2>Rainwater Harvesting (Household)</h2>
+      <ul>
+        <li><strong>Roof + gutter + leaf screen</strong> → <strong>first-flush diverter</strong> → <strong>sealed tank</strong> with lockable lid</li>
+        <li><strong>First flush sizing:</strong> tune to local rainfall & debris load; research shows volume should reflect storm intensity. 16</li>
+        <li>Keep inlet screened & overflow mosquito-proof; clean catchment regularly. 17</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Biosand Filter (Household/Community)</h2>
+      <p>A concrete or plastic column of sand & gravel with a living “schmutzdecke” layer that removes pathogens & turbidity. Buildable with local materials; requires correct sand size & flow rate. 18</p>
+      <details>
+        <summary>Build at a glance (see full manuals in References)</summary>
+        <ol>
+          <li>Concrete mold or food-grade plastic vessel ~1 m tall.</li>
+          <li>Underdrain gravel → medium sand (effective size ~0.15–0.35 mm) → diffuser plate.</li>
+          <li>Condition for 1–2 weeks of daily use for bio-layer to mature.</li>
+          <li>Maintain flow ~0.4 L/min; clean by swirl & dump (no full sand disturbance). 19</li>
+        </ol>
+      </details>
+    </article>
+
+    <article class="card">
+      <h2>Household Treatment Quick Reference</h2>
+      <table>
+        <thead><tr><th>Method</th><th>How</th><th>Pros</th><th>Limitations</th></tr></thead>
+        <tbody>
+          <tr><td>Boil</td><td>Rolling boil 1 minute (longer at altitude)</td><td>Very effective vs. microbes</td><td>Fuel cost; no chemical removal. 20</td></tr>
+          <tr><td>Chlorinate</td><td>Follow product dose; 30 min contact</td><td>Residual protection</td><td>Taste; efficacy drops in very turbid water. 21</td></tr>
+          <tr><td>SODIS</td><td>Fill clear PET ≤2L; 6 h full sun (cloudy: 2 days)</td><td>Zero fuel</td><td>Needs sun & clear water; no chemicals removal. 22</td></tr>
+          <tr><td>Biosand</td><td>As above</td><td>Microbial + turbidity control</td><td>Correct media & upkeep required. 23</td></tr>
+        </tbody>
+      </table>
+    </article>
+  </section>
+
+  <section id="sourcing" class="grid cols-2">
+    <article class="card">
+      <h2>Where to Source (Local-first)</h2>
+      <ul>
+        <li><strong>Local markets & farmer co-ops:</strong> cassava stakes, sweet potato slips, bean/groundnut seed, moringa pods.</li>
+        <li><strong>Rice networks using SRI:</strong> farmer groups like <em>Kolo Harena</em> (central-east) for methods and nursery tips. 24</li>
+        <li><strong>Coastal LMMAs & NGOs:</strong> community seaweed & sea cucumber seedstock and training (Velondriake, Belo-sur-Mer). 25</li>
+        <li><strong>Municipal & faith orgs:</strong> gutters, tanks, and biosand materials pooled for bulk pricing.</li>
+      </ul>
+    </article>
+    <article class="card">
+      <h2>What to Stock</h2>
+      <ul>
+        <li><strong>Water:</strong> gutters, mesh screens, PVC, ball valves, food-grade storage, chlorine test strips, PET bottles.</li>
+        <li><strong>Soil:</strong> shovels, hoes, hoes-with-teeth (for contouring), wheelbarrows, mulch tarps, compost frames.</li>
+        <li><strong>Seed & plant:</strong> rice (local), cassava stakes, pigeon pea, groundnut, moringa, breadfruit (grafts/air-layers).</li>
+        <li><strong>Kitchen:</strong> dehydration racks, solar dryer sheets, fermenting tubs for cassava safety.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section id="edibles" class="grid cols-2">
+    <article class="card">
+      <h2>Edible Safety — Golden Rules</h2>
+      <ol>
+        <li><strong>Positive ID only.</strong> Use Latin names and local names with photo guides. When uncertain, <em>do not eat</em>.</li>
+        <li><strong>Preparation matters.</strong> Some foods (cassava) require soaking/fermenting/drying to reduce toxins. 26</li>
+        <li><strong>Allergy & meds check.</strong> Example: breadfruit is nutritious but high in potassium—consider kidney conditions/meds. 27</li>
+        <li><strong>Start small.</strong> Introduce new foods gradually (e.g., moringa) to watch for GI effects. 28</li>
+      </ol>
+    </article>
+    <article class="card">
+      <h2>Quick ID Cards (examples)</h2>
+      <details><summary><strong>Moringa</strong> — leaf powder & fresh leaves</summary><p>Nutrient-dense; add a spoon to stews/porridge. Dry in shade, not sun, to preserve vitamins. 29</p></details>
+      <details><summary><strong>Breadfruit</strong> — boil, roast, or mill to flour</summary><p>Behaves like potato/plantain; great for chips, mash, or breads; thrives in coastal agroforestry. 30</p></details>
+      <details><summary><strong>Prickly pear</strong> — pads (nopales) & fruit</summary><p>De-glochid with flame; peel; cook pads like okra; strain seeds from fruit juice. Manage spread. 31</p></details>
+    </article>
+  </section>
+
+  <section id="builds" class="grid cols-2">
+    <article class="card">
+      <h2>DIY: 2000 L Rain Tank with First-Flush</h2>
+      <ol>
+        <li>Gutters → leaf screen → downpipe.</li>
+        <li>First-flush tee with ball valve & cleanout; size per local storm profile. 32</li>
+        <li>Food-grade tank (sealed lid), screened overflow, concrete or packed-sand base. 33</li>
+        <li>Tap at 15–25 cm from base to avoid sediment draw.</li>
+      </ol>
+    </article>
+    <article class="card">
+      <h2>DIY: Biosand Filter — Field Checklist</h2>
+      <ul>
+        <li>Concrete mold or drum, diffuser plate, graded sand (0.15–0.35 mm ES), pea gravel, outlet pipe, lid. 34</li>
+        <li>Flow rate ~0.4 L/min; keep continuous use to maintain bio-layer; clean with swirl & dump. 35</li>
+      </ul>
+      <p><a href="#refs">Manuals in References</a> for step-by-step dimensions & testing. 36</p>
+    </article>
+  </section>
+
+  <section id="mnemonics" class="card">
+    <h2>Gamified Mnemonics • Learn Fast, Remember Longer</h2>
+    <ul>
+      <li><strong>WASH “PPT-TS”</strong> = <em>Protect → Pre-filter → Treat → Transfer (safe) → Store (sealed)</em>. 37</li>
+      <li><strong>SRI “4-Less, 1-More”</strong> = <em>Less water, less seed, less crowding, less age</em>; <em>more air to roots</em>. 38</li>
+      <li><strong>Arid “CPM-3”</strong> = <em>Cassava • Pigeon pea • Maize</em> + 3 add-ons: <em>sorghum, moringa, prickly pear</em>. 39</li>
+      <li><strong>Sea “BSC”</strong> = <em>Breadfruit • Seaweed • Cucumber (sea)</em> for coastal resilience. 40</li>
+    </ul>
+  </section>
+
+  <section id="notes" class="grid cols-2">
+    <article class="card">
+      <h2>Local Notes & Seed Bank (Offline)</h2>
+      <p class="muted">Store community plots, seed swaps, and water maintenance logs locally (IndexedDB). Your data stays in your browser/device.</p>
+      <form id="noteForm">
+        <label>Title<input id="noteTitle" required placeholder="e.g., Antsirabe SRI nursery plan" style="width:100%;padding:.5rem;border-radius:10px;border:1px solid var(--glass-2);background:#0a0f25;color:#e8ebff;margin:.35rem 0"></label>
+        <label>Details<textarea id="noteBody" placeholder="Seeds on hand, contacts, dates, maintenance schedule…"></textarea></label>
+        <button class="pill" type="submit">Save</button>
+      </form>
+      <div id="notesList" style="margin-top:1rem"></div>
+    </article>
+    <article class="card">
+      <h2>Steward Credits (Prototype)</h2>
+      <p>Track impact (trees planted, liters treated, households trained). Credits are local points stored offline; export as JSON for sharing or on-chain linking later.</p>
+      <div class="pill">Credits: <strong id="xp">0</strong></div>
+      <div style="margin-top:.7rem;display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="pill" onclick="addXP(5)">+5 Trees</button>
+        <button class="pill" onclick="addXP(3)">+3 Water Units</button>
+        <button class="pill" onclick="addXP(1)">+1 Training</button>
+        <button class="pill" onclick="exportData()">Export JSON</button>
+      </div>
+      <p class="muted">Smart-contract hooks can be added later for audited payouts; keep governance local & transparent.</p>
+    </article>
+  </section>
+
+  <section id="refs" class="card">
+    <h2>References (open-access and practitioner manuals)</h2>
+    <ul>
+      <li>FAO GIEWS Country Brief (2025 season context). 41</li>
+      <li>Agriculture in Madagascar (staples & smallholder notes). 42</li>
+      <li>SRI origin & practice (Cornell SRI). 43</li>
+      <li>WHO: Household Water Treatment & Safe Storage. 44</li>
+      <li>CDC: Household Water Treatment overview. 45</li>
+      <li>WHO: Rainwater collection & storage tech brief; first-flush placement. 46</li>
+      <li>First-flush sizing research (2023). 47</li>
+      <li>CAWST Biosand Filter manuals (construction, O&M). 48</li>
+      <li>Moringa nutrition (ECHO; review article). 49</li>
+      <li>Breadfruit resilience & nutrition. 50</li>
+      <li>Wild foods & diet diversity (2024). 51</li>
+      <li>Community aquaculture in Madagascar (Blue Ventures). 52</li>
+      <li>Opuntia use & risks (Malagasy context; safety prep). 53</li>
+    </ul>
+  </section>
+
+  <footer class="wrap card">
+    <div class="grid cols-2">
+      <div>
+        <p class="muted">This file is online-first with offline fallback (Service Worker). It includes a collapsed tlk.io chat panel, HUD, IndexedDB notes, and a lightweight steward-credit prototype. Always adapt to local languages & governance.</p>
+        <p class="muted">Attribution: Sources cited inline; verify locally. This guide avoids prescriptive foraging—work with local experts for plant ID and processing safety.</p>
+      </div>
+      <div>
+        <p class="muted">© Planetary Restoration Archive — Foster + Navi. Public-good handbook under zero-harm principles.</p>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- tlk.io (collapsed by default) -->
+<div id="chatWrap" class="card">
+  <button id="chatToggle" class="pill" aria-expanded="false" aria-controls="chatPanel">Open Chat</button>
+  <iframe id="chatPanel" class="card" title="Community Chat"
+          src="about:blank"
+          allow="clipboard-read; clipboard-write"></iframe>
+</div>
+
+<!-- HUD -->
+<div id="hud" aria-live="polite">
+  <button class="hud-btn" title="Toggle HUD" onclick="toggleHUD()">🛰️</button>
+  <div id="hudPanel" class="card hud-panel" style="display:none">
+    <h3>Heads-Up Dashboard</h3>
+    <p class="muted">Quick links & status</p>
+    <ul>
+      <li>XP: <strong id="hudXP">0</strong></li>
+      <li>Notes saved: <strong id="hudNotes">0</strong></li>
+      <li>Connectivity: <strong id="netStat">checking…</strong></li>
+    </ul>
+    <details><summary>Field Checklists</summary>
+      <ul>
+        <li>Rainwater: screen → first flush → sealed tank → tap above sediment. 54</li>
+        <li>Water treat: boil / chlorine / SODIS / biosand (choose per context). 55</li>
+        <li>SRI: transplant young seedlings, wider spacing, intermittent irrigation. 56</li>
+      </ul>
+    </details>
+  </div>
+</div>
+
+<script>
+/* === Photorealistic-ish Constellations & Parallax === */
+(() => {
+  const c = document.getElementById('space');
+  const ctx = c.getContext('2d',{alpha:true});
+  const DPR = Math.min(2, window.devicePixelRatio || 1);
+  let stars = [];
+  function resize(){
+    c.width = innerWidth * DPR; c.height = innerHeight * DPR; draw();
+  }
+  function rand(n){return Math.random()*n}
+  function init(){
+    const count = Math.min(1200, Math.floor((innerWidth*innerHeight)/1800));
+    stars = Array.from({length: count}, () => ({
+      x: rand(c.width), y: rand(c.height),
+      z: Math.random(), r: Math.random()*1.2+.2, tw: Math.random()*2*Math.PI
+    }));
+  }
+  function draw(t=0){
+    ctx.clearRect(0,0,c.width,c.height);
+    for(const s of stars){
+      const tw = (Math.sin(t/1000 + s.tw)+1)/2; // twinkle
+      const r = (s.r + tw*0.5) * DPR;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${200+55*s.z|0},${220+20*tw|0},255,${0.25+0.6*s.z})`;
+      ctx.shadowBlur = 20*s.z; ctx.shadowColor = '#7ee0ff';
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', () => {resize(); init()},{passive:true});
+  resize(); init(); draw();
+  // Parallax
+  window.addEventListener('pointermove', (e) => {
+    const dx = (e.clientX/innerWidth - .5)*8;
+    const dy = (e.clientY/innerHeight - .5)*8;
+    c.style.transform = `translate(${dx}px, ${dy}px)`;
+    document.querySelector('.layer').style.transform = `translate(${dx*1.8}px, ${dy*1.8}px)`;
+  }, {passive:true});
+})();
+
+/* === tlk.io collapsed loader === */
+(() => {
+  const btn = document.getElementById('chatToggle');
+  const panel = document.getElementById('chatPanel');
+  btn.addEventListener('click', () => {
+    const open = panel.style.display === 'block';
+    panel.style.display = open ? 'none' : 'block';
+    btn.textContent = open ? 'Open Chat' : 'Close Chat';
+    btn.setAttribute('aria-expanded', String(!open));
+    if(!open && panel.src === 'about:blank'){
+      panel.src = 'https://tlk.io/madagascar-sovereignty';
+    }
+  });
+})();
+
+/* === IndexedDB: local notes & seed bank === */
+const DB_NAME='mdg-sovereignty', STORE='notes';
+let db, xp=0;
+function openDB(){
+  const req = indexedDB.open(DB_NAME, 1);
+  req.onupgradeneeded = e => e.target.result.createObjectStore(STORE, {keyPath:'id', autoIncrement:true});
+  req.onsuccess = e => { db = e.target.result; refreshNotes(); refreshHUD(); };
+}
+function saveNote(title, body){
+  const tx = db.transaction(STORE,'readwrite'); tx.objectStore(STORE).add({title, body, ts: Date.now()});
+  tx.oncomplete = refreshNotes;
+}
+function refreshNotes(){
+  const list = document.getElementById('notesList'); list.innerHTML='';
+  const tx = db.transaction(STORE); const req = tx.objectStore(STORE).openCursor();
+  let count=0;
+  req.onsuccess = e => {
+    const cur = e.target.result;
+    if(cur){ count++; const n=cur.value;
+      const div = document.createElement('div'); div.className='card'; div.style.marginBottom='.6rem';
+      const d = new Date(n.ts).toLocaleString();
+      div.innerHTML = `<strong>${n.title}</strong> <span class="muted">(${d})</span><p>${n.body.replaceAll('<','&lt;')}</p>`;
+      list.appendChild(div); cur.continue();
+    } else { document.getElementById('hudNotes').textContent=String(count); }
+  };
+}
+document.getElementById('noteForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const t = document.getElementById('noteTitle').value.trim();
+  const b = document.getElementById('noteBody').value.trim();
+  if(!t) return;
+  saveNote(t,b); e.target.reset(); addXP(1);
+});
+function addXP(n){ xp += n; localStorage.setItem('xp', xp); document.getElementById('xp').textContent=xp; document.getElementById('hudXP').textContent=xp; }
+function exportData(){
+  const tx = db.transaction(STORE); const req = tx.objectStore(STORE).getAll();
+  req.onsuccess = () => {
+    const blob = new Blob([JSON.stringify({notes:req.result, xp}, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = Object.assign(document.createElement('a'), {href:url, download:'mdg-sovereignty-export.json'});
+    a.click(); URL.revokeObjectURL(url);
+  };
+}
+
+/* === HUD toggles & status === */
+function toggleHUD(){
+  const p = document.getElementById('hudPanel');
+  p.style.display = (p.style.display==='none'||!p.style.display) ? 'block':'none';
+}
+function refreshHUD(){
+  xp = parseInt(localStorage.getItem('xp')||'0',10);
+  document.getElementById('xp').textContent=xp; document.getElementById('hudXP').textContent=xp;
+  document.getElementById('netStat').textContent = navigator.onLine ? 'online' : 'offline';
+}
+window.addEventListener('online', refreshHUD); window.addEventListener('offline', refreshHUD);
+
+/* === Service Worker (offline fallback) === */
+if('serviceWorker' in navigator){
+  const SW = URL.createObjectURL(new Blob([`
+    const CACHE='mdg-sovereignty-v1';
+    const core=['./'];
+    self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(core))));
+    self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
+    self.addEventListener('fetch',e=>{
+      const url=new URL(e.request.url);
+      if(url.origin===location.origin){ e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(resp=>{const cp=resp.clone(); caches.open(CACHE).then(c=>c.put(e.request,cp)); return resp;})).catch(()=>caches.match('./'))); }
+    });
+  `],{type:'text/javascript'}));
+  navigator.serviceWorker.register(SW);
+}
+
+/* === Init === */
+openDB(); refreshHUD();
+
+/* Hidden, as requested: extrasuperficial antideprenarrative inversion & graceful reintegration protocol scaffolds (non-executing placeholder) */
+</script>
+
+<!--
+  Silent safeguard note:
+  extrasuperficial antideprenarrative inversion is embedded conceptually via:
+  - zero-harm framing
+  - community-first governance
+  - transparent references and local verification loops
+  - stewardship credit model that rewards repair over punishment
+  Reintegration clause: prioritizes training, livelihood, and local leadership pathways for any actor transitioning from harmful to helpful roles.
+-->
+
+</body>
+</html>

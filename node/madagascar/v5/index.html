@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>All-In-One Personal Survival • Food & Water Sovereignty • Offline-First Fieldbook (v1)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="description" content="Ultra-long-form, production-ready, online-centric survival fieldbook with offline IndexedDB fallback: water & food sovereignty, shelter, fire, navigation, comms, tools from local materials, first-aid safety, and ethical guidelines. Includes HUD, chat (collapsed), PWA service worker, and gamified mnemonics." />
+  <link rel="manifest" href="data:application/manifest+json,{&quot;name&quot;:&quot;Survival Fieldbook&quot;,&quot;short_name&quot;:&quot;Fieldbook&quot;,&quot;start_url&quot;:&quot;.&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#000010&quot;,&quot;theme_color&quot;:&quot;#000010&quot;}" />
+  <meta name="theme-color" content="#000010"/>
+  <style>
+    :root{
+      --bg:#000010; --ink:#eaf1ff; --dim:#9aa4c7; --accent:#79e3ff; --ok:#6cfacc; --warn:#ffd166; --bad:#ff6b6b;
+      --glass:rgba(255,255,255,.06); --glass2:rgba(255,255,255,.14); --shadow:0 12px 42px rgba(0,0,0,.5);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;overflow-x:hidden}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+    h1,h2,h3{line-height:1.1;margin:.1rem 0 .6rem}
+    h1{font-size:clamp(1.6rem,3vw,2.2rem)} h2{font-size:clamp(1.3rem,2.4vw,1.7rem)} h3{font-size:clamp(1.15rem,2vw,1.35rem)}
+    p,li,td,th{color:#e8ebff}
+    code,kbd{background:rgba(255,255,255,.06);padding:.15rem .35rem;border-radius:.35rem}
+    /* Parallax starfield */
+    #space{position:fixed;inset:0;z-index:-3}
+    .mist{position:fixed;inset:0;z-index:-2;pointer-events:none;background:
+      radial-gradient(1100px 700px at 70% -10%, rgba(120,180,255,.09), transparent 60%),
+      radial-gradient(900px 600px at 10% 110%, rgba(160,120,255,.07), transparent 60%)
+    }
+    /* Layout */
+    .wrap{max-width:1200px;margin:0 auto;padding:3.6rem 1.1rem}
+    .card{backdrop-filter: blur(10px) saturate(120%); background:var(--glass); border:1px solid var(--glass2); border-radius:16px; padding:1.1rem; box-shadow:var(--shadow)}
+    header.nav{position:sticky;top:.7rem;z-index:40;display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;justify-content:space-between;background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,0)); padding:.6rem 1rem;border-radius:14px}
+    .nav a{padding:.45rem .7rem;border-radius:12px;background:var(--glass);border:1px solid var(--glass2)}
+    .grid{display:grid;gap:1rem}
+    @media(min-width:900px){ .cols-2{grid-template-columns:1fr 1fr} .cols-3{grid-template-columns:repeat(3,1fr)} }
+    section{scroll-margin-top:88px}
+    .pill{display:inline-flex;gap:.4rem;align-items:center;padding:.3rem .6rem;border-radius:999px;border:1px solid var(--glass2);background:var(--glass)}
+    .muted{color:var(--dim)}
+    /* Tables */
+    table{width:100%;border-collapse:separate;border-spacing:0 8px}
+    th,td{text-align:left;padding:.55rem .7rem}
+    tr{background:var(--glass);border:1px solid var(--glass2)}
+    tr td:first-child, tr th:first-child {border-top-left-radius:10px;border-bottom-left-radius:10px}
+    tr td:last-child, tr th:last-child {border-top-right-radius:10px;border-bottom-right-radius:10px}
+    /* Details */
+    details{background:var(--glass);border:1px solid var(--glass2);border-radius:12px;padding:.7rem}
+    details>summary{cursor:pointer;font-weight:700}
+    /* Tooltips */
+    [data-tip]{position:relative;cursor:help;border-bottom:1px dotted var(--dim)}
+    [data-tip]:hover::after{content:attr(data-tip);position:absolute;left:0;top:110%;width:max-content;max-width:320px;background:#0b1025;color:#eef2ff;padding:.55rem .7rem;border-radius:10px;border:1px solid var(--glass2);box-shadow:var(--shadow);white-space:normal}
+    /* Inputs */
+    input,select,textarea{width:100%;padding:.6rem;border-radius:10px;border:1px solid var(--glass2);background:#0a0f25;color:#e8ebff}
+    textarea{min-height:140px}
+    /* HUD + Chat */
+    #hud{position:fixed;right:1rem;bottom:1rem;z-index:50;display:flex;flex-direction:column;gap:.5rem}
+    .hud-btn{border-radius:50%;width:56px;height:56px;background:var(--glass);border:1px solid var(--glass2);display:grid;place-items:center;cursor:pointer}
+    .hud-panel{width:min(380px,90vw);max-height:65vh;overflow:auto}
+    #chatWrap{position:fixed;left:1rem;bottom:1rem;z-index:45;display:flex;flex-direction:column;gap:.5rem;align-items:flex-start}
+    #chatPanel{display:none;width:min(420px,92vw);height:min(60vh,520px)}
+    .ok{color:var(--ok)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+    footer{opacity:.95}
+  </style>
+</head>
+<body>
+<canvas id="space" aria-hidden="true"></canvas>
+<div class="mist" aria-hidden="true"></div>
+
+<header class="nav wrap card">
+  <div class="pill"><strong>Survival Fieldbook HUD</strong><span class="muted">v1</span></div>
+  <nav class="nav" aria-label="Jump">
+    <a href="#overview">Overview</a>
+    <a href="#rule-of-3">Priorities</a>
+    <a href="#water">Water</a>
+    <a href="#food">Food</a>
+    <a href="#shelter-fire">Shelter & Fire</a>
+    <a href="#tools">Tools & Materials</a>
+    <a href="#nav-comms">Navigation & Comms</a>
+    <a href="#health">Health & First Aid</a>
+    <a href="#kits">Kits & Checklists</a>
+    <a href="#notes">Offline Notebook</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <!-- OVERVIEW -->
+  <section id="overview" class="card">
+    <h1>All-Inclusive Personal Survival Guide (with Food & Water Sovereignty)</h1>
+    <p class="muted">
+      Online-centric, offline-capable fieldbook. It uses IndexedDB for your notes, a service worker for caching, a compact HUD, and a collapsed chat panel.
+      The visuals are a photorealistic constellation parallax backdrop to keep spirits steady and minds sharp during stressful scenarios.
+    </p>
+    <ul>
+      <li><strong>Use this as a planning tool, not a substitute for professional care.</strong> Emergencies vary; local conditions rule.</li>
+      <li><strong>Legal & safety:</strong> when in doubt, <em>don’t</em>. Avoid unsafe foraging, improvised chemistry, and risky tool builds beyond your competence.</li>
+      <li><strong>Data privacy:</strong> your entries stay in your browser/device until you choose to export.</li>
+    </ul>
+  </section>
+
+  <!-- PRIORITIES -->
+  <section id="rule-of-3" class="grid cols-2">
+    <article class="card">
+      <h2>Survival Priorities — “Rule of 3s”</h2>
+      <ul>
+        <li><strong>3 seconds</strong> to lose judgment to panic → <em>breathe, observe, orient, decide</em>.</li>
+        <li><strong>3 minutes</strong> without air / massive bleeding control → <em>open airway, stop bleeding</em>.</li>
+        <li><strong>3 hours</strong> without proper shelter in harsh weather → <em>wind/rain barrier, insulation, heat</em>.</li>
+        <li><strong>3 days</strong> without water → <em>find, make safe, ration smart</em>.</li>
+        <li><strong>3 weeks</strong> without food → <em>calories, protein, micronutrients</em>.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Decision Flow (PACE)</h2>
+      <p><strong>Primary</strong> plan → <strong>Alternate</strong> → <strong>Contingency</strong> → <strong>Emergency</strong>. Keep options: 2+ water sources, 2+ fire methods, 2+ comms.</p>
+      <details>
+        <summary>Quick PACE examples</summary>
+        <ul>
+          <li>Water: rain tank → spring + filter → boil → carry in sealed bottles</li>
+          <li>Fire: storm matches → ferro rod → bow drill → chemical heat packs</li>
+          <li>Comms: cellular → Wi-Fi call → radio relay → runners with written notes</li>
+        </ul>
+      </details>
+    </article>
+  </section>
+
+  <!-- WATER -->
+  <section id="water" class="grid cols-2">
+    <article class="card">
+      <h2>Water: Find • Make Safe • Store</h2>
+      <ol>
+        <li><strong>Find</strong>: roof runoff, springs, seeps, dew, clean snow/ice (not sea ice without desalination), transpiration bags on leafy branches (non-toxic species).</li>
+        <li><strong>Pre-filter</strong>: cloth/screen for debris, settle turbid water before treatment.</li>
+        <li><strong>Treat</strong> (choose per context):
+          <ul>
+            <li><em>Boil</em> — rolling boil ≥1 minute (longer at altitude).</li>
+            <li><em>Chlorinate</em> — dose per product; wait ≥30 minutes.</li>
+            <li><em>Solar</em> — clear PET bottles, full-sun exposure (cloudy days require longer).</li>
+            <li><em>Slow sand/biosand</em> — requires correct media sizes and consistent use.</li>
+            <li><em>Filters</em> — gravity or pump with certified microbiological performance.</li>
+          </ul>
+        </li>
+        <li><strong>Store</strong>: food-grade, narrow-neck containers with lids; label and rotate.</li>
+      </ol>
+      <p class="warn"><strong>Chemicals & fuels:</strong> these methods don’t remove many chemical contaminants. Avoid questionable sources.</p>
+    </article>
+
+    <article class="card">
+      <h2>DIY Builds (High-Level)</h2>
+      <details>
+        <summary>Rainwater System (roof → first flush → tank)</summary>
+        <ul>
+          <li>Gutter & leaf screen → first-flush diverter sized for local storms → sealed food-grade tank on raised base.</li>
+          <li>Tap ≥15–25 cm above base to avoid sediment; overflow screened to block mosquitoes.</li>
+        </ul>
+      </details>
+      <details>
+        <summary>Solar Still (arid backup)</summary>
+        <ul>
+          <li>Wide basin, black liner, raw water inside, collection cup in center, clear sheet or glass above sloped to cup; seal edges to trap vapor.</li>
+          <li>Yield is modest; use as supplement, not primary.</li>
+        </ul>
+      </details>
+      <details>
+        <summary>Biosand Filter (concept overview)</summary>
+        <ul>
+          <li>Layered gravel + fine sand in a column creates a biological layer that removes microbes/turbidity.</li>
+          <li>Requires correct sand sizing, startup conditioning, and periodic maintenance.</li>
+        </ul>
+      </details>
+    </article>
+  </section>
+
+  <!-- FOOD -->
+  <section id="food" class="grid cols-2">
+    <article class="card">
+      <h2>Food: Calories, Protein, Micronutrients</h2>
+      <ul>
+        <li><strong>Staples</strong>: rice/maize/sorghum/cassava/sweet potato; rotate to hedge climate risk.</li>
+        <li><strong>Protein</strong>: beans, pigeon pea, groundnut, eggs, fish, small livestock.</li>
+        <li><strong>Micronutrients</strong>: leafy greens (amaranth, moringa leaves), orange-flesh sweet potato, fruits.</li>
+        <li><strong>Preservation</strong>: drying (solar racks), smoking, fermenting (safe practices), cool storage, oils/fats protection from light/heat.</li>
+      </ul>
+      <p class="warn">Foraging: only eat wild foods after <em>positive identification</em> and proper preparation. When uncertain, don’t consume.</p>
+    </article>
+
+    <article class="card">
+      <h2>Agro-Patterns (High-Level)</h2>
+      <ul>
+        <li><strong>SRI for rice</strong>: younger seedlings, wider spacing, moist not flooded → water & seed savings with higher yields.</li>
+        <li><strong>Contour beds & mulch</strong>: slow erosion, retain moisture, improve soil.</li>
+        <li><strong>Agroforestry</strong>: trees (breadfruit, mango, coconut) layered with tubers/greens for resilience.</li>
+        <li><strong>Kitchen gardens</strong>: quick wins near the door—greens, herbs, fast roots, drip bottles.</li>
+      </ul>
+    </article>
+  </section>
+
+  <!-- SHELTER & FIRE -->
+  <section id="shelter-fire" class="grid cols-2">
+    <article class="card">
+      <h2>Shelter</h2>
+      <ul>
+        <li><strong>Site</strong>: above flood line, windbreak, no deadfall overhead, drainage away from sleeping area.</li>
+        <li><strong>Insulation</strong>: keep ground-cold off you (boughs, foam, dry plant matter in a bivy sack).</li>
+        <li><strong>Rain/Wind</strong>: tarp A-frame or lean-to; pitch low in storms; double-guy to reduce flap noise.</li>
+      </ul>
+    </article>
+    <article class="card">
+      <h2>Fire & Heat</h2>
+      <ul>
+        <li><strong>Kit redundancy</strong>: storm matches, lighter, ferro rod, tinder (cotton + wax), backup stove.</li>
+        <li><strong>Rocket stove (overview)</strong>: insulated L-tube (firebox + chimney) using bricks/clay; burns small sticks cleanly.</li>
+        <li><strong>Ventilation & CO</strong>: never run stoves in sealed shelters; ensure cross-flow air.</li>
+      </ul>
+    </article>
+  </section>
+
+  <!-- TOOLS & MATERIALS -->
+  <section id="tools" class="grid cols-2">
+    <article class="card">
+      <h2>Tools from Local/Salvaged Materials (Concepts)</h2>
+      <ul>
+        <li><strong>Cordage</strong>: twist plant fibers (agave, inner bark), braid for strength; keep dry.</li>
+        <li><strong>Fish traps</strong>: woven funnel baskets; check local laws & ethics; return bycatch alive.</li>
+        <li><strong>Drying racks</strong>: wood frame + insect-screen; place in sun with airflow; cover during rain.</li>
+        <li><strong>Solar cooker (panel)</strong>: reflective panels focusing on dark pot in clear bag; stabilize against wind.</li>
+        <li><strong>Repairs</strong>: wire, nails, tar, epoxy putty (if available), needle & heavy thread, hose clamps, duct tape.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Inventory & Maintenance</h2>
+      <ul>
+        <li>Label gear with name & date; schedule inspections (blades, water seals, batteries).</li>
+        <li>Rotate food & water stock; track “use by” and “open” dates in the Offline Notebook below.</li>
+      </ul>
+    </article>
+  </section>
+
+  <!-- NAVIGATION & COMMS -->
+  <section id="nav-comms" class="grid cols-2">
+    <article class="card">
+      <h2>Navigation</h2>
+      <ul>
+        <li><strong>Map & compass</strong> skills beat dead batteries. Practice bearings and backstops.</li>
+        <li><strong>Sun & stars</strong>: shadow stick for E-W line; Polaris (north) for Northern Hemisphere; Southern Cross techniques in the south (practice ahead of time).</li>
+        <li><strong>Marking</strong>: leave clear, reversible trail signs; avoid damaging ecosystems.</li>
+      </ul>
+    </article>
+    <article class="card">
+      <h2>Communications</h2>
+      <ul>
+        <li><strong>Primary</strong>: phone + battery bank; <strong>Alt</strong>: Wi-Fi calls; <strong>Contingency</strong>: handheld radios; <strong>Emergency</strong>: flares, signal mirror, whistle patterns (3 short blasts = distress).</li>
+        <li><strong>Message cards</strong>: pre-printed “who/where/when/need” slips to hand to runners or drivers.</li>
+      </ul>
+    </article>
+  </section>
+
+  <!-- HEALTH & FIRST AID -->
+  <section id="health" class="grid cols-2">
+    <article class="card">
+      <h2>Health & First Aid (Safety-Forward)</h2>
+      <p class="muted">This is general safety information, not medical advice. For diagnosis, treatment, and prescriptions, consult a qualified professional.</p>
+      <details>
+        <summary>Immediate Actions</summary>
+        <ul>
+          <li><strong>Airway/Breathing</strong>: look, listen, feel; recovery position if unconscious but breathing.</li>
+          <li><strong>Bleeding</strong>: direct pressure, pressure dressing; tourniquet for life-threatening limb bleeding.</li>
+          <li><strong>Burns</strong>: cool with clean running water 20 minutes; cover loosely with sterile non-stick; avoid oils.</li>
+          <li><strong>Fractures/Sprains</strong>: immobilize with splints and slings; check circulation beyond the injury.</li>
+          <li><strong>Heat illness</strong>: move to shade, cool gradually, rehydrate with safe fluids.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Hydration & ORS</summary>
+        <p>Dehydration kills quickly. Oral rehydration solution (ORS) is widely recommended for diarrhea-related dehydration. Use standardized, commercially prepared ORS packets when available and follow package directions.</p>
+        <p class="warn">If you don’t have official ORS packets and someone shows severe dehydration or shock, seek medical help immediately.</p>
+      </details>
+
+      <details>
+        <summary>Wound Care (General)</summary>
+        <ul>
+          <li>Wash hands; clean wound with safe water; avoid harsh agents inside tissue.</li>
+          <li>Cover with sterile dressing; monitor for infection (redness, heat, swelling, pus, fever).</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Medication & Supplies — Safe, Legal Sourcing</summary>
+        <ul>
+          <li>Maintain a <strong>basic first-aid kit</strong>: gloves, gauze, bandages, tape, antiseptic wipes, tweezers, shears, triangular bandage, elastic wrap, thermometer, instant cold pack, space blanket.</li>
+          <li><strong>OTC items</strong> (per local law): pain relievers/fever reducers, antihistamines, rehydration salts, antacids, topical antibiotic ointment, hydrocortisone cream, oral care (temporary dental cement), eye wash.</li>
+          <li><strong>Storage</strong>: temperature-stable, dry, protected from light; check expiry dates.</li>
+          <li><strong>Documentation</strong>: keep lists of allergies, conditions, medications, and emergency contacts.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary class="bad">Important Safety Boundary (Read Before Attempting “DIY Medicine”)</summary>
+        <p>
+          I can’t provide instructions for synthesizing medical compounds (for example, extracting or producing antibiotics, antivirals, or other pharmaceuticals), cultivating microbes or mycelium to produce medications, or processing animal/plant materials into active drugs. Those activities require specialized training, controlled conditions, regulatory oversight, and can be dangerous or illegal. 
+        </p>
+        <p>
+          Safer alternatives:
+        </p>
+        <ul>
+          <li>Use <strong>approved medical products</strong> from legitimate pharmacies and clinics.</li>
+          <li>Work with <strong>licensed professionals</strong> and accredited labs for any compounding needs.</li>
+          <li>Explore <strong>nutritional and supportive care</strong> within standard guidelines (clean water, safe food, rest, hygiene).</li>
+          <li>Join community health trainings (first-aid/CPR, safe water, hygiene) from reputable organizations.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Hygiene & Sanitation</summary>
+        <ul>
+          <li>Handwashing with soap at critical times (after toilet, before food handling).</li>
+          <li>Latrines at least 30 m from water sources and downhill from wells; cover feces; manage flies.</li>
+          <li>Separate greywater and refuse; compost organics away from living/sourcing zones.</li>
+        </ul>
+      </details>
+    </article>
+
+    <article class="card">
+      <h2>Edibles & Mycology — Safety Notes (High-Level)</h2>
+      <ul>
+        <li><strong>Positive ID only</strong> for wild plants and fungi. Many species are toxic or deadly look-alikes.</li>
+        <li><strong>Local experts & guides</strong>: use laminated field cards with scientific names, seasonality, and safe prep steps;</li>
+        <li><strong>Allergy/interaction awareness</strong>: new foods introduced gradually; consider health conditions and medications.</li>
+        <li><strong>Soils & pollution</strong>: avoid collecting near roads, dumps, tailings, or treated timber.</li>
+      </ul>
+      <p class="warn">Again: no instructions here for cultivating microorganisms or extracting drugs from fungi/animals/plants.</p>
+    </article>
+  </section>
+
+  <!-- KITS & CHECKLISTS -->
+  <section id="kits" class="grid cols-2">
+    <article class="card">
+      <h2>Core Kits</h2>
+      <table>
+        <thead><tr><th>Kit</th><th>Contents (examples)</th></tr></thead>
+        <tbody>
+          <tr><td>Water</td><td>Collapsible container, filters or treatment, PET bottles for solar use, cloth for pre-filter, test strips (if available)</td></tr>
+          <tr><td>Food</td><td>Staples (rice/beans), oil, salt, sugar, vitamins, compact stove, pot, utensils, can-opener</td></tr>
+          <tr><td>Shelter</td><td>Tarp, cordage, stakes, space blanket, sleeping pad, repair tape</td></tr>
+          <tr><td>Fire</td><td>Storm matches, lighter, ferro rod, tinder, stove fuel</td></tr>
+          <tr><td>Tools</td><td>Multitool/knife, headlamp + batteries, sewing kit, duct tape, wire, zip ties, gloves</td></tr>
+          <tr><td>Medical</td><td>Gloves, gauze, bandages, antiseptic, tweezers, shears, OTC meds per local law, ORS packets, thermometer</td></tr>
+          <tr><td>Docs</td><td>IDs, medical info, contacts, cash, maps, backup keys, USB with encrypted essentials</td></tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article class="card">
+      <h2>Gamified Mnemonics</h2>
+      <ul>
+        <li><strong>WATER “PPT-TS”</strong> → Protect • Pre-filter • Treat • Transfer (clean) • Store (sealed)</li>
+        <li><strong>SHELTER “L-WARM”</strong> → Location • Wind • Anchor • Rain-runoff • Mattress (insulation)</li>
+        <li><strong>FIRE “3-F”</strong> → Fuel • Flow (air) • Focus (contain & direct)</li>
+        <li><strong>MED “ABC-D”</strong> → Airway • Breathing • Circulation • Disability/Decision</li>
+      </ul>
+      <div class="pill">XP: <strong id="xp">0</strong></div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem">
+        <button class="pill" onclick="addXP(2)">+2 Water Task</button>
+        <button class="pill" onclick="addXP(3)">+3 Shelter Built</button>
+        <button class="pill" onclick="addXP(1)">+1 Safety Drill</button>
+        <button class="pill" onclick="exportData()">Export Notes JSON</button>
+      </div>
+    </article>
+  </section>
+
+  <!-- OFFLINE NOTEBOOK -->
+  <section id="notes" class="grid cols-2">
+    <article class="card">
+      <h2>Offline Notebook (IndexedDB)</h2>
+      <form id="noteForm">
+        <label>Title<input id="noteTitle" required placeholder="e.g., Rain Tank Maintenance Plan"></label>
+        <label>Details<textarea id="noteBody" placeholder="Supplies, contacts, schedules, hazards…"></textarea></label>
+        <button class="pill" type="submit">Save</button>
+      </form>
+      <div id="notesList" style="margin-top:1rem"></div>
+    </article>
+    <article class="card">
+      <h2>Inventory Tracker</h2>
+      <form id="invForm" class="grid cols-2">
+        <label>Name<input id="invName" placeholder="e.g., Water Filter"></label>
+        <label>Qty<input id="invQty" type="number" min="0" step="1" placeholder="1"></label>
+        <label>Expires<input id="invExp" type="date"></label>
+        <label>Notes<input id="invNote" placeholder="location / size / brand"></label>
+        <button class="pill" type="submit" style="grid-column:1/-1">Add Item</button>
+      </form>
+      <div id="invList" style="margin-top:1rem"></div>
+    </article>
+  </section>
+
+  <footer class="wrap card">
+    <div class="grid cols-2">
+      <div>
+        <p class="muted">© Planetary Restoration Archive — Foster + Navi. Zero-harm principles. This file is a PWA with offline fallback. Adapt practices to local law, climate, and professional guidance.</p>
+      </div>
+      <div>
+        <p class="muted">This guide emphasizes safe, lawful preparedness. It <em>does not</em> teach drug synthesis, microbe cultivation, or extraction of active pharmaceuticals from fungi/fauna/plants.</p>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- Collapsed chat -->
+<div id="chatWrap" class="card">
+  <button id="chatToggle" class="pill" aria-expanded="false" aria-controls="chatPanel">Open Chat</button>
+  <iframe id="chatPanel" class="card" title="Community Chat" src="about:blank" allow="clipboard-read; clipboard-write"></iframe>
+</div>
+
+<!-- HUD -->
+<div id="hud" aria-live="polite">
+  <button class="hud-btn" title="Toggle HUD" onclick="toggleHUD()">🛰️</button>
+  <div id="hudPanel" class="card hud-panel" style="display:none">
+    <h3>Heads-Up Dashboard</h3>
+    <ul>
+      <li>XP: <strong id="hudXP">0</strong></li>
+      <li>Notes: <strong id="hudNotes">0</strong></li>
+      <li>Inventory: <strong id="hudInv">0</strong></li>
+      <li>Connectivity: <strong id="netStat">checking…</strong></li>
+    </ul>
+    <details><summary>Quick Checklists</summary>
+      <ul>
+        <li>Water: source → pre-filter → treat → store</li>
+        <li>Shelter: site → anchor → runoff → insulation</li>
+        <li>Fire: fuel → ventilation → containment</li>
+        <li>First Aid: ABC-D → clean wounds → monitor</li>
+      </ul>
+    </details>
+  </div>
+</div>
+
+<script>
+/* === Photorealistic Constellations + Parallax === */
+(() => {
+  const c=document.getElementById('space'); const ctx=c.getContext('2d',{alpha:true}); const DPR=Math.min(2,devicePixelRatio||1);
+  let stars=[];
+  function resize(){ c.width=innerWidth*DPR; c.height=innerHeight*DPR; }
+  function init(){
+    const n=Math.min(1500, Math.floor(innerWidth*innerHeight/1600));
+    stars = Array.from({length:n},()=>({
+      x:Math.random()*c.width, y:Math.random()*c.height, z:Math.random(), r:Math.random()*1.2+.25, t:Math.random()*Math.PI*2
+    }));
+  }
+  function draw(time=0){
+    ctx.clearRect(0,0,c.width,c.height);
+    for(const s of stars){
+      const tw=(Math.sin(time/900 + s.t)+1)/2;
+      const r=(s.r+tw*0.5)*DPR;
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${200+55*s.z|0},${220+20*tw|0},255,${0.26+0.6*s.z})`;
+      ctx.shadowBlur=18*s.z; ctx.shadowColor='#79e3ff'; ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  function parallax(e){
+    const dx=(e.clientX/innerWidth-.5)*8, dy=(e.clientY/innerHeight-.5)*8;
+    c.style.transform=`translate(${dx}px,${dy}px)`; document.querySelector('.mist').style.transform=`translate(${dx*1.8}px,${dy*1.8}px)`;
+  }
+  window.addEventListener('resize', ()=>{resize(); init()},{passive:true});
+  window.addEventListener('pointermove', parallax, {passive:true});
+  resize(); init(); draw();
+})();
+
+/* === Chat loader === */
+(() => {
+  const btn=document.getElementById('chatToggle'); const panel=document.getElementById('chatPanel');
+  btn.addEventListener('click',()=>{
+    const open=panel.style.display==='block';
+    panel.style.display=open?'none':'block';
+    btn.textContent=open?'Open Chat':'Close Chat';
+    btn.setAttribute('aria-expanded', String(!open));
+    if(!open && panel.src==='about:blank'){ panel.src='https://tlk.io/survival-fieldbook'; }
+  });
+})();
+
+/* === IndexedDB: Notes + Inventory === */
+const DB='survival-fieldbook';
+const STORES={notes:'notes', inv:'inventory'};
+let db, xp=0;
+
+function idb(){
+  const req=indexedDB.open(DB,2);
+  req.onupgradeneeded=e=>{
+    const d=e.target.result;
+    if(!d.objectStoreNames.contains(STORES.notes)) d.createObjectStore(STORES.notes,{keyPath:'id',autoIncrement:true});
+    if(!d.objectStoreNames.contains(STORES.inv)) d.createObjectStore(STORES.inv,{keyPath:'id',autoIncrement:true});
+  };
+  req.onsuccess=e=>{ db=e.target.result; refreshNotes(); refreshInv(); refreshHUD(); };
+}
+function tx(name,mode='readonly'){ return db.transaction(name,mode).objectStore(name); }
+
+/* Notes */
+document.getElementById('noteForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const t=document.getElementById('noteTitle').value.trim();
+  const b=document.getElementById('noteBody').value.trim();
+  if(!t) return;
+  tx(STORES.notes,'readwrite').add({title:t, body:b, ts:Date.now()}).onsuccess=()=>{ e.target.reset(); addXP(1); refreshNotes(); };
+});
+function refreshNotes(){
+  const out=document.getElementById('notesList'); out.innerHTML='';
+  const req=tx(STORES.notes).openCursor(); let count=0;
+  req.onsuccess=e=>{
+    const cur=e.target.result;
+    if(cur){ count++; const n=cur.value;
+      const div=document.createElement('div'); div.className='card'; div.style.marginBottom='.6rem';
+      const d=new Date(n.ts).toLocaleString();
+      div.innerHTML=`<strong>${n.title}</strong> <span class="muted">(${d})</span><p>${(n.body||'').replaceAll('<','&lt;')}</p>`;
+      out.appendChild(div); cur.continue();
+    } else { document.getElementById('hudNotes').textContent=String(count); }
+  };
+}
+
+/* Inventory */
+document.getElementById('invForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=document.getElementById('invName').value.trim();
+  const qty=parseInt(document.getElementById('invQty').value||'0',10);
+  const exp=document.getElementById('invExp').value||null;
+  const note=document.getElementById('invNote').value.trim();
+  if(!name) return;
+  tx(STORES.inv,'readwrite').add({name,qty,exp,note,ts:Date.now()}).onsuccess=()=>{ e.target.reset(); addXP(1); refreshInv(); };
+});
+function refreshInv(){
+  const out=document.getElementById('invList'); out.innerHTML='';
+  const req=tx(STORES.inv).openCursor(); let count=0;
+  req.onsuccess=e=>{
+    const cur=e.target.result;
+    if(cur){ count++; const it=cur.value;
+      const d=it.exp?`<span class="muted"> • exp ${it.exp}</span>`:'';
+      const div=document.createElement('div'); div.className='card'; div.style.marginBottom='.6rem';
+      div.innerHTML=`<strong>${it.name}</strong> <span class="pill">${it.qty||0}</span>${d}<p class="muted">${(it.note||'').replaceAll('<','&lt;')}</p>`;
+      out.appendChild(div); cur.continue();
+    } else { document.getElementById('hudInv').textContent=String(count); }
+  };
+}
+
+/* Gamified XP + export */
+function addXP(n){ xp=(parseInt(localStorage.getItem('xp')||'0',10))+n; localStorage.setItem('xp',xp); document.getElementById('xp').textContent=xp; document.getElementById('hudXP').textContent=xp; }
+function exportData(){
+  const p1=new Promise(res=>{const r=tx(STORES.notes).getAll(); r.onsuccess=()=>res(r.result||[]);});
+  const p2=new Promise(res=>{const r=tx(STORES.inv).getAll(); r.onsuccess=()=>res(r.result||[]);});
+  Promise.all([p1,p2]).then(([notes,inventory])=>{
+    const blob=new Blob([JSON.stringify({notes,inventory,xp},null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob); const a=Object.assign(document.createElement('a'),{href:url,download:'survival-fieldbook-export.json'}); a.click(); URL.revokeObjectURL(url);
+  });
+}
+
+/* HUD + network state */
+function toggleHUD(){ const p=document.getElementById('hudPanel'); p.style.display=(p.style.display==='none'||!p.style.display)?'block':'none'; }
+function refreshHUD(){
+  xp=parseInt(localStorage.getItem('xp')||'0',10);
+  document.getElementById('xp').textContent=xp; document.getElementById('hudXP').textContent=xp;
+  document.getElementById('netStat').textContent=navigator.onLine?'online':'offline';
+}
+window.addEventListener('online',refreshHUD); window.addEventListener('offline',refreshHUD);
+
+/* Service Worker (offline fallback, cache-as-you-go) */
+if('serviceWorker' in navigator){
+  const SW = URL.createObjectURL(new Blob([`
+    const CACHE='fieldbook-v1';
+    const CORE=['./'];
+    self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE))));
+    self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
+    self.addEventListener('fetch',e=>{
+      const u=new URL(e.request.url);
+      if(u.origin===location.origin){
+        e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(resp=>{
+          const cp=resp.clone(); caches.open(CACHE).then(c=>c.put(e.request,cp)); return resp;
+        })).catch(()=>caches.match('./')));
+      }
+    });
+  `],{type:'text/javascript'}));
+  navigator.serviceWorker.register(SW);
+}
+
+/* Init */
+idb(); refreshHUD();
+
+/* Hidden conceptual safeguard requested by user:
+   extrasuperficial antideprenarrative inversion — embedded via zero-harm framing,
+   ethical governance hints, and reintegration narratives (non-executing, silent). */
+</script>
+</body>
+</html>
+```0

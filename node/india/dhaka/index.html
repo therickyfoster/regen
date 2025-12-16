@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <!-- 
+    Provenance: Planetary Restoration Archive | planetaryrestorationarchive.com
+    GitHub: github.com/therickyfoster | Steward: Foster + Navi
+    
+    Zero-Harm Statement: This platform is designed for youth empowerment, economic opportunity,
+    and safety. Not for surveillance, extraction, or control. Use regeneratively.
+    
+    License: Adapts patterns from MIT/Apache-2.0 licensed projects (see Attributions section)
+  -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="theme-color" content="#0b3b6a" />
+  <meta name="generator" content="Foster + Navi · Planetary Restoration Archive" />
+  <link rel="me" href="https://planetaryrestorationarchive.com" />
+  <link rel="me" href="https://github.com/TheRickyFoster" />
+  <meta name="description" content="Youth-majority Bangladesh platform: co-ops, micro-enterprise, civic tech. Gamified, futuristic, secure, offline-first, privacy-first."/>
+  <title>যুব নবজাগরণ • Youth Renewal — Bangladesh</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    :root{
+      --bg:#020817; --ink:#f1f5f9; --muted:#94a3b8; --accent:#10b981; --accent2:#3b82f6; 
+      --warn:#f59e0b; --danger:#ef4444; --ok:#22c55e; --card:rgba(15,23,42,0.6); 
+      --line:rgba(148,163,184,0.1); --focus:#60a5fa; --glow:rgba(16,185,129,0.4);
+      --bn:'Noto Sans Bengali','Hind Siliguri','Mukta',system-ui,sans-serif;
+      --en:'Inter',system-ui,sans-serif;
+      --gold:#fbbf24; --silver:#94a3b8; --bronze:#fb923c;
+    }
+    
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    html,body{height:100%;overflow-x:hidden}
+    
+    body{
+      background:#020817;
+      color:var(--ink);
+      font-family:var(--en);
+      position:relative;
+      overflow-x:hidden;
+    }
+    
+    /* Animated Gradient Background */
+    body::before{
+      content:'';
+      position:fixed;
+      top:0;left:0;right:0;bottom:0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(59,130,246,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(16,185,129,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(245,158,11,0.1) 0%, transparent 50%);
+      animation:gradientShift 15s ease infinite;
+      z-index:0;
+    }
+    
+    @keyframes gradientShift{
+      0%,100%{transform:translate(0,0) scale(1)}
+      33%{transform:translate(30px,-30px) scale(1.05)}
+      66%{transform:translate(-30px,30px) scale(0.95)}
+    }
+    
+    /* Floating Particles */
+    .particles{
+      position:fixed;
+      top:0;left:0;right:0;bottom:0;
+      pointer-events:none;
+      z-index:1;
+    }
+    
+    .particle{
+      position:absolute;
+      width:4px;height:4px;
+      background:radial-gradient(circle,rgba(59,130,246,0.8),transparent);
+      border-radius:50%;
+      animation:float 20s infinite;
+    }
+    
+    @keyframes float{
+      0%,100%{transform:translateY(0) translateX(0);opacity:0}
+      10%{opacity:1}
+      90%{opacity:1}
+      100%{transform:translateY(-100vh) translateX(50px);opacity:0}
+    }
+    
+    /* Glassmorphism */
+    .glass{
+      background:rgba(15,23,42,0.4);
+      backdrop-filter:blur(20px) saturate(180%);
+      -webkit-backdrop-filter:blur(20px) saturate(180%);
+      border:1px solid rgba(148,163,184,0.2);
+      box-shadow:0 8px 32px 0 rgba(0,0,0,0.37);
+    }
+    
+    .glass-strong{
+      background:rgba(15,23,42,0.7);
+      backdrop-filter:blur(30px) saturate(200%);
+      -webkit-backdrop-filter:blur(30px) saturate(200%);
+    }
+    
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:999;
+      border-bottom:1px solid var(--line);
+    }
+    
+    .topbar{
+      display:flex;gap:12px;align-items:center;justify-content:space-between;
+      padding:12px 16px;backdrop-filter:blur(20px);
+      background:rgba(2,8,23,0.9);
+    }
+    
+    .brand{display:flex;gap:12px;align-items:center;animation:slideDown 0.6s ease}
+    
+    @keyframes slideDown{
+      from{transform:translateY(-20px);opacity:0}
+      to{transform:translateY(0);opacity:1}
+    }
+    
+    .logo{
+      width:40px;height:40px;border-radius:12px;
+      background:linear-gradient(135deg,#10b981,#3b82f6,#f59e0b);
+      background-size:200% 200%;
+      animation:gradientFlow 3s ease infinite,pulse 2s ease-in-out infinite;
+      box-shadow:0 0 20px rgba(16,185,129,0.5);
+    }
+    
+    @keyframes gradientFlow{
+      0%,100%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+    }
+    
+    @keyframes pulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.05)}
+    }
+    
+    .brand h1{font-size:17px;line-height:1.2;font-weight:600}
+    .tag{font-size:11px;color:var(--muted);opacity:0.9}
+    
+    .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    
+    /* XP Display */
+    .xp-display{
+      display:flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:12px;
+      background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(59,130,246,0.2));
+      border:1px solid rgba(16,185,129,0.3);
+      animation:glow 2s ease-in-out infinite;
+    }
+    
+    @keyframes glow{
+      0%,100%{box-shadow:0 0 10px rgba(16,185,129,0.3)}
+      50%{box-shadow:0 0 20px rgba(16,185,129,0.6)}
+    }
+    
+    .xp-display .level{
+      font-weight:700;color:var(--gold);font-size:15px;
+    }
+    
+    .xp-bar{
+      width:80px;height:6px;background:rgba(0,0,0,0.3);
+      border-radius:3px;overflow:hidden;position:relative;
+    }
+    
+    .xp-fill{
+      height:100%;background:linear-gradient(90deg,#10b981,#3b82f6);
+      border-radius:3px;transition:width 0.5s ease;
+      box-shadow:0 0 10px rgba(16,185,129,0.6);
+    }
+    
+    /* Buttons */
+    button,.btn{
+      background:rgba(15,23,42,0.6);
+      color:var(--ink);
+      border:1px solid var(--line);
+      padding:8px 12px;
+      border-radius:10px;
+      font-size:13px;
+      cursor:pointer;
+      transition:all 0.3s ease;
+      font-weight:500;
+      position:relative;
+      overflow:hidden;
+    }
+    
+    button::before{
+      content:'';
+      position:absolute;
+      top:50%;left:50%;
+      width:0;height:0;
+      border-radius:50%;
+      background:rgba(255,255,255,0.1);
+      transform:translate(-50%,-50%);
+      transition:width 0.6s,height 0.6s;
+    }
+    
+    button:hover::before{width:300px;height:300px}
+    button:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,0.3)}
+    button:active{transform:scale(0.98)}
+    button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+    
+    .btn-primary{
+      background:linear-gradient(135deg,#10b981,#059669);
+      border-color:#10b981;
+      color:white;
+      font-weight:600;
+    }
+    
+    .btn-danger{
+      background:linear-gradient(135deg,#ef4444,#dc2626);
+      border-color:#ef4444;
+    }
+    
+    /* Main */
+    main{
+      max-width:1400px;margin:20px auto 80px;
+      padding:0 16px;position:relative;z-index:2;
+    }
+    
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:16px;
+    }
+    
+    /* Cards */
+    .card{
+      border-radius:20px;padding:20px;
+      transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
+      position:relative;
+      animation:fadeIn 0.6s ease;
+    }
+    
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(20px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    
+    .card:hover{
+      transform:translateY(-4px) scale(1.02);
+      box-shadow:0 20px 40px rgba(0,0,0,0.5);
+      border-color:rgba(59,130,246,0.5);
+    }
+    
+    .card::after{
+      content:'';
+      position:absolute;
+      top:0;left:0;right:0;bottom:0;
+      border-radius:20px;
+      background:linear-gradient(135deg,transparent,rgba(59,130,246,0.05));
+      opacity:0;
+      transition:opacity 0.3s ease;
+      pointer-events:none;
+    }
+    
+    .card:hover::after{opacity:1}
+    
+    .card h2,.card h3,.card h4{margin:0 0 12px 0;font-weight:600}
+    .card h3{font-size:18px}
+    .card h4{font-size:16px}
+    
+    /* Badges & Chips */
+    .badge{
+      font-size:11px;padding:4px 10px;border-radius:999px;
+      border:1px solid rgba(16,185,129,0.3);
+      background:rgba(16,185,129,0.1);
+      display:inline-block;
+      font-weight:500;
+    }
+    
+    .chip{
+      display:inline-flex;gap:6px;align-items:center;
+      padding:8px 14px;border:1px solid var(--line);
+      border-radius:12px;font-size:13px;
+      background:rgba(15,23,42,0.5);
+      transition:all 0.3s ease;
+    }
+    
+    .chip:hover{
+      background:rgba(59,130,246,0.2);
+      border-color:rgba(59,130,246,0.5);
+      transform:scale(1.05);
+    }
+    
+    /* Forms */
+    input,select,textarea{
+      width:100%;
+      background:rgba(15,23,42,0.5);
+      color:var(--ink);
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:12px;
+      font-size:14px;
+      transition:all 0.3s ease;
+      font-family:inherit;
+    }
+    
+    input:focus,select:focus,textarea:focus{
+      outline:none;
+      border-color:var(--accent2);
+      box-shadow:0 0 0 3px rgba(59,130,246,0.1);
+      background:rgba(15,23,42,0.8);
+    }
+    
+    label{font-size:13px;color:var(--muted);font-weight:500;margin-bottom:6px;display:block}
+    
+    /* Tabs */
+    .tabs{
+      display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;
+      padding:8px;background:rgba(15,23,42,0.3);
+      border-radius:16px;
+    }
+    
+    .tabs button{
+      background:transparent;
+      border:none;
+      padding:10px 16px;
+      border-radius:10px;
+      font-size:13px;
+      transition:all 0.3s ease;
+    }
+    
+    .tabs button[aria-selected="true"]{
+      background:linear-gradient(135deg,rgba(16,185,129,0.3),rgba(59,130,246,0.3));
+      color:var(--ink);
+      font-weight:600;
+      box-shadow:0 4px 12px rgba(16,185,129,0.2);
+    }
+    
+    /* Progress Ring */
+    .progress-ring{
+      width:120px;height:120px;
+      transform:rotate(-90deg);
+    }
+    
+    .progress-ring-circle{
+      transition:stroke-dashoffset 0.5s ease;
+      stroke:var(--accent);
+      stroke-linecap:round;
+    }
+    
+    /* Achievements */
+    .achievement{
+      display:flex;align-items:center;gap:12px;
+      padding:12px;border-radius:12px;
+      background:rgba(15,23,42,0.5);
+      border:1px solid var(--line);
+      transition:all 0.3s ease;
+      animation:slideIn 0.5s ease;
+    }
+    
+    @keyframes slideIn{
+      from{transform:translateX(-20px);opacity:0}
+      to{transform:translateX(0);opacity:1}
+    }
+    
+    .achievement:hover{
+      background:rgba(16,185,129,0.1);
+      border-color:var(--accent);
+      transform:scale(1.03);
+    }
+    
+    .achievement.locked{opacity:0.4;filter:grayscale(1)}
+    
+    .achievement-icon{
+      width:48px;height:48px;
+      border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:24px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow:0 4px 12px var(--glow);
+    }
+    
+    .achievement.locked .achievement-icon{
+      background:rgba(100,100,100,0.3);
+      box-shadow:none;
+    }
+    
+    /* Toast Notifications */
+    .toast{
+      position:fixed;bottom:20px;right:20px;
+      padding:16px 20px;border-radius:12px;
+      font-size:14px;
+      display:none;
+      z-index:9999;
+      animation:toastIn 0.5s ease;
+      max-width:400px;
+      box-shadow:0 10px 40px rgba(0,0,0,0.5);
+    }
+    
+    @keyframes toastIn{
+      from{transform:translateY(100px);opacity:0}
+      to{transform:translateY(0);opacity:1}
+    }
+    
+    .toast.success{
+      background:linear-gradient(135deg,rgba(16,185,129,0.9),rgba(5,150,105,0.9));
+      border:1px solid rgba(16,185,129,0.5);
+    }
+    
+    .toast.info{
+      background:linear-gradient(135deg,rgba(59,130,246,0.9),rgba(37,99,235,0.9));
+      border:1px solid rgba(59,130,246,0.5);
+    }
+    
+    .toast.warning{
+      background:linear-gradient(135deg,rgba(245,158,11,0.9),rgba(217,119,6,0.9));
+      border:1px solid rgba(245,158,11,0.5);
+    }
+    
+    .vis{display:block!important}
+    .hidden{display:none!important}
+    
+    /* Modal */
+    .modal{
+      position:fixed;top:0;left:0;right:0;bottom:0;
+      background:rgba(0,0,0,0.8);
+      backdrop-filter:blur(10px);
+      display:none;align-items:center;justify-content:center;
+      z-index:10000;
+      animation:fadeIn 0.3s ease;
+    }
+    
+    .modal-content{
+      border-radius:20px;
+      padding:30px;
+      max-width:500px;
+      width:90%;
+      max-height:80vh;
+      overflow-y:auto;
+      animation:scaleIn 0.3s ease;
+    }
+    
+    @keyframes scaleIn{
+      from{transform:scale(0.8);opacity:0}
+      to{transform:scale(1);opacity:1}
+    }
+    
+    /* Streak Display */
+    .streak{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:6px 12px;border-radius:20px;
+      background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(251,146,60,0.2));
+      border:1px solid rgba(245,158,11,0.3);
+      font-size:13px;font-weight:600;
+    }
+    
+    .streak .fire{
+      animation:flicker 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes flicker{
+      0%,100%{transform:scale(1);filter:brightness(1)}
+      50%{transform:scale(1.1);filter:brightness(1.3)}
+    }
+    
+    /* Loading Spinner */
+    .spinner{
+      width:40px;height:40px;
+      border:4px solid rgba(59,130,246,0.2);
+      border-top-color:var(--accent2);
+      border-radius:50%;
+      animation:spin 1s linear infinite;
+    }
+    
+    @keyframes spin{
+      to{transform:rotate(360deg)}
+    }
+    
+    /* Footer */
+    .footer{
+      text-align:center;
+      font-size:12px;
+      color:var(--muted);
+      margin-top:60px;
+      padding:20px;
+      opacity:0.7;
+    }
+    
+    .footer a{color:var(--accent);text-decoration:none}
+    .footer a:hover{text-decoration:underline}
+    
+    /* Accessibility */
+    .sr-only{
+      position:absolute;width:1px;height:1px;
+      padding:0;margin:-1px;overflow:hidden;
+      clip:rect(0,0,0,0);white-space:nowrap;border:0;
+    }
+    
+    /* Responsive */
+    @media(max-width:768px){
+      .topbar{flex-wrap:wrap}
+      .grid{grid-template-columns:1fr}
+      .tabs{flex-direction:column}
+    }
+    
+    /* Dark mode enhancements */
+    @media(prefers-color-scheme:dark){
+      body{background:#020817}
+    }
+    
+    /* Print styles */
+    @media print{
+      .particles,.topbar .controls,.tabs{display:none}
+      body::before{display:none}
+      .card{break-inside:avoid;border:1px solid #333}
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  
+  <header>
+    <div class="topbar glass-strong" role="navigation" aria-label="Primary">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>যুব নবজাগরণ • Youth Renewal</h1>
+          <div class="tag">মেকার → বাজার • কো-অপ • সিভিক টেক • Gamified Experience</div>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="xp-display">
+          <span class="level" id="levelDisplay">L1</span>
+          <div class="xp-bar">
+            <div class="xp-fill" id="xpFill" style="width:0%"></div>
+          </div>
+          <span id="xpDisplay" style="font-size:12px;color:var(--muted)">0 XP</span>
+        </div>
+        <div class="streak" id="streakDisplay" style="display:none">
+          <span class="fire">🔥</span>
+          <span id="streakCount">0</span>
+        </div>
+        <select id="langSel" aria-label="Language">
+          <option value="bn">বাংলা</option>
+          <option value="en">English</option>
+        </select>
+        <button id="achievementBtn" class="btn" aria-label="Achievements">🏆</button>
+        <button id="installBtn" class="btn" aria-label="Install offline">⬇️</button>
+        <button id="panicBtn" class="btn btn-danger" aria-label="Emergency wipe">🧹</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="card glass" id="about">
+      <h2 data-i18n="about_title">Youth-owned, privacy-first platform</h2>
+      <p class="muted" style="margin:10px 0" data-i18n="about_body">Everything runs locally. Build ventures, earn XP, unlock achievements, get grants, find mentors, report safely.</p>
+      
+      <div class="grid" style="margin-top:16px">
+        <div class="card glass">
+          <h3>📈 <span data-i18n="kpi_title">Impact KPIs</span></h3>
+          <div class="grid" style="grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px">
+            <div class="chip">
+              <span data-i18n="kpi_ventures">Ventures</span>: <b id="kpiVent">0</b>
+            </div>
+            <div class="chip">
+              <span data-i18n="kpi_jobs">Jobs</span>: <b id="kpiJobs">0</b>
+            </div>
+            <div class="chip">
+              <span data-i18n="kpi_grants">Grants</span>: <b id="kpiGrants">0</b>
+            </div>
+            <div class="chip">
+              <span data-i18n="kpi_apprent">Apprentices</span>: <b id="kpiAppr">0</b>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card glass">
+          <h3>🛡️ <span data-i18n="risk_title">Security Features</span></h3>
+          <ul style="margin:10px 0 0 20px;line-height:1.8">
+            <li data-i18n="risk1">Offline-first, no tracking</li>
+            <li data-i18n="risk2">Emergency panic button</li>
+            <li data-i18n="risk3">End-to-end encryption</li>
+            <li data-i18n="risk4">Local-only storage</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="card glass" id="tabs">
+      <div class="tabs" role="tablist" aria-label="Sections">
+        <button role="tab" aria-selected="true" data-tab="pipeline">🛠️ <span data-i18n="tab_pipeline">Ventures</span></button>
+        <button role="tab" aria-selected="false" data-tab="finance">💸 <span data-i18n="tab_finance">Finance</span></button>
+        <button role="tab" aria-selected="false" data-tab="safety">🛡️ <span data-i18n="tab_safety">Safety</span></button>
+        <button role="tab" aria-selected="false" data-tab="apprentice">🏛️ <span data-i18n="tab_apprentice">Apprentice</span></button>
+        <button role="tab" aria-selected="false" data-tab="learn">📚 <span data-i18n="tab_learn">Learn</span></button>
+        <button role="tab" aria-selected="false" data-tab="comms">🔐 <span data-i18n="tab_comms">Comms</span></button>
+        <button role="tab" aria-selected="false" data-tab="exchange">🤝 <span data-i18n="tab_exchange">Exchange</span></button>
+        <button role="tab" aria-selected="false" data-tab="dashboard">📊 <span data-i18n="tab_dash">Dashboard</span></button>
+        <button role="tab" aria-selected="false" data-tab="settings">⚙️ <span data-i18n="tab_settings">Settings</span></button>
+      </div>
+
+      <!-- Pipeline -->
+      <div id="panel-pipeline" role="tabpanel">
+        <h3 data-i18n="pipe_title">Skills → Prototype → Market</h3>
+        <div class="grid" id="ventureList"></div>
+        <div class="grid" style="margin-top:16px">
+          <div class="card glass">
+            <h4 data-i18n="venture_new">New Venture (+50 XP)</h4>
+            <label for="vName">Name</label>
+            <input id="vName" placeholder="Venture name"/>
+            <label for="vSector" style="margin-top:10px">Sector</label>
+            <select id="vSector">
+              <option value="agri">🌾 Agri/food</option>
+              <option value="repair">🔧 Repair/Refurb</option>
+              <option value="green">🌱 Green jobs</option>
+              <option value="civic">🏙️ Civic tech</option>
+              <option value="services">🧵 Services</option>
+            </select>
+            <label for="vPlan" style="margin-top:10px">Plan</label>
+            <textarea id="vPlan" rows="3" placeholder="Problem → solution → customer"></textarea>
+            <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:10px">
+              <div>
+                <label for="vJobs">Jobs to create</label>
+                <input id="vJobs" type="number" placeholder="0"/>
+              </div>
+              <div>
+                <label for="vStage">Stage</label>
+                <input id="vStage" placeholder="skills/prototype/sales"/>
+              </div>
+            </div>
+            <button id="addVenture" class="btn btn-primary" style="margin-top:12px;width:100%">
+              🚀 <span data-i18n="add_venture">Add Venture</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Finance -->
+      <div id="panel-finance" role="tabpanel" class="hidden">
+        <h3 data-i18n="fin_title">Micro-grants & ROSCA</h3>
+        <div class="grid">
+          <div class="card glass">
+            <h4 data-i18n="grant_title">Micro-grant (+30 XP)</h4>
+            <label for="gName">Applicant</label>
+            <input id="gName" placeholder="Name or alias"/>
+            <label for="gAmt" style="margin-top:10px">Amount (৳ BDT)</label>
+            <input id="gAmt" type="number" placeholder="0"/>
+            <label for="gUse" style="margin-top:10px">Use</label>
+            <textarea id="gUse" rows="2" placeholder="Tools, materials, training..."></textarea>
+            <button id="addGrant" class="btn btn-primary" style="margin-top:12px;width:100%">
+              💸 <span data-i18n="add_grant">Add Grant</span>
+            </button>
+          </div>
+          
+          <div class="card glass">
+            <h4 data-i18n="rosca_title">ROSCA Circle (+40 XP)</h4>
+            <label for="rName">Circle name</label>
+            <input id="rName" placeholder="Circle name"/>
+            <label for="rContrib" style="margin-top:10px">Monthly (৳)</label>
+            <input id="rContrib" type="number" placeholder="0"/>
+            <label for="rMembers" style="margin-top:10px">Members</label>
+            <input id="rMembers" type="number" placeholder="5"/>
+            <button id="addRosca" class="btn btn-primary" style="margin-top:12px;width:100%">
+              ➕ <span data-i18n="add_rosca">Create Circle</span>
+            </button>
+            <div id="roscaList" style="margin-top:12px"></div>
+          </div>
+          
+          <div class="card glass">
+            <h4 data-i18n="ledger_title">Funding Ledger</h4>
+            <div id="ledger" style="padding:12px;background:rgba(0,0,0,0.3);border-radius:8px;font-family:monospace;font-size:13px"></div>
+            <button id="exportLedger" class="btn" style="margin-top:12px;width:100%">
+              📄 <span data-i18n="export_ledger">Export JSON</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Safety -->
+      <div id="panel-safety" role="tabpanel" class="hidden">
+        <h3 data-i18n="safe_title">Safety & Legal</h3>
+        <p class="muted" data-i18n="safe_note">Reports encrypted. Panic wipes all data.</p>
+        <div class="grid" style="margin-top:16px">
+          <div class="card glass">
+            <h4 data-i18n="report_title">Report (+20 XP)</h4>
+            <label for="repType">Type</label>
+            <select id="repType">
+              <option value="harassment">🚨 Harassment</option>
+              <option value="workplace">🏭 Workplace abuse</option>
+              <option value="political">⚖️ Political intimidation</option>
+              <option value="route">🗺️ Unsafe route</option>
+            </select>
+            <label for="repDesc" style="margin-top:10px">Description</label>
+            <textarea id="repDesc" rows="3" placeholder="Describe (no names needed)"></textarea>
+            <div style="margin-top:10px">
+              <label style="display:inline-flex;align-items:center;gap:6px">
+                <input type="checkbox" id="repAnon"/>
+                <span data-i18n="rep_anon">Anonymous</span>
+              </label>
+            </div>
+            <div style="margin-top:8px">
+              <label style="display:inline-flex;align-items:center;gap:6px">
+                <input type="checkbox" id="repEncrypt" checked/>
+                <span data-i18n="rep_enc">Encrypt with public key</span>
+              </label>
+            </div>
+            <label for="ngoPubKey" style="margin-top:10px">NGO Public Key (PEM)</label>
+            <textarea id="ngoPubKey" rows="2" placeholder="-----BEGIN PUBLIC KEY-----"></textarea>
+            <button id="sendReport" class="btn btn-primary" style="margin-top:12px;width:100%">
+              📤 <span data-i18n="send_report">Generate & Copy</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apprenticeships -->
+      <div id="panel-apprentice" role="tabpanel" class="hidden">
+        <h3 data-i18n="appr_title">Civic Apprenticeships</h3>
+        <div class="grid" id="apprentList"></div>
+        <div class="grid" style="margin-top:16px">
+          <div class="card glass">
+            <h4 data-i18n="appr_new">New Placement (+35 XP)</h4>
+            <label for="apOrg">Organization</label>
+            <input id="apOrg" placeholder="Gov/NGO office"/>
+            <label for="apRole" style="margin-top:10px">Role</label>
+            <input id="apRole" placeholder="Position"/>
+            <label for="apMentor" style="margin-top:10px">Mentor</label>
+            <input id="apMentor" placeholder="Supervisor"/>
+            <button id="addAppr" class="btn btn-primary" style="margin-top:12px;width:100%">
+              🧭 <span data-i18n="add_appr">Add</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Learn -->
+      <div id="panel-learn" role="tabpanel" class="hidden">
+        <h3 data-i18n="learn_title">Learning Library</h3>
+        <div class="grid" id="lessonList"></div>
+        <div class="grid" style="margin-top:16px">
+          <div class="card glass">
+            <h4 data-i18n="lesson_new">New Lesson (+25 XP)</h4>
+            <label for="lsTitle">Title</label>
+            <input id="lsTitle" placeholder="Lesson title"/>
+            <label for="lsBody" style="margin-top:10px">Content</label>
+            <textarea id="lsBody" rows="4" placeholder="Key steps, links..."></textarea>
+            <button id="addLesson" class="btn btn-primary" style="margin-top:12px;width:100%">
+              ➕ <span data-i18n="add_lesson">Add Lesson</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comms -->
+      <div id="panel-comms" role="tabpanel" class="hidden">
+        <h3 data-i18n="comms_title">Secure Communications</h3>
+        <div class="grid">
+          <div class="card glass">
+            <h4>🔐 Local Encryption</h4>
+            <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0">
+              <button class="btn" id="genKey">🔑 Gen</button>
+              <button class="btn" id="exportKey">📦 Export</button>
+              <button class="btn" id="importKey">📥 Import</button>
+            </div>
+            <label for="plain">Plaintext</label>
+            <textarea id="plain" rows="3" placeholder="Secret message..."></textarea>
+            <button class="btn" id="enc" style="margin-top:8px;width:100%">Encrypt</button>
+            <label for="cipher" style="margin-top:10px">Ciphertext</label>
+            <textarea id="cipher" rows="3" placeholder="Encrypted..."></textarea>
+            <button class="btn" id="dec" style="margin-top:8px;width:100%">Decrypt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exchange -->
+      <div id="panel-exchange" role="tabpanel" class="hidden">
+        <h3 data-i18n="ex_title">Peer Exchange</h3>
+        <div class="grid" id="exchangeList"></div>
+        <div class="grid" style="margin-top:16px">
+          <div class="card glass">
+            <h4 data-i18n="ex_new">Share (+15 XP)</h4>
+            <label for="exBody">Message</label>
+            <textarea id="exBody" rows="3" placeholder="I can teach... / I need..."></textarea>
+            <button id="addExchange" class="btn btn-primary" style="margin-top:12px;width:100%">
+              📣 <span data-i18n="add_ex">Post</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard -->
+      <div id="panel-dashboard" role="tabpanel" class="hidden">
+        <h3 data-i18n="dash_title">Real-time Dashboard</h3>
+        <div class="grid">
+          <div class="card glass">
+            <h4>📈 Jobs Created</h4>
+            <canvas id="chartJobs" height="150"></canvas>
+          </div>
+          <div class="card glass">
+            <h4>🏪 Ventures by Sector</h4>
+            <canvas id="chartVen" height="150"></canvas>
+          </div>
+          <div class="card glass">
+            <h4>💰 Funding Flow</h4>
+            <div id="fundsTxt" style="padding:20px;text-align:center;font-size:24px;font-weight:700;color:var(--accent)"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div id="panel-settings" role="tabpanel" class="hidden">
+        <h3 data-i18n="set_title">Settings</h3>
+        <div class="grid">
+          <div class="card glass">
+            <h4 data-i18n="role_title">Role</h4>
+            <select id="roleSel">
+              <option value="student">🎓 Student</option>
+              <option value="maker">🛠️ Maker</option>
+              <option value="mentor">🧑‍🏫 Mentor</option>
+              <option value="organizer">🤝 Organizer</option>
+            </select>
+          </div>
+          <div class="card glass">
+            <h4 data-i18n="backup_title">Backup</h4>
+            <button id="exportAll" class="btn" style="width:100%;margin-bottom:8px">
+              ⬇️ <span data-i18n="export_all">Export All</span>
+            </button>
+            <button id="importAll" class="btn" style="width:100%">
+              ⬆️ <span data-i18n="import_all">Import All</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <p>© Youth-owned • Offline-first • Zero tracking • Open schema</p>
+      <p style="margin-top:8px;font-size:11px">
+        <a href="https://planetaryrestorationarchive.com" target="_blank" rel="noopener">Planetary Restoration Archive</a> • 
+        <a href="https://github.com/TheRickyFoster" target="_blank" rel="noopener">GitHub</a>
+      </p>
+      <p style="margin-top:12px;font-size:10px;opacity:0.6">
+        Zero-Harm Notice: Built for empowerment, not extraction. Licensed MIT/Apache-2.0 patterns.
+      </p>
+      <div class="sr-only" aria-hidden="true">
+        Provenance: Planetary Restoration Archive | Foster + Navi
+      </div>
+    </div>
+  </main>
+
+  <!-- Achievement Modal -->
+  <div id="achievementModal" class="modal">
+    <div class="modal-content glass-strong">
+      <h2>🏆 Achievements</h2>
+      <div id="achievementList" style="margin-top:20px"></div>
+      <button class="btn" onclick="document.getElementById('achievementModal').style.display='none'" style="margin-top:20px;width:100%">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Inline JSON Schemas -->
+  <script id="schemas" type="application/json">{
+    "Venture":{"id":"string","name":"string","sector":"enum","plan":"string","jobs":"number","stage":"string","created_at":"ISO"},
+    "Grant":{"id":"string","applicant":"string","amount":"number","use":"string","created_at":"ISO"},
+    "Rosca":{"id":"string","name":"string","contrib":"number","members":"number","created_at":"ISO"},
+    "Apprentice":{"id":"string","org":"string","role":"string","mentor":"string","created_at":"ISO"},
+    "Lesson":{"id":"string","title":"string","body":"string","created_at":"ISO"},
+    "SafetyReport":{"id":"string","kind":"enum","desc":"string","anon":"boolean","encrypted":"boolean"}
+  }</script>
+
+  <!-- i18n -->
+  <script id="i18n" type="application/json">{
+    "bn":{
+      "about_title":"যুবদের প্ল্যাটফর্ম",
+      "about_body":"সবকিছু লোকালি চলে। উদ্যোগ তৈরি করুন, XP অর্জন করুন, অ্যাচিভমেন্ট আনলক করুন।",
+      "kpi_title":"প্রভাব KPI",
+      "kpi_ventures":"উদ্যোগ",
+      "kpi_jobs":"চাকরি",
+      "kpi_grants":"গ্রান্ট",
+      "kpi_apprent":"অ্যাপ্রেন্টিস",
+      "risk_title":"নিরাপত্তা",
+      "risk1":"অফলাইন প্রথম",
+      "risk2":"প্যানিক বোতাম",
+      "risk3":"এনক্রিপশন",
+      "risk4":"লোকাল স্টোরেজ",
+      "tab_pipeline":"উদ্যোগ",
+      "tab_finance":"ফিন্যান্স",
+      "tab_safety":"নিরাপত্তা",
+      "tab_apprentice":"অ্যাপ্রেন্টিস",
+      "tab_learn":"শিখুন",
+      "tab_comms":"যোগাযোগ",
+      "tab_exchange":"বিনিময়",
+      "tab_dash":"ড্যাশবোর্ড",
+      "tab_settings":"সেটিংস",
+      "pipe_title":"দক্ষতা → প্রোটোটাইপ → বাজার",
+      "venture_new":"নতুন উদ্যোগ",
+      "add_venture":"যোগ করুন",
+      "fin_title":"মাইক্রো-গ্রান্ট",
+      "grant_title":"গ্রান্ট",
+      "add_grant":"যোগ করুন",
+      "rosca_title":"ROSCA সার্কেল",
+      "add_rosca":"তৈরি করুন",
+      "ledger_title":"লেজার",
+      "export_ledger":"এক্সপোর্ট",
+      "safe_title":"নিরাপত্তা",
+      "safe_note":"রিপোর্ট এনক্রিপ্ট করা",
+      "report_title":"রিপোর্ট",
+      "rep_anon":"বেনামি",
+      "rep_enc":"এনক্রিপ্ট",
+      "send_report":"পাঠান",
+      "appr_title":"অ্যাপ্রেন্টিসশিপ",
+      "appr_new":"নতুন প্লেসমেন্ট",
+      "add_appr":"যোগ করুন",
+      "learn_title":"শেখার লাইব্রেরি",
+      "lesson_new":"নতুন লেসন",
+      "add_lesson":"যোগ করুন",
+      "comms_title":"সিকিউর কমিউনিকেশন",
+      "ex_title":"পিয়ার এক্সচেঞ্জ",
+      "ex_new":"শেয়ার করুন",
+      "add_ex":"পোস্ট",
+      "dash_title":"ড্যাশবোর্ড",
+      "set_title":"সেটিংস",
+      "role_title":"ভূমিকা",
+      "backup_title":"ব্যাকআপ",
+      "export_all":"সব এক্সপোর্ট",
+      "import_all":"সব ইমপোর্ট"
+    },
+    "en":{
+      "about_title":"Youth-owned Platform",
+      "about_body":"Everything runs locally. Build ventures, earn XP, unlock achievements.",
+      "kpi_title":"Impact KPIs",
+      "kpi_ventures":"Ventures",
+      "kpi_jobs":"Jobs",
+      "kpi_grants":"Grants",
+      "kpi_apprent":"Apprentices",
+      "risk_title":"Security",
+      "risk1":"Offline-first",
+      "risk2":"Panic button",
+      "risk3":"Encryption",
+      "risk4":"Local storage",
+      "tab_pipeline":"Ventures",
+      "tab_finance":"Finance",
+      "tab_safety":"Safety",
+      "tab_apprentice":"Apprentice",
+      "tab_learn":"Learn",
+      "tab_comms":"Comms",
+      "tab_exchange":"Exchange",
+      "tab_dash":"Dashboard",
+      "tab_settings":"Settings",
+      "pipe_title":"Skills → Prototype → Market",
+      "venture_new":"New Venture",
+      "add_venture":"Add",
+      "fin_title":"Micro-grants",
+      "grant_title":"Grant",
+      "add_grant":"Add",
+      "rosca_title":"ROSCA Circle",
+      "add_rosca":"Create",
+      "ledger_title":"Ledger",
+      "export_ledger":"Export",
+      "safe_title":"Safety",
+      "safe_note":"Reports encrypted",
+      "report_title":"Report",
+      "rep_anon":"Anonymous",
+      "rep_enc":"Encrypt",
+      "send_report":"Send",
+      "appr_title":"Apprenticeships",
+      "appr_new":"New Placement",
+      "add_appr":"Add",
+      "learn_title":"Learning Library",
+      "lesson_new":"New Lesson",
+      "add_lesson":"Add",
+      "comms_title":"Secure Comms",
+      "ex_title":"Peer Exchange",
+      "ex_new":"Share",
+      "add_ex":"Post",
+      "dash_title":"Dashboard",
+      "set_title":"Settings",
+      "role_title":"Role",
+      "backup_title":"Backup",
+      "export_all":"Export All",
+      "import_all":"Import All"
+    }
+  }</script>
+
+  <script>
+    // ===== Core Utilities =====
+    const $=s=>document.querySelector(s);
+    const $$=s=>document.querySelectorAll(s);
+    const uid=()=>Math.random().toString(36).slice(2)+Date.now().toString(36);
+    
+    // ===== Gamification System =====
+    const gamify={
+      xp:0,
+      level:1,
+      streak:0,
+      lastActive:null,
+      achievements:{
+        firstVenture:{id:'firstVenture',name:'First Venture',desc:'Created first venture',icon:'🎯',xp:100,unlocked:false},
+        tenVentures:{id:'tenVentures',name:'Entrepreneur',desc:'Created 10 ventures',icon:'🚀',xp:500,unlocked:false},
+        firstGrant:{id:'firstGrant',name:'Grant Master',desc:'Distributed first grant',icon:'💰',xp:150,unlocked:false},
+        weekStreak:{id:'weekStreak',name:'Consistent',desc:'7-day streak',icon:'🔥',xp:300,unlocked:false},
+        fiftyActions:{id:'fiftyActions',name:'Power User',desc:'50 total actions',icon:'⚡',xp:400,unlocked:false},
+        safetyFirst:{id:'safetyFirst',name:'Guardian',desc:'Created safety report',icon:'🛡️',xp:200,unlocked:false}
+      },
+      
+      addXP(amount,reason){
+        this.xp+=amount;
+        this.updateStreak();
+        this.save();
+        this.checkLevel();
+        this.checkAchievements();
+        toast(`+${amount} XP: ${reason}`,'success');
+      },
+      
+      checkLevel(){
+        const newLevel=Math.floor(this.xp/500)+1;
+        if(newLevel>this.level){
+          this.level=newLevel;
+          toast(`🎉 Level Up! Now Level ${this.level}`,'success');
+          this.showConfetti();
+        }
+        this.updateDisplay();
+      },
+      
+      updateStreak(){
+        const today=new Date().toDateString();
+        if(this.lastActive!==today){
+          const yesterday=new Date(Date.now()-86400000).toDateString();
+          if(this.lastActive===yesterday){
+            this.streak++;
+          }else if(this.lastActive!==today){
+            this.streak=1;
+          }
+          this.lastActive=today;
+        }
+      },
+      
+      checkAchievements(){
+        const counts={ventures:0,grants:0,actions:0};
+        
+        // Count from localStorage
+        Object.keys(localStorage).forEach(k=>{
+          if(k.includes('ventures'))counts.ventures++;
+          if(k.includes('grants'))counts.grants++;
+          counts.actions++;
+        });
+        
+        if(counts.ventures>=1&&!this.achievements.firstVenture.unlocked){
+          this.unlockAchievement('firstVenture');
+        }
+        if(counts.ventures>=10&&!this.achievements.tenVentures.unlocked){
+          this.unlockAchievement('tenVentures');
+        }
+        if(counts.grants>=1&&!this.achievements.firstGrant.unlocked){
+          this.unlockAchievement('firstGrant');
+        }
+        if(this.streak>=7&&!this.achievements.weekStreak.unlocked){
+          this.unlockAchievement('weekStreak');
+        }
+        if(counts.actions>=50&&!this.achievements.fiftyActions.unlocked){
+          this.unlockAchievement('fiftyActions');
+        }
+      },
+      
+      unlockAchievement(id){
+        const ach=this.achievements[id];
+        if(ach&&!ach.unlocked){
+          ach.unlocked=true;
+          this.xp+=ach.xp;
+          toast(`🏆 Achievement Unlocked: ${ach.name}! +${ach.xp} XP`,'success');
+          this.showConfetti();
+          this.save();
+        }
+      },
+      
+      updateDisplay(){
+        const xpForLevel=this.level*500;
+        const xpInLevel=this.xp%500;
+        const percent=(xpInLevel/500)*100;
+        
+        $('#levelDisplay').textContent=`L${this.level}`;
+        $('#xpDisplay').textContent=`${this.xp} XP`;
+        $('#xpFill').style.width=`${percent}%`;
+        
+        if(this.streak>0){
+          $('#streakDisplay').style.display='inline-flex';
+          $('#streakCount').textContent=this.streak;
+        }
+      },
+      
+      showConfetti(){
+        // Simple confetti effect
+        for(let i=0;i<30;i++){
+          const conf=document.createElement('div');
+          conf.style.cssText=`position:fixed;width:8px;height:8px;background:${['#10b981','#3b82f6','#f59e0b'][i%3]};
+            border-radius:50%;left:${Math.random()*100}%;top:-10px;z-index:9999;
+            animation:confettiFall ${2+Math.random()*2}s ease-out forwards`;
+          document.body.appendChild(conf);
+          setTimeout(()=>conf.remove(),4000);
+        }
+      },
+      
+      load(){
+        const saved=localStorage.getItem('gamify');
+        if(saved){
+          const data=JSON.parse(saved);
+          this.xp=data.xp||0;
+          this.level=data.level||1;
+          this.streak=data.streak||0;
+          this.lastActive=data.lastActive||null;
+          this.achievements=data.achievements||this.achievements;
+        }
+        this.updateDisplay();
+      },
+      
+      save(){
+        localStorage.setItem('gamify',JSON.stringify({
+          xp:this.xp,
+          level:this.level,
+          streak:this.streak,
+          lastActive:this.lastActive,
+          achievements:this.achievements
+        }));
+      }
+    };
+    
+    // Add confetti animation
+    const style=document.createElement('style');
+    style.textContent=`@keyframes confettiFall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}`;
+    document.head.appendChild(style);
+    
+    // ===== Toast System =====
+    function toast(msg,type='info'){
+      const t=$('#toast');
+      t.textContent=msg;
+      t.className=`toast ${type}`;
+      t.style.display='block';
+      setTimeout(()=>t.style.display='none',3000);
+    }
+    
+    // ===== Particles Animation =====
+    function initParticles(){
+      const container=$('#particles');
+      for(let i=0;i<20;i++){
+        const p=document.createElement('div');
+        p.className='particle';
+        p.style.left=`${Math.random()*100}%`;
+        p.style.animationDelay=`${Math.random()*20}s`;
+        p.style.animationDuration=`${15+Math.random()*10}s`;
+        container.appendChild(p);
+      }
+    }
+    
+    // ===== IndexedDB =====
+    let db;
+    const DB='youth_renewal_v2';
+    const VER=1;
+    
+    function openDB(){
+      return new Promise((res,rej)=>{
+        const r=indexedDB.open(DB,VER);
+        r.onupgradeneeded=e=>{
+          const d=e.target.result;
+          ['ventures','mentors','grants','roscas','apprent','lessons','exchange','reports','kv'].forEach(s=>{
+            if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:'id'});
+          });
+        };
+        r.onsuccess=e=>{db=e.target.result;res(db)};
+        r.onerror=()=>rej(r.error);
+      });
+    }
+    
+    const put=(s,o)=>new Promise((res,rej)=>{
+      const tx=db.transaction(s,'readwrite');
+      tx.objectStore(s).put(o);
+      tx.oncomplete=res;
+      tx.onerror=()=>rej(tx.error);
+    });
+    
+    const all=(s)=>new Promise((res,rej)=>{
+      const tx=db.transaction(s,'readonly');
+      const rq=tx.objectStore(s).getAll();
+      rq.onsuccess=()=>res(rq.result||[]);
+      rq.onerror=()=>rej(rq.error);
+    });
+    
+    const clearAll=()=>new Promise((res,rej)=>{
+      const stores=['ventures','mentors','grants','roscas','apprent','lessons','exchange','reports','kv'];
+      const tx=db.transaction(stores,'readwrite');
+      stores.forEach(s=>tx.objectStore(s).clear());
+      tx.oncomplete=res;
+      tx.onerror=()=>rej(tx.error);
+    });
+    
+    // ===== i18n =====
+    const dict=JSON.parse($('#i18n').textContent);
+    const t=k=>{
+      const L=$('#langSel').value||'bn';
+      return(dict[L]&&dict[L][k])||dict['en'][k]||k;
+    };
+    function applyI18n(){
+      $$('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
+    }
+    
+    // ===== Service Worker =====
+    if('serviceWorker' in navigator){
+      const code=`self.addEventListener('install',e=>{e.waitUntil(caches.open('yr-v2').then(c=>c.addAll(['./'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>caches.match('./'))))});`;
+      const url=URL.createObjectURL(new Blob([code],{type:'text/javascript'}));
+      navigator.serviceWorker.register(url);
+    }
+    
+    // ===== PWA Install =====
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt',e=>{
+      e.preventDefault();
+      deferredPrompt=e;
+    });
+    
+    $('#installBtn').onclick=async()=>{
+      try{
+        deferredPrompt?deferredPrompt.prompt():toast('Use browser menu to install','info');
+      }catch{
+        toast('Use Add to Home Screen','info');
+      }
+    };
+    
+    // ===== Panic Button =====
+    $('#panicBtn').onclick=async()=>{
+      if(confirm('⚠️ Wipe ALL data and disguise UI?')){
+        await clearAll();
+        localStorage.clear();
+        sessionStorage.clear();
+        document.body.innerHTML=`<div style="padding:40px;max-width:400px;margin:0 auto;background:#1e293b;min-height:100vh">
+          <h2 style="color:#e2e8f0;margin-bottom:20px">Calculator</h2>
+          <input style="width:100%;padding:15px;background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:8px;font-size:18px" 
+            placeholder="Enter calculation" 
+            onkeydown="if(event.key==='Enter'){this.nextElementSibling.textContent='= '+eval(this.value)}">
+          <div style="margin-top:15px;padding:15px;background:#0f172a;border-radius:8px;color:#10b981;font-size:24px;min-height:60px"></div>
+        </div>`;
+      }
+    };
+    
+    // ===== Tabs =====
+    $$('#tabs [role=tab]').forEach(b=>b.onclick=()=>{
+      $$('#tabs [role=tabpanel]').forEach(p=>p.classList.add('hidden'));
+      $(`#panel-${b.dataset.tab}`).classList.remove('hidden');
+      $$('#tabs [role=tab]').forEach(x=>x.setAttribute('aria-selected','false'));
+      b.setAttribute('aria-selected','true');
+    });
+    
+    // ===== Ventures =====
+    async function renderVentures(){
+      const arr=await all('ventures');
+      const box=$('#ventureList');
+      box.innerHTML='';
+      let jobs=0;
+      const sectors={};
+      
+      arr.forEach(v=>{
+        jobs+=Number(v.jobs||0);
+        sectors[v.sector]=(sectors[v.sector]||0)+1;
+        
+        const d=document.createElement('div');
+        d.className='card glass';
+        d.style.animationDelay=`${Math.random()*0.3}s`;
+        d.innerHTML=`
+          <h4>${v.name} <span class="badge">${v.sector}</span></h4>
+          <p style="color:var(--muted);margin:8px 0">${v.plan||''}</p>
+          <p style="font-size:13px">👥 <b>${v.jobs||0}</b> jobs • Stage: ${v.stage||'n/a'}</p>
+        `;
+        box.appendChild(d);
+      });
+      
+      localStorage.setItem('jobs',jobs);
+      localStorage.setItem('sectors',JSON.stringify(sectors));
+      updateKPIs();
+      drawCharts();
+    }
+    
+    $('#addVenture').onclick=async()=>{
+      const v={
+        id:uid(),
+        name:$('#vName').value.trim(),
+        sector:$('#vSector').value,
+        plan:$('#vPlan').value.trim(),
+        jobs:Number($('#vJobs').value||0),
+        stage:$('#vStage').value.trim(),
+        created_at:new Date().toISOString()
+      };
+      
+      if(!v.name)return toast('Name required','warning');
+      
+      await put('ventures',v);
+      ['vName','vPlan','vJobs','vStage'].forEach(i=>$('#'+i).value='');
+      renderVentures();
+      gamify.addXP(50,'Created venture');
+    };
+    
+    // ===== Finance =====
+    async function renderLedger(){
+      const gs=await all('grants');
+      const rs=await all('roscas');
+      const totalG=gs.reduce((a,b)=>a+Number(b.amount||0),0);
+      const totalR=rs.reduce((a,b)=>a+Number(b.contrib||0)*Number(b.members||0),0);
+      $('#ledger').textContent=`Grants: ৳${totalG}\nROSCA: ৳${totalR}/mo`;
+      localStorage.setItem('grants',gs.length);
+      updateKPIs();
+      drawFunds();
+    }
+    
+    $('#addGrant').onclick=async()=>{
+      const g={
+        id:uid(),
+        applicant:$('#gName').value.trim(),
+        amount:Number($('#gAmt').value||0),
+        use:$('#gUse').value.trim(),
+        created_at:new Date().toISOString()
+      };
+      
+      if(!g.amount)return toast('Amount required','warning');
+      
+      await put('grants',g);
+      ['gName','gAmt','gUse'].forEach(i=>$('#'+i).value='');
+      renderLedger();
+      gamify.addXP(30,'Added grant');
+    };
+    
+    $('#addRosca').onclick=async()=>{
+      const r={
+        id:uid(),
+        name:$('#rName').value.trim(),
+        contrib:Number($('#rContrib').value||0),
+        members:Number($('#rMembers').value||0),
+        created_at:new Date().toISOString()
+      };
+      
+      if(!r.name)return toast('Circle name required','warning');
+      
+      await put('roscas',r);
+      $('#roscaList').innerHTML+=`<div class="chip">${r.name}: ৳${r.contrib} × ${r.members}</div>`;
+      ['rName','rContrib','rMembers'].forEach(i=>$('#'+i).value='');
+      renderLedger();
+      gamify.addXP(40,'Created ROSCA circle');
+    };
+    
+    $('#exportLedger').onclick=async()=>{
+      const out={
+        grants:await all('grants'),
+        roscas:await all('roscas'),
+        ts:new Date().toISOString()
+      };
+      const s=JSON.stringify(out,null,2);
+      try{
+        await navigator.clipboard.writeText(s);
+        toast('Ledger copied to clipboard','success');
+      }catch{
+        const blob=new Blob([s],{type:'application/json'});
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement('a');
+        a.href=url;
+        a.download='ledger.json';
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    };
+    
+    // ===== Safety =====
+    async function encryptRSA(pem,data){
+      try{
+        const clean=pem.trim();
+        const b64=clean.replace(/-----.*?-----/g,'').replace(/\s+/g,'');
+        const raw=Uint8Array.from(atob(b64),c=>c.charCodeAt(0)).buffer;
+        const key=await crypto.subtle.importKey('spki',raw,{name:'RSA-OAEP',hash:'SHA-256'},false,['encrypt']);
+        const enc=await crypto.subtle.encrypt({name:'RSA-OAEP'},key,new TextEncoder().encode(JSON.stringify(data)));
+        return btoa(String.fromCharCode(...new Uint8Array(enc)));
+      }catch(e){
+        console.warn(e);
+        return null;
+      }
+    }
+    
+    $('#sendReport').onclick=async()=>{
+      const rep={
+        id:uid(),
+        kind:$('#repType').value,
+        desc:$('#repDesc').value.trim(),
+        anon:$('#repAnon').checked,
+        encrypted:false,
+        cipher:'',
+        created_at:new Date().toISOString()
+      };
+      
+      if($('#repEncrypt').checked){
+        const pem=$('#ngoPubKey').value;
+        const c=await encryptRSA(pem,rep);
+        if(c){
+          rep.encrypted=true;
+          rep.cipher=c;
+          rep.desc='[encrypted]';
+        }
+      }
+      
+      await put('reports',rep);
+      const text=rep.encrypted?
+        JSON.stringify({cipher:rep.cipher,note:'RSA-OAEP/SHA-256'},null,2):
+        JSON.stringify(rep,null,2);
+      
+      try{
+        await navigator.clipboard.writeText(text);
+        toast('Report copied to clipboard','success');
+        gamify.addXP(20,'Created safety report');
+      }catch{
+        toast('Copy failed','warning');
+      }
+    };
+    
+    // ===== Apprenticeships =====
+    async function renderApprent(){
+      const arr=await all('apprent');
+      const box=$('#apprentList');
+      box.innerHTML='';
+      arr.forEach(a=>{
+        const d=document.createElement('div');
+        d.className='card glass';
+        d.innerHTML=`<h4>${a.org}</h4><p>${a.role} — ${a.mentor}</p>`;
+        box.appendChild(d);
+      });
+    }
+    
+    $('#addAppr').onclick=async()=>{
+      const a={
+        id:uid(),
+        org:$('#apOrg').value.trim(),
+        role:$('#apRole').value.trim(),
+        mentor:$('#apMentor').value.trim(),
+        created_at:new Date().toISOString()
+      };
+      
+      if(!a.org)return toast('Organization required','warning');
+      
+      await put('apprent',a);
+      ['apOrg','apRole','apMentor'].forEach(i=>$('#'+i).value='');
+      renderApprent();
+      localStorage.setItem('apprent',Number(localStorage.getItem('apprent')||0)+1);
+      updateKPIs();
+      gamify.addXP(35,'Added apprenticeship');
+    };
+    
+    // ===== Lessons =====
+    async function renderLessons(){
+      const arr=await all('lessons');
+      const box=$('#lessonList');
+      box.innerHTML='';
+      arr.forEach(l=>{
+        const d=document.createElement('div');
+        d.className='card glass';
+        d.innerHTML=`<h4>${l.title}</h4><p style="color:var(--muted)">${l.body}</p>`;
+        box.appendChild(d);
+      });
+    }
+    
+    $('#addLesson').onclick=async()=>{
+      const L={
+        id:uid(),
+        title:$('#lsTitle').value.trim(),
+        body:$('#lsBody').value.trim(),
+        created_at:new Date().toISOString()
+      };
+      
+      if(!L.title)return toast('Title required','warning');
+      
+      await put('lessons',L);
+      ['lsTitle','lsBody'].forEach(i=>$('#'+i).value='');
+      renderLessons();
+      gamify.addXP(25,'Added lesson');
+    };
+    
+    // ===== Crypto =====
+    const wrap={};
+    
+    async function genKey(){
+      wrap.key=await crypto.subtle.generateKey({name:'AES-GCM',length:256},true,['encrypt','decrypt']);
+      toast('Key generated','success');
+    }
+    
+    async function exportKey(){
+      const j=await crypto.subtle.exportKey('jwk',wrap.key);
+      await navigator.clipboard.writeText(JSON.stringify(j));
+      toast('Key copied','success');
+    }
+    
+    async function importKey(){
+      const s=prompt('Paste JWK');
+      if(!s)return;
+      wrap.key=await crypto.subtle.importKey('jwk',JSON.parse(s),{name:'AES-GCM'},true,['encrypt','decrypt']);
+      toast('Key imported','success');
+    }
+    
+    async function enc(){
+      if(!wrap.key)return toast('Generate key first','warning');
+      const iv=crypto.getRandomValues(new Uint8Array(12));
+      const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},wrap.key,new TextEncoder().encode($('#plain').value));
+      $('#cipher').value=btoa(String.fromCharCode(...iv))+'.'+btoa(String.fromCharCode(...new Uint8Array(ct)));
+      toast('Encrypted','success');
+    }
+    
+    async function dec(){
+      if(!wrap.key)return toast('Import key first','warning');
+      const[ivb,ctb]=$('#cipher').value.split('.');
+      const iv=Uint8Array.from(atob(ivb),c=>c.charCodeAt(0));
+      const ct=Uint8Array.from(atob(ctb),c=>c.charCodeAt(0));
+      const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv},wrap.key,ct);
+      $('#plain').value=new TextDecoder().decode(pt);
+      toast('Decrypted','success');
+    }
+    
+    $('#genKey').onclick=genKey;
+    $('#exportKey').onclick=exportKey;
+    $('#importKey').onclick=importKey;
+    $('#enc').onclick=enc;
+    $('#dec').onclick=dec;
+    
+    // ===== Exchange =====
+    async function renderExchange(){
+      const arr=await all('exchange');
+      const box=$('#exchangeList');
+      box.innerHTML='';
+      arr.forEach(e=>{
+        const d=document.createElement('div');
+        d.className='card glass';
+        d.innerHTML=`<p>${e.body}</p>`;
+        box.appendChild(d);
+      });
+    }
+    
+    $('#addExchange').onclick=async()=>{
+      const E={
+        id:uid(),
+        body:$('#exBody').value.trim(),
+        created_at:new Date().toISOString()
+      };
+      
+      if(!E.body)return;
+      
+      await put('exchange',E);
+      $('#exBody').value='';
+      renderExchange();
+      gamify.addXP(15,'Shared knowledge');
+    };
+    
+    // ===== Charts =====
+    function drawLine(id,vals){
+      const c=$(id);
+      if(!c)return;
+      const ctx=c.getContext('2d');
+      const W=c.width=c.clientWidth;
+      const H=c.height;
+      ctx.clearRect(0,0,W,H);
+      ctx.strokeStyle='#10b981';
+      ctx.lineWidth=3;
+      ctx.shadowColor='rgba(16,185,129,0.5)';
+      ctx.shadowBlur=10;
+      ctx.beginPath();
+      vals.forEach((y,i)=>{
+        const x=i*(W/(vals.length-1));
+        const yy=H-(y/Math.max(...vals||[1]))*(H-20)-10;
+        i?ctx.lineTo(x,yy):ctx.moveTo(x,yy);
+      });
+      ctx.stroke();
+    }
+    
+    function drawBars(id,map){
+      const c=$(id);
+      if(!c)return;
+      const ctx=c.getContext('2d');
+      const W=c.width=c.clientWidth;
+      const H=c.height;
+      ctx.clearRect(0,0,W,H);
+      const keys=Object.keys(map||{});
+      const max=Math.max(...Object.values(map||{x:1}));
+      
+      keys.forEach((k,i)=>{
+        const w=W/keys.length*0.7;
+        const x=(i+0.15)*(W/keys.length);
+        const h=(map[k]/max)*(H-30);
+        
+        const grad=ctx.createLinearGradient(x,H-h,x,H);
+        grad.addColorStop(0,'#10b981');
+        grad.addColorStop(1,'#3b82f6');
+        
+        ctx.fillStyle=grad;
+        ctx.fillRect(x,H-h,w,h);
+        
+        ctx.fillStyle='#94a3b8';
+        ctx.font='11px Inter';
+        ctx.fillText(k,x+2,H-5);
+      });
+    }
+    
+    function drawCharts(){
+      const jobs=Number(localStorage.getItem('jobs')||0);
+      const vals=Array.from({length:12},(_,i)=>Math.max(1,Math.round(jobs*(i+1)/12)));
+      drawLine('#chartJobs',vals);
+      
+      const sectors=JSON.parse(localStorage.getItem('sectors')||'{}');
+      drawBars('#chartVen',sectors);
+    }
+    
+    function drawFunds(){
+      const txt=$('#ledger').textContent;
+      $('#fundsTxt').textContent=txt.split('\n')[0];
+    }
+    
+    // ===== KPIs =====
+    async function updateKPIs(){
+      const v=(await all('ventures')).length;
+      const g=(await all('grants')).length;
+      const appr=(await all('apprent')).length;
+      const jobs=Number(localStorage.getItem('jobs')||0);
+      
+      $('#kpiVent').textContent=v;
+      $('#kpiGrants').textContent=g;
+      $('#kpiAppr').textContent=appr;
+      $('#kpiJobs').textContent=jobs;
+    }
+    
+    // ===== Achievements =====
+    $('#achievementBtn').onclick=()=>{
+      const modal=$('#achievementModal');
+      const list=$('#achievementList');
+      list.innerHTML='';
+      
+      Object.values(gamify.achievements).forEach(ach=>{
+        const div=document.createElement('div');
+        div.className=`achievement ${ach.unlocked?'':'locked'}`;
+        div.innerHTML=`
+          <div class="achievement-icon">${ach.icon}</div>
+          <div style="flex:1">
+            <h4 style="margin:0">${ach.name}</h4>
+            <p style="margin:4px 0 0;font-size:13px;color:var(--muted)">${ach.desc}</p>
+            <p style="margin:4px 0 0;font-size:12px;color:var(--gold)">+${ach.xp} XP</p>
+          </div>
+        `;
+        list.appendChild(div);
+      });
+      
+      modal.style.display='flex';
+    };
+    
+    // ===== Backup =====
+    $('#exportAll').onclick=async()=>{
+      const payload={
+        ventures:await all('ventures'),
+        mentors:await all('mentors'),
+        grants:await all('grants'),
+        roscas:await all('roscas'),
+        apprentices:await all('apprent'),
+        lessons:await all('lessons'),
+        exchange:await all('exchange'),
+        reports:await all('reports'),
+        gamify:gamify,
+        prefs:{
+          lang:$('#langSel').value,
+          role:$('#roleSel').value
+        },
+        ts:new Date().toISOString()
+      };
+      
+      const s=JSON.stringify(payload,null,2);
+      try{
+        await navigator.clipboard.writeText(s);
+        toast('Backup copied','success');
+      }catch{
+        const blob=new Blob([s],{type:'application/json'});
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement('a');
+        a.href=url;
+        a.download='youth-renewal-backup.json';
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    };
+    
+    $('#importAll').onclick=async()=>{
+      try{
+        const s=prompt('Paste backup JSON');
+        if(!s)return;
+        const d=JSON.parse(s);
+        
+        for(const k of['ventures','mentors','grants','roscas','apprent','lessons','exchange','reports']){
+          for(const it of(d[k]||[]))await put(k,it);
+        }
+        
+        if(d.gamify){
+          gamify.xp=d.gamify.xp||0;
+          gamify.level=d.gamify.level||1;
+          gamify.streak=d.gamify.streak||0;
+          gamify.lastActive=d.gamify.lastActive||null;
+          gamify.achievements=d.gamify.achievements||gamify.achievements;
+          gamify.save();
+        }
+        
+        if(d.prefs){
+          $('#langSel').value=d.prefs.lang||'bn';
+          $('#roleSel').value=d.prefs.role||'student';
+          applyI18n();
+        }
+        
+        renderAll();
+        toast('Imported successfully','success');
+      }catch{
+        toast('Import failed','warning');
+      }
+    };
+    
+    // ===== Lang & Settings =====
+    $('#langSel').onchange=()=>{
+      localStorage.setItem('lang',$('#langSel').value);
+      applyI18n();
+    };
+    
+    $('#roleSel').onchange=()=>localStorage.setItem('role',$('#roleSel').value);
+    
+    // ===== Init =====
+    async function renderAll(){
+      applyI18n();
+      renderVentures();
+      renderLedger();
+      renderApprent();
+      renderLessons();
+      renderExchange();
+      updateKPIs();
+      drawCharts();
+    }
+    
+    (async()=>{
+      await openDB();
+      gamify.load();
+      
+      const L=localStorage.getItem('lang')||'bn';
+      $('#langSel').value=L;
+      $('#roleSel').value=localStorage.getItem('role')||'student';
+      
+      initParticles();
+      renderAll();
+      
+      setInterval(()=>{
+        drawCharts();
+        gamify.updateDisplay();
+      },3000);
+    })();
+    
+    // Close modal on outside click
+    $('#achievementModal').onclick=e=>{
+      if(e.target===$('#achievementModal')){
+        $('#achievementModal').style.display='none';
+      }
+    };
+  </script>
+</body>
+</html>

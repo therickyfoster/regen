@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PRA Food Sovereignty Guide — Haiti (Artibonite &amp; Sud) • Ultra‑Longform</title>
+<meta name="description" content="Planetary Restoration Archive (PRA) ultra‑longform food sovereignty deployment guide for Haiti (Artibonite & Sud): seed sovereignty, storage, nurseries, market linkage, MEL, Habitica tasks, WebLLM field advisor, and offline IndexedDB ledgers." />
+<link rel="canonical" href="https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid/haiti/food-sovereignty/index.html" />
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="PRA Food Sovereignty Guide — Haiti (Artibonite & Sud)" />
+<meta property="og:description" content="Ultra‑longform, deployment‑ready guide with IndexedDB ledgers, Habitica integration, and a WebLLM on‑device advisor." />
+<meta property="og:image" content="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'><rect fill='%230a0f1b' width='100%' height='100%'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' fill='%23b2d4ff' font-family='system-ui' font-size='48'>PRA • Haiti Food Sovereignty</text></svg>" />
+<meta property="og:url" content="https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid/haiti/food-sovereignty/index.html" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="PRA Food Sovereignty Guide — Haiti (Artibonite & Sud)" />
+<meta name="twitter:description" content="Deployment‑ready guide with IndexedDB ledgers, Habitica tasks, and WebLLM advisor." />
+<meta name="twitter:image" content="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'><rect fill='%230a0f1b' width='100%' height='100%'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' fill='%23b2d4ff' font-family='system-ui' font-size='48'>PRA • Haiti Food Sovereignty</text></svg>" />
+
+<!-- Favicon (inline) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Ccircle cx=%2732%27 cy=%2732%27 r=%2730%27 fill=%27%230a0f1b%27/%3E%3Ccircle cx=%2732%27 cy=%2732%27 r=%2712%27 fill=%27%23b2d4ff%27 opacity=%270.85%27/%3E%3C/svg%3E">
+
+<!-- JSON-LD using requested presentation schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid",
+  "@type": "PRAHybridGuide",
+  "name": "PRA Food Sovereignty Guide — Haiti (Artibonite & Sud)",
+  "version": "1.0",
+  "jurisdiction": "HT",
+  "regions": ["Artibonite Valley","Sud Department"],
+  "focus": ["Food sovereignty","Seed systems","Post-harvest","Market linkage","MEL"],
+  "author": {"@type":"Organization","name":"Planetary Restoration Archive"},
+  "license": "CC-BY-4.0",
+  "datePublished": "2025-10-21",
+  "keywords": ["Haiti","Artibonite","Sud","seed sovereignty","breadfruit","cassava","PICS","MonCash","Habitica","IndexedDB","WebLLM"]
+}
+</script>
+
+<style>
+  :root{
+    --bg:#070b13; --fg:#e6f0ff; --dim:#a7b7d9; --accent:#58a6ff; --good:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+    --panel: rgba(18,22,34,0.62); --glass: rgba(20,26,40,0.55); --border: rgba(120,160,220,0.25);
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Ubuntu Mono", Consolas, monospace;
+    --ui: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  }
+  * { box-sizing: border-box }
+  html,body{ margin:0; padding:0; background:var(--bg); color:var(--fg); font-family:var(--ui); line-height:1.6 }
+  a{ color:var(--accent); text-decoration:none } a:hover{ text-decoration:underline }
+  header.hero{
+    position:relative; min-height:56vh; display:grid; place-items:center; text-align:center; overflow:hidden;
+  }
+  #starfield{ position:absolute; inset:0; display:block; width:100%; height:100%; }
+  header .hero-inner{
+    position:relative; z-index:2; padding:4rem 1rem; max-width:1100px;
+    background: radial-gradient(1200px 600px at 50% -10%, rgba(88,166,255,0.15), transparent 70%);
+  }
+  h1{ font-weight:800; letter-spacing:0.2px; margin:0 0 0.5rem 0; font-size: clamp(1.8rem, 4vw, 3rem) }
+  .sub{ color:var(--dim); margin:0.25rem 0 0.75rem 0 }
+  nav.toc{
+    position:sticky; top:0; z-index:3; backdrop-filter:saturate(1.2) blur(6px);
+    background: linear-gradient(to bottom, rgba(7,11,19,0.9), rgba(7,11,19,0.6));
+    border-bottom:1px solid var(--border);
+  }
+  nav.toc .wrap{ display:flex; gap:1rem; overflow:auto; padding:0.6rem 1rem }
+  nav.toc a{ white-space:nowrap; padding:0.35rem 0.6rem; border:1px solid var(--border); border-radius:999px }
+  main{ max-width:1100px; margin:0 auto; padding:1.25rem; }
+  section.panel{ background: var(--glass); border:1px solid var(--border); border-radius:16px; padding:1.1rem 1.1rem 0.4rem 1.1rem; margin:1rem 0 1.2rem }
+  section.panel h2, section.panel h3{ margin-top:0.2rem }
+  details.collapsible{ border-top:1px dashed var(--border); padding-top:0.6rem; margin-top:0.6rem }
+  code, pre{ font-family:var(--mono) }
+  .grid{ display:grid; gap:1rem }
+  @media (min-width:900px){ .grid.cols-2{ grid-template-columns:1fr 1fr } .grid.cols-3{ grid-template-columns:1fr 1fr 1fr } }
+  .badge{ display:inline-block; border:1px solid var(--border); padding:0.2rem 0.5rem; border-radius:999px; color:var(--dim); margin-right:0.3rem }
+  .cta-row{ display:flex; flex-wrap:wrap; gap:0.6rem; margin:0.8rem 0 }
+  button, input, select, textarea{
+    background:#0e1421; color:var(--fg); border:1px solid var(--border); border-radius:10px; padding:0.55rem 0.7rem; font: inherit;
+  }
+  button{ cursor:pointer } button.good{ border-color:rgba(34,197,94,.35) } button.warn{ border-color:rgba(245,158,11,.35) }
+  .small{ font-size:0.9rem; color:var(--dim) }
+  .kpi{ display:flex; gap:0.8rem; flex-wrap:wrap }
+  .kpi div{ background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:12px; padding:0.6rem 0.8rem }
+  .footer{ text-align:center; color:var(--dim); padding:2rem 0 4rem }
+  .pill{ background:rgba(88,166,255,0.18); border:1px solid var(--border); padding:0.2rem 0.5rem; border-radius:999px }
+  .right{ text-align:right }
+  .mono{ font-family:var(--mono) }
+  .note{ border-left:3px solid var(--accent); padding-left:0.8rem; margin:0.6rem 0 }
+  .warnbox{ border-left:3px solid var(--warn); background:rgba(245,158,11,0.08); padding:0.6rem 0.8rem; border-radius:8px }
+  .okbox{ border-left:3px solid var(--good); background:rgba(34,197,94,0.08); padding:0.6rem 0.8rem; border-radius:8px }
+  .table{ width:100%; border-collapse:collapse; margin:0.3rem 0 0.9rem }
+  .table th, .table td{ border:1px dashed var(--border); padding:0.45rem 0.5rem; vertical-align:top }
+  .table th{ text-align:left; color:var(--dim) }
+  .toolbar{ display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin:0.5rem 0 }
+  .sr-only{ position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; border:0; padding:0; margin:-1px }
+</style>
+</head>
+<body>
+<header class="hero" role="banner" aria-label="Photorealistic starfield header">
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <h1>PRA Food Sovereignty Guide — Haiti <span class="pill">Artibonite &amp; Sud</span></h1>
+    <p class="sub">Ultra‑longform, deployment‑ready. IndexedDB ledgers • Habitica tasks • WebLLM on‑device advisor • Photorealistic starfield UI</p>
+    <div class="cta-row" role="group" aria-label="Quick actions">
+      <a href="#exec" class="pill">Jump to Executive Intent</a>
+      <a href="#seed-ledger" class="pill">Open Seed Ledger</a>
+      <a href="#habitica" class="pill">Sync Habitica Tasks</a>
+      <a href="#advisor" class="pill">Start Local Advisor</a>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Table of contents">
+  <div class="wrap">
+    <a href="#exec">0. Executive Intent</a>
+    <a href="#snapshot">1. Situational Snapshot</a>
+    <a href="#principles">2. Design Principles</a>
+    <a href="#agro">3. Agro‑ecology &amp; Crop Architecture</a>
+    <a href="#seed">4. Seed Sovereignty System</a>
+    <a href="#production">5. Production SOPs</a>
+    <a href="#manifest">6. Kit Manifest</a>
+    <a href="#governance">7. Node Operating Model</a>
+    <a href="#activation">8. 0–180 Day Plan</a>
+    <a href="#training">9. Training 1‑Pagers</a>
+    <a href="#market">10. Market Linkage</a>
+    <a href="#mel">11. MEL</a>
+    <a href="#risk">12. Risk</a>
+    <a href="#partners">13. Partnerships</a>
+    <a href="#budget">14. Budget Scaffold</a>
+    <a href="#appendices">15. Appendices</a>
+    <a href="#mix">16. Artibonite &amp; Sud Mix</a>
+    <a href="#handoff">18. Hand‑off Artifacts</a>
+    <a href="#actions">19. Do This Week</a>
+  </div>
+</nav>
+
+<main id="content" role="main" aria-label="Haiti Food Sovereignty Guide">
+  <!-- CUT HERE FOR PART 2 (safe insertion point is before closing </main>) -->
+
+  <section id="exec" class="panel" aria-labelledby="exec-h2">
+    <h2 id="exec-h2">0) Executive intent</h2>
+    <p><strong>Objective:</strong> Stand up two starter nodes (Artibonite Valley + Sud Department) that increase household and communal control over seed, soil fertility, seasonal planning, storage, and local markets within 90–180 days, and compound from there.</p>
+    <p><strong>Where first:</strong> Artibonite Valley (rice belt) and Sud Department (hurricane‑exposed mixed farming with cassava, breadfruit, plantain, beans, sweet potato).</p>
+    <div class="kpi">
+      <div><strong>100</strong><br><span class="small">Households per node (starter)</span></div>
+      <div><strong>300+</strong><br><span class="small">PICS/hermetic bags deployed</span></div>
+      <div><strong>10</strong><br><span class="small">Breadfruit nursery sites (school/community)</span></div>
+      <div><strong>≥60%</strong><br><span class="small">Women in seed‑bank leadership</span></div>
+    </div>
+  </section>
+
+  <section id="snapshot" class="panel" aria-labelledby="snap-h2">
+    <h2 id="snap-h2">1) Situational snapshot</h2>
+    <ul>
+      <li><strong>Staples &amp; seasons:</strong> plantain/banana, rice, maize, wheat flour (imported), cassava, sweet potato, beans/peas, sorghum. Spring plantings dominate; irrigated paddy cycles multiple seasons.</li>
+      <li><strong>Artibonite Valley:</strong> Haiti’s primary rice area with large irrigated tracts; yields hinge on water control and seed quality.</li>
+      <li><strong>Seed sourcing:</strong> local markets, neighbors, on‑farm saving predominate; certified volumes are small; avoid crowding out local systems.</li>
+      <li><strong>Post‑harvest loss:</strong> hermetic storage (e.g., PICS) slashes insect &amp; moisture damage for beans/maize/sorghum.</li>
+      <li><strong>Payments:</strong> mobile money (MonCash) is widespread for vouchers/grants and merchant payments.</li>
+    </ul>
+  </section>
+
+  <section id="principles" class="panel" aria-labelledby="principles-h2">
+    <h2 id="principles-h2">2) Guiding design principles</h2>
+    <ol>
+      <li><strong>Seed sovereignty first</strong> — farmer‑preferred landraces, managed locally with clean storage and regeneration plots.</li>
+      <li><strong>Perennial &amp; root backbone</strong> — cassava, breadfruit, plantain, sweet potato; annuals intercropped.</li>
+      <li><strong>Minimal‑fragility logistics</strong> — decentralize inventory, training, and cashflows; assume road/fuel/security volatility.</li>
+      <li><strong>Women &amp; youth leadership</strong> — prioritize in seed banks, nurseries, processing, and markets.</li>
+      <li><strong>Open knowledge, open seed</strong> — open SOPs, transparent ledgers (paper first; digital mirrored).</li>
+      <li><strong>Low‑cost iteration</strong> — short pilot loops with measurable feedback.</li>
+    </ol>
+  </section>
+
+  <section id="agro" class="panel" aria-labelledby="agro-h2">
+    <h2 id="agro-h2">3) Agro‑ecology &amp; crop architecture (Haiti‑specific)</h2>
+    <h3>Core polycultures</h3>
+    <ul>
+      <li><strong>Lowland irrigated (Artibonite):</strong> rice rotations; bean/maize; vegetables on bunds; optional azolla/duck integration.</li>
+      <li><strong>Rainfed mid‑slopes (Sud &amp; inland Artibonite):</strong> maize/bean/squash analogs; cassava strips on contours; pigeon pea; sweet‑potato ridges; moringa hedges.</li>
+      <li><strong>Coastal/peninsula mixed:</strong> breadfruit + plantain shelterbelts; cassava understory; taro/yam pockets; kitchen gardens.</li>
+    </ul>
+    <h3>Perennial anchors</h3>
+    <ul>
+      <li><strong>Breadfruit</strong> for dense calories; can be dried/milled; cyclone‑resilient.</li>
+      <li><strong>Cassava</strong> drought‑tolerant; in‑ground storage; processed into <em>kasav</em> and farine.</li>
+      <li><strong>Plantain/banana</strong> steady starch and market pull.</li>
+      <li><strong>Moringa</strong> leafy protein; seed‑cake coagulant synergy with water kit later.</li>
+    </ul>
+    <h3>Beans &amp; cereals</h3>
+    <p>Black/red beans, cowpea, pigeon pea; local flint maize; sorghum as drought insurance.</p>
+    <h3>Nutrition lens</h3>
+    <p>Promote <strong>orange‑fleshed sweet potato (OFSP)</strong> for Vitamin A and iron‑dense beans where communities choose them.</p>
+  </section>
+
+  <section id="seed" class="panel" aria-labelledby="seed-h2">
+    <h2 id="seed-h2">4) Seed sovereignty system</h2>
+    <h3>4.1 Community Seed Vaults (CSV)</h3>
+    <p><strong>Goal:</strong> small, low‑tech seed banks storing farmer varieties between seasons and distributing clean, viable seed at planting.</p>
+    <details class="collapsible" open>
+      <summary><strong>Hardware (per CSV)</strong></summary>
+      <ul>
+        <li>Airtight drums/bins; PICS bags (50–100 kg); jars + indicator silica gel; mesh screens; sieves; labels; markers;</li>
+        <li>Moisture meter; hygrometers; spring scale (50 kg); tarps; hand fans; desiccant recharge tin; ledger books.</li>
+      </ul>
+    </details>
+    <details class="collapsible">
+      <summary><strong>Operating procedures</strong></summary>
+      <ul>
+        <li><strong>Intake:</strong> pre‑clean; dry to ≈12% (maize/beans); double‑bag hermetically; label (Creole + scientific name, source, date, weight).</li>
+        <li><strong>Quality:</strong> 200‑seed (or 4×50) germ tests every 6 months; reject lots &lt; 80% unless regenerated.</li>
+        <li><strong>Regeneration:</strong> community plots; isolation/staggering for outcrossers (maize).</li>
+        <li><strong>Access rules:</strong> by‑laws define loans, 1.5× returns, hardship waivers, women’s priority access.</li>
+      </ul>
+    </details>
+
+    <h3>4.2 Seed sourcing &amp; fairs</h3>
+    <p>Run voucher‑based seed fairs in trusted markets to preserve farmer choice and strengthen reliable vendors. Import only when a targeted gap is proven; follow permits.</p>
+
+    <h3>4.3 Import permits (note)</h3>
+    <p>Coordinate import permits and phytosanitary certificates with MARNDR’s quarantine division prior to shipping. Policies change—verify forms current.</p>
+  </section>
+
+  <section id="production" class="panel" aria-labelledby="prod-h2">
+    <h2 id="prod-h2">5) Production practices (SOPs)</h2>
+    <h3>5.1 Soil &amp; fertility</h3>
+    <ul>
+      <li><strong>Bokashi compost</strong> using manure, residues, ash, bran; cover piles during rains.</li>
+      <li><strong>Green manures:</strong> mucuna, canavalia, pigeon pea between cereal cycles.</li>
+      <li><strong>Contour hedges:</strong> vetiver or gliricidia lines to hold soil/water.</li>
+    </ul>
+    <h3>5.2 Pest &amp; disease</h3>
+    <ul>
+      <li>Start with cultural controls: sanitation, resistant lines, planting windows, intercropping.</li>
+      <li>Botanical sprays (neem/chili/soap) for chewers; ash‑lime dust for weevils; Trichoderma dressing where available.</li>
+      <li>For storage insects, hermetic storage suffocates pests—no insecticide needed.</li>
+    </ul>
+    <h3>5.3 Post‑harvest handling</h3>
+    <ul>
+      <li><strong>Drying:</strong> raised racks or tarps; avoid sun‑cracking beans; finish in shade.</li>
+      <li><strong>Hermetic storage:</strong> triple‑layer; expel air; store off concrete; inspect monthly.</li>
+      <li><strong>Processing groups:</strong> cassava grating/pressing; breadfruit slicing/drying → flour.</li>
+    </ul>
+  </section>
+
+  <section id="manifest" class="panel" aria-labelledby="manifest-h2">
+    <h2 id="manifest-h2">6) Seed &amp; starter‑kit manifest (100‑household pilot)</h2>
+    <p><em>Target:</em> two seasons of sovereignty for 100 households (~5 people each). Adjust seasonally.</p>
+    <div class="grid cols-2">
+      <div>
+        <h3>6.1 Seed &amp; planting materials</h3>
+        <ul>
+          <li><strong>Beans</strong> (black/red): 250 kg</li>
+          <li><strong>Cowpea/Pigeon pea:</strong> 50 kg</li>
+          <li><strong>Maize</strong> (local flint): 600 kg</li>
+          <li><strong>Sorghum:</strong> 150 kg</li>
+          <li><strong>Sweet potato vines:</strong> 30,000 nodes</li>
+          <li><strong>Cassava stakes:</strong> 10,000</li>
+          <li><strong>Plantain/banana suckers:</strong> 500</li>
+          <li><strong>Breadfruit nursery trees:</strong> 100 (10 sites)</li>
+        </ul>
+      </div>
+      <div>
+        <h3>6.2 Tools &amp; small equipment</h3>
+        <ul>
+          <li>Hoes ×100; machetes ×100; wheelbarrows ×20; watering cans ×40; pruning saws ×10</li>
+          <li>Tarps ×20; platform scales ×2; spring scales ×4</li>
+          <li>PICS bags ×300; drums ×12; jars + indicator silica ×400</li>
+          <li>Moisture meters ×6; hygrometers ×6; labelers ×2</li>
+          <li>Solar dryer frame; nursery trays ×300; shade net; soil augers ×4</li>
+        </ul>
+      </div>
+    </div>
+    <h3>6.3 Admin &amp; data</h3>
+    <ul>
+      <li>Ledger books; receipt books; stamp; laminated SOPs (Kreyòl); Kobo/ODK on 4 devices; 4 solar powerbanks</li>
+    </ul>
+    <h3>6.4 Payments &amp; markets</h3>
+    <p>Map MonCash agents; set merchant QR; e‑vouchers for seed fairs and tool co‑pays.</p>
+  </section>
+
+  <section id="governance" class="panel" aria-labelledby="gov-h2">
+    <h2 id="gov-h2">7) Node operating model</h2>
+    <h3>Structure</h3>
+    <ul>
+      <li><strong>Seed &amp; Storage Cell (SSC):</strong> 5–7 members (≥60% women) for CSV, germ tests, season planning.</li>
+      <li><strong>Field &amp; Nursery Crew:</strong> cassava/OFSP propagation; breadfruit/plantain nurseries; soil demos.</li>
+      <li><strong>Market &amp; Finance:</strong> voucher fairs; price boards; school feeding linkage; MonCash ops.</li>
+      <li><strong>Safeguarding focal:</strong> complaints &amp; inclusion.</li>
+      <li><strong>Security focal:</strong> safe routes/times; incident log.</li>
+    </ul>
+    <h3>By‑laws (essentials)</h3>
+    <p>Quorum; transparent pricing; women’s priority; grievance mechanism; open audits; rotating signatories.</p>
+  </section>
+
+  <section id="activation" class="panel" aria-labelledby="activation-h2">
+    <h2 id="activation-h2">8) 0–180 day activation plan</h2>
+    <div class="grid cols-3">
+      <div>
+        <h3>Days 0–14 — Mobilize &amp; baseline</h3>
+        <ul>
+          <li>Map safe venues; recruit SSC and crews; rapid household baseline.</li>
+          <li>Identify 2–3 trusted markets; enroll vendors.</li>
+          <li>Order PICS + kit; print Kreyòl SOPs.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Days 15–30 — CSV &amp; nurseries</h3>
+        <ul>
+          <li>Install seed vault hardware; run germ tests; post results.</li>
+          <li>Establish cassava &amp; OFSP nurseries; start breadfruit/plantain nursery sites.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Days 31–60 — Fairs &amp; first plantings</h3>
+        <ul>
+          <li>Voucher seed fairs (MonCash + paper backup); register varieties.</li>
+          <li>Soil fertility demos; contour hedgerows.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid cols-2">
+      <div>
+        <h3>Days 61–120 — Storage &amp; processing</h3>
+        <ul>
+          <li>First hermetic sealing; cassava &amp; breadfruit processing groups.</li>
+          <li>Broker steady supply to school/canteen programs.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Days 121–180 — Regeneration &amp; review</h3>
+        <ul>
+          <li>Off‑season regeneration plots; second germ tests; review seed loans.</li>
+          <li>Plan scale‑out to next communal sections.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="training" class="panel" aria-labelledby="train-h2">
+    <h2 id="train-h2">9) Training 1‑pagers (print‑ready)</h2>
+    <details class="collapsible" open>
+      <summary><strong>9.1 Germination test (20 min setup + 7 days)</strong></summary>
+      <ol>
+        <li>Count 200 seeds (or 4×50). Moisten paper towels; fold &amp; label; keep in shade.</li>
+        <li>Day 7: count normal seedlings. % germination = (normal ÷ total)×100.</li>
+        <li>Accept &gt;= 80% for distribution; re‑clean or regenerate below 80%.</li>
+      </ol>
+    </details>
+    <details class="collapsible">
+      <summary><strong>9.2 Hermetic storage basics</strong></summary>
+      <ol>
+        <li>Dry grain to “crunch bite”; confirm ≈12% with meter.</li>
+        <li>Fill PICS; expel air; seal correctly; store off floor.</li>
+        <li>Inspect monthly; reseal if punctured.</li>
+      </ol>
+    </details>
+    <details class="collapsible">
+      <summary><strong>9.3 Cassava stake nursery</strong></summary>
+      <p>Stakes 20–25 cm, 8–10 nodes, planted at 45°; keep weed‑free; rogue diseased plants; distribute at 90–120 days.</p>
+    </details>
+    <details class="collapsible">
+      <summary><strong>9.4 Breadfruit drying &amp; flour</strong></summary>
+      <ol>
+        <li>Slice 5–7 mm; blanch 2–3 min; dry in solar dryer to brittle.</li>
+        <li>Mill; store airtight; rotate monthly.</li>
+      </ol>
+    </details>
+  </section>
+
+  <section id="market" class="panel" aria-labelledby="market-h2">
+    <h2 id="market-h2">10) Market linkage &amp; price stabilization</h2>
+    <ul>
+      <li>Community price boards (beans, maize, cassava products, breadfruit flour).</li>
+      <li>Forward micro‑contracts with schools/clinics/vendors.</li>
+      <li>MonCash e‑vouchers for lean‑season seed &amp; staples; merchant QR onboarding.</li>
+    </ul>
+  </section>
+
+  <section id="mel" class="panel" aria-labelledby="mel-h2">
+    <h2 id="mel-h2">11) Monitoring, evaluation, learning (MEL)</h2>
+    <p><strong>Node‑level indicators (monthly):</strong></p>
+    <ul>
+      <li>% households planting with <em>own/local seed</em> vs. external.</li>
+      <li>Germination rates by variety.</li>
+      <li>Post‑harvest loss (% weight loss) pre/post‑hermetic adoption.</li>
+      <li>Diet diversity (12‑group recall).</li>
+      <li>Market volumes &amp; prices (beans, cassava products, breadfruit flour).</li>
+      <li>Women’s decision share in seed bank and processing co‑ops.</li>
+    </ul>
+    <p class="small">Log context alongside: FEWS phase; price shocks; security incidents affecting ops.</p>
+  </section>
+
+  <section id="risk" class="panel" aria-labelledby="risk-h2">
+    <h2 id="risk-h2">12) Risk management</h2>
+    <ul>
+      <li><strong>Security/logistics:</strong> decentralized micro‑warehousing; avoid predictable routes/times; radio/WhatsApp trees.</li>
+      <li><strong>Seed contamination:</strong> quarantine external seed; test small first.</li>
+      <li><strong>Climate shocks:</strong> perennials/roots for cyclone seasons; reserve seed in CSV (“do not open before date”).</li>
+      <li><strong>Governance drift:</strong> quarterly open audits; rotate signatories; grievance box.</li>
+    </ul>
+  </section>
+
+  <section id="partners" class="panel" aria-labelledby="partners-h2">
+    <h2 id="partners-h2">13) Partnerships (anchor points)</h2>
+    <ul>
+      <li><strong>Local knowledge &amp; training:</strong> FAMV/UEH agronomy; irrigators’ associations and co‑ops in Artibonite.</li>
+      <li><strong>Perennials &amp; processing:</strong> breadfruit seedling + flour know‑how partners.</li>
+      <li><strong>Advisory &amp; analysis:</strong> crop calendars and market fundamentals (for timing seed fairs &amp; CSV intake).</li>
+      <li><strong>Payments:</strong> Digicel/MonCash ecosystem for vouchers and merchant onboarding.</li>
+    </ul>
+  </section>
+
+  <section id="budget" class="panel" aria-labelledby="budget-h2">
+    <h2 id="budget-h2">14) Budget scaffolding (template, 100‑HH node)</h2>
+    <div class="grid cols-2">
+      <div>
+        <h3>Capital</h3>
+        <ul>
+          <li>Seed &amp; planting materials</li>
+          <li>Storage &amp; CSV hardware (PICS, drums, meters, jars)</li>
+          <li>Nursery &amp; processing (shade, trays, solar dryer, grater/press, small mill)</li>
+          <li>Tools (hoes, machetes, barrows, cans, saws)</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Operating</h3>
+        <ul>
+          <li>Training &amp; MEL (print, ledger, Android, powerbanks)</li>
+          <li>Meetings, safe venue, security buffer</li>
+          <li>MonCash merchant setup &amp; voucher fees</li>
+        </ul>
+      </div>
+    </div>
+    <p class="small">Present donors a per‑HH cost and node total; tranche to milestones: CSV installed → first germ tests → seed fair → first sealed storage → first school deliveries.</p>
+  </section>
+
+  <section id="appendices" class="panel" aria-labelledby="append-h2">
+    <h2 id="append-h2">15) Appendices</h2>
+    <h3>A) Seasonal cues (verify locally)</h3>
+    <ul>
+      <li><strong>Spring (printemps):</strong> major window for maize/beans; key rice season in irrigated zones.</li>
+      <li><strong>Autumn (été/automne):</strong> secondary plantings; good for regeneration plots and quick beans.</li>
+      <li><strong>Perennials:</strong> establish with moisture; plan cyclone windbreaks.</li>
+    </ul>
+    <h3>B) Micro‑glossary (Kreyòl ↔ agronomy)</h3>
+    <p><em>mayi</em> (maize), <em>pwa nwa/wouj</em> (black/red bean), <em>pwa kongo</em> (pigeon pea), <em>pitimi</em> (sorghum), <em>manyòk</em> (cassava), <em>patat</em> (sweet potato), <em>bannann</em> (plantain/banana), <em>lam veritab</em> (breadfruit), <em>semans</em> (seed), <em>germinasyon</em> (germination), <em>sere</em> (store), <em>sèk</em> (dry), <em>pousantaj</em> (percentage).</p>
+    <h3>C) One‑page seed bank by‑laws (skeleton)</h3>
+    <ul>
+      <li>Membership; leadership &amp; rotation; seed loan formula (e.g., 1.5× return).</li>
+      <li>Women’s access rule; emergency clause; transparency &amp; audit day.</li>
+      <li>Grievance &amp; conflict resolution.</li>
+    </ul>
+  </section>
+
+  <section id="mix" class="panel" aria-labelledby="mix-h2">
+    <h2 id="mix-h2">16) Artibonite &amp; Sud: crop‑mix suggestions</h2>
+    <div class="grid cols-2">
+      <div>
+        <h3>Artibonite node (irrigated + peri‑urban)</h3>
+        <ul>
+          <li>Rice + bean/maize rotations; vegetable strips on bunds.</li>
+          <li>Seed regeneration plots for preferred bean lines.</li>
+          <li>Heavy hermetic storage for beans/maize buffer stocks.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Sud node (hurricane‑prone mixed systems)</h3>
+        <ul>
+          <li>Breadfruit + plantain over cassava and pigeon pea; OFSP ridges.</li>
+          <li>Processing: breadfruit flour and <em>kasav</em> for schools/clinics.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="handoff" class="panel" aria-labelledby="handoff-h2">
+    <h2 id="handoff-h2">18) Clean hand‑off artifacts</h2>
+    <ul>
+      <li>CSV SOPs (intake, testing, regeneration, access rules)</li>
+      <li>Seed &amp; tool manifest (100 HH)</li>
+      <li>90‑day activation plan</li>
+      <li>Training 1‑pagers</li>
+      <li>Budget scaffold</li>
+      <li>Partner map &amp; evidence notes</li>
+    </ul>
+  </section>
+
+  <section id="actions" class="panel" aria-labelledby="actions-h2">
+    <h2 id="actions-h2">19) What to stand up this week</h2>
+    <ol>
+      <li>Identify two safe venues (lower Artibonite, Sud) + recruit 5–7 SSC leaders (≥60% women).</li>
+      <li>Procure first tranche: PICS bags, drums/bins, meters, jars/desiccant, ledgers, tarps.</li>
+      <li>Schedule two voucher seed fairs; map vendors; set MonCash QR.</li>
+      <li>Launch cassava/OFSP nurseries &amp; a breadfruit/plantain pilot orchard at a school site.</li>
+      <li>Post seasonal calendar &amp; SOPs in Kreyòl; begin baseline logs.</li>
+    </ol>
+  </section>
+
+  <!-- Functional Utilities: Habitica, IndexedDB, WebLLM, Ledgers -->
+
+  <section id="habitica" class="panel" aria-labelledby="habitica-h2" aria-live="polite">
+    <h2 id="habitica-h2">Habitica Integration</h2>
+    <p class="small">Store your Habitica credentials locally (IndexedDB). Then push Quick Activation tasks as To‑Dos. You can edit task text before sending.</p>
+    <div class="grid cols-2">
+      <div>
+        <h3>Credentials</h3>
+        <label>User ID<br><input id="habUser" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" inputmode="text" autocomplete="off"></label><br>
+        <label>API Token<br><input id="habToken" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" autocomplete="off"></label><br>
+        <div class="toolbar">
+          <button id="saveHab" class="good">Save to IndexedDB</button>
+          <button id="loadHab">Load</button>
+          <button id="clearHab" class="warn">Clear</button>
+        </div>
+        <p id="habStatus" class="small"></p>
+      </div>
+      <div>
+        <h3>Quick Activation Tasks (editable)</h3>
+        <textarea id="habTasks" rows="10">Haiti Node: Secure two safe venues; recruit 5–7 SSC leaders (≥60% women).
+Haiti Node: Procure PICS bags, drums/bins, meters, jars/desiccant, ledgers, tarps.
+Haiti Node: Schedule two voucher seed fairs; map vendors; set MonCash QR.
+Haiti Node: Launch cassava & OFSP nurseries; start breadfruit/plantain pilot orchard.
+Haiti Node: Post SOPs in Kreyòl; start baseline logs.</textarea>
+        <div class="toolbar">
+          <button id="pushHab" title="Creates To‑Dos in Habitica">Create Habitica To‑Dos</button>
+        </div>
+        <p class="small mono">Endpoint: POST https://habitica.com/api/v3/tasks/user &nbsp;|&nbsp; Headers: x-api-user, x-api-key, Content-Type: application/json</p>
+        <div class="warnbox small">Never share your API token. It’s stored only in your browser using IndexedDB and used client‑side.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="seed-ledger" class="panel" aria-labelledby="seed-ledger-h2">
+    <h2 id="seed-ledger-h2">IndexedDB: Seed &amp; Storage Ledger</h2>
+    <div class="grid cols-2">
+      <div>
+        <h3>Add seed lot</h3>
+        <label>Lot ID<br><input id="lotId" placeholder="CSV-2025-001"></label><br>
+        <label>Local name<br><input id="lotName" placeholder="pwa nwa (black bean)"></label><br>
+        <label>Species<br><input id="lotSpecies" placeholder="Phaseolus vulgaris"></label><br>
+        <label>Source<br><input id="lotSource" placeholder="Madame Fabi, Marché Desarmes"></label><br>
+        <label>Weight (kg)<br><input id="lotWeight" type="number" step="0.01" placeholder="50"></label><br>
+        <label>Moisture %<br><input id="lotMoisture" type="number" step="0.1" placeholder="12.0"></label><br>
+        <label>Germination %<br><input id="lotGerm" type="number" step="1" placeholder="92"></label><br>
+        <label>Notes<br><input id="lotNotes" placeholder="Short cooking time; flavor liked"></label><br>
+        <div class="toolbar">
+          <button id="addLot" class="good">Add lot</button>
+          <button id="resetLot">Reset</button>
+        </div>
+      </div>
+      <div>
+        <h3>Current inventory</h3>
+        <div class="toolbar">
+          <button id="refreshLots">Refresh</button>
+          <button id="exportDB">Export JSON</button>
+          <label class="pill">Import JSON <input id="importDB" type="file" accept="application/json" class="sr-only"></label>
+        </div>
+        <table class="table" id="lotsTable" aria-describedby="lotsHelp">
+          <thead><tr><th>Lot ID</th><th>Name</th><th>Species</th><th>Source</th><th>kg</th><th>Moist%</th><th>Germ%</th><th>Notes</th><th>Del</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <p id="lotsHelp" class="small">All data remains local to your browser via IndexedDB (<span class="mono">pra_db</span>).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="advisor" class="panel" aria-labelledby="advisor-h2">
+    <h2 id="advisor-h2">WebLLM Field Advisor (in‑browser)</h2>
+    <p class="small">Runs a small language model in your browser via <span class="mono">@mlc-ai/web-llm</span>. First load fetches model weights (internet required). Then it can run offline.</p>
+    <div class="toolbar">
+      <select id="modelSelect" aria-label="Model">
+        <option value="Llama-3.2-1B-Instruct-q4f16_1-MLC">Llama‑3.2‑1B‑Instruct (q4f16_1)</option>
+        <option value="Phi-4-mini-4k-instruct-q4f16_1-MLC">Phi‑4‑mini‑instruct (q4f16_1)</option>
+      </select>
+      <button id="startLLM" class="good">Start Local Advisor</button>
+      <button id="stopLLM" class="warn">Stop</button>
+      <span id="llmStatus" class="small"></span>
+    </div>
+    <div id="chat" style="max-height:340px; overflow:auto; border:1px solid var(--border); border-radius:12px; padding:0.6rem; background:rgba(255,255,255,0.03); margin-top:0.5rem">
+      <div class="small">System prompt: “You are a PRA field advisor. Give concise, actionable steps. If unsure, ask for missing specifics. Prefer Haiti examples (Artibonite &amp; Sud).”</div>
+    </div>
+    <div class="toolbar">
+      <input id="chatInput" placeholder="Ask: How to run a 200‑seed germination test with limited water?" />
+      <button id="sendChat">Send</button>
+    </div>
+  </section>
+
+  <section id="notes" class="panel" aria-labelledby="notes-h2">
+    <h2 id="notes-h2">Quick notes</h2>
+    <div class="toolbar">
+      <input id="noteTitle" placeholder="Title: e.g., Vendor list — Marché Desarmes">
+      <button id="saveNote">Save</button>
+      <button id="listNotes">List</button>
+      <button id="clearNotes" class="warn">Clear all</button>
+    </div>
+    <textarea id="noteBody" rows="6" placeholder="Type notes here... Procurement quotes, contacts, transport windows, etc."></textarea>
+    <ul id="notesList"></ul>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>© Planetary Restoration Archive • CC‑BY‑4.0 • “PRA Hybrid” schema</p>
+  <p class="small">This page stores operational data only in your browser (IndexedDB). Clear storage from your browser settings to remove it.</p>
+  <div class="cta-row right">
+    <button id="toggleStars">Pause/Resume Starfield</button>
+  </div>
+</footer>
+
+<!-- ========= STARFIELD (WebGL) with Canvas 2D fallback ========= -->
+<script>
+(function(){
+  const canvas = document.getElementById('starfield');
+  let gl = canvas.getContext('webgl', { antialias:false, alpha:true, depth:false, stencil:false, preserveDrawingBuffer:false });
+  let rafId = 0, paused = false, timeStart = performance.now();
+
+  function resize(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    canvas.width = Math.floor(w * dpr); canvas.height = Math.floor(h * dpr);
+    if(gl){ gl.viewport(0,0,gl.drawingBufferWidth, gl.drawingBufferHeight); }
+  }
+  window.addEventListener('resize', resize, { passive:true });
+  resize();
+
+  // If WebGL unavailable, use 2D fallback
+  if(!gl){
+    const ctx = canvas.getContext('2d');
+    const stars = Array.from({length:900}, ()=>({
+      x: Math.random(), y: Math.random(), z: Math.random(), s: Math.random()*0.8+0.2
+    }));
+    function draw2D(t){
+      if(paused) return;
+      const w = canvas.width, h = canvas.height;
+      ctx.clearRect(0,0,w,h);
+      // vignette
+      const g = ctx.createRadialGradient(w*0.5,h*0.5,0, w*0.5,h*0.5, Math.max(w,h)*0.6);
+      g.addColorStop(0,'rgba(255,255,255,0.02)'); g.addColorStop(1,'rgba(10,15,27,0.2)');
+      ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+      for(const st of stars){
+        const tw = 0.5 + 0.5*Math.sin(t*0.001 + st.x*10 + st.y*6);
+        const alpha = 0.5*tw + 0.2;
+        ctx.fillStyle = `rgba(178,212,255,${alpha})`;
+        const px = st.x * w, py = st.y * h;
+        const r = (st.s * 1.8 + tw*1.2) * (w/1200 + 0.3);
+        ctx.beginPath(); ctx.arc(px,py,r,0,Math.PI*2); ctx.fill();
+      }
+      rafId = requestAnimationFrame(draw2D);
+    }
+    rafId = requestAnimationFrame(draw2D);
+    document.getElementById('toggleStars').onclick = ()=>{ paused = !paused; if(!paused) rafId = requestAnimationFrame(draw2D); };
+    return;
+  }
+
+  // WebGL program — particles + twinkle
+  const vertSrc = `
+  attribute vec2 a_pos;
+  attribute float a_seed;
+  uniform vec2 u_res;
+  uniform float u_time;
+  varying float v_alpha;
+  void main(){
+    // map a_pos from [0,1] to clip space
+    vec2 uv = a_pos;
+    float z = fract(sin(dot(uv, vec2(12.9898,78.233)) + a_seed) * 43758.5453);
+    float parallax = mix(0.02, 0.25, z);
+    float tw = 0.5 + 0.5*sin(u_time*0.6 + a_seed*23.0 + uv.x*11.0 + uv.y*7.0);
+    v_alpha = mix(0.15, 0.95, tw)*mix(0.6,1.0,z);
+    vec2 p = (uv * 2.0 - 1.0);
+    p.y *= u_res.x / u_res.y;
+    p += vec2(sin(u_time*0.02)*parallax, cos(u_time*0.017)*parallax);
+    gl_Position = vec4(p, 0.0, 1.0);
+    gl_PointSize = mix(0.6, 2.8, z) * (u_res.x/500.0 + 0.2);
+  }`;
+  const fragSrc = `
+  precision mediump float;
+  varying float v_alpha;
+  void main(){
+    vec2 pc = gl_PointCoord - vec2(0.5);
+    float d = length(pc);
+    float core = smoothstep(0.5, 0.0, d);
+    float glow = smoothstep(0.8, 0.0, d);
+    vec3 col = mix(vec3(0.60,0.78,1.0), vec3(0.85,0.92,1.0), core);
+    float a = clamp(core*0.9 + glow*0.25, 0.0, 1.0) * v_alpha;
+    gl_FragColor = vec4(col, a);
+  }`;
+  function compile(type, src){
+    const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, compile(gl.VERTEX_SHADER, vertSrc));
+  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fragSrc));
+  gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw gl.getProgramInfoLog(prog);
+  gl.useProgram(prog);
+
+  const COUNT = 6000;
+  const pos = new Float32Array(COUNT*2);
+  const seed = new Float32Array(COUNT);
+  for(let i=0;i<COUNT;i++){ pos[i*2]=Math.random(); pos[i*2+1]=Math.random(); seed[i]=Math.random(); }
+
+  const bufPos = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, bufPos); gl.bufferData(gl.ARRAY_BUFFER, pos, gl.STATIC_DRAW);
+  const locPos = gl.getAttribLocation(prog, 'a_pos'); gl.enableVertexAttribArray(locPos); gl.vertexAttribPointer(locPos, 2, gl.FLOAT, false, 0, 0);
+
+  const bufSeed = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, bufSeed); gl.bufferData(gl.ARRAY_BUFFER, seed, gl.STATIC_DRAW);
+  const locSeed = gl.getAttribLocation(prog, 'a_seed'); gl.enableVertexAttribArray(locSeed); gl.vertexAttribPointer(locSeed, 1, gl.FLOAT, false, 0, 0);
+
+  const uRes = gl.getUniformLocation(prog, 'u_res');
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+
+  function frame(now){
+    if(paused) return;
+    gl.viewport(0,0,gl.drawingBufferWidth, gl.drawingBufferHeight);
+    gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.uniform2f(uRes, gl.drawingBufferWidth, gl.drawingBufferHeight);
+    gl.uniform1f(uTime, (now - timeStart)*0.001);
+    gl.drawArrays(gl.POINTS, 0, COUNT);
+    rafId = requestAnimationFrame(frame);
+  }
+  rafId = requestAnimationFrame(frame);
+  document.getElementById('toggleStars').onclick = ()=>{ paused = !paused; if(!paused) rafId = requestAnimationFrame(frame); };
+})();
+</script>
+
+<!-- ========= IndexedDB, Habitica, WebLLM ========= -->
+<script>
+/* =========================
+   IndexedDB schema: pra_db
+   Stores:
+   - seed_lots {id, name, species, source, kg, moisture, germ, notes}
+   - settings {key, value}
+   - notes {id(auto), title, body, ts}
+   - habitica {id:'creds', user, token}
+   ========================= */
+const PRA_DB_NAME = 'pra_db';
+const PRA_DB_VERSION = 1;
+let db;
+
+function openDB(){
+  return new Promise((resolve, reject)=>{
+    const req = indexedDB.open(PRA_DB_NAME, PRA_DB_VERSION);
+    req.onupgradeneeded = (e)=>{
+      const db = e.target.result;
+      if(!db.objectStoreNames.contains('seed_lots')){
+        const os = db.createObjectStore('seed_lots', { keyPath:'id' });
+        os.createIndex('by_name','name',{ unique:false });
+      }
+      if(!db.objectStoreNames.contains('settings')){
+        db.createObjectStore('settings', { keyPath:'key' });
+      }
+      if(!db.objectStoreNames.contains('notes')){
+        const ns = db.createObjectStore('notes', { keyPath:'id', autoIncrement:true });
+        ns.createIndex('by_ts','ts',{ unique:false });
+      }
+      if(!db.objectStoreNames.contains('habitica')){
+        db.createObjectStore('habitica', { keyPath:'id' });
+      }
+    };
+    req.onsuccess = ()=>{ db = req.result; resolve(db); };
+    req.onerror = ()=> reject(req.error);
+  });
+}
+function tx(store, mode='readonly'){ return db.transaction(store, mode).objectStore(store); }
+
+function addSeedLot(lot){
+  return new Promise((resolve, reject)=>{
+    const req = tx('seed_lots','readwrite').add(lot);
+    req.onsuccess = resolve; req.onerror = ()=>reject(req.error);
+  });
+}
+function getAllLots(){
+  return new Promise((resolve,reject)=>{
+    const arr=[]; const req = tx('seed_lots').openCursor();
+    req.onsuccess = (e)=>{ const cur = e.target.result; if(cur){ arr.push(cur.value); cur.continue(); } else resolve(arr); };
+    req.onerror = ()=>reject(req.error);
+  });
+}
+function deleteLot(id){
+  return new Promise((resolve,reject)=>{
+    const req = tx('seed_lots','readwrite').delete(id);
+    req.onsuccess = resolve; req.onerror = ()=>reject(req.error);
+  });
+}
+function saveSetting(key, value){
+  return new Promise((resolve,reject)=>{
+    const req = tx('settings','readwrite').put({ key, value });
+    req.onsuccess = resolve; req.onerror = ()=>reject(req.error);
+  });
+}
+function loadSetting(key){
+  return new Promise((resolve,reject)=>{
+    const req = tx('settings').get(key);
+    req.onsuccess = ()=>resolve(req.result?.value); req.onerror = ()=>reject(req.error);
+  });
+}
+function saveHabitica(user, token){
+  return new Promise((resolve,reject)=>{
+    const req = tx('habitica','readwrite').put({ id:'creds', user, token });
+    req.onsuccess = resolve; req.onerror = ()=>reject(req.error);
+  });
+}
+function loadHabitica(){
+  return new Promise((resolve,reject)=>{
+    const req = tx('habitica').get('creds');
+    req.onsuccess = ()=>resolve(req.result || null); req.onerror = ()=>reject(req.error);
+  });
+}
+function clearHabitica(){
+  return new Promise((resolve,reject)=>{
+    const req = tx('habitica','readwrite').delete('creds');
+    req.onsuccess = resolve; req.onerror = ()=>reject(req.error);
+  });
+}
+function saveNote(title, body){
+  return new Promise((resolve,reject)=>{
+    const req = tx('notes','readwrite').add({ title, body, ts: Date.now() });
+    req.onsuccess = resolve; req.onerror = ()=>reject(req.error);
+  });
+}
+function getNotes(){
+  return new Promise((resolve,reject)=>{
+    const arr=[]; const idx = tx('notes').index('by_ts').openCursor(null,'prev');
+    idx.onsuccess = (e)=>{ const cur = e.target.result; if(cur){ arr.push(cur.value); cur.continue(); } else resolve(arr); };
+    idx.onerror = ()=>reject(idx.error);
+  });
+}
+function clearNotes(){
+  return new Promise((resolve,reject)=>{
+    const req = tx('notes','readwrite').clear();
+    req.onsuccess = resolve; req.onerror = ()=>reject(req.error);
+  });
+}
+
+function renderLots(rows){
+  const tb = document.querySelector('#lotsTable tbody');
+  tb.innerHTML = '';
+  for(const r of rows){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${r.id}</td><td>${r.name}</td><td>${r.species}</td>
+      <td>${r.source}</td><td>${Number(r.kg||0)}</td><td>${Number(r.moisture||0)}</td>
+      <td>${Number(r.germ||0)}</td><td>${r.notes||''}</td>
+      <td><button data-del="${r.id}" title="Delete">×</button></td>`;
+    tb.appendChild(tr);
+  }
+  tb.querySelectorAll('button[data-del]').forEach(btn=>{
+    btn.onclick = async()=>{ await deleteLot(btn.dataset.del); renderLots(await getAllLots()); };
+  });
+}
+
+openDB().then(async ()=>{
+  // Seed ledger UI
+  document.getElementById('addLot').onclick = async ()=>{
+    const lot = {
+      id: document.getElementById('lotId').value.trim(),
+      name: document.getElementById('lotName').value.trim(),
+      species: document.getElementById('lotSpecies').value.trim(),
+      source: document.getElementById('lotSource').value.trim(),
+      kg: parseFloat(document.getElementById('lotWeight').value||0),
+      moisture: parseFloat(document.getElementById('lotMoisture').value||0),
+      germ: parseFloat(document.getElementById('lotGerm').value||0),
+      notes: document.getElementById('lotNotes').value.trim()
+    };
+    if(!lot.id){ alert('Lot ID required'); return; }
+    try{ await addSeedLot(lot); renderLots(await getAllLots()); }catch(e){ alert('Error: ' + e); }
+  };
+  document.getElementById('resetLot').onclick = ()=>{
+    ['lotId','lotName','lotSpecies','lotSource','lotWeight','lotMoisture','lotGerm','lotNotes']
+      .forEach(id=> document.getElementById(id).value = '');
+  };
+  document.getElementById('refreshLots').onclick = async ()=> renderLots(await getAllLots());
+  renderLots(await getAllLots());
+
+  // Export / Import
+  document.getElementById('exportDB').onclick = async ()=>{
+    const data = {
+      seed_lots: await getAllLots(),
+      settings: await new Promise((res)=>{
+        const arr=[]; const req = tx('settings').openCursor(); req.onsuccess = (e)=>{ const c=e.target.result; if(c){ arr.push(c.value); c.continue(); } else res(arr); };
+      }),
+      notes: await getNotes()
+    };
+    const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = Object.assign(document.createElement('a'), { href:url, download:'pra_haiti_export.json' });
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  };
+  document.getElementById('importDB').onchange = async (e)=>{
+    const file = e.target.files[0]; if(!file) return;
+    const text = await file.text();
+    const data = JSON.parse(text);
+    if(Array.isArray(data.seed_lots)){
+      const store = tx('seed_lots','readwrite');
+      data.seed_lots.forEach(v=> store.put(v));
+      store.transaction.oncomplete = async ()=> renderLots(await getAllLots());
+    }
+    if(Array.isArray(data.settings)){ const s = tx('settings','readwrite'); data.settings.forEach(v=> s.put(v)); }
+    if(Array.isArray(data.notes)){ const n = tx('notes','readwrite'); data.notes.forEach(v=> n.put(v)); }
+  };
+
+  // Habitica
+  const habUser = document.getElementById('habUser');
+  const habToken = document.getElementById('habToken');
+  const habStatus = document.getElementById('habStatus');
+
+  document.getElementById('saveHab').onclick = async ()=>{
+    await saveHabitica(habUser.value.trim(), habToken.value.trim());
+    habStatus.textContent = 'Saved locally.';
+  };
+  document.getElementById('loadHab').onclick = async ()=>{
+    const c = await loadHabitica(); if(c){ habUser.value = c.user||''; habToken.value = c.token||''; habStatus.textContent = 'Loaded from local storage.'; }
+    else{ habStatus.textContent = 'No credentials stored.'; }
+  };
+  document.getElementById('clearHab').onclick = async ()=>{
+    await clearHabitica(); habUser.value=''; habToken.value=''; habStatus.textContent = 'Cleared.';
+  };
+
+  document.getElementById('pushHab').onclick = async ()=>{
+    const creds = await loadHabitica(); const text = document.getElementById('habTasks').value.trim();
+    if(!creds || !creds.user || !creds.token){ alert('Save Habitica credentials first.'); return; }
+    const todos = text.split('\n').map(s=> s.trim()).filter(Boolean);
+    let ok=0, fail=0;
+    for(const t of todos){
+      try{
+        const res = await fetch('https://habitica.com/api/v3/tasks/user', {
+          method:'POST',
+          headers:{
+            'x-api-user': creds.user,
+            'x-api-key': creds.token,
+            'Content-Type':'application/json'
+          },
+          body: JSON.stringify({ text: t, type:'todo', priority:1 })
+        });
+        if(!res.ok) throw new Error('HTTP '+res.status);
+        ok++;
+      }catch(e){ console.error(e); fail++; }
+    }
+    habStatus.textContent = `Created ${ok} To‑Dos${fail?`, ${fail} failed`:''}.`;
+  };
+
+  // Notes
+  document.getElementById('saveNote').onclick = async ()=>{
+    const title = document.getElementById('noteTitle').value.trim();
+    const body = document.getElementById('noteBody').value.trim();
+    if(!title && !body){ alert('Add a title or body'); return; }
+    await saveNote(title, body); document.getElementById('noteBody').value=''; document.getElementById('noteTitle').value='';
+  };
+  document.getElementById('listNotes').onclick = async ()=>{
+    const list = await getNotes(); const ul = document.getElementById('notesList'); ul.innerHTML='';
+    for(const n of list){
+      const li = document.createElement('li'); const dt = new Date(n.ts).toLocaleString();
+      li.innerHTML = `<strong>${n.title || '(untitled)'}</strong> <span class="small">— ${dt}</span><br>${(n.body||'').replace(/\n/g,'<br>')}`;
+      ul.appendChild(li);
+    }
+  };
+  document.getElementById('clearNotes').onclick = async ()=>{ await clearNotes(); document.getElementById('notesList').innerHTML=''; };
+
+}).catch(err=> console.error('DB error', err));
+
+/* =========================
+   WebLLM Advisor
+   ========================= */
+let webllmEngine = null;
+let chatHistory = [];
+async function ensureWebLLM(){
+  if(window.webllm) return;
+  await import('https://unpkg.com/@mlc-ai/web-llm@0.2.53/dist/web-llm.min.js');
+}
+document.getElementById('startLLM').onclick = async ()=>{
+  const model = document.getElementById('modelSelect').value;
+  const stat = document.getElementById('llmStatus');
+  try{
+    stat.textContent = 'Loading model… (first load fetches weights)';
+    await ensureWebLLM();
+    const initProgressCallback = (info)=>{ stat.textContent = `Loading: ${info.text || ''}`; };
+    webllmEngine = await webllm.CreateMLCEngine(model, { initProgressCallback });
+    stat.textContent = 'Ready.';
+    chatHistory = [{ role:'system', content:'You are a PRA field advisor. Give concise, actionable steps. Prefer Haiti examples (Artibonite & Sud). Ask for missing specifics.' }];
+  }catch(e){ stat.textContent = 'Error loading model. See console.'; console.error(e); }
+};
+document.getElementById('stopLLM').onclick = ()=>{
+  webllmEngine = null; document.getElementById('llmStatus').textContent = 'Stopped.';
+};
+document.getElementById('sendChat').onclick = async ()=>{
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim(); if(!msg) return;
+  const chat = document.getElementById('chat');
+  const add = (who, text)=>{
+    const div = document.createElement('div');
+    div.innerHTML = `<div class="small"><strong>${who}</strong></div><div style="white-space:pre-wrap">${text}</div><hr style="border:0;border-top:1px dashed var(--border)"/>`;
+    chat.appendChild(div); chat.scrollTop = chat.scrollHeight;
+  };
+  add('You', msg); input.value='';
+  if(!webllmEngine){ add('Advisor','Start the Local Advisor first.'); return; }
+  chatHistory.push({ role:'user', content: msg });
+  const reply = await webllmEngine.chat.completions.create({ messages: chatHistory, temperature: 0.2 });
+  const text = reply.choices?.[0]?.message?.content || '(no output)';
+  add('Advisor', text);
+  chatHistory.push({ role:'assistant', content: text });
+};
+</script>
+</body>
+</html>

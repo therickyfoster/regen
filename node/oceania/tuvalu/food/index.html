@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cosmic">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Tuvalu Food Sovereignty Guide | Planetary Restoration Archive</title>
+  <meta name="description" content="Ultra-long-form, gamified food sovereignty system for Tuvalu: salinity-smart crops, pulaka pits, breadfruit guilds, ocean gardens, solar dehydration, and nutrient cycling. IndexedDB-first with local innovation uploads." />
+  <meta name="keywords" content="Tuvalu, food sovereignty, pulaka, breadfruit, pandanus, salinity, wicking bed, ocean garden, permaculture, gamified, IndexedDB, Habitica, WebLLM, PWA, parallax, starfield" />
+  <meta name="theme-color" content="#0b0f1a" />
+  <meta name="color-scheme" content="dark light" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Tuvalu Food Sovereignty Guide" />
+  <meta property="og:description" content="Gamified, offline-first playbook for island food autonomy with morphing constellations UI and local-innovation vault." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'><rect width='100%' height='100%' fill='%230b0f1a'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='60'>Tuvalu • Food Sovereignty</text></svg>" />
+  <meta property="og:site_name" content="Planetary Restoration Archive" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tuvalu Food Sovereignty Guide" />
+  <meta name="twitter:description" content="Gamified, offline-first island food autonomy with XP & local innovation uploads." />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://planetaryrestorationarchive.com/food/tuvalu/" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- JSON-LD using presentation schema line -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "about": "Food sovereignty in Tuvalu",
+    "name": "Ultra-Long-Form Gamified Food Sovereignty Guide — Tuvalu",
+    "headline": "Salinity-smart agroecology, ocean gardens, and guild-based XP economy",
+    "inLanguage": "en",
+    "author": {"@type": "Person", "name": "Foster + Navi"},
+    "isPartOf": {"@type": "CreativeWorkSeries", "name": "planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"},
+    "keywords": ["Tuvalu","food","sovereignty","pulaka","breadfruit","pandanus","salinity","permaculture","ocean garden","gamified"],
+    "publisher": {"@type": "Organization", "name": "Planetary Restoration Archive"}
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#0b0f1a; --bg2:#0c1224; --ink:#e8f1ff; --muted:#9bb0c9; --accent:#7fd4ff; --gold:#ffd66e; --rose:#ff7aa2; --lime:#b4ff7f;
+      --card:#11182b; --glass:rgba(20,28,50,.42); --glass-brd:rgba(127,212,255,.25);
+      --shadow:0 8px 30px rgba(0,0,0,.35); --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background: radial-gradient(1200px 800px at 70% -10%, #101a34 0%, #0b0f1a 55%, #070a14 100%);
+      color:var(--ink); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      overflow-x:hidden;
+    }
+    /* Backdrop canvases */
+    #nebula,#stars,#constellations{position:fixed; inset:0; display:block}
+    #stars{z-index:-3} #nebula{z-index:-2; mix-blend-mode:screen; opacity:.85; filter:contrast(110%) saturate(120%) blur(.3px)} #constellations{z-index:-1}
+
+    /* Parallax Navbar */
+    .nav{position:sticky; top:0; backdrop-filter: blur(10px) saturate(140%);
+      background:linear-gradient(180deg, rgba(12,18,36,.85), rgba(12,18,36,.35));
+      border-bottom:1px solid var(--glass-brd); z-index:50; box-shadow: var(--shadow);}
+    .nav-inner{display:flex; align-items:center; gap:12px; padding:14px clamp(12px, 2vw, 28px); max-width:1300px; margin:0 auto;}
+    .brand{font-weight:800; letter-spacing:.5px; display:flex; align-items:center; gap:10px}
+    .badge{font-size:11px; padding:3px 8px; border:1px solid var(--glass-brd); border-radius:999px; color:var(--accent);
+      background:linear-gradient(180deg, rgba(127,212,255,.12), rgba(127,212,255,.05));}
+    .nav ul{display:flex; gap:8px; list-style:none; margin:0; padding:0}
+    .nav a{color:var(--ink); text-decoration:none; padding:10px 12px; border-radius:10px; display:inline-flex; align-items:center; gap:8px}
+    .nav a:hover{background:rgba(127,212,255,.08)}
+    .dropdown{position:relative}
+    .dropdown-menu{position:absolute; top:calc(100% + 8px); left:0; min-width:300px; overflow:hidden;
+      background:linear-gradient(180deg, rgba(20,28,50,.96), rgba(20,28,50,.85));
+      border:1px solid var(--glass-brd); border-radius:16px; box-shadow: var(--shadow); padding:8px; display:none;}
+    .dropdown:hover .dropdown-menu{display:block; animation:pop .16s ease-out}
+    @keyframes pop{from{transform:translateY(-6px); opacity:0} to{transform:translateY(0); opacity:1}}
+    .pill{font-size:12px; color:var(--muted); border:1px dashed var(--glass-brd); padding:4px 10px; border-radius:999px}
+
+    /* Layout */
+    .wrap{max-width:1200px; margin: clamp(14px,2vw,24px) auto 120px; padding:0 16px}
+    .hero{display:grid; grid-template-columns:1.2fr .8fr; gap:18px; align-items:stretch; margin-top:18px}
+    @media (max-width:980px){.hero{grid-template-columns:1fr;}}
+    .card{background: radial-gradient(120% 140% at 0% 0%, rgba(127,212,255,.12), rgba(127,212,255,.04) 40%, rgba(127,212,255,.02) 70%), var(--glass);
+      border:1px solid var(--glass-brd); border-radius:var(--radius); box-shadow: var(--shadow);}
+    .card .pad{padding:20px clamp(18px,2vw,28px)}
+    .title{font-size: clamp(22px, 3vw, 34px); font-weight:800; line-height:1.05}
+    .subtitle{color:var(--muted); font-size: clamp(14px, 1.6vw, 16px)}
+    .grid{display:grid; gap:14px}
+    .grid.cols-3{grid-template-columns: repeat(3,1fr)}
+    .grid.cols-2{grid-template-columns: repeat(2,1fr)}
+    @media (max-width:900px){.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
+    .kpi{display:flex; align-items:center; gap:12px; padding:12px; background:rgba(255,255,255,.03); border:1px dashed var(--glass-brd); border-radius:14px}
+    .kpi b{font-size:20px}
+    .chip{padding:6px 10px; border-radius:999px; background:rgba(255,214,110,.12); border:1px solid rgba(255,214,110,.25); color:var(--gold); font-weight:700; font-size:12px}
+    .cta{display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; border:1px solid var(--glass-brd);
+      background:linear-gradient(180deg, rgba(127,212,255,.16), rgba(127,212,255,.08)); cursor:pointer}
+    .cta:hover{filter:brightness(1.05)}
+    h2.section{margin:24px 0 10px; font-size: clamp(18px, 2.4vw, 26px)}
+    p, li{color:#d9e6ff; line-height:1.6}
+    code.inline{background:rgba(255,255,255,.08); padding:.2em .5em; border-radius:8px; border:1px solid var(--glass-brd)}
+    .legend{display:flex; gap:10px; flex-wrap:wrap}
+    .legend .key{display:flex; align-items:center; gap:8px; padding:6px 10px; background:rgba(255,255,255,.05); border:1px solid var(--glass-brd); border-radius:999px}
+    /* Mobile */
+    .menu-btn{display:none}
+    @media (max-width:860px){
+      .nav ul{display:none}
+      .menu-btn{display:inline-flex; margin-left:auto}
+      .nav.open ul{display:flex; flex-direction:column; position:absolute; top:58px; left:0; right:0; padding:12px;
+        background:linear-gradient(180deg, rgba(12,18,36,.98), rgba(12,18,36,.75)); border-bottom:1px solid var(--glass-brd);}
+      .dropdown:hover .dropdown-menu{display:none}
+      .dropdown.open .dropdown-menu{display:block; position:static; border-radius:12px}
+    }
+    /* HUD */
+    .hud{position:fixed; right:18px; bottom:18px; display:flex; flex-direction:column; gap:10px; z-index:40;}
+    .hud .widget{background:linear-gradient(180deg, rgba(20,28,50,.92), rgba(20,28,50,.78)); border:1px solid var(--glass-brd);
+      border-radius:16px; box-shadow: var(--shadow); padding:10px 12px; min-width:240px}
+    .hud .gauge{height:8px; background:rgba(127,212,255,.18); border-radius:999px; overflow:hidden}
+    .hud .gauge > i{display:block; height:100%; width:30%; background:linear-gradient(90deg, #7fd4ff, #b4ff7f)}
+    .uploader{border:1px dashed var(--glass-brd); padding:14px; border-radius:16px; background:rgba(255,255,255,.03); display:grid; gap:10px;}
+    .uploader input[type="file"]{display:block; width:100%}
+    .uploader textarea{width:100%; min-height:80px; resize:vertical; background:rgba(0,0,0,.25); color:var(--ink); border:1px solid var(--glass-brd); border-radius:10px; padding:10px}
+    .two-col{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    @media (max-width:900px){.two-col{grid-template-columns:1fr}}
+    /* Table */
+    table{width:100%; border-collapse:collapse; border:1px solid var(--glass-brd); border-radius:12px; overflow:hidden}
+    th,td{padding:10px; border-bottom:1px solid var(--glass-brd); text-align:left}
+    th{background:rgba(127,212,255,.08)}
+  </style>
+</head>
+<body>
+  <!-- Backdrop canvases -->
+  <canvas id="nebula"></canvas>
+  <canvas id="stars"></canvas>
+  <canvas id="constellations"></canvas>
+
+  <!-- Parallax Navbar -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true">
+          <defs><radialGradient id="g" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stop-color="#7fd4ff"/><stop offset="60%" stop-color="#1d6b96"/><stop offset="100%" stop-color="#0b0f1a"/></radialGradient></defs>
+          <circle cx="32" cy="32" r="28" fill="url(#g)" />
+          <path d="M12 36c8-4 16-4 24 0s16 4 16 4" stroke="#b4ff7f" stroke-width="2" fill="none" opacity=".7"/>
+          <circle cx="46" cy="18" r="3" fill="#ffd66e"/>
+        </svg>
+        <span>Tuvalu • Food Sovereignty</span>
+        <span class="badge">/food/tuvalu</span>
+      </div>
+
+      <button class="cta menu-btn" id="menuBtn" aria-label="open menu">☰ Menu</button>
+
+      <ul id="mainMenu" aria-label="primary">
+        <li class="dropdown">
+          <a href="#" aria-haspopup="true" aria-expanded="false">Guide</a>
+          <div class="dropdown-menu">
+            <a href="#context">Context & Principles</a>
+            <a href="#guilds">Crop Guilds</a>
+            <a href="#pulaka">Pulaka Pits</a>
+            <a href="#wicking">Wicking & Raised Beds</a>
+            <a href="#ocean">Ocean Gardens</a>
+            <a href="#preserve">Preservation & Dehydration</a>
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#" aria-haspopup="true" aria-expanded="false">Make & Source</a>
+          <div class="dropdown-menu">
+            <a href="#materials">Local Inputs</a>
+            <a href="#tools">DIY Tools</a>
+            <a href="#biochar">Biochar & Compost</a>
+            <a href="#devices">Solar Dryers</a>
+            <a href="#seedbank">Community Seedbank</a>
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#" aria-haspopup="true" aria-expanded="false">Guild & XP</a>
+          <div class="dropdown-menu">
+            <a href="#xp">Harvest Credits</a>
+            <a href="#habitica">Habitica Sync</a>
+            <a href="#quests">Quests</a>
+            <a href="#leaderboard">Leaderboard</a>
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#" aria-haspopup="true" aria-expanded="false">Data & AI</a>
+          <div class="dropdown-menu">
+            <a href="#indexeddb">IndexedDB Larder</a>
+            <a href="#uploads">Upload Discoveries</a>
+            <a href="#webllm">WebLLM Coach</a>
+            <a href="#pwa">PWA & Offline</a>
+          </div>
+        </li>
+        <li><a class="cta" href="../../water/tuvalu/index.html">← Water Sovereignty (Tuvalu)</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero">
+      <article class="card">
+        <div class="pad">
+          <div class="title">Seeds Beneath the Salt</div>
+          <p class="subtitle">Island food autonomy: salinity-smart agroecology, ocean gardens, and preservation rituals — woven with XP, uploads, and an offline-first larder.</p>
+          <div class="grid cols-3" style="margin-top:14px">
+            <div class="kpi"><span class="chip">Salinity Risk</span><b>High</b><small class="pill">lens & spray</small></div>
+            <div class="kpi"><span class="chip">Energy</span><b>Solar first</b><small class="pill">low-temp processes</small></div>
+            <div class="kpi"><span class="chip">Buffer</span><b>30–60 days</b><small class="pill">dehydrated staples</small></div>
+          </div>
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+            <button class="cta" id="btnQuickStart">Quick-Start Cropping Plan</button>
+            <button class="cta" id="btnAddDiscovery">Add Local Discovery</button>
+            <button class="cta" id="btnDownloadAll">Archive (TGZ)</button>
+          </div>
+          <div class="legend" style="margin-top:12px">
+            <div class="key"><svg width="14" height="14"><circle cx="7" cy="7" r="6" fill="#ffd66e"/></svg> Salinity Shield</div>
+            <div class="key"><svg width="14" height="14"><circle cx="7" cy="7" r="6" fill="#7fd4ff"/></svg> Water Efficiency</div>
+            <div class="key"><svg width="14" height="14"><circle cx="7" cy="7" r="6" fill="#b4ff7f"/></svg> Soil Health</div>
+          </div>
+        </div>
+      </article>
+      <aside class="card">
+        <div class="pad">
+          <h2 class="section" id="context">Context & Principles</h2>
+          <ul>
+            <li><b>Salt-aware design:</b> windbreaks (pandanus, hibiscus), mulches, and raised/wicking beds reduce salt splash.</li>
+            <li><b>Water-integrated:</b> link to rain storage; irrigate at dawn; use drip or olla pots.</li>
+            <li><b>Guild logic:</b> anchor trees (breadfruit) + nitrogen fixers (beach cowpea) + groundcovers (sweet potato) + insectaries (basil).</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <!-- CROPS & GUILDS -->
+    <section class="card" id="guilds" style="margin-top:16px">
+      <div class="pad">
+        <h2 class="section">Core Crop Guilds (Tuvalu)</h2>
+        <table>
+          <thead><tr><th>Guild</th><th>Members</th><th>Why it Works</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><b>Breadfruit Oasis</b></td>
+              <td>Breadfruit (Artocarpus altilis), beach cowpea, sweet potato, basil, lemongrass</td>
+              <td>Canopy food + N-fix + carb groundcover + pest confusers</td>
+              <td>Mulch heavy; use graywater on lemongrass borders (not on leafy greens)</td>
+            </tr>
+            <tr>
+              <td><b>Pulaka Revival</b></td>
+              <td>Pulaka (giant swamp taro), coconut fiber mulch, banana windbreak</td>
+              <td>Shaded pit microclimate; organic matter lifts cation exchange capacity</td>
+              <td>Monitor salinity; blend rain + pit water; add biochar quarterly</td>
+            </tr>
+            <tr>
+              <td><b>Pandanus Lines</b></td>
+              <td>Pandanus hedges, chaya/kangkong (as tolerated), chili, okra</td>
+              <td>Salt-wind baffle; nutrient-dense perennials</td>
+              <td>Hedge NS/EW for dominant winds; harvest leaves for crafts & mulch</td>
+            </tr>
+            <tr>
+              <td><b>Kitchen Spiral</b></td>
+              <td>Basil, mint (contained), turmeric, moringa, spring onion</td>
+              <td>Close-to-door; daily harvest; medicinal & micronutrient stack</td>
+              <td>Ollas for mint/turmeric; moringa leaf powder for fortification</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PULAKA PITS -->
+    <section class="card" id="pulaka" style="margin-top:16px">
+      <div class="pad">
+        <h2 class="section">Pulaka Pits — Modernized, Gentle-on-Lens</h2>
+        <div class="two-col">
+          <div>
+            <h3>Pit Renovation</h3>
+            <ol>
+              <li>Map lens zones; avoid over-extraction; keep pits <b>shallow & wide</b>.</li>
+              <li>Line sides with woven coconut fronds to reduce collapse.</li>
+              <li>Layer: coarse coconut husk → composted leaf litter → sand/soil mix → pulaka setts.</li>
+              <li>Add <b>biochar</b> (coconut shell) 2–5% by volume; pre-charge with compost tea.</li>
+              <li>Mulch with coconut fiber to reduce evaporation and salt crusting.</li>
+            </ol>
+          </div>
+          <div>
+            <h3>Salinity Protocol</h3>
+            <ul>
+              <li>Test pit water weekly with DIY conductivity probe; log to IndexedDB.</li>
+              <li>When EC rises, irrigate from rain tank at dawn; flush salts downward.</li>
+              <li>Introduce shade sails during heat spikes to lower transpiration stress.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WICKING & RAISED BEDS -->
+    <section class="card" id="wicking" style="margin-top:16px">
+      <div class="pad">
+        <h2 class="section">Wicking & Raised Beds — Salt-Safe, Water-Thrifty</h2>
+        <div class="two-col">
+          <div>
+            <h3>IBC Tote Wicking Bed (DIY)</h3>
+            <ol>
+              <li>Cut an IBC tote to ~45–50 cm depth. Patch any metal edges.</li>
+              <li>Add 10–12 cm washed gravel; lay geotextile or woven mat.</li>
+              <li>Insert fill pipe (50 mm PVC) to base; overflow at 2–3 cm below fabric plane.</li>
+              <li>Soil: 40% sand, 30% compost, 20% shredded coconut, 10% biochar.</li>
+              <li>Plant salt-tolerant varieties: okra, chili, eggplant, sweet potato slips.</li>
+            </ol>
+          </div>
+          <div>
+            <h3>Olla Pots & Drip</h3>
+            <ul>
+              <li>DIY olla: two unglazed clay pots + lime-safe seal; bury to neck.</li>
+              <li>Slow-release keeps leaf surfaces dry; reduces fungal issues & salt burn.</li>
+              <li>Graywater use only through mulch & non-edible bed borders, never on leaves.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OCEAN GARDENS -->
+    <section class="card" id="ocean" style="margin-top:16px">
+      <div class="pad">
+        <h2 class="section">Ocean Gardens — Sea Vegetables & Lagoon Care</h2>
+        <p>Nearshore lines for edible seaweeds (e.g., <em>Kappaphycus</em>, <em>Gracilaria</em>) and shellfish baskets where ecological assessments permit. Pair with strict lagoon stewardship: no brine disposal near gardens; disperse RO brine in approved offshore zones.</p>
+        <ul>
+          <li><b>Lines:</b> coconut coir rope on anchored floats; inspect for fouling weekly.</li>
+          <li><b>Harvest:</b> shade-dry on racks (see dryers) to 15–20% moisture; store in sealed jars.</li>
+          <li><b>Safety:</b> periodic water quality checks; log to IndexedDB.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PRESERVATION -->
+    <section class="card" id="preserve" style="margin-top:16px">
+      <div class="pad">
+        <h2 class="section">Preservation & Dehydration — 30–60 Day Buffer</h2>
+        <div class="two-col">
+          <div>
+            <h3>Solar Cabinet Dryer (No Fan)</h3>
+            <ol>
+              <li>Frame: timber; back painted matte black; polycarbonate glazing angled 12–15°.</li>
+              <li>Intake low-front; exhaust high-rear with mesh. Trays: food-safe mesh.</li>
+              <li>Load sliced breadfruit, banana, fish; rotate trays every 2–3 hours.</li>
+              <li>Target 50–60°C; finish in low oven/sun until brittle-leathery.</li>
+            </ol>
+          </div>
+          <div>
+            <h3>Spice & Greens Powders</h3>
+            <ul>
+              <li>Moringa leaf: rinse, shade-dry, powder; airtight storage adds micronutrients to staples.</li>
+              <li>Chili-salt blends: flavor + preservation; track batches in Larder.</li>
+              <li>Breadfruit flour: slice → dry → mill; mix 20–40% into doughs.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAKE & SOURCE -->
+    <section class="card" id="materials" style="margin-top:16px">
+      <div class="pad">
+        <h2 class="section">Local Inputs — Sourcing & Making</h2>
+        <ul>
+          <li><b>Biochar:</b> coconut shell TLUD stove; quench; mill 1–5 mm; charge with compost tea.</li>
+          <li><b>Mulch:</b> coconut husk fiber, pandanus leaves; salt-rinse after storms.</li>
+          <li><b>N-fixers:</b> beach cowpea, pigeon pea (windbreak side), sesbania (pruned for mulch).</li>
+          <li><b>Minerals:</b> burned coral is <em>not</em> recommended; favor seaweed ash micro-doses + compost.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" id="tools" style="margin-top:16px">
+      <div class="pad">
+        <h2 class="section">DIY Tools — Low-Tech, Repairable</h2>
+        <ul>
+          <li><b>Soil Salinity Kit:</b> DIY conductivity probe (two screws 1.5 cm apart + multimeter). Calibrate with salt water standards.</li>
+          <li><b>Moisture Tensiometer:</b> PVC tube + ceramic cup + cheap vacuum gauge; track wicking bed tension.</li>
+          <li><b>Olla Maker:</b> two clay pots + lime-safe sealant (or flour paste + ash for temp use).</li>
+          <li><b>Seed Screens:</b> framed window mesh sizes for cleaning and drying.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" id="biochar" style="margin-top:16px">
+      <div class="pad">
+        <h2 class="section">Biochar & Compost — Salt Buffer & Microbe Hotel</h2>
+        <div class="two-col">
+          <div>
+            <h3>TLUD Stove (Top-Lit UpDraft)</h3>
+            <ol>
+              <li>Metal can with side air holes; grate at base; load dry coconut shell.</li>
+              <li>Top-light; let gas burn with secondary air collar.</li>
+              <li>When flames fade but char is glowing, quench with <b>non-saline</b> water.</li>
+            </ol>
+          </div>
+          <div>
+            <h3>Compost</h3>
+            <ul>
+              <li>Layer greens (kitchen waste) + browns (dry leaves, shredded coconut).</li>
+              <li>Keep covered from salt spray; moisture like a wrung sponge.</li>
+              <li>Charge biochar in compost tea 24–48 h before adding to soil.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- XP & UPLOADS -->
+    <section class="card" id="xp" style="margin-top:16px">
+      <div class="pad">
+        <h2 class="section">Harvest Credits & Leaderboard</h2>
+        <p>Earn XP for verifiable actions; all entries saved locally to <code class="inline">IndexedDB</code>. Export, share offline, or archive to TGZ.</p>
+        <div class="grid cols-2" style="margin-top:10px">
+          <div class="uploader">
+            <label><b>Log a Food Discovery / Harvest</b></label>
+            <input id="fileInput" type="file" multiple accept="image/*,.pdf,.txt,.md,.json" />
+            <textarea id="discoveryNotes" placeholder="Describe crop, method, salinity reading, inputs, yields, prep, costs..."></textarea>
+            <div style="display:flex; gap:10px; flex-wrap:wrap">
+              <button class="cta" id="btnSaveDiscovery">Save to IndexedDB</button>
+              <button class="cta" id="btnExport">Export JSON</button>
+              <button class="cta" id="btnClear">Clear Local</button>
+            </div>
+          </div>
+          <div class="uploader">
+            <label><b>Habitica Credentials (Optional)</b></label>
+            <input id="habiticaUID" placeholder="Habitica User ID" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--glass-brd); background:rgba(0,0,0,.25); color:var(--ink)"/>
+            <input id="habiticaToken" placeholder="Habitica API Token" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--glass-brd); background:rgba(0,0,0,.25); color:var(--ink)"/>
+            <div style="display:flex; gap:10px; flex-wrap:wrap">
+              <button class="cta" id="btnSaveHabitica">Save Keys</button>
+              <button class="cta" id="btnHabiticaTest">Test XP Push (local stub)</button>
+            </div>
+            <small class="pill">Keys stored only in your browser (IndexedDB)</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="indexeddb" style="margin-top:16px">
+      <div class="pad">
+        <h2 class="section">IndexedDB Larder</h2>
+        <p>All discoveries, images, logs, and credentials are stored locally in <code class="inline">pra_tuvalu_food</code>. Nothing leaves your device unless you export or archive.</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <button class="cta" id="btnListItems">List Items</button>
+          <button class="cta" id="btnOpenGallery">Open Gallery</button>
+        </div>
+        <div id="listArea" style="margin-top:10px"></div>
+      </div>
+    </section>
+
+    <section class="card" id="habitica" style="margin-top:16px">
+      <div class="pad">
+        <h2 class="section">Habitica Sync (Optional)</h2>
+        <p>Suggested Dailies: <em>Mulch & Moisture Check</em>, <em>Salinity Log</em>. Habits: <em>Harvest Weigh-In</em>, <em>Seed Saving</em>. API calls are stubbed for offline safety; enable later as needed.</p>
+      </div>
+    </section>
+
+    <section class="card" id="webllm" style="margin-top:16px">
+      <div class="pad">
+        <h2 class="section">WebLLM Coach</h2>
+        <p><code class="inline">window.foodCoach</code> provides rule-based advice now; swap in a local model later for on-device reasoning (seed spacing, salt thresholds, preservation steps) using your stored data.</p>
+      </div>
+    </section>
+
+    <section class="card" id="pwa" style="margin-top:16px">
+      <div class="pad">
+        <h2 class="section">PWA & Offline</h2>
+        <p>This page registers a service worker during first load and precaches itself. Use the Archive button to create a <b>.tgz</b> bundle of your JSON + media for sharing.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- HUD -->
+  <div class="hud">
+    <div class="widget">
+      <div style="display:flex; justify-content:space-between; align-items:center">
+        <b>Harvest XP</b><span id="xpCount" class="pill">0 XP</span>
+      </div>
+      <div class="gauge" style="margin-top:8px"><i id="xpGauge"></i></div>
+      <div style="display:flex; gap:8px; margin-top:10px">
+        <button class="cta" id="btnAddXP">+25 XP</button>
+        <button class="cta" id="btnSync">Export JSON</button>
+      </div>
+    </div>
+    <div class="widget">
+      <div style="display:flex; justify-content:space-between; align-items:center">
+        <b>Sync</b><span class="pill">offline-first</span>
+      </div>
+      <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+        <button class="cta" id="btnDownloadAll2">Archive (TGZ)</button>
+        <button class="cta" id="btnSW">Install SW</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Templates -->
+  <template id="itemRow">
+    <div style="padding:10px; border-bottom:1px solid var(--glass-brd); display:flex; gap:10px; align-items:center">
+      <span class="pill"></span>
+      <div style="flex:1"></div>
+      <button class="cta actionView">View</button>
+      <button class="cta actionDelete">Delete</button>
+    </div>
+  </template>
+
+  <script>
+/* ==========================================================
+   Tuvalu Food Sovereignty — Part 2 (ends at </html>)
+   Features:
+   • Morphing constellations, parallax menus
+   • IndexedDB larder (discoveries, crops, images)
+   • Habitica key storage (local only) + stub actions
+   • WebLLM hook (rule-based fallback)
+   • Export JSON + client-side .tar.gz archive via CompressionStream
+   • Service Worker bootstrap (self-contained via Blob)
+   ========================================================== */
+
+(() => {
+  /* ---------- Utilities ---------- */
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
+  const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+
+  /* ---------- Responsive Nav ---------- */
+  const nav = $('#nav'); const menuBtn = $('#menuBtn');
+  menuBtn?.addEventListener('click', () => nav.classList.toggle('open'));
+  $$('.dropdown > a').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      if (window.innerWidth <= 860) {
+        e.preventDefault();
+        a.parentElement.classList.toggle('open');
+      }
+    });
+  });
+
+  /* ---------- IndexedDB Layer ---------- */
+  const DB_NAME = 'pra_tuvalu_food';
+  const DB_VER  = 1;
+  const STORE_ITEMS = 'items';     // discoveries & uploads
+  const STORE_KEYS  = 'keys';      // habitica etc.
+  let db;
+
+  function openDB(){
+    return new Promise((resolve, reject)=>{
+      const req = indexedDB.open(DB_NAME, DB_VER);
+      req.onupgradeneeded = (e)=>{
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(STORE_ITEMS)) {
+          const store = db.createObjectStore(STORE_ITEMS, {keyPath:'id', autoIncrement:true});
+          store.createIndex('by_ts','ts');
+          store.createIndex('by_type','type');
+        }
+        if (!db.objectStoreNames.contains(STORE_KEYS)) {
+          db.createObjectStore(STORE_KEYS, {keyPath:'name'});
+        }
+      };
+      req.onsuccess = ()=>resolve(req.result);
+      req.onerror   = ()=>reject(req.error);
+    });
+  }
+  function tx(store, mode='readonly'){ return db.transaction(store, mode).objectStore(store); }
+  async function putItem(obj){ return new Promise((res,rej)=>{ const r=tx(STORE_ITEMS,'readwrite').add(obj); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
+  async function listItems(){ return new Promise((res,rej)=>{ const out=[]; const r=tx(STORE_ITEMS).index('by_ts').openCursor(null,'prev'); r.onsuccess=e=>{const c=e.target.result; if(c){out.push(c.value); c.continue();} else res(out)}; r.onerror=()=>rej(r.error) }); }
+  async function delItem(id){ return new Promise((res,rej)=>{ const r=tx(STORE_ITEMS,'readwrite').delete(id); r.onsuccess=()=>res(true); r.onerror=()=>rej(r.error); }); }
+  async function putKey(name,value){ return new Promise((res,rej)=>{ const r=tx(STORE_KEYS,'readwrite').put({name,value,ts:Date.now()}); r.onsuccess=()=>res(true); r.onerror=()=>rej(r.error); }); }
+  async function getKey(name){ return new Promise((res,rej)=>{ const r=tx(STORE_KEYS).get(name); r.onsuccess=()=>res(r.result?.value||null); r.onerror=()=>rej(r.error); }); }
+
+  /* ---------- File Handling & Export ---------- */
+  async function collectFilesFromInput(input){
+    const files = input.files ? [...input.files] : [];
+    const entries = [];
+    for (const f of files){
+      const buf = await f.arrayBuffer();
+      entries.push({name:f.name, type:f.type, size:f.size, data: Array.from(new Uint8Array(buf))});
+    }
+    return entries;
+  }
+  async function exportJSON(){
+    const items = await listItems();
+    const blob = new Blob([JSON.stringify({exportedAt:new Date().toISOString(), items}, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = Object.assign(document.createElement('a'), {href:url, download:`tuvalu-food-export-${Date.now()}.json`});
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  }
+
+  // Create a .tar.gz (TGZ) archive using CompressionStream (gzip)
+  async function archiveTGZ(){
+    // Minimal tar writer (ustar) with no dirs; stores JSON + attached files per item.
+    function strToUint8(s){ return new TextEncoder().encode(s); }
+    function pad(buf,len){ const padLen = (len - (buf.length % len)) % len; return padLen? new Uint8Array([...buf, ...new Uint8Array(padLen)]): buf; }
+    function octal(n, len){ const s = n.toString(8); const out = new Uint8Array(len).fill(0x20); // space
+    const bytes = strToUint8(s); out.set(bytes, len - bytes.length - 1); out[len-1]=0; return out; }
+    function header(name, size){
+      const b = new Uint8Array(512).fill(0);
+      const set = (off, arr)=> b.set(arr.slice(0,arr.length), off);
+      set(0, strToUint8(name.padEnd(100, '\0')));
+      set(100, octal(0o644,8));
+      set(108, octal(0,8)); set(116, octal(0,8));
+      set(124, octal(size,12));
+      set(136, octal(Math.floor(Date.now()/1000),12));
+      set(148, new Uint8Array(8).fill(0x20));
+      b[156] = '0'.charCodeAt(0); // type
+      set(257, strToUint8('ustar\0')); set(263, strToUint8('00'));
+      // checksum
+      let sum=0; for(let i=0;i<512;i++) sum += b[i];
+      const chk = octal(sum,8); set(148, chk);
+      return b;
+    }
+    function tarFile(name, bytes){
+      const hdr = header(name, bytes.length);
+      const data = pad(bytes, 512);
+      return new Uint8Array([...hdr, ...data]);
+    }
+
+    const items = await listItems();
+    const parts = [];
+    // include manifest JSON
+    const manifest = new Blob([JSON.stringify({exportedAt:new Date().toISOString(), count:items.length}, null, 2)], {type:'application/json'});
+    parts.push(tarFile('manifest.json', new Uint8Array(await manifest.arrayBuffer())));
+
+    // include items
+    let idx=0;
+    for (const it of items){
+      const base = `items/${String(idx).padStart(4,'0')}`;
+      const meta = new Blob([JSON.stringify({...it, files: undefined}, null, 2)], {type:'application/json'});
+      parts.push(tarFile(`${base}/meta.json`, new Uint8Array(await meta.arrayBuffer())));
+      if (it.files?.length){
+        for (let j=0;j<it.files.length;j++){
+          const f = it.files[j];
+          const fileBytes = new Uint8Array(f.data);
+          const safeName = (f.name || `file_${j}`).replace(/[^A-Za-z0-9._-]/g,'_');
+          parts.push(tarFile(`${base}/${safeName}`, fileBytes));
+        }
+      }
+      idx++;
+    }
+    // 2 empty blocks to end tar
+    parts.push(new Uint8Array(1024));
+
+    // concatenate to single tar
+    let totalLen = parts.reduce((a,b)=>a+b.length,0);
+    const tar = new Uint8Array(totalLen); let off=0; for (const p of parts){ tar.set(p, off); off+=p.length; }
+
+    // gzip compress using CompressionStream
+    const cs = new CompressionStream('gzip');
+    const w = cs.writable.getWriter();
+    w.write(tar); await w.close();
+    const gz = await new Response(cs.readable).blob();
+    const url = URL.createObjectURL(gz);
+    const a = Object.assign(document.createElement('a'), {href:url, download:`tuvalu-food-archive-${Date.now()}.tar.gz`});
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  }
+
+  /* ---------- UI Bindings ---------- */
+  const fileInput = $('#fileInput');
+  const discoveryNotes = $('#discoveryNotes');
+  const listArea = $('#listArea');
+
+  $('#btnSaveDiscovery')?.addEventListener('click', async ()=>{
+    try{
+      const files = await collectFilesFromInput(fileInput);
+      const item = { ts: Date.now(), type:'discovery', notes: discoveryNotes.value.trim(), files, xp:25 };
+      await putItem(item); addXP(25);
+      discoveryNotes.value=''; fileInput.value='';
+      await renderList(); toast('Saved discovery locally (+25 XP).');
+    }catch(e){ toast('Save failed: ' + e.message); }
+  });
+  $('#btnExport')?.addEventListener('click', exportJSON);
+  $('#btnSync')?.addEventListener('click', exportJSON);
+  $('#btnClear')?.addEventListener('click', async ()=>{
+    const items = await listItems(); await Promise.all(items.map(i=>delItem(i.id)));
+    await renderList(); toast('Local items cleared.');
+  });
+  $('#btnListItems')?.addEventListener('click', renderList);
+  $('#btnOpenGallery')?.addEventListener('click', renderList);
+  $('#btnDownloadAll')?.addEventListener('click', archiveTGZ);
+  $('#btnDownloadAll2')?.addEventListener('click', archiveTGZ);
+
+  /* ---------- Habitica local stubs ---------- */
+  const habiticaUID = $('#habiticaUID');
+  const habiticaToken = $('#habiticaToken');
+
+  (async () => {
+    db = await openDB();
+    habiticaUID.value = await getKey('habitica_uid') || '';
+    habiticaToken.value = await getKey('habitica_token') || '';
+    await renderList();
+  })();
+
+  $('#btnSaveHabitica')?.addEventListener('click', async ()=>{
+    await putKey('habitica_uid', habiticaUID.value.trim());
+    await putKey('habitica_token', habiticaToken.value.trim());
+    toast('Habitica keys stored locally.');
+  });
+  $('#btnHabiticaTest')?.addEventListener('click', async ()=>{
+    addXP(5); toast('Stubbed Habitica push: +5 XP locally.');
+  });
+
+  /* ---------- XP HUD ---------- */
+  let XP = 0;
+  const xpCount = $('#xpCount'); const xpGauge = $('#xpGauge');
+  function addXP(n){ XP+=n; xpCount.textContent = `${XP} XP`; xpGauge.style.width = clamp(XP % 100, 0, 100) + '%'; }
+  $('#btnAddXP')?.addEventListener('click', ()=>addXP(25));
+
+  async function renderList(){
+    const items = await listItems();
+    listArea.innerHTML = '';
+    if (!items.length){ listArea.innerHTML = '<p class="subtitle">No local entries yet. Log your harvests or upload photos.</p>'; return; }
+    for (const it of items){
+      const row = $('#itemRow').content.firstElementChild.cloneNode(true);
+      row.querySelector('.pill').textContent = `${new Date(it.ts).toLocaleString()} — ${it.type} (${it.files?.length||0} file${(it.files?.length||0)!==1?'s':''})`;
+      row.querySelector('.actionView').addEventListener('click', ()=>viewItem(it));
+      row.querySelector('.actionDelete').addEventListener('click', async ()=>{ await delItem(it.id); await renderList(); toast('Deleted.'); });
+      listArea.appendChild(row);
+    }
+  }
+  function viewItem(it){
+    const w = window.open('', '_blank'); if (!w) return;
+    const files = (it.files||[]).map((f,idx)=>{
+      const blob = new Blob([new Uint8Array(f.data)], {type:f.type||'application/octet-stream'});
+      const url = URL.createObjectURL(blob);
+      return `<div style="margin:8px 0"><a href="${url}" download="${f.name||('file_'+idx)}">${f.name||('file_'+idx)}</a> <span class="pill">${(f.type||'file')} • ${f.size||0}B</span></div>`;
+    }).join('');
+    w.document.write(`
+      <html><head><title>Food Discovery View</title><meta charset="utf-8"></head>
+      <body style="font-family:system-ui;background:#0b0f1a;color:#e8f1ff;padding:20px">
+        <h2>Local Food Discovery</h2>
+        <p><b>Time:</b> ${new Date(it.ts).toLocaleString()}</p>
+        <p><b>Notes:</b></p>
+        <pre style="white-space:pre-wrap;background:#11182b;padding:12px;border-radius:12px;border:1px solid #1b2a4a">${(it.notes||'').replace(/[<>&]/g,s=>({ '<':'&lt;','>':'&gt;','&':'&amp;' }[s]))}</pre>
+        <h3>Files</h3>${files || '<p>No files</p>'}
+      </body></html>
+    `);
+    w.document.close();
+  }
+
+  /* ---------- WebLLM Hook (stub) ---------- */
+  window.foodCoach = {
+    tipsFor(entry){
+      const t=[];
+      if (/pulaka|taro|pit/i.test(entry)) t.push('Add 2–5% charged biochar and shade cloth on hot weeks; log EC weekly.');
+      if (/breadfruit|flour/i.test(entry)) t.push('Slice thin for drying; store in airtight jars with desiccant.');
+      if (/seaweed|ocean|line/i.test(entry)) t.push('Rinse in freshwater before drying; avoid brine plumes; record site coords.');
+      if (/wicking|olla|drip/i.test(entry)) t.push('Irrigate at dawn; check overflow height to prevent salt rise by capillarity.');
+      if (!t.length) t.push('Add spacing, wind exposure, mulch depth, and yield per m² to improve replicability.');
+      return t;
+    }
+  };
+
+  /* ---------- Quick-Start Modal ---------- */
+  $('#btnQuickStart')?.addEventListener('click', ()=>{
+    const msg = [
+      'Quick-Start (Tuvalu Food Autonomy):',
+      '1) Plant Breadfruit Oasis guild with lemongrass wind edges.',
+      '2) Renovate one pulaka pit; add charged biochar; log EC weekly.',
+      '3) Build one IBC wicking bed; plant okra/chili/sweet potato.',
+      '4) Set ocean garden test line; dry seaweed on cabinet dryer.',
+      '5) Log all steps with photos → IndexedDB (+25 XP each).'
+    ].join('\n');
+    alert(msg);
+  });
+
+  /* ---------- Toast ---------- */
+  let toastNode;
+  function toast(text){
+    if (!toastNode){
+      toastNode = document.createElement('div');
+      Object.assign(toastNode.style,{
+        position:'fixed', left:'50%', bottom:'26px', transform:'translateX(-50%)',
+        background:'linear-gradient(180deg, rgba(20,28,50,.98), rgba(20,28,50,.85))',
+        border:'1px solid var(--glass-brd)', padding:'10px 14px', borderRadius:'12px',
+        zIndex:60, color:'var(--ink)', boxShadow:'var(--shadow)'
+      });
+      document.body.appendChild(toastNode);
+    }
+    toastNode.textContent = text;
+    toastNode.style.opacity = '1';
+    clearTimeout(toastNode._t);
+    toastNode._t = setTimeout(()=> toastNode.style.opacity='0', 2000);
+  }
+
+  /* ---------- Service Worker (Blob) ---------- */
+  async function installSW(){
+    if (!('serviceWorker' in navigator)) return toast('Service Worker not supported.');
+    const swCode = `
+      const CACHE = 'tuvalu-food-v1';
+      const ASSETS = self.registration.scope ? [ './', './index.html' ] : ['./'];
+      self.addEventListener('install', e=>{
+        e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));
+      });
+      self.addEventListener('activate', e=>{ e.waitUntil(self.clients.claim()); });
+      self.addEventListener('fetch', e=>{
+        const url = new URL(e.request.url);
+        if (url.origin === location.origin){
+          e.respondWith(caches.match(e.request).then(r=> r || fetch(e.request).then(resp=>{
+            const copy = resp.clone();
+            caches.open(CACHE).then(c=>c.put(e.request, copy));
+            return resp;
+          }).catch(()=> caches.match('./'))));
+        }
+      });
+    `;
+    const blob = new Blob([swCode], {type:'text/javascript'});
+    const url = URL.createObjectURL(blob);
+    const reg = await navigator.serviceWorker.register(url, {scope: './'});
+    toast('Service Worker installed.'); setTimeout(()=>URL.revokeObjectURL(url), 3000);
+    return reg;
+  }
+  $('#btnSW')?.addEventListener('click', installSW);
+
+  /* ---------- Photorealistic Space Backdrop ---------- */
+  const stars = $('#stars'), nebula = $('#nebula'), constel = $('#constellations');
+  const ctxS = stars.getContext('2d'), ctxN = nebula.getContext('2d'), ctxC = constel.getContext('2d');
+  let W = innerWidth, H = innerHeight;
+  function resize(){ W=innerWidth; H=innerHeight; [stars,nebula,constel].forEach(c=>{c.width=W;c.height=H}); genStars(); genNebula(); }
+  addEventListener('resize', resize); resize();
+
+  // Stars
+  let starField=[];
+  function genStars(){
+    starField = []; const count = Math.round(W*H/2500);
+    for (let i=0;i<count;i++){
+      starField.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+0.3,b:Math.random()*0.8+0.2,tw:Math.random()*2*Math.PI});
+    }
+  }
+  function drawStars(t){
+    ctxS.clearRect(0,0,W,H);
+    for (const s of starField){
+      const tw = (Math.sin(t/600 + s.tw)*0.5+0.5)*0.8 + 0.2;
+      ctxS.beginPath(); ctxS.arc(s.x, s.y, s.r*tw, 0, Math.PI*2);
+      ctxS.fillStyle = `rgba(255,255,255,${s.b})`; ctxS.fill();
+      ctxS.fillStyle = `rgba(127,212,255,${0.05*tw})`;
+      ctxS.fillRect(s.x-0.5, s.y-6, 1, 12); ctxS.fillRect(s.x-6, s.y-0.5, 12, 1);
+    }
+  }
+
+  // Nebula
+  function genNebula(){
+    ctxN.clearRect(0,0,W,H);
+    const blobs = 18;
+    for (let i=0;i<blobs;i++){
+      const gx = Math.random()*W, gy = Math.random()*H;
+      const r = Math.random()*200+150;
+      const grd = ctxN.createRadialGradient(gx,gy, r*0.1, gx,gy, r);
+      const hue = 180 + Math.random()*110;
+      grd.addColorStop(0, `hsla(${hue},90%,70%,.28)`); grd.addColorStop(1, `hsla(${hue},90%,50%,0)`);
+      ctxN.fillStyle = grd; ctxN.beginPath(); ctxN.arc(gx,gy,r,0,Math.PI*2); ctxN.fill();
+    }
+  }
+
+  // Constellations
+  const nodes=[], edges=[];
+  function initConstellations(){
+    nodes.length=0; edges.length=0; const N=22;
+    for (let i=0;i<N;i++) nodes.push({x:Math.random()*W,y:Math.random()*H*0.9,vx:(Math.random()-.5)*0.2,vy:(Math.random()-.5)*0.2,size:Math.random()*2+1.2});
+    for (let i=0;i<N*1.4;i++){ const a=(Math.random()*N)|0, b=(Math.random()*N)|0; if(a!==b) edges.push([a,b, Math.random()*0.7+0.3]); }
+  }
+  initConstellations();
+  let parX=0, parY=0; addEventListener('mousemove', e=>{ const cx=e.clientX/W-.5, cy=e.clientY/H-.5; parX=cx*10; parY=cy*6; }, {passive:true});
+  function stepConstellations(){
+    ctxC.clearRect(0,0,W,H);
+    ctxC.lineWidth=.7;
+    for (const [ai,bi,w] of edges){
+      const a=nodes[ai], b=nodes[bi];
+      ctxC.strokeStyle = `rgba(127,212,255,${0.18*w})`;
+      ctxC.beginPath(); ctxC.moveTo(a.x+parX, a.y+parY); ctxC.lineTo(b.x-parX, b.y-parY); ctxC.stroke();
+    }
+    for (const n of nodes){
+      n.x+=n.vx; n.y+=n.vy; if(n.x<0||n.x>W) n.vx*=-1; if(n.y<0||n.y>H) n.vy*=-1;
+      ctxC.beginPath(); ctxC.arc(n.x+parX, n.y+parY, n.size, 0, Math.PI*2);
+      ctxC.fillStyle='rgba(255,255,255,.9)'; ctxC.fill();
+      ctxC.beginPath(); ctxC.arc(n.x+parX, n.y+parY, n.size*2.2, 0, Math.PI*2);
+      ctxC.strokeStyle='rgba(180,255,127,.12)'; ctxC.stroke();
+    }
+  }
+  let last=0; function tick(ts){ last=ts; drawStars(ts); stepConstellations(); requestAnimationFrame(tick); } requestAnimationFrame(tick);
+
+  /* ---------- Buttons that open upload panel ---------- */
+  $('#btnAddDiscovery')?.addEventListener('click', ()=>{
+    window.scrollTo({top: $('#xp').offsetTop - 70, behavior:'smooth'});
+    setTimeout(()=> $('#discoveryNotes')?.focus(), 500);
+  });
+
+})();
+  </script>
+</body>
+</html>

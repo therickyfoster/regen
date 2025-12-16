@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- =========================================================
+    Water Sovereignty (Honduras) — PART 1
+    Ultra long-form, gamified guide. This is a standalone index.html.
+
+    Contents in this part:
+      0) Overview & Navigation
+      1) Foundations: Water Sovereignty Playstyle
+      2) Honduras Context & Baseline Assessment
+      3) Rainwater Harvesting (Site & System Design)
+      4) Source Development: Springs, Gravity Systems, Wells
+      5) Household Water Safety: Filtration & Disinfection
+    Next parts (to be concatenated later):
+      6) Water Quality Testing
+      7) Storage & Distribution
+      8) Ecological Treatment & Greywater
+      9) Flood & Drought Risk Management
+      10) Governance & Finance (Juntas, co-ops)
+      11) Monitoring, Sensors, and Data
+      12) Maintenance, Playbook, 30/60/90-day Roadmaps
+      13) Emergency Water & Mutual Aid
+      14) Restoration & Watershed Projects
+      15) Glossary, Templates, and Checklists
+    ========================================================== -->
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- SEO -->
+  <title>Water Sovereignty Guide — Honduras | Planetary Restoration Archive</title>
+  <meta name="description" content="Ultra long-form, gamified water sovereignty guide for Honduras. Includes quests, XP, Habitica sync, IndexedDB progress, and optional local AI coach via WebLLM. Part 1." />
+  <link rel="canonical" href="https://example.org/water/honduras/" />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Water Sovereignty Guide — Honduras" />
+  <meta property="og:description" content="Gamified, field-ready water sovereignty playbook for Honduras with quests, XP, Habitica sync, and local-first progress storage." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://example.org/water/honduras/" />
+  <meta property="og:image" content="https://example.org/og/water-honduras.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Water Sovereignty Guide — Honduras" />
+  <meta name="twitter:description" content="Gamified, field-ready water sovereignty playbook for Honduras with quests and XP." />
+  <meta name="twitter:image" content="https://example.org/og/water-honduras.png" />
+
+  <!-- Structured Data (schema.org + requested presentation schema) -->
+  <script type="application/ld+json">
+  {
+    "@context": [
+      "https://schema.org",
+      "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"
+    ],
+    "@type": "HowTo",
+    "name": "Water Sovereignty Guide — Honduras",
+    "headline": "Water Sovereignty Guide — Honduras",
+    "inLanguage": "en",
+    "description": "A long-form, gamified guide to achieving water sovereignty in Honduras: quests, steps, tools, and governance models.",
+    "isPartOf": {
+      "@type": "CreativeWorkSeries",
+      "name": "Food & Water Sovereignty Series"
+    },
+    "about": ["Water Security", "Rainwater Harvesting", "Small Systems", "Community Water Boards"],
+    "audience": { "@type": "Audience", "audienceType": ["Households","Villages","Juntas de Agua","Municipal planners","NGOs"] },
+    "step": [
+      { "@type": "HowToStep", "name": "Baseline Assessment", "text": "Map sources, storage, demand, risks; set sovereignty targets and KPIs." },
+      { "@type": "HowToStep", "name": "Harvest & Storage", "text": "Design rainwater capture, gutters, first-flush, cistern sizing." },
+      { "@type": "HowToStep", "name": "Treatment Train", "text": "Sedimentation, filtration, disinfection; pick a safe, maintainable chain." },
+      { "@type": "HowToStep", "name": "Distribution", "text": "Gravity if possible; pumps if necessary; pressure management and metering." },
+      { "@type": "HowToStep", "name": "Governance", "text": "Define roles, maintenance schedules, dues, and emergency protocols." }
+    ],
+    "creator": { "@type": "Organization", "name": "Planetary Restoration Archive" },
+    "datePublished": "2025-10-21"
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#070b12;
+      --ink:#e6f0ff;
+      --muted:#a9b6cc;
+      --edge:#1a2230;
+      --accent:#7ee7ff;
+      --accent-2:#95ffa4;
+      --bad:#ff6b6b;
+      --good:#35e0a1;
+      --gold:#ffd166;
+      --panel:#0b1320cc;
+      --card:#0e1726;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:var(--bg);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      overflow-x:hidden;
+    }
+    /* Fullscreen starfield canvas behind content */
+    #starfield{
+      position:fixed; inset:0; z-index:-1; display:block; background: radial-gradient(1200px 800px at 70% 10%, #0c1220 0%, #070b12 55%, #03060a 100%);
+    }
+
+    header.site{
+      position:sticky; top:0; z-index:3;
+      backdrop-filter:saturate(140%) blur(8px);
+      background:linear-gradient(180deg, #0b1320ea, #0b1320b0 60%, transparent 100%);
+      border-bottom:1px solid #0b1726;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:18px 20px;}
+    .brand{
+      display:flex; align-items:center; gap:12px;
+    }
+    .brand .orb{
+      width:28px; height:28px; border-radius:50%;
+      background: conic-gradient(from 210deg at 50% 50%, #7ee7ff, #95ffa4, #ffd166, #7ee7ff);
+      box-shadow:0 0 20px #7ee7ff55 inset, 0 0 10px #7ee7ff66;
+    }
+    nav a{
+      color:var(--muted); text-decoration:none; margin-right:16px; padding:6px 10px; border-radius:10px;
+      border:1px solid transparent;
+    }
+    nav a:hover{ color:var(--ink); border-color:#1d2a40; background:#0c1626; }
+    .notice{
+      border:1px solid #20304a; background:#0b1628; padding:12px; border-radius:10px; box-shadow:var(--shadow); color:#d7e4ff;
+    }
+    main{ position:relative; z-index:1; }
+    .hero{
+      padding: 28px 20px 10px;
+      background: linear-gradient(180deg,#0b1320cc,transparent);
+    }
+    .hero h1{ margin:0 0 8px; font-size: clamp(28px, 5vw, 42px); letter-spacing:.3px; }
+    .hero p{ margin: 0 0 12px; color:var(--muted); }
+
+    .grid{
+      display:grid; grid-template-columns: 1fr; gap:16px; padding: 0 20px 30px;
+    }
+    @media(min-width:960px){
+      .grid{ grid-template-columns: 1.1fr .9fr; }
+    }
+
+    .panel{
+      background:var(--panel);
+      border:1px solid var(--edge);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px;
+    }
+    h2,h3,h4{ margin: 8px 0 6px; }
+    h2{ font-size: 22px; }
+    h3{ font-size: 18px; color:#d9e6ff; }
+    h4{ font-size: 16px; color:#cfe1ff; }
+
+    .levels{
+      display:grid; grid-template-columns: repeat(3,1fr); gap:10px;
+    }
+    .level{
+      background:var(--card);
+      border:1px solid #142033;
+      border-radius:12px;
+      padding:12px;
+    }
+    .stat{ font-variant-numeric: tabular-nums; }
+
+    .quest{
+      background:linear-gradient(180deg,#0e1726,#0b1422);
+      border:1px solid #16243a; border-radius:14px; padding:14px; margin:10px 0; box-shadow:var(--shadow);
+    }
+    .quest[data-difficulty="S"] .title .badge{ background:#35e0a12a; color:var(--good); border:1px solid #35e0a1; }
+    .quest[data-difficulty="M"] .title .badge{ background:#ffd16622; color:#ffd166; border:1px solid #ffd166; }
+    .quest[data-difficulty="H"] .title .badge{ background:#ff6b6b22; color:#ff9d9d; border:1px solid #ff6b6b; }
+
+    .title{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;
+    }
+    .title .badge{
+      padding:4px 8px; border-radius:999px; font-size:12px; letter-spacing:.3px;
+    }
+    .quest .meta{ color:var(--muted); font-size:13px; margin:2px 0 10px;}
+    .quest .actions{
+      display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;
+    }
+    .btn{
+      background:#0f1a2c; border:1px solid #1a2b47; color:#dce9ff;
+      padding:8px 12px; border-radius:10px; cursor:pointer; user-select:none;
+    }
+    .btn:hover{ background:#12213a; }
+    .btn.gold{ border-color:#5a4a1a; background: #1f1a0a; color:#ffd166; }
+    .btn.accent{ border-color:#123; background:#081827; color:#a5efff; }
+
+    .check{
+      display:flex; align-items:center; gap:8px; margin:8px 0;
+    }
+    input[type="checkbox"]{ width:18px; height:18px; }
+
+    .kbd{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; color:#cde4ff; background:#0b1424; border:1px solid #1b2942; border-radius:6px; padding:2px 6px; }
+
+    .footer-note{ color:#a9b6cc; font-size:12.5px; padding: 12px 20px 50px; }
+
+    /* Accessibility: reduce motion prefers */
+    @media (prefers-reduced-motion: reduce) {
+      #starfield{ display:none; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <header class="site">
+    <div class="wrap">
+      <div class="brand">
+        <div class="orb" aria-hidden="true"></div>
+        <div>
+          <strong>Water Sovereignty — Honduras</strong><br>
+          <small>Part 1 · Gamified Guide · Local-first</small>
+        </div>
+      </div>
+      <nav aria-label="Primary">
+        <!-- Required links to parent folders -->
+        <a href="/water/" title="Parent Water folder">/water/</a>
+        <a href="/food/" title="Parent Food folder">/food/</a>
+        <!-- Contextual anchors -->
+        <a href="#chapters">Chapters</a>
+        <a href="#coach">AI Coach</a>
+        <a href="#habitica">Habitica</a>
+        <a href="#appendix">Appendix</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="notice" role="note">
+        <strong>Scope:</strong> This guide emphasizes safe, maintainable, small-to-medium systems
+        for households, villages, and community boards in Honduras. Store what you need, treat what you store,
+        monitor what you drink, and keep governance simple. Always cross-check with local regulations and
+        community agreements.
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <div class="wrap grid">
+      <!-- Left column: content -->
+      <article id="chapters" class="panel" aria-label="Guide Chapters">
+        <h2>0) Overview & Navigation</h2>
+        <p>
+          This is Part 1 of a long-form series. Progress, settings, and tasks save locally via IndexedDB.
+          Habitica sync is supported (optional). You can track XP and achievements as you complete quests.
+        </p>
+
+        <div class="levels" aria-label="Profile and Progress">
+          <div class="level">
+            <strong>Region</strong><br><span class="stat" id="regionLabel">Honduras</span>
+          </div>
+          <div class="level">
+            <strong>Level</strong><br><span class="stat" id="levelStat">1</span>
+          </div>
+          <div class="level">
+            <strong>XP</strong><br><span class="stat" id="xpStat">0</span> / <span class="stat" id="xpNext">200</span>
+          </div>
+        </div>
+
+        <h2>1) Foundations: Water Sovereignty Playstyle</h2>
+        <p>
+          Water sovereignty combines physical infrastructure, routine operations, data habits, and community governance.
+          Use the “treatment train” principle: sequence steps that remove particles, then microbes, then provide safe storage
+          and delivery. Favor low-energy, gravity-first designs. Keep spare parts and cleaning tools on hand.
+        </p>
+
+        <!-- Quest: Define Sovereignty Targets -->
+        <section class="quest" data-id="q-found-targets" data-difficulty="S" data-xp="40">
+          <div class="title">
+            <h3>Quest: Define clear sovereignty targets</h3>
+            <span class="badge">Simple · +40 XP</span>
+          </div>
+          <div class="meta">Outcome: Shared definitions for availability, safety, affordability, and resilience.</div>
+          <ul>
+            <li>Pick KPIs: liters/person/day, hours of availability, storage autonomy (days), water safety standard (e.g., 0 E. coli/100 mL).</li>
+            <li>Set thresholds for dry season and storm emergencies.</li>
+            <li>Choose “no single point of failure” goals (at least two safe sources or pathways).</li>
+          </ul>
+          <label class="check"><input type="checkbox" data-complete> Mark complete</label>
+          <div class="actions">
+            <button class="btn accent" data-habitica data-title="Define water sovereignty targets" data-notes="Set KPIs, thresholds, redundancy goals.">Push to Habitica</button>
+            <button class="btn" data-save="note" data-for="q-found-targets">Save note</button>
+          </div>
+        </section>
+
+        <h2>2) Honduras Context & Baseline Assessment</h2>
+        <p>
+          Honduras spans Caribbean to Pacific watersheds with varied elevation and rainfall patterns and a pronounced wet/dry season.
+          Many rural areas organize through community water boards. Begin with a baseline: what sources exist, what is the demand,
+          where are the risks (drought, contamination, flooding), and what is the governance status.
+        </p>
+
+        <!-- Quest: Make a water map -->
+        <section class="quest" data-id="q-map" data-difficulty="M" data-xp="60">
+          <div class="title">
+            <h3>Quest: Make a water map</h3>
+            <span class="badge">Moderate · +60 XP</span>
+          </div>
+          <div class="meta">Outcome: A living map of sources, storage, treatment, and distribution.</div>
+          <ul>
+            <li>Map sources: roofs (catchment area), springs, streams, shallow/deep wells; mark protection zones.</li>
+            <li>Inventory storage: tanks, cisterns, barrels. Estimate volume and material.</li>
+            <li>Mark treatment steps: sedimentation, filters, chlorination/UV/boil points.</li>
+            <li>Mark distribution: gravity lines, pumps, valves; note pressure issues and leaks.</li>
+            <li>Identify risks: floodways, landslides, latrines or septic near sources, livestock access.</li>
+          </ul>
+          <label class="check"><input type="checkbox" data-complete> Mark complete</label>
+          <div class="actions">
+            <button class="btn accent" data-habitica data-title="Make a village water map" data-notes="Sources, storage, treatment, distribution, and risks.">Push to Habitica</button>
+            <button class="btn" data-save="note" data-for="q-map">Save note</button>
+          </div>
+        </section>
+
+        <!-- Quest: Household demand & storage autonomy -->
+        <section class="quest" data-id="q-demand" data-difficulty="S" data-xp="40">
+          <div class="title">
+            <h3>Quest: Calculate daily demand & storage autonomy</h3>
+            <span class="badge">Simple · +40 XP</span>
+          </div>
+          <div class="meta">Outcome: Clear storage targets for dry spells and outages.</div>
+          <ul>
+            <li>Estimate daily use (drinking, cooking, hygiene). Set minimum sovereign supply (e.g., 5–10 L/person/day for essential needs; higher if feasible).</li>
+            <li>Calculate current storage days: total liters ÷ essential daily liters.</li>
+            <li>Set target autonomy days for dry season and storms (e.g., 7–14 days).</li>
+          </ul>
+          <div class="check"><input type="checkbox" data-complete> Mark complete</div>
+          <div class="actions">
+            <button class="btn accent" data-habitica data-title="Compute storage autonomy" data-notes="Total liters ÷ essential daily liters; set storm/dry-season targets.">Push to Habitica</button>
+            <button class="btn" data-save="note" data-for="q-demand">Save note</button>
+          </div>
+        </section>
+
+        <h2>3) Rainwater Harvesting — Site & System Design</h2>
+        <p>
+          Rainwater is often the fastest path to sovereignty. Design for clean capture, first-flush diversion,
+          adequate storage, and a treatment train appropriate to end use. Keep gutters accessible and durable.
+        </p>
+
+        <!-- Quest: Measure roof & size storage -->
+        <section class="quest" data-id="q-roof-calc" data-difficulty="S" data-xp="50">
+          <div class="title">
+            <h3>Quest: Measure roof area & size storage</h3>
+            <span class="badge">Simple · +50 XP</span>
+          </div>
+          <div class="meta">Outcome: A storage target matched to catchment and rainfall patterns.</div>
+          <ul>
+            <li>Measure effective roof area (length × width). Use slope projection, not surface length.</li>
+            <li>Assume collection efficiency (e.g., 0.75–0.9). Multiply by expected rainy-season depth to estimate potential.</li>
+            <li>Size cisterns for autonomy targets and storm buffers; plan modular tanks rather than a single large one when possible.</li>
+          </ul>
+          <div class="check"><input type="checkbox" data-complete> Mark complete</div>
+          <div class="actions">
+            <button class="btn accent" data-habitica data-title="Size rainwater storage" data-notes="Roof area × rainfall × efficiency; match to autonomy targets.">Push to Habitica</button>
+            <button class="btn" data-save="note" data-for="q-roof-calc">Save note</button>
+          </div>
+        </section>
+
+        <!-- Quest: First-flush & debris -->
+        <section class="quest" data-id="q-first-flush" data-difficulty="S" data-xp="30">
+          <div class="title">
+            <h3>Quest: Install first-flush & debris controls</h3>
+            <span class="badge">Simple · +30 XP</span>
+          </div>
+          <div class="meta">Outcome: Cleaner raw water entering storage.</div>
+          <ul>
+            <li>Leaf screens at gutter outlets; mosquito-proof all inlets/vents.</li>
+            <li>First-flush diverter sized to roof (e.g., 0.5–2 mm of rainfall equivalent) and easy to drain/clean.</li>
+            <li>Include a sediment sump on the cistern inlet.</li>
+          </ul>
+          <div class="check"><input type="checkbox" data-complete> Mark complete</div>
+          <div class="actions">
+            <button class="btn accent" data-habitica data-title="Add first-flush diverter" data-notes="Screens, diverter, mosquito-proofing, sediment sump.">Push to Habitica</button>
+            <button class="btn" data-save="note" data-for="q-first-flush">Save note</button>
+          </div>
+        </section>
+
+        <!-- Quest: Cistern build -->
+        <section class="quest" data-id="q-cistern" data-difficulty="H" data-xp="120">
+          <div class="title">
+            <h3>Quest: Build or upgrade a cistern</h3>
+            <span class="badge">Hard · +120 XP</span>
+          </div>
+          <div class="meta">Outcome: Durable, serviceable storage with protected access.</div>
+          <ul>
+            <li>Foundation level and reinforced; overflow directed away from footings.</li>
+            <li>Opaque, sealed, ventilated; lockable access hatch; sampling tap.</li>
+            <li>Drain at lowest point for cleaning; sludge removal plan.</li>
+            <li>Install level indicator; plan for seismic and storm loads.</li>
+          </ul>
+          <div class="check"><input type="checkbox" data-complete> Mark complete</div>
+          <div class="actions">
+            <button class="btn gold" data-habitica data-title="Construct cistern" data-notes="Foundation, sealed tank, overflow management, sampling tap, drain.">Push to Habitica</button>
+            <button class="btn" data-save="note" data-for="q-cistern">Save note</button>
+          </div>
+        </section>
+
+        <h2>4) Source Development — Springs, Gravity Systems, Wells</h2>
+        <p>
+          Treat springs with care: protect the capture zone, exclude animals, and prevent surface runoff intrusion.
+          Gravity systems minimize energy costs and failure modes. Wells require careful siting, sanitary seals, and routine testing.
+        </p>
+
+        <!-- Quest: Spring protection -->
+        <section class="quest" data-id="q-spring" data-difficulty="M" data-xp="70">
+          <div class="title">
+            <h3>Quest: Protect and box a spring</h3>
+            <span class="badge">Moderate · +70 XP</span>
+          </div>
+          <div class="meta">Outcome: Reduced contamination risk and stable yield capture.</div>
+          <ul>
+            <li>Fence a sanitary protection area; divert upslope runoff.</li>
+            <li>Construct a spring box with screened intake and inspection cover.</li>
+            <li>Install overflow and drain; route cleanly to distribution or storage.</li>
+          </ul>
+          <div class="check"><input type="checkbox" data-complete> Mark complete</div>
+          <div class="actions">
+            <button class="btn accent" data-habitica data-title="Protect a spring source" data-notes="Fencing, diversion, spring box, screened intake, overflow/drain.">Push to Habitica</button>
+            <button class="btn" data-save="note" data-for="q-spring">Save note</button>
+          </div>
+        </section>
+
+        <!-- Quest: Gravity-fed line -->
+        <section class="quest" data-id="q-gravity" data-difficulty="M" data-xp="80">
+          <div class="title">
+            <h3>Quest: Design a gravity-fed line</h3>
+            <span class="badge">Moderate · +80 XP</span>
+          </div>
+          <div class="meta">Outcome: Reliable distribution without pumps.</div>
+          <ul>
+            <li>Confirm elevation head; target modest velocities (avoid scouring or air locks).</li>
+            <li>Include air release valves at peaks; drains at lows.</li>
+            <li>Provide break-pressure tanks where needed; meter key branches.</li>
+          </ul>
+          <div class="check"><input type="checkbox" data-complete> Mark complete</div>
+          <div class="actions">
+            <button class="btn accent" data-habitica data-title="Plan gravity line" data-notes="Head, velocities, air release, drains, break-pressure tanks.">Push to Habitica</button>
+            <button class="btn" data-save="note" data-for="q-gravity">Save note</button>
+          </div>
+        </section>
+
+        <!-- Quest: Wellhead sanitary seal -->
+        <section class="quest" data-id="q-well" data-difficulty="S" data-xp="50">
+          <div class="title">
+            <h3>Quest: Upgrade wellhead sanitary seal</h3>
+            <span class="badge">Simple · +50 XP</span>
+          </div>
+          <div class="meta">Outcome: Reduced pathogen ingress and safer groundwater.</div>
+          <ul>
+            <li>Concrete apron sloped away; raised casing; sealed cap.</li>
+            <li>Pump head protected from floodwater; no cracks at casing–apron joint.</li>
+            <li>Separate latrines/septic and livestock areas by safe distances where possible.</li>
+          </ul>
+          <div class="check"><input type="checkbox" data-complete> Mark complete</div>
+          <div class="actions">
+            <button class="btn accent" data-habitica data-title="Wellhead sanitary upgrade" data-notes="Apron, raised casing, sealed cap, flood protection.">Push to Habitica</button>
+            <button class="btn" data-save="note" data-for="q-well">Save note</button>
+          </div>
+        </section>
+
+        <h2>5) Household Water Safety — Filtration & Disinfection</h2>
+        <p>
+          Choose a treatment train appropriate to your raw water. Typical sequences:
+          sedimentation → filtration (cloth/ceramic/sand/cartridge) → disinfection (chlorine/UV/boil).
+          Keep replacement schedules simple. Label containers and keep a log.
+        </p>
+
+        <!-- Quest: Pick a treatment train -->
+        <section class="quest" data-id="q-train" data-difficulty="S" data-xp="50">
+          <div class="title">
+            <h3>Quest: Select a home treatment train</h3>
+            <span class="badge">Simple · +50 XP</span>
+          </div>
+          <div class="meta">Outcome: A clear, written sequence with maintenance intervals.</div>
+          <ul>
+            <li>List raw water issues (turbidity, taste, microbial risk) from your map and observations.</li>
+            <li>Pick a filter type you can maintain locally (spare elements, cleaning tools)</li>
+            <li>Pick a disinfection step you can perform reliably and safely.</li>
+            <li>Write change/clean intervals and post near the system.</li>
+          </ul>
+          <div class="check"><input type="checkbox" data-complete> Mark complete</div>
+          <div class="actions">
+            <button class="btn accent" data-habitica data-title="Choose treatment train" data-notes="Documented filtration + disinfection with local spares.">Push to Habitica</button>
+            <button class="btn" data-save="note" data-for="q-train">Save note</button>
+          </div>
+        </section>
+
+        <!-- Quest: Chlorination practice -->
+        <section class="quest" data-id="q-chlorine" data-difficulty="M" data-xp="70">
+          <div class="title">
+            <h3>Quest: Safe chlorination practice</h3>
+            <span class="badge">Moderate · +70 XP</span>
+          </div>
+          <div class="meta">Outcome: Consistent dosing and contact time.</div>
+          <ul>
+            <li>Prepare measured stock solution; use dedicated, labeled containers.</li>
+            <li>Target free chlorine residual appropriate to turbidity and storage; verify with test strips.</li>
+            <li>Respect contact time before use; record residual in a simple log.</li>
+          </ul>
+          <div class="check"><input type="checkbox" data-complete> Mark complete</div>
+          <div class="actions">
+            <button class="btn accent" data-habitica data-title="Chlorination SOP" data-notes="Stock solution, residual testing, contact time, logging.">Push to Habitica</button>
+            <button class="btn" data-save="note" data-for="q-chlorine">Save note</button>
+          </div>
+        </section>
+
+        <!-- Boss Scenario -->
+        <section class="quest" data-id="q-boss-storm" data-difficulty="H" data-xp="150">
+          <div class="title">
+            <h3>Boss Scenario: 72-hour storm outage</h3>
+            <span class="badge">Hard · +150 XP</span>
+          </div>
+          <div class="meta">Outcome: An operational plan for intense rainfall, turbidity spikes, and power loss.</div>
+          <ul>
+            <li>Switch to rain-fed cistern with gravity delivery; bypass clogged intakes.</li>
+            <li>Use sedimentation and slower filtration; verify disinfection; ration to essential liters.</li>
+            <li>Document emergency roles and communications; pre-stage chlorine, filters, and buckets.</li>
+          </ul>
+          <div class="check"><input type="checkbox" data-complete> Mark complete</div>
+          <div class="actions">
+            <button class="btn gold" data-habitica data-title="Storm outage drill (72h)" data-notes="Gravity fallback, emergency dosing, essential liters, roles.">Push to Habitica</button>
+            <button class="btn" data-save="note" data-for="q-boss-storm">Save note</button>
+          </div>
+        </section>
+
+        <hr style="border-color:#1a2438; opacity:.5; margin:20px 0">
+        <p class="footer-note">
+          — End of Part 1 content. Next parts continue with water quality testing, storage and distribution, ecological treatment, risk management, governance, monitoring, emergency response, restoration, and appendices.
+        </p>
+      </article>
+
+      <!-- Right column: tools -->
+      <aside class="panel" aria-label="Tools & Settings">
+        <h2 id="habitica">Habitica Integration</h2>
+        <p>Optional: connect to your Habitica account to push quests as To-Dos. Keys are stored locally (IndexedDB) on this device.</p>
+        <label>User ID<br><input id="habUser" type="text" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" style="width:100%"></label><br><br>
+        <label>API Token<br><input id="habToken" type="password" placeholder="API-Token" style="width:100%"></label><br><br>
+        <button class="btn" id="saveHab">Save Habitica Keys</button>
+        <span id="habMsg" class="kbd" aria-live="polite"></span>
+
+        <h2 id="coach" style="margin-top:20px;">Local AI Coach (WebLLM)</h2>
+        <p>
+          This panel connects to a local Large Language Model if <code>window.webllm</code> is available.
+          If not present, place the WebLLM library locally (e.g., <span class="kbd">/lib/webllm/webllm.min.js</span>)
+          and load it before this page. All prompts are processed on-device when available.
+        </p>
+        <textarea id="coachInput" rows="5" placeholder="Ask the local coach (e.g., 'Size first-flush for 80 m² roof')"
+          style="width:100%; background:#0b1424; border:1px solid #1b2942; color:#d7e4ff; border-radius:10px; padding:10px;"></textarea>
+        <div class="actions" style="margin-top:8px;">
+          <button class="btn accent" id="coachAsk">Ask Coach</button>
+          <button class="btn" id="coachClear">Clear</button>
+          <span id="coachState" class="kbd" aria-live="polite"></span>
+        </div>
+        <pre id="coachOut" style="background:#0b1424; border:1px solid #1b2942; padding:10px; border-radius:10px; margin-top:10px; max-height:260px; overflow:auto;"></pre>
+
+        <h2 style="margin-top:20px;">Notes & Offline Storage</h2>
+        <p>Your progress, XP, and notes are saved in IndexedDB (<span class="kbd">SovereigntyDB</span>) on this device.</p>
+        <div class="actions">
+          <button class="btn" id="exportData">Export Progress</button>
+          <button class="btn" id="importData">Import Progress</button>
+          <input id="importFile" type="file" accept="application/json" style="display:none;">
+        </div>
+
+        <h2 style="margin-top:20px;">Navigation</h2>
+        <p>
+          Parent folders: <a href="/water/">/water/</a> · <a href="/food/">/food/</a><br>
+          Current: <span class="kbd">/water/honduras/</span><br>
+          Coming next: Storage & Distribution; Testing; Governance; Emergency Playbooks.
+        </p>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer-note">
+    © Planetary Restoration Archive — Water Sovereignty · Honduras · Part 1. This is an educational guide; confirm designs with qualified practitioners and local regulations. Safe water requires continuous operation and monitoring.
+  </footer>
+
+  <script>
+    /* =========================================================
+       High-fidelity Starfield (photorealistic-ish) with twinkle
+       and occasional meteors. Honors prefers-reduced-motion.
+       ========================================================= */
+    (function(){
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d', { alpha: true });
+      let w=0, h=0, dpr=1, stars=[], meteors=[];
+      const STAR_COUNT = 1100;
+      const TWINKLE_SPEED = 0.0023;
+      const DRIFT_X = 0.005;  // px/ms parallax drift
+      const DRIFT_Y = 0.000;  // subtle
+      let last=performance.now();
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function resize(){
+        dpr = Math.min(2, window.devicePixelRatio || 1);
+        w = canvas.width = Math.floor(window.innerWidth * dpr);
+        h = canvas.height = Math.floor(window.innerHeight * dpr);
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        if(!stars.length) initStars();
+      }
+
+      function initStars(){
+        stars = new Array(STAR_COUNT).fill(0).map(()=>({
+          x: Math.random()*w,
+          y: Math.random()*h,
+          z: 0.35 + Math.random()*1.65,   // depth factor
+          b: 0.5 + Math.random()*0.5,     // base brightness
+          p: Math.random()*Math.PI*2,     // twinkle phase
+          r: (0.5 + Math.random()*1.5) * dpr  // base radius
+        }));
+      }
+
+      function spawnMeteor(){
+        const side = Math.random()<0.5 ? 'left' : 'right';
+        const y = Math.random()*h*0.7;
+        const speed = (0.8 + Math.random()*0.7) * dpr;
+        const len = (120 + Math.random()*140) * dpr;
+        meteors.push({
+          x: side==='left' ? -50*dpr : w+50*dpr,
+          y,
+          vx: side==='left' ? speed : -speed,
+          vy: speed*0.35,
+          life: 0,
+          lifeMax: 1400 + Math.random()*800,
+          len
+        });
+      }
+
+      let meteorCooldown = 0;
+
+      function step(ts){
+        const dt = ts - last; last = ts;
+        if (reduceMotion) return;
+
+        // background fade
+        ctx.clearRect(0,0,w,h);
+
+        // subtle parallax drift based on depth
+        for(const s of stars){
+          s.p += TWINKLE_SPEED * dt * (0.5 + s.z*0.5);
+          s.x += DRIFT_X * dt * s.z;
+          s.y += DRIFT_Y * dt * s.z;
+          if(s.x<0) s.x += w; else if(s.x>w) s.x -= w;
+          if(s.y<0) s.y += h; else if(s.y>h) s.y -= h;
+
+          const tw = 0.65 + 0.35*Math.sin(s.p);
+          const a = Math.min(1, Math.max(0, s.b*tw));
+          const r = s.r * (0.7 + 0.6/s.z);
+
+          const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, r*2.2);
+          g.addColorStop(0, `rgba(200,220,255,${0.85*a})`);
+          g.addColorStop(0.35, `rgba(170,200,255,${0.5*a})`);
+          g.addColorStop(1, `rgba(20,30,60,0)`);
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, r*2.2, 0, Math.PI*2);
+          ctx.fill();
+        }
+
+        // meteors
+        meteorCooldown -= dt;
+        if(meteorCooldown<=0 && meteors.length<2 && Math.random()<0.02){
+          spawnMeteor();
+          meteorCooldown = 4000 + Math.random()*6000;
+        }
+        for (let i=meteors.length-1;i>=0;i--){
+          const m = meteors[i];
+          m.life += dt;
+          m.x += m.vx*dt*0.06;
+          m.y += m.vy*dt*0.06;
+          const t = 1 - (m.life / m.lifeMax);
+          if (t<=0) { meteors.splice(i,1); continue; }
+          // trail
+          ctx.strokeStyle = `rgba(180,220,255,${0.6*t})`;
+          ctx.lineWidth = 2*dpr;
+          ctx.beginPath();
+          ctx.moveTo(m.x, m.y);
+          ctx.lineTo(m.x - m.vx*m.len*0.01, m.y - m.vy*m.len*0.01);
+          ctx.stroke();
+          // head
+          ctx.fillStyle = `rgba(220,240,255,${0.9*t})`;
+          ctx.beginPath(); ctx.arc(m.x, m.y, 2.8*dpr, 0, Math.PI*2); ctx.fill();
+        }
+
+        requestAnimationFrame(step);
+      }
+
+      window.addEventListener('resize', resize, { passive:true });
+      resize();
+      requestAnimationFrame(step);
+    })();
+
+    /* =========================================================
+       IndexedDB: SovereigntyDB (settings, progress, notes)
+       ========================================================= */
+    const DB_NAME = 'SovereigntyDB';
+    const DB_VERSION = 1;
+    let db;
+
+    function openDB(){
+      return new Promise((resolve, reject)=>{
+        const req = indexedDB.open(DB_NAME, DB_VERSION);
+        req.onupgradeneeded = (e)=>{
+          const db = e.target.result;
+          if(!db.objectStoreNames.contains('settings')){
+            db.createObjectStore('settings', { keyPath:'key' });
+          }
+          if(!db.objectStoreNames.contains('progress')){
+            db.createObjectStore('progress', { keyPath:'id' });
+          }
+          if(!db.objectStoreNames.contains('notes')){
+            db.createObjectStore('notes', { keyPath:'id' });
+          }
+        };
+        req.onsuccess = ()=>{ db = req.result; resolve(db); };
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+
+    function put(store, value){
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction(store, 'readwrite');
+        tx.oncomplete = ()=>resolve(true);
+        tx.onerror = ()=>reject(tx.error);
+        tx.objectStore(store).put(value);
+      });
+    }
+    function get(store, key){
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction(store, 'readonly');
+        const req = tx.objectStore(store).get(key);
+        req.onsuccess = ()=>resolve(req.result);
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+    function all(store){
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction(store, 'readonly');
+        const req = tx.objectStore(store).getAll();
+        req.onsuccess=()=>resolve(req.result||[]);
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+
+    /* =========================================================
+       Gamification: XP, Levels, Quest completion
+       ========================================================= */
+    const xpStat = document.getElementById('xpStat');
+    const xpNext = document.getElementById('xpNext');
+    const levelStat = document.getElementById('levelStat');
+
+    function xpNeededFor(level){
+      // Gentle growth curve
+      return 200 + Math.floor((level-1) * 120);
+    }
+
+    async function loadProgress(){
+      await openDB();
+      const prog = await get('progress','profile');
+      if(prog){
+        xpStat.textContent = prog.xp || 0;
+        levelStat.textContent = prog.level || 1;
+        xpNext.textContent = xpNeededFor(prog.level||1);
+      } else {
+        await put('progress', { id:'profile', xp:0, level:1, completed:{} });
+      }
+      // Set initial checkbox states
+      const saved = await get('progress','profile');
+      const completed = (saved && saved.completed) || {};
+      document.querySelectorAll('.quest input[type="checkbox"][data-complete]').forEach(cb=>{
+        const qid = cb.closest('.quest').dataset.id;
+        cb.checked = !!completed[qid];
+      });
+    }
+
+    async function awardXP(amount){
+      const prog = await get('progress','profile');
+      let xp = (prog && prog.xp) || 0;
+      let level = (prog && prog.level) || 1;
+      xp += amount;
+      let needed = xpNeededFor(level);
+      while(xp>=needed){
+        xp -= needed;
+        level++;
+        needed = xpNeededFor(level);
+      }
+      await put('progress',{ id:'profile', xp, level, completed:(prog && prog.completed)||{} });
+      xpStat.textContent = xp;
+      levelStat.textContent = level;
+      xpNext.textContent = needed;
+    }
+
+    async function markQuest(id, xp, done){
+      const prog = await get('progress','profile');
+      const completed = (prog && prog.completed) || {};
+      if(done && !completed[id]){
+        completed[id] = true;
+        await put('progress',{ id:'profile', xp:(prog.xp||0), level:(prog.level||1), completed });
+        await awardXP(xp);
+      } else if(!done && completed[id]){
+        delete completed[id];
+        // Optional: deduct XP on uncheck? We'll keep XP as earned.
+        await put('progress',{ id:'profile', xp:(prog.xp||0), level:(prog.level||1), completed });
+      }
+    }
+
+    document.addEventListener('change', async (e)=>{
+      const cb = e.target;
+      if(cb.matches('.quest input[type="checkbox"][data-complete]')){
+        const quest = cb.closest('.quest');
+        const id = quest.dataset.id;
+        const xp = parseInt(quest.dataset.xp||'0',10);
+        await markQuest(id, xp, cb.checked);
+      }
+    });
+
+    /* =========================================================
+       Habitica: Save keys, push To-Dos
+       ========================================================= */
+    const habUser = document.getElementById('habUser');
+    const habToken = document.getElementById('habToken');
+    const habMsg = document.getElementById('habMsg');
+
+    async function loadHabitica(){
+      await openDB();
+      const u = await get('settings','habitica.user');
+      const k = await get('settings','habitica.token');
+      if(u) habUser.value = u.value;
+      if(k) habToken.value = k.value;
+    }
+
+    document.getElementById('saveHab').addEventListener('click', async ()=>{
+      await openDB();
+      await put('settings', { key:'habitica.user', value: habUser.value.trim() });
+      await put('settings', { key:'habitica.token', value: habToken.value.trim() });
+      habMsg.textContent = 'Saved locally';
+      setTimeout(()=>habMsg.textContent='', 2500);
+    });
+
+    async function pushHabitica(title, notes){
+      const u = await get('settings','habitica.user');
+      const k = await get('settings','habitica.token');
+      if(!u || !k || !u.value || !k.value){
+        habMsg.textContent = 'Add Habitica keys first';
+        return;
+      }
+      try{
+        const res = await fetch('https://habitica.com/api/v3/tasks/user', {
+          method:'POST',
+          headers:{
+            'x-api-user': u.value,
+            'x-api-key': k.value,
+            'Content-Type':'application/json'
+          },
+          body: JSON.stringify({
+            text: title,
+            type: 'todo',
+            notes: notes + '\n\n#Water #Honduras #Sovereignty',
+            priority: 1.5
+          })
+        });
+        if(!res.ok){
+          const t = await res.text();
+          throw new Error(t || ('HTTP '+res.status));
+        }
+        habMsg.textContent = 'Pushed to Habitica';
+        setTimeout(()=>habMsg.textContent='', 2200);
+      } catch(err){
+        habMsg.textContent = 'Habitica error';
+        console.error(err);
+      }
+    }
+
+    document.addEventListener('click', async (e)=>{
+      const btn = e.target.closest('[data-habitica]');
+      if(!btn) return;
+      const title = btn.getAttribute('data-title') || 'Sovereignty Quest';
+      const notes = btn.getAttribute('data-notes') || '';
+      await pushHabitica(title, notes);
+    });
+
+    /* =========================================================
+       Notes: per-quest scratch
+       ========================================================= */
+    document.addEventListener('click', async (e)=>{
+      const btn = e.target.closest('button[data-save="note"]');
+      if(!btn) return;
+      const id = btn.getAttribute('data-for');
+      const prev = await get('notes', id);
+      const text = prompt('Note for '+id+':', prev ? prev.text : '');
+      if(text!==null){
+        await put('notes', { id, text, ts: Date.now() });
+        alert('Saved');
+      }
+    });
+
+    /* =========================================================
+       Export / Import
+       ========================================================= */
+    document.getElementById('exportData').addEventListener('click', async ()=>{
+      const payload = {
+        settings: await all('settings'),
+        progress: await all('progress'),
+        notes: await all('notes'),
+        exportedAt: new Date().toISOString()
+      };
+      const blob = new Blob([JSON.stringify(payload,null,2)], { type:'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'water-honduras-progress.json';
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('importData').addEventListener('click', ()=>{
+      document.getElementById('importFile').click();
+    });
+
+    document.getElementById('importFile').addEventListener('change', async (e)=>{
+      const file = e.target.files[0];
+      if(!file) return;
+      const text = await file.text();
+      const data = JSON.parse(text);
+      await openDB();
+      for(const s of (data.settings||[])) await put('settings', s);
+      for(const p of (data.progress||[])) await put('progress', p);
+      for(const n of (data.notes||[])) await put('notes', n);
+      alert('Imported. Reloading to apply.');
+      location.reload();
+    });
+
+    /* =========================================================
+       WebLLM: optional local coach (if window.webllm exists)
+       ========================================================= */
+    const coachInput = document.getElementById('coachInput');
+    const coachAsk = document.getElementById('coachAsk');
+    const coachClear = document.getElementById('coachClear');
+    const coachOut = document.getElementById('coachOut');
+    const coachState = document.getElementById('coachState');
+
+    let llmEngine = null;
+    async function initLLM(){
+      try{
+        if(window.webllm && window.webllm.createEngine){
+          coachState.textContent = 'Loading local model...';
+          // Model selection can be adjusted to what you have locally.
+          llmEngine = await window.webllm.createEngine({ model: 'Llama-3.1-8B-Instruct-q4f32_1' });
+          coachState.textContent = 'Local model ready';
+        } else {
+          coachState.textContent = 'No WebLLM found (optional)';
+        }
+      } catch(err){
+        console.warn('WebLLM init error', err);
+        coachState.textContent = 'WebLLM init error';
+      }
+    }
+    coachAsk.addEventListener('click', async ()=>{
+      const prompt = coachInput.value.trim();
+      if(!prompt){ coachState.textContent = 'Enter a prompt'; return; }
+      if(!llmEngine){
+        coachOut.textContent = [
+          'Local coach unavailable.',
+          'Tips:',
+          '• For first-flush volume, multiply roof area by early-rain depth (e.g., 0.5–2 mm) to divert initial debris-laden water.',
+          '• Prefer gravity systems; add air-release at peaks and drains at lows.',
+          '• Chlorination: keep a residual and observe contact time; verify with strips.'
+        ].join('\n');
+        return;
+      }
+      coachState.textContent = 'Thinking...';
+      try{
+        const reply = await llmEngine.chat.completions.create({
+          messages:[{ role:'user', content: prompt }],
+          temperature: 0.2
+        });
+        const text = reply.choices?.[0]?.message?.content || '(no content)';
+        coachOut.textContent = text;
+        coachState.textContent = 'Done';
+      } catch(err){
+        coachOut.textContent = 'Error from local model.';
+        coachState.textContent = 'LLM error';
+      }
+    });
+    coachClear.addEventListener('click', ()=>{
+      coachOut.textContent = '';
+      coachInput.value = '';
+      coachState.textContent = '';
+    });
+
+    /* =========================================================
+       Boot
+       ========================================================= */
+    (async function(){
+      await loadProgress();
+      await loadHabitica();
+      await initLLM();
+      document.getElementById('regionLabel').textContent = 'Honduras';
+    })();
+  </script>
+</body>
+</html>

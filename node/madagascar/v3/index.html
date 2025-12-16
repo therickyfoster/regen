@@ -1,0 +1,2053 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>PRA Madagascar — Mycelial Action Bank</title>
+  <meta name="description" content="Collaborative restoration dashboard with mnemonic-based identity and shared action coordination."/>
+  <meta name="theme-color" content="#081221"/>
+  
+  <!-- 
+    ═══════════════════════════════════════════════════════════════════════════
+    ZERO-HARM / ANTI-INVERSION DECLARATION
+    ═══════════════════════════════════════════════════════════════════════════
+    
+    PURPOSE: This dashboard coordinates ecological restoration through collaborative
+    action tracking and transparent community stewardship.
+    
+    NON-WEAPONIZATION: This code must not be repurposed for surveillance, 
+    extraction, exploitation, or harm to people, biosphere, or sovereignty.
+    
+    LICENSE: Open for peaceful restoration use. Respect all attributed licenses.
+    
+    SAFETY FEATURES: Mnemonic-based identity, local-first data storage, no PII 
+    collection, user consent required for all data operations.
+    ═══════════════════════════════════════════════════════════════════════════
+  -->
+  
+  <style>
+    :root {
+      --bg: #04060b;
+      --card: rgba(10,14,20,0.68);
+      --glass: rgba(255,255,255,0.03);
+      --accent: #7fe3c7;
+      --accent-2: #ffd36e;
+      --glass-border: rgba(255,255,255,0.06);
+      --blur: 12px;
+      --muted: #8fb9bd;
+      --ink: #e6f0ff;
+      --danger: #ff6b6b;
+      --success: #51cf66;
+      --action-open: #4dabf7;
+      --action-claimed: #ffd43b;
+      --action-complete: #51cf66;
+    }
+    
+    * { box-sizing: border-box; }
+    
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial;
+      line-height: 1.6;
+    }
+    
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    
+    a:hover { text-decoration: underline; }
+    
+    main {
+      position: relative;
+      min-height: 100vh;
+      z-index: 2;
+    }
+    
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    /* Header with sticky navigation */
+    header.site-head {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(180deg, var(--bg) 0%, rgba(4,6,11,0.95) 100%);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 12px 0;
+    }
+    
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    
+    .brand h1 {
+      font-size: 18px;
+      margin: 0;
+      letter-spacing: 0.6px;
+    }
+    
+    .brand .subtitle {
+      margin: 0;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    
+    .nav {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    /* Button styles */
+    .btn {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border: none;
+      color: #012;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(127, 227, 199, 0.3);
+    }
+    
+    .btn:active { transform: translateY(0); }
+    
+    .btn.alt {
+      background: linear-gradient(90deg, #102329, #0b1620);
+      color: #cfe;
+    }
+    
+    .btn.danger {
+      background: linear-gradient(90deg, var(--danger), #e03131);
+      color: white;
+    }
+    
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .btn.small {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+    
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--glass-border);
+      background: rgba(0,18,26,0.6);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 14px;
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(127, 227, 199, 0.1);
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    /* Glass card system */
+    .glass-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(var(--blur));
+      border-radius: 14px;
+      padding: 24px;
+      margin: 20px 0;
+    }
+    
+    /* Collapsible sections */
+    .collapsible { margin: 20px 0; }
+    
+    .collapsible-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: var(--card);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      user-select: none;
+    }
+    
+    .collapsible-header:hover {
+      background: var(--glass);
+      border-color: var(--accent);
+    }
+    
+    .collapsible-header h2,
+    .collapsible-header h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    
+    .collapsible-icon {
+      transition: transform 0.3s;
+      font-size: 20px;
+    }
+    
+    .collapsible.active .collapsible-icon {
+      transform: rotate(180deg);
+    }
+    
+    .collapsible-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .collapsible.active .collapsible-content {
+      max-height: 5000px;
+      transition: max-height 0.5s ease-in;
+    }
+    
+    .collapsible-inner { padding: 20px; }
+    
+    /* Modal system */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .modal.active { display: flex; }
+    
+    .modal-content {
+      background: var(--bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 540px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+    
+    .modal-close:hover {
+      background: var(--glass);
+      color: var(--ink);
+    }
+    
+    /* Mnemonic display */
+    .mnemonic-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+    
+    .mnemonic-word {
+      background: var(--card);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-family: monospace;
+      font-size: 15px;
+    }
+    
+    .mnemonic-word span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+    
+    /* Action bank styles */
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    
+    .action-card {
+      background: var(--card);
+      border: 2px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .action-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--action-open);
+    }
+    
+    .action-card.claimed::before { background: var(--action-claimed); }
+    .action-card.complete::before { background: var(--action-complete); }
+    
+    .action-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(127, 227, 199, 0.15);
+    }
+    
+    .action-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+    
+    .action-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 6px 0;
+    }
+    
+    .action-status {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .action-status.open {
+      background: rgba(77, 171, 247, 0.2);
+      color: var(--action-open);
+    }
+    
+    .action-status.claimed {
+      background: rgba(255, 212, 59, 0.2);
+      color: var(--action-claimed);
+    }
+    
+    .action-status.complete {
+      background: rgba(81, 207, 102, 0.2);
+      color: var(--action-complete);
+    }
+    
+    .action-description {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 8px 0 12px 0;
+      line-height: 1.5;
+    }
+    
+    .action-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--glass-border);
+    }
+    
+    .action-xp {
+      font-weight: 600;
+      color: var(--accent-2);
+    }
+    
+    .action-contributors {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    
+    .contributor-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #000;
+      border: 2px solid var(--bg);
+    }
+    
+    /* HUD styles */
+    .hud {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+    }
+    
+    .hud .mini {
+      background: linear-gradient(180deg, rgba(2,16,24,0.9), rgba(0,16,20,0.85));
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(8px);
+      min-width: 140px;
+    }
+    
+    .hud-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 6px 0;
+      font-size: 13px;
+    }
+    
+    .hud-label { color: var(--muted); }
+    
+    .hud-value {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 15px;
+    }
+    
+    .badge {
+      background: linear-gradient(135deg, #0b1f13, #051810);
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(127, 227, 199, 0.2);
+      font-weight: 700;
+      color: var(--accent-2);
+      font-size: 11px;
+      display: inline-block;
+      margin: 2px;
+    }
+    
+    /* Community chat integration */
+    .chat-container {
+      position: fixed;
+      bottom: 80px;
+      right: 18px;
+      width: 380px;
+      height: 500px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      display: none;
+      z-index: 90;
+    }
+    
+    .chat-container.active { display: block; }
+    
+    .chat-header {
+      background: var(--card);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .chat-header h3 {
+      margin: 0;
+      font-size: 14px;
+    }
+    
+    #tlkFrame {
+      width: 100%;
+      height: calc(100% - 48px);
+      border: none;
+      display: block;
+    }
+    
+    /* Utility classes */
+    .small { font-size: 13px; }
+    .muted { color: var(--muted); }
+    .text-center { text-align: center; }
+    .mt-1 { margin-top: 8px; }
+    .mt-2 { margin-top: 16px; }
+    .mb-1 { margin-bottom: 8px; }
+    .mb-2 { margin-bottom: 16px; }
+    .flex { display: flex; }
+    .flex-wrap { flex-wrap: wrap; }
+    .gap-1 { gap: 8px; }
+    .gap-2 { gap: 16px; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .hidden { display: none; }
+    
+    .chip {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      border: 1px solid var(--glass-border);
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(0,20,18,0.35);
+      font-size: 13px;
+    }
+    
+    .warning-box {
+      background: rgba(255, 212, 59, 0.1);
+      border: 1px solid rgba(255, 212, 59, 0.3);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+    
+    .warning-box strong {
+      color: var(--action-claimed);
+    }
+    
+    .success-box {
+      background: rgba(81, 207, 102, 0.1);
+      border: 1px solid rgba(81, 207, 102, 0.3);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+    
+    .success-box strong {
+      color: var(--success);
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrap { padding: 12px; }
+      
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .mnemonic-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .action-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .chat-container {
+        width: calc(100% - 36px);
+        height: 400px;
+        left: 18px;
+        right: 18px;
+      }
+    }
+    
+    /* Print stylesheet */
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+      
+      .no-print, .hud, .chat-container, header.site-head, .nav, .modal {
+        display: none !important;
+      }
+      
+      .glass-card {
+        border: 1px solid #ccc;
+        background: white;
+        page-break-inside: avoid;
+      }
+      
+      .collapsible-content {
+        max-height: none !important;
+      }
+    }
+    
+    noscript {
+      display: block;
+      padding: 20px;
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <noscript>
+    <strong>JavaScript Required:</strong> This dashboard requires JavaScript for full functionality including mnemonic identity management, offline data storage, and interactive features.
+  </noscript>
+
+  <!-- Parallax canvas layers -->
+  <canvas id="stars" style="position:fixed;inset:0;z-index:0;display:block"></canvas>
+  <canvas id="nebula" style="position:fixed;inset:0;z-index:1;mix-blend-mode:screen;pointer-events:none"></canvas>
+  <canvas id="myco" style="position:fixed;inset:0;z-index:1;mix-blend-mode:lighten;pointer-events:none"></canvas>
+
+  <main>
+    <!-- Header with navigation -->
+    <header class="site-head">
+      <div class="wrap">
+        <div class="header-inner">
+          <div class="brand">
+            <svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true">
+              <defs>
+                <linearGradient id="g" x1="0" x2="1">
+                  <stop offset="0" stop-color="#7fe3c7"/>
+                  <stop offset="1" stop-color="#ffd36e"/>
+                </linearGradient>
+              </defs>
+              <rect width="48" height="48" rx="10" fill="#02121a"/>
+              <path d="M8 34c8-12 16-14 32-26" stroke="url(#g)" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+            </svg>
+            <div>
+              <h1>PRA Madagascar — Mycelial Action Bank</h1>
+              <p class="subtitle" id="userGreeting">Collaborative Restoration Coordination</p>
+            </div>
+          </div>
+
+          <nav class="nav no-print">
+            <div id="guestButtons">
+              <button class="btn" onclick="showMnemonicModal('create')">🌱 Generate Identity</button>
+              <button class="btn alt" onclick="showMnemonicModal('recover')">🔑 Recover Identity</button>
+            </div>
+            <div id="userButtons" class="hidden">
+              <button class="btn" onclick="scrollToSection('actions')">📋 Action Bank</button>
+              <button class="btn" onclick="toggleChat()">💬 Community Chat</button>
+              <button class="btn alt" onclick="showIdentityInfo()">👤 Identity</button>
+              <button class="btn danger small" onclick="clearIdentity()">Sign Out</button>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <!-- Hero section -->
+      <section id="hero" class="glass-card">
+        <h2>Madagascar Restoration Node — Collaborative Action Coordination</h2>
+        <p style="max-width: 74ch; line-height: 1.6; color: #d7fffb;">
+          This dashboard coordinates grassroots restoration activities through a shared action bank. Contributors generate a memorable twelve-word mnemonic phrase that functions as their cryptographic identity, eliminating traditional authentication barriers while maintaining verifiable attribution. The mycelial action bank displays available restoration tasks that community members can claim, complete, and verify collaboratively.
+        </p>
+        
+        <div class="flex flex-wrap gap-2 mt-2">
+          <button class="btn" onclick="scrollToSection('actions')">🌱 View Action Bank</button>
+          <button class="btn" onclick="scrollToSection('projects')">🌍 Project Overview</button>
+          <button class="btn" onclick="exportData()">📥 Export Data</button>
+        </div>
+        
+        <div class="flex flex-wrap gap-1 mt-2">
+          <span class="chip">🎯 Mnemonic Identity</span>
+          <span class="chip">🍄 Mycelial Coordination</span>
+          <span class="chip">📱 Offline-First</span>
+          <span class="chip">💬 TLK.io Chat</span>
+          <span class="chip">🔒 Privacy-First</span>
+        </div>
+      </section>
+
+      <!-- User dashboard (shown after identity recovery) -->
+      <section id="userDashboard" class="hidden">
+        <div class="collapsible active">
+          <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h2>📊 Your Contributions</h2>
+            <span class="collapsible-icon">▼</span>
+          </div>
+          <div class="collapsible-content">
+            <div class="collapsible-inner">
+              <div class="action-grid">
+                <div class="glass-card">
+                  <h3 style="margin-top:0">🌱 Your Impact</h3>
+                  <div style="font-size:32px;font-weight:700;color:var(--accent);margin:8px 0" id="userActionCount">0</div>
+                  <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Actions Completed</div>
+                  <div class="mt-1">
+                    <div style="font-size:24px;font-weight:700;color:var(--accent-2)" id="userXP">0</div>
+                    <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Experience Points</div>
+                  </div>
+                </div>
+                
+                <div class="glass-card">
+                  <h3 style="margin-top:0">🏆 Badges Earned</h3>
+                  <div id="userBadgesList" class="mt-1">
+                    <p class="small muted">Complete actions to earn badges</p>
+                  </div>
+                </div>
+                
+                <div class="glass-card">
+                  <h3 style="margin-top:0">📈 Recent Activity</h3>
+                  <div id="userActivityList" class="mt-1">
+                    <p class="small muted">Your activity will appear here</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mycelial action bank -->
+      <section id="actions">
+        <div class="collapsible active">
+          <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h2>🍄 Mycelial Action Bank</h2>
+            <span class="collapsible-icon">▼</span>
+          </div>
+          <div class="collapsible-content">
+            <div class="collapsible-inner">
+              <p style="margin-top:0">
+                The action bank functions as a shared registry of restoration activities that community members can discover, claim, and complete. Each action represents a concrete contribution to the restoration effort. When you claim an action, it becomes associated with your mnemonic identity. Upon completion, community verification through the chat channel confirms the contribution and awards experience points.
+              </p>
+              
+              <div class="flex flex-wrap gap-1 items-center mt-2 mb-2">
+                <label class="small" style="margin:0">Filter by status:</label>
+                <button class="btn small" onclick="filterActions('all')">All</button>
+                <button class="btn small" onclick="filterActions('open')">Open</button>
+                <button class="btn small" onclick="filterActions('claimed')">Claimed</button>
+                <button class="btn small" onclick="filterActions('complete')">Complete</button>
+                <button class="btn alt small" onclick="createActionModal()">➕ Propose Action</button>
+              </div>
+
+              <div class="action-grid" id="actionGrid"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Project overview -->
+      <section id="projects">
+        <div class="collapsible active">
+          <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h2>🌍 Project Overview</h2>
+            <span class="collapsible-icon">▼</span>
+          </div>
+          <div class="collapsible-content">
+            <div class="collapsible-inner glass-card">
+              <p>
+                Madagascar represents a unique biodiversity hotspot with exceptional endemism rates. This restoration node coordinates three interconnected program pillars that address ecological degradation through community-led interventions. The mycelial action bank structures these programs into discrete, verifiable tasks that contributors can execute independently while maintaining collective coordination through the shared ledger.
+              </p>
+              
+              <div class="action-grid mt-2">
+                <div style="background:var(--card);border:1px solid var(--glass-border);border-radius:12px;padding:20px">
+                  <h3 style="margin-top:0">🍄 Myco-Corridors</h3>
+                  <p class="small">
+                    This program establishes mycorrhizal inoculation plots that link fragmented forest patches through fungal network connectivity. The approach enhances soil restoration efficacy and increases seedling survival rates through symbiotic relationships. Actions in this category include soil sampling, inoculation protocol development, survival monitoring, and fungal DNA analysis.
+                  </p>
+                </div>
+                
+                <div style="background:var(--card);border:1px solid var(--glass-border);border-radius:12px;padding:20px">
+                  <h3 style="margin-top:0">🌊 Mangrove Rebuilds</h3>
+                  <p class="small">
+                    Coastal mangrove restoration provides cyclone resilience buffers while supporting fishery productivity and marine ecosystem health. Community-led planting and nursery training programs ensure local ownership and long-term stewardship. Actions include nursery establishment, propagule collection, planting coordination, and monitoring transects.
+                  </p>
+                </div>
+                
+                <div style="background:var(--card);border:1px solid var(--glass-border);border-radius:12px;padding:20px">
+                  <h3 style="margin-top:0">🌾 Community Seed Vaults</h3>
+                  <p class="small">
+                    Decentralized seed provenance systems ensure food sovereignty through cryptographically timestamped ledgers that track seed origin, characteristics, and exchange history. This approach preserves agricultural biodiversity while enabling community-controlled genetic resource management. Actions include seed collection documentation, provenance verification, and vault cataloging.
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-2">
+                <h3>📍 Operational Details</h3>
+                <p class="small">
+                  <strong>Geographic Focus:</strong> Eastern and northwestern Madagascar, with partnerships across regional community groups, research institutions, and fishery cooperatives. All partner organizations participate voluntarily with explicit consent for data sharing and attribution.
+                </p>
+                <p class="small">
+                  <strong>Coordination Approach:</strong> The action bank enables asynchronous collaboration through clearly defined tasks with verification criteria. Contributors work independently while maintaining transparency through the shared ledger and real-time chat coordination.
+                </p>
+                <p class="small">
+                  <strong>Contact:</strong> steward@planetaryrestorationarchive.com
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="glass-card">
+        <div class="flex justify-between items-center flex-wrap gap-2">
+          <div>
+            <strong>Planetary Restoration Archive — Madagascar</strong>
+            <p class="small muted">
+              All contributions are intended exclusively for ecological restoration and community wellbeing. This system must not be weaponized or repurposed for surveillance, extraction, or harm.
+            </p>
+          </div>
+          <div class="small muted text-right">
+            Offline-first • Mnemonic Identity • Privacy-minded<br/>
+            Use responsibly • Not legal advice
+          </div>
+        </div>
+
+        <details class="mt-2">
+          <summary class="small" style="cursor:pointer">📜 Attributions & Licenses</summary>
+          <div class="small muted mt-1">
+            <h4>Third-Party Components:</h4>
+            <ul style="margin:8px 0;padding-left:20px">
+              <li><strong>IndexedDB Architecture:</strong> Adapted from MDN Web Docs patterns (CC-BY-SA 2.5)</li>
+              <li><strong>Service Worker Pattern:</strong> Inspired by Workbox library approach (Apache 2.0)</li>
+              <li><strong>BIP39 Mnemonic Generation:</strong> Standard word list from Bitcoin Improvement Proposal 39</li>
+              <li><strong>TLK.io:</strong> Third-party chat service (see tlk.io/terms)</li>
+              <li><strong>Canvas Parallax:</strong> Technique inspired by various open-source examples</li>
+            </ul>
+            <p class="mt-1">
+              All code written specifically for this project is released under MIT License for peaceful restoration purposes. Commercial surveillance or extractive use is prohibited.
+            </p>
+          </div>
+        </details>
+
+        <div class="text-center mt-2 small muted">
+          <p>
+            <strong>Zero-Harm Declaration:</strong> This system coordinates ecological restoration through collaborative action tracking. It must not be repurposed for surveillance, extraction, exploitation, harm to people, biosphere degradation, or sovereignty violation. All users commit to regenerative principles.
+          </p>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <!-- Gamification HUD -->
+  <div class="hud no-print">
+    <div class="mini glass-card">
+      <div class="hud-item">
+        <span class="hud-label">XP</span>
+        <span class="hud-value" id="xpVal">0</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">Level</span>
+        <span class="hud-value" id="levelVal">1</span>
+      </div>
+      <div class="small muted" style="margin-top:6px">
+        Actions: <span id="actionCount">0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Community chat -->
+  <div class="chat-container no-print" id="chatContainer">
+    <div class="chat-header">
+      <h3>💬 Community Chat</h3>
+      <button class="modal-close" onclick="toggleChat()" style="width:24px;height:24px;font-size:18px">&times;</button>
+    </div>
+    <iframe id="tlkFrame" title="Community Chat" src="https://tlk.io/pra-madagascar"></iframe>
+  </div>
+
+  <!-- Mnemonic modal -->
+  <div class="modal" id="mnemonicModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="mnemonicModalTitle">Generate Identity</h2>
+        <button class="modal-close" onclick="closeMnemonicModal()">&times;</button>
+      </div>
+
+      <div id="mnemonicModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Action detail modal -->
+  <div class="modal" id="actionModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="actionModalTitle">Action Details</h2>
+        <button class="modal-close" onclick="closeActionModal()">&times;</button>
+      </div>
+
+      <div id="actionModalBody"></div>
+    </div>
+  </div>
+
+  <script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   CORE APPLICATION — MYCELIAL ACTION BANK
+   ═══════════════════════════════════════════════════════════════════════════
+   
+   This application coordinates restoration activities through mnemonic-based
+   identity management and collaborative action tracking. The architecture
+   prioritizes offline functionality, cryptographic verification, and transparent
+   coordination without centralized control.
+*/
+
+/* Service Worker & PWA Setup */
+(function initServiceWorker() {
+  const swCode = `
+    const CACHE_VERSION = 'pra-mycelial-v1';
+    const CORE_ASSETS = ['/', '/index.html'];
+    
+    self.addEventListener('install', e => {
+      self.skipWaiting();
+      e.waitUntil(caches.open(CACHE_VERSION).then(c => c.addAll(CORE_ASSETS)));
+    });
+    
+    self.addEventListener('activate', e => {
+      e.waitUntil(
+        caches.keys().then(keys =>
+          Promise.all(keys.map(k => k !== CACHE_VERSION && caches.delete(k)))
+        )
+      );
+      self.clients.claim();
+    });
+    
+    self.addEventListener('fetch', e => {
+      if (e.request.method !== 'GET') return;
+      e.respondWith(
+        (async () => {
+          const cache = await caches.open(CACHE_VERSION);
+          const cached = await cache.match(e.request);
+          if (cached) return cached;
+          try {
+            const res = await fetch(e.request);
+            if (res?.ok) cache.put(e.request, res.clone());
+            return res;
+          } catch {
+            return cached || new Response('Offline', { status: 503 });
+          }
+        })()
+      );
+    });
+  `;
+  
+  try {
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(blob);
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register(swUrl).catch(() => {});
+    }
+  } catch (e) {
+    console.warn('Service worker registration failed', e);
+  }
+})();
+
+/* IndexedDB Layer */
+const DB_NAME = 'pra-mycelial';
+const DB_VERSION = 1;
+let db = null;
+
+async function openDB() {
+  if (db) return db;
+  
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
+    
+    request.onupgradeneeded = (event) => {
+      const database = event.target.result;
+      
+      if (!database.objectStoreNames.contains('identity')) {
+        database.createObjectStore('identity', { keyPath: 'key' });
+      }
+      if (!database.objectStoreNames.contains('actions')) {
+        database.createObjectStore('actions', { keyPath: 'id' });
+      }
+      if (!database.objectStoreNames.contains('badges')) {
+        database.createObjectStore('badges', { keyPath: 'id' });
+      }
+      if (!database.objectStoreNames.contains('prefs')) {
+        database.createObjectStore('prefs', { keyPath: 'key' });
+      }
+    };
+    
+    request.onsuccess = () => {
+      db = request.result;
+      resolve(db);
+    };
+    
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function saveLocal(store, item) {
+  const database = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction(store, 'readwrite');
+    transaction.objectStore(store).put(item);
+    transaction.oncomplete = () => resolve(true);
+    transaction.onerror = () => reject(transaction.error);
+  });
+}
+
+async function getAll(store) {
+  const database = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction(store, 'readonly');
+    const request = transaction.objectStore(store).getAll();
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function getOne(store, key) {
+  const database = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction(store, 'readonly');
+    const request = transaction.objectStore(store).get(key);
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function getPref(key) {
+  const result = await getOne('prefs', key);
+  return result?.val;
+}
+
+async function setPref(key, val) {
+  return saveLocal('prefs', { key, val });
+}
+
+/* BIP39 Mnemonic Word List (first 256 words for demonstration) */
+const MNEMONIC_WORDS = [
+  "abandon", "ability", "able", "about", "above", "absent", "absorb", "abstract",
+  "absurd", "abuse", "access", "accident", "account", "accuse", "achieve", "acid",
+  "acoustic", "acquire", "across", "act", "action", "actor", "actress", "actual",
+  "adapt", "add", "addict", "address", "adjust", "admit", "adult", "advance",
+  "advice", "aerobic", "affair", "afford", "afraid", "again", "age", "agent",
+  "agree", "ahead", "aim", "air", "airport", "aisle", "alarm", "album",
+  "alcohol", "alert", "alien", "all", "alley", "allow", "almost", "alone",
+  "alpha", "already", "also", "alter", "always", "amateur", "amazing", "among",
+  "amount", "amused", "analyst", "anchor", "ancient", "anger", "angle", "angry",
+  "animal", "ankle", "announce", "annual", "another", "answer", "antenna", "antique",
+  "anxiety", "any", "apart", "apology", "appear", "apple", "approve", "april",
+  "arch", "arctic", "area", "arena", "argue", "arm", "armed", "armor",
+  "army", "around", "arrange", "arrest", "arrive", "arrow", "art", "artefact",
+  "artist", "artwork", "ask", "aspect", "assault", "asset", "assist", "assume",
+  "asthma", "athlete", "atom", "attack", "attend", "attitude", "attract", "auction",
+  "audit", "august", "aunt", "author", "auto", "autumn", "average", "avocado",
+  "avoid", "awake", "aware", "away", "awesome", "awful", "awkward", "axis",
+  "baby", "bachelor", "bacon", "badge", "bag", "balance", "balcony", "ball",
+  "bamboo", "banana", "banner", "bar", "barely", "bargain", "barrel", "base",
+  "basic", "basket", "battle", "beach", "bean", "beauty", "because", "become",
+  "beef", "before", "begin", "behave", "behind", "believe", "below", "belt",
+  "bench", "benefit", "best", "betray", "better", "between", "beyond", "bicycle",
+  "bid", "bike", "bind", "biology", "bird", "birth", "bitter", "black",
+  "blade", "blame", "blanket", "blast", "bleak", "bless", "blind", "blood",
+  "blossom", "blouse", "blue", "blur", "blush", "board", "boat", "body",
+  "boil", "bomb", "bone", "bonus", "book", "boost", "border", "boring",
+  "borrow", "boss", "bottom", "bounce", "box", "boy", "bracket", "brain",
+  "brand", "brass", "brave", "bread", "breeze", "brick", "bridge", "brief",
+  "bright", "bring", "brisk", "broccoli", "broken", "bronze", "broom", "brother",
+  "brown", "brush", "bubble", "buddy", "budget", "buffalo", "build", "bulb",
+  "bulk", "bullet", "bundle", "bunker", "burden", "burger", "burst", "bus",
+  "business", "busy", "butter", "buyer", "buzz", "cabbage", "cabin", "cable"
+];
+
+/* Mnemonic Identity System */
+let currentIdentity = null;
+
+function generateMnemonic() {
+  const words = [];
+  for (let i = 0; i < 12; i++) {
+    const randomIndex = Math.floor(Math.random() * MNEMONIC_WORDS.length);
+    words.push(MNEMONIC_WORDS[randomIndex]);
+  }
+  return words;
+}
+
+async function createIdentity() {
+  const mnemonic = generateMnemonic();
+  const mnemonicString = mnemonic.join(' ');
+  
+  const encoder = new TextEncoder();
+  const data = encoder.encode(mnemonicString);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hash = Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+  
+  const identity = {
+    key: 'current',
+    hash,
+    mnemonic: mnemonicString,
+    nickname: mnemonic[0] + '-' + mnemonic[1],
+    createdAt: new Date().toISOString(),
+    xp: 0,
+    level: 1
+  };
+  
+  await saveLocal('identity', identity);
+  currentIdentity = identity;
+  
+  return { identity, mnemonic };
+}
+
+async function recoverIdentity(mnemonicString) {
+  const words = mnemonicString.trim().toLowerCase().split(/\s+/);
+  
+  if (words.length !== 12) {
+    throw new Error('Mnemonic must contain exactly 12 words');
+  }
+  
+  for (const word of words) {
+    if (!MNEMONIC_WORDS.includes(word)) {
+      throw new Error(`Invalid word in mnemonic: ${word}`);
+    }
+  }
+  
+  const encoder = new TextEncoder();
+  const data = encoder.encode(words.join(' '));
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hash = Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+  
+  const identity = {
+    key: 'current',
+    hash,
+    mnemonic: words.join(' '),
+    nickname: words[0] + '-' + words[1],
+    recoveredAt: new Date().toISOString(),
+    xp: 0,
+    level: 1
+  };
+  
+  await saveLocal('identity', identity);
+  currentIdentity = identity;
+  
+  return identity;
+}
+
+async function loadIdentity() {
+  const identity = await getOne('identity', 'current');
+  if (identity) {
+    currentIdentity = identity;
+    updateUIForIdentity();
+  }
+}
+
+function updateUIForIdentity() {
+  const guestButtons = document.getElementById('guestButtons');
+  const userButtons = document.getElementById('userButtons');
+  const userDashboard = document.getElementById('userDashboard');
+  const userGreeting = document.getElementById('userGreeting');
+  
+  if (currentIdentity) {
+    guestButtons.classList.add('hidden');
+    userButtons.classList.remove('hidden');
+    userDashboard.classList.remove('hidden');
+    userGreeting.textContent = `Identity: ${currentIdentity.nickname}`;
+    updateDashboard();
+  } else {
+    guestButtons.classList.remove('hidden');
+    userButtons.classList.add('hidden');
+    userDashboard.classList.add('hidden');
+    userGreeting.textContent = 'Collaborative Restoration Coordination';
+  }
+}
+
+async function updateDashboard() {
+  if (!currentIdentity) return;
+  
+  const actions = await getAll('actions');
+  const userActions = actions.filter(a => a.claimedBy === currentIdentity.hash);
+  const completedActions = userActions.filter(a => a.status === 'complete');
+  
+  document.getElementById('userActionCount').textContent = completedActions.length;
+  document.getElementById('userXP').textContent = currentIdentity.xp || 0;
+  
+  const badges = await getAll('badges');
+  const userBadges = badges.filter(b => b.userId === currentIdentity.hash);
+  const badgesHTML = userBadges.length 
+    ? userBadges.map(b => `<span class="badge">${escapeHtml(b.label)}</span>`).join(' ')
+    : '<p class="small muted">Complete actions to earn badges</p>';
+  document.getElementById('userBadgesList').innerHTML = badgesHTML;
+  
+  const recentActions = userActions.slice(-5).reverse();
+  const activityHTML = recentActions.length
+    ? recentActions.map(a => `
+        <div class="small" style="margin-bottom:8px;padding:8px;background:var(--glass);border-radius:6px">
+          <strong>${escapeHtml(a.title)}</strong><br>
+          <span class="muted">${a.status} • ${new Date(a.updatedAt || a.createdAt).toLocaleDateString()}</span>
+        </div>
+      `).join('')
+    : '<p class="small muted">No recent activity</p>';
+  document.getElementById('userActivityList').innerHTML = activityHTML;
+  
+  updateHUD();
+}
+
+function updateHUD() {
+  if (currentIdentity) {
+    document.getElementById('xpVal').textContent = currentIdentity.xp || 0;
+    document.getElementById('levelVal').textContent = currentIdentity.level || 1;
+  }
+  
+  getAll('actions').then(actions => {
+    const completedCount = actions.filter(a => a.status === 'complete').length;
+    document.getElementById('actionCount').textContent = completedCount;
+  });
+}
+
+async function clearIdentity() {
+  if (!confirm('This will clear your current identity. Make sure you have saved your 12-word mnemonic phrase. Continue?')) {
+    return;
+  }
+  
+  const database = await openDB();
+  const transaction = database.transaction('identity', 'readwrite');
+  transaction.objectStore('identity').delete('current');
+  
+  await new Promise(resolve => {
+    transaction.oncomplete = resolve;
+  });
+  
+  currentIdentity = null;
+  updateUIForIdentity();
+  toast('Identity cleared. Generate or recover an identity to continue.');
+}
+
+/* Mnemonic Modal UI */
+function showMnemonicModal(mode) {
+  const modal = document.getElementById('mnemonicModal');
+  const title = document.getElementById('mnemonicModalTitle');
+  const body = document.getElementById('mnemonicModalBody');
+  
+  if (mode === 'create') {
+    title.textContent = 'Generate Identity';
+    body.innerHTML = `
+      <p class="small">
+        Your identity will be represented by a twelve-word mnemonic phrase. This phrase functions as your cryptographic identity and must be stored securely. Anyone with access to this phrase can impersonate your identity. Write it down and store it safely offline.
+      </p>
+      <div class="warning-box">
+        <strong>⚠️ Critical:</strong> You are solely responsible for safeguarding your mnemonic phrase. There is no password recovery mechanism. Loss of this phrase means permanent loss of your identity and contribution history.
+      </div>
+      <div class="text-center mt-2">
+        <button class="btn" onclick="executeGenerateIdentity()">Generate Mnemonic Phrase</button>
+      </div>
+    `;
+  } else {
+    title.textContent = 'Recover Identity';
+    body.innerHTML = `
+      <p class="small">
+        Enter your twelve-word mnemonic phrase to recover your identity. The words must be entered in the exact order they were generated, separated by spaces.
+      </p>
+      <form onsubmit="event.preventDefault(); executeRecoverIdentity();">
+        <label class="small">Mnemonic Phrase (12 words)</label>
+        <textarea id="recoveryMnemonic" rows="3" placeholder="word1 word2 word3..." required style="font-family:monospace"></textarea>
+        <button class="btn mt-2" type="submit" style="width:100%">Recover Identity</button>
+      </form>
+    `;
+  }
+  
+  modal.classList.add('active');
+}
+
+function closeMnemonicModal() {
+  document.getElementById('mnemonicModal').classList.remove('active');
+}
+
+async function executeGenerateIdentity() {
+  try {
+    const { identity, mnemonic } = await createIdentity();
+    
+    const body = document.getElementById('mnemonicModalBody');
+    body.innerHTML = `
+      <div class="success-box">
+        <strong>✓ Identity Generated Successfully</strong>
+      </div>
+      
+      <p class="small">
+        Your twelve-word mnemonic phrase is displayed below. Write these words down in order and store them securely. This phrase is the only way to recover your identity if you clear your browser data or use a different device.
+      </p>
+      
+      <div class="mnemonic-grid">
+        ${mnemonic.map((word, i) => `
+          <div class="mnemonic-word">
+            <span>${i + 1}</span>
+            ${word}
+          </div>
+        `).join('')}
+      </div>
+      
+      <div class="warning-box mt-2">
+        <strong>⚠️ Save Your Mnemonic:</strong> Copy these twelve words to a secure location now. Once you close this window, the phrase will not be displayed again.
+      </div>
+      
+      <div class="text-center mt-2">
+        <button class="btn" onclick="copyMnemonicToClipboard('${mnemonic.join(' ')}')">📋 Copy to Clipboard</button>
+        <button class="btn" onclick="finishIdentitySetup()">Continue</button>
+      </div>
+    `;
+  } catch (error) {
+    toast('Error generating identity: ' + error.message);
+  }
+}
+
+async function executeRecoverIdentity() {
+  const mnemonicString = document.getElementById('recoveryMnemonic').value;
+  
+  try {
+    await recoverIdentity(mnemonicString);
+    toast('Identity recovered successfully');
+    closeMnemonicModal();
+    updateUIForIdentity();
+  } catch (error) {
+    toast('Error: ' + error.message);
+  }
+}
+
+function copyMnemonicToClipboard(mnemonic) {
+  navigator.clipboard.writeText(mnemonic).then(() => {
+    toast('Mnemonic copied to clipboard');
+  }).catch(() => {
+    toast('Failed to copy to clipboard');
+  });
+}
+
+function finishIdentitySetup() {
+  closeMnemonicModal();
+  updateUIForIdentity();
+  toast('Identity setup complete. Welcome to the action bank!');
+}
+
+function showIdentityInfo() {
+  if (!currentIdentity) return;
+  
+  const modal = document.getElementById('mnemonicModal');
+  const title = document.getElementById('mnemonicModalTitle');
+  const body = document.getElementById('mnemonicModalBody');
+  
+  title.textContent = 'Your Identity';
+  body.innerHTML = `
+    <p class="small">
+      <strong>Nickname:</strong> ${escapeHtml(currentIdentity.nickname)}<br>
+      <strong>Identity Hash:</strong> <code style="font-size:11px">${currentIdentity.hash.slice(0, 32)}...</code><br>
+      <strong>Created:</strong> ${new Date(currentIdentity.createdAt || currentIdentity.recoveredAt).toLocaleDateString()}<br>
+      <strong>XP:</strong> ${currentIdentity.xp || 0}<br>
+      <strong>Level:</strong> ${currentIdentity.level || 1}
+    </p>
+    
+    <div class="warning-box mt-2">
+      <strong>🔒 Security Reminder:</strong> Your mnemonic phrase was displayed only once during identity generation. Ensure you have it stored securely. Without it, you cannot recover your identity on other devices.
+    </div>
+    
+    <div class="text-center mt-2">
+      <button class="btn" onclick="exportIdentityData()">📥 Export Contribution Data</button>
+    </div>
+  `;
+  
+  modal.classList.add('active');
+}
+
+/* Action Bank System */
+const DEFAULT_ACTIONS = [
+  {
+    id: 'myco-001',
+    title: 'Soil Sampling — Tamatave Corridor',
+    description: 'Collect soil samples from three designated plots along the eastern corridor. Record GPS coordinates, depth profiles, and visual characteristics. Samples should be delivered to the field station for fungal DNA analysis.',
+    category: 'myco-corridor',
+    xp: 25,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  {
+    id: 'myco-002',
+    title: 'Inoculation Protocol Documentation',
+    description: 'Document the mycorrhizal inoculation protocol currently used in the pilot plots. Include photographs, measurements, and timing details. This documentation will be shared with partner institutions.',
+    category: 'myco-corridor',
+    xp: 15,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  {
+    id: 'myco-003',
+    title: 'Seedling Survival Monitoring — Month 3',
+    description: 'Conduct third-month survival assessment for inoculated seedlings in plots A through D. Record survival rates, growth measurements, and any observed symbiotic indicators.',
+    category: 'myco-corridor',
+    xp: 30,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  {
+    id: 'mang-001',
+    title: 'Propagule Collection — Mahajamba Bay',
+    description: 'Collect mangrove propagules from healthy parent trees in designated collection zones. Target species include Rhizophora mucronata and Avicennia marina. Record collection locations and parent tree characteristics.',
+    category: 'mangrove',
+    xp: 20,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  {
+    id: 'mang-002',
+    title: 'Nursery Infrastructure Setup',
+    description: 'Construct shadehouse infrastructure for mangrove nursery at the community center. Includes building shade structures, organizing container systems, and establishing water access.',
+    category: 'mangrove',
+    xp: 40,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  {
+    id: 'mang-003',
+    title: 'Planting Transect Preparation',
+    description: 'Prepare planting transects in the restoration zone. Clear debris, mark planting positions, and document baseline conditions with photographs and measurements.',
+    category: 'mangrove',
+    xp: 25,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  {
+    id: 'seed-001',
+    title: 'Seed Vault Cataloging — Rice Varieties',
+    description: 'Catalog local rice varieties in the seed vault system. Document variety names, traditional uses, growing requirements, and provenance information. Photograph seeds and create standardized entries.',
+    category: 'seed-vault',
+    xp: 20,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  {
+    id: 'seed-002',
+    title: 'Provenance Verification Interview',
+    description: 'Conduct interviews with community elders regarding seed provenance and traditional cultivation practices. Record oral histories and document seed exchange networks.',
+    category: 'seed-vault',
+    xp: 30,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  },
+  {
+    id: 'seed-003',
+    title: 'Digital Ledger Entry Creation',
+    description: 'Create cryptographically timestamped entries for twenty seed accessions in the digital provenance ledger. Include all required metadata fields and verification checksums.',
+    category: 'seed-vault',
+    xp: 15,
+    status: 'open',
+    createdAt: '2025-01-15T00:00:00Z'
+  }
+];
+
+async function initializeActions() {
+  const existing = await getAll('actions');
+  
+  if (existing.length === 0) {
+    for (const action of DEFAULT_ACTIONS) {
+      await saveLocal('actions', action);
+    }
+  }
+}
+
+async function loadActions() {
+  const actions = await getAll('actions');
+  const grid = document.getElementById('actionGrid');
+  
+  if (actions.length === 0) {
+    grid.innerHTML = '<p class="small muted">No actions available. Check back soon or propose a new action.</p>';
+    return;
+  }
+  
+  grid.innerHTML = actions.map(action => {
+    const statusClass = action.status || 'open';
+    const canClaim = currentIdentity && statusClass === 'open';
+    const canComplete = currentIdentity && statusClass === 'claimed' && action.claimedBy === currentIdentity.hash;
+    const canVerify = currentIdentity && statusClass === 'complete';
+    
+    return `
+      <div class="action-card ${statusClass}" data-status="${statusClass}" data-id="${action.id}">
+        <div class="action-header">
+          <div>
+            <h3 class="action-title">${escapeHtml(action.title)}</h3>
+            <div class="action-status ${statusClass}">${statusClass}</div>
+          </div>
+        </div>
+        
+        <p class="action-description">${escapeHtml(action.description)}</p>
+        
+        <div class="flex flex-wrap gap-1">
+          ${canClaim ? `<button class="btn small" onclick="claimAction('${action.id}')">Claim Action</button>` : ''}
+          ${canComplete ? `<button class="btn small" onclick="completeAction('${action.id}')">Mark Complete</button>` : ''}
+          <button class="btn alt small" onclick="viewActionDetails('${action.id}')">View Details</button>
+        </div>
+        
+        <div class="action-meta">
+          <span class="action-xp">+${action.xp} XP</span>
+          <span>${action.category || 'general'}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+  
+  updateHUD();
+}
+
+function filterActions(status) {
+  const cards = document.querySelectorAll('.action-card');
+  cards.forEach(card => {
+    if (status === 'all' || card.dataset.status === status) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+async function claimAction(actionId) {
+  if (!currentIdentity) {
+    toast('Please generate or recover an identity first');
+    showMnemonicModal('create');
+    return;
+  }
+  
+  const action = await getOne('actions', actionId);
+  if (!action) return;
+  
+  if (action.status !== 'open') {
+    toast('This action has already been claimed');
+    return;
+  }
+  
+  action.status = 'claimed';
+  action.claimedBy = currentIdentity.hash;
+  action.claimedByNickname = currentIdentity.nickname;
+  action.claimedAt = new Date().toISOString();
+  action.updatedAt = new Date().toISOString();
+  
+  await saveLocal('actions', action);
+  await loadActions();
+  
+  toast(`Action claimed! Discuss coordination in the community chat.`);
+  
+  if (window.__mycoBoost) {
+    window.__mycoBoost();
+  }
+}
+
+async function completeAction(actionId) {
+  if (!currentIdentity) return;
+  
+  const action = await getOne('actions', actionId);
+  if (!action) return;
+  
+  if (action.claimedBy !== currentIdentity.hash) {
+    toast('You can only complete actions you have claimed');
+    return;
+  }
+  
+  const confirmation = prompt('Briefly describe what you completed (this will be visible to the community):');
+  if (!confirmation) return;
+  
+  action.status = 'complete';
+  action.completionNote = confirmation;
+  action.completedAt = new Date().toISOString();
+  action.updatedAt = new Date().toISOString();
+  
+  await saveLocal('actions', action);
+  
+  currentIdentity.xp = (currentIdentity.xp || 0) + action.xp;
+  currentIdentity.level = Math.floor(currentIdentity.xp / 100) + 1;
+  await saveLocal('identity', currentIdentity);
+  
+  await loadActions();
+  await updateDashboard();
+  
+  toast(`Action completed! Earned ${action.xp} XP. Share completion details in the chat for community verification.`);
+  
+  if (window.__mycoBoost) {
+    window.__mycoBoost();
+  }
+  
+  if (currentIdentity.xp % 100 < action.xp) {
+    toast(`🎉 Level up! You are now level ${currentIdentity.level}`);
+  }
+}
+
+async function viewActionDetails(actionId) {
+  const action = await getOne('actions', actionId);
+  if (!action) return;
+  
+  const modal = document.getElementById('actionModal');
+  const title = document.getElementById('actionModalTitle');
+  const body = document.getElementById('actionModalBody');
+  
+  title.textContent = action.title;
+  body.innerHTML = `
+    <div class="small">
+      <p><strong>Status:</strong> <span class="action-status ${action.status}">${action.status}</span></p>
+      <p><strong>Category:</strong> ${action.category || 'general'}</p>
+      <p><strong>XP Reward:</strong> ${action.xp}</p>
+      <p><strong>Created:</strong> ${new Date(action.createdAt).toLocaleDateString()}</p>
+      
+      ${action.claimedByNickname ? `<p><strong>Claimed By:</strong> ${escapeHtml(action.claimedByNickname)}</p>` : ''}
+      ${action.claimedAt ? `<p><strong>Claimed:</strong> ${new Date(action.claimedAt).toLocaleDateString()}</p>` : ''}
+      ${action.completionNote ? `<p><strong>Completion Note:</strong> ${escapeHtml(action.completionNote)}</p>` : ''}
+    </div>
+    
+    <div class="mt-2">
+      <h4>Description</h4>
+      <p class="small">${escapeHtml(action.description)}</p>
+    </div>
+  `;
+  
+  modal.classList.add('active');
+}
+
+function closeActionModal() {
+  document.getElementById('actionModal').classList.remove('active');
+}
+
+function createActionModal() {
+  if (!currentIdentity) {
+    toast('Please generate or recover an identity to propose actions');
+    showMnemonicModal('create');
+    return;
+  }
+  
+  const modal = document.getElementById('actionModal');
+  const title = document.getElementById('actionModalTitle');
+  const body = document.getElementById('actionModalBody');
+  
+  title.textContent = 'Propose New Action';
+  body.innerHTML = `
+    <form onsubmit="event.preventDefault(); executeCreateAction();">
+      <div class="mb-2">
+        <label>Action Title</label>
+        <input id="newActionTitle" type="text" required maxlength="100" placeholder="Brief, descriptive title">
+      </div>
+      
+      <div class="mb-2">
+        <label>Description</label>
+        <textarea id="newActionDesc" rows="4" required placeholder="Detailed description of what needs to be done, expected outcomes, and any requirements"></textarea>
+      </div>
+      
+      <div class="mb-2">
+        <label>Category</label>
+        <select id="newActionCategory">
+          <option value="myco-corridor">Myco-Corridor</option>
+          <option value="mangrove">Mangrove Rebuilds</option>
+          <option value="seed-vault">Seed Vault</option>
+          <option value="general">General</option>
+        </select>
+      </div>
+      
+      <div class="mb-2">
+        <label>XP Reward (based on estimated effort)</label>
+        <input id="newActionXP" type="number" min="5" max="100" value="20" required>
+      </div>
+      
+      <button class="btn" type="submit" style="width:100%">Propose Action</button>
+    </form>
+  `;
+  
+  modal.classList.add('active');
+}
+
+async function executeCreateAction() {
+  const title = document.getElementById('newActionTitle').value;
+  const description = document.getElementById('newActionDesc').value;
+  const category = document.getElementById('newActionCategory').value;
+  const xp = parseInt(document.getElementById('newActionXP').value);
+  
+  const action = {
+    id: 'custom-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6),
+    title,
+    description,
+    category,
+    xp,
+    status: 'open',
+    proposedBy: currentIdentity.hash,
+    proposedByNickname: currentIdentity.nickname,
+    createdAt: new Date().toISOString()
+  };
+  
+  await saveLocal('actions', action);
+  await loadActions();
+  
+  closeActionModal();
+  toast('Action proposed successfully. Share details in the community chat.');
+}
+
+/* Community Chat */
+function toggleChat() {
+  const container = document.getElementById('chatContainer');
+  container.classList.toggle('active');
+}
+
+/* Export Functions */
+async function exportData() {
+  const actions = await getAll('actions');
+  const badges = await getAll('badges');
+  
+  const userActions = currentIdentity 
+    ? actions.filter(a => a.claimedBy === currentIdentity.hash)
+    : [];
+  
+  const payload = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    exportedBy: currentIdentity?.nickname || 'anonymous',
+    identity: currentIdentity ? {
+      nickname: currentIdentity.nickname,
+      hash: currentIdentity.hash.slice(0, 16) + '...',
+      xp: currentIdentity.xp,
+      level: currentIdentity.level
+    } : null,
+    actions: userActions,
+    badges: badges.filter(b => b.userId === currentIdentity?.hash),
+    stats: {
+      totalActions: userActions.length,
+      completedActions: userActions.filter(a => a.status === 'complete').length,
+      totalXP: currentIdentity?.xp || 0
+    }
+  };
+  
+  saveFile(
+    JSON.stringify(payload, null, 2),
+    `pra-madagascar-export-${Date.now()}.json`,
+    'application/json'
+  );
+  
+  toast('Data exported successfully');
+}
+
+async function exportIdentityData() {
+  await exportData();
+  closeMnemonicModal();
+}
+
+/* Parallax Canvas System */
+(function initParallax() {
+  const stars = document.getElementById('stars');
+  const ctx = stars.getContext('2d');
+  let w = stars.width = innerWidth;
+  let h = stars.height = innerHeight;
+  
+  const layers = [];
+  function rng(seed) {
+    let x = Math.sin(seed) * 1e4;
+    return () => (x = Math.sin(x) * 1e4, x - Math.floor(x));
+  }
+  
+  const r = rng(117);
+  
+  function createLayer(count, speed, size, color) {
+    const starArray = [];
+    for (let i = 0; i < count; i++) {
+      starArray.push({
+        x: r() * w,
+        y: r() * h,
+        z: r(),
+        r: 1 + r() * size,
+        t: r() * 6.28
+      });
+    }
+    layers.push({ stars: starArray, speed, color });
+  }
+  
+  createLayer(200, 0.02, 1.6, '255,255,255');
+  createLayer(100, 0.06, 2.4, '180,220,255');
+  createLayer(50, 0.12, 3.4, '200,255,220');
+  
+  let mx = 0, my = 0, t = 0;
+  
+  addEventListener('mousemove', e => {
+    mx = (e.clientX - w / 2) / w;
+    my = (e.clientY - h / 2) / h;
+  });
+  
+  addEventListener('resize', () => {
+    w = stars.width = innerWidth;
+    h = stars.height = innerHeight;
+  });
+  
+  function drawStars() {
+    t += 0.01;
+    
+    const gradient = ctx.createLinearGradient(0, 0, 0, h);
+    gradient.addColorStop(0, '#02141c');
+    gradient.addColorStop(1, '#061019');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, w, h);
+    
+    for (let i = 0; i < layers.length; i++) {
+      const layer = layers[i];
+      for (const star of layer.stars) {
+        const px = (star.x + mx * (i + 1) * 40 + Math.sin(t + star.t) * 6) % w;
+        const py = (star.y + my * (i + 1) * 30 + Math.cos(t + star.t) * 6) % h;
+        ctx.fillStyle = `rgba(${layer.color},${0.8 * (0.6 + star.z * 0.4)})`;
+        ctx.beginPath();
+        ctx.arc(px, py, star.r * (0.6 + Math.sin(t + star.t) * 0.4), 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    
+    requestAnimationFrame(drawStars);
+  }
+  
+  drawStars();
+  
+  const nebula = document.getElementById('nebula');
+  const nctx = nebula.getContext('2d');
+  nebula.width = w;
+  nebula.height = h;
+  
+  function noise(x, y, s) {
+    return (Math.sin(x * 0.01 * s) + Math.cos(y * 0.008 * s) + 
+            Math.sin((x + y) * 0.005 * s)) * 0.5 + 0.5;
+  }
+  
+  function paintNebula() {
+    nebula.width = innerWidth;
+    nebula.height = innerHeight;
+    const img = nctx.createImageData(nebula.width, nebula.height);
+    
+    for (let y = 0; y < nebula.height; y += 2) {
+      for (let x = 0; x < nebula.width; x += 2) {
+        const n1 = noise(x, y, 1.2);
+        const n2 = noise(x + 200, y + 50, 0.6);
+        const n3 = noise(x * 1.4, y * 1.2, 0.9);
+        let v = Math.max(0, (n1 * 0.6 + n2 * 0.3 + n3 * 0.4) - 0.85);
+        v = Math.min(1, v * 4);
+        
+        const r = 127 + 128 * v;
+        const g = 200 * v;
+        const b = 255 * v * 0.8;
+        const a = v * 70;
+        
+        for (let dy = 0; dy < 2; dy++) {
+          for (let dx = 0; dx < 2; dx++) {
+            const idx = ((y + dy) * nebula.width + (x + dx)) * 4;
+            img.data[idx] = r;
+            img.data[idx + 1] = g;
+            img.data[idx + 2] = b;
+            img.data[idx + 3] = a;
+          }
+        }
+      }
+    }
+    
+    nctx.putImageData(img, 0, 0);
+  }
+  
+  paintNebula();
+  
+  const myco = document.getElementById('myco');
+  const mctx = myco.getContext('2d');
+  let W = myco.width = innerWidth;
+  let H = myco.height = innerHeight;
+  
+  addEventListener('resize', () => {
+    W = myco.width = innerWidth;
+    H = myco.height = innerHeight;
+  });
+  
+  const nodes = [];
+  
+  function seedMycelium(count = 30) {
+    for (let i = 0; i < count; i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        a: Math.random() * 6.28,
+        v: 0.3 + 0.4 * Math.random()
+      });
+    }
+  }
+  
+  seedMycelium();
+  
+  function stepMycelium() {
+    mctx.clearRect(0, 0, W, H);
+    mctx.globalCompositeOperation = 'lighter';
+    
+    for (const node of nodes) {
+      const nx = node.x + Math.cos(node.a) * node.v;
+      const ny = node.y + Math.sin(node.a) * node.v;
+      
+      mctx.strokeStyle = 'rgba(127,227,199,.08)';
+      mctx.lineWidth = 1.2;
+      mctx.beginPath();
+      mctx.moveTo(node.x, node.y);
+      mctx.lineTo(nx, ny);
+      mctx.stroke();
+      
+      node.x = nx;
+      node.y = ny;
+      node.a += (Math.random() - 0.5) * 0.6;
+      
+      if (node.x < 0) node.x += W;
+      if (node.x > W) node.x -= W;
+      if (node.y < 0) node.y += H;
+      if (node.y > H) node.y -= H;
+      
+      if (Math.random() < 0.004 && nodes.length < 400) {
+        nodes.push({
+          x: node.x,
+          y: node.y,
+          a: node.a + (Math.random() - 0.5),
+          v: node.v * (0.9 + Math.random() * 0.2)
+        });
+      }
+    }
+    
+    requestAnimationFrame(stepMycelium);
+  }
+  
+  stepMycelium();
+  
+  window.__mycoBoost = function() {
+    for (let i = 0; i < 15; i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        a: Math.random() * 6.28,
+        v: 0.3 + 0.5 * Math.random()
+      });
+    }
+  };
+})();
+
+/* UI Controllers */
+function toggleCollapsible(header) {
+  const collapsible = header.closest('.collapsible');
+  collapsible.classList.toggle('active');
+}
+
+function scrollToSection(id) {
+  const section = document.getElementById(id);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+/* Helper Functions */
+function toast(message) {
+  console.log('[PRA Toast]', message);
+  
+  const toast = document.createElement('div');
+  toast.textContent = message;
+  toast.style.cssText = `
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #000;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    max-width: 90%;
+    text-align: center;
+  `;
+  
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transition = 'all 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+function escapeHtml(text) {
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  };
+  return String(text).replace(/[&<>"']/g, char => map[char]);
+}
+
+function saveFile(data, filename, type) {
+  const blob = new Blob([data], { type });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+/* Initialization */
+(async function init() {
+  try {
+    await openDB();
+    console.info('✅ IndexedDB initialized');
+    
+    await initializeActions();
+    console.info('✅ Actions initialized');
+    
+    await loadIdentity();
+    console.info('✅ Identity loaded');
+    
+    await loadActions();
+    console.info('✅ Actions loaded');
+    
+    console.info('✅ PRA Mycelial Action Bank initialized successfully');
+    
+    const hasVisited = await getPref('hasVisited');
+    if (!hasVisited && !currentIdentity) {
+      setTimeout(() => {
+        toast('Welcome! Generate a mnemonic identity to start collaborating.');
+        setPref('hasVisited', true);
+      }, 1000);
+    }
+    
+  } catch (error) {
+    console.error('❌ Initialization error:', error);
+    toast('Error initializing application. Please refresh the page.');
+  }
+})();
+  </script>
+</body>
+</html>

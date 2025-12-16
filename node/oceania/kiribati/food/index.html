@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- ========= SEO ========= -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Kiribati Food Sovereignty — Gamified Ultra‑Guide</title>
+  <meta name="description" content="A long‑form, offline‑friendly food sovereignty playbook for Kiribati: atoll‑soil gardening, bwabwai pits, breadfruit & pandanus agroforestry, nearshore fisheries & seaweed, preservation, and cold‑chain. Habitica sync, IndexedDB, and an in‑browser WebLLM Food Coach." />
+  <link rel="canonical" href="https://example.org/food/" />
+  <meta name="theme-color" content="#0b0f1a" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Kiribati Food Sovereignty — Gamified Ultra‑Guide" />
+  <meta property="og:description" content="Atoll‑smart gardens, tree crops, fisheries, seaweed, and preservation for Kiribati. Gamified with Habitica + offline AI Coach." />
+  <meta property="og:url" content="https://example.org/food/" />
+  <meta property="og:image" content="https://example.org/assets/og-food-stars.jpg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kiribati Food Sovereignty — Gamified Ultra‑Guide" />
+  <meta name="twitter:description" content="IndexedDB saves, Habitica sync, WebLLM Coach. Made for Tarawa & outer islands." />
+  <meta name="twitter:image" content="https://example.org/assets/og-food-stars.jpg" />
+
+  <!-- JSON‑LD: schema.org + requested presentation schema -->
+  <script type="application/ld+json">
+  {
+    "@context": [
+      "https://schema.org",
+      "https://planetaryrestorationarchive.com/ref/crypto/sol/custom/gpt/rare/peace/engineer/hybrid"
+    ],
+    "@type": "CreativeWork",
+    "name": "Kiribati Food Sovereignty — Gamified Ultra‑Guide",
+    "inLanguage": "en",
+    "genre": ["Guide","Playbook","Serious game"],
+    "about": ["Kiribati","food security","agroforestry","atoll soils","fisheries","seaweed","preservation","nutrition"],
+    "isPartOf": {"@type":"CreativeWorkSeries","name":"Food & Water Sovereignty — Kiribati","url":"../"},
+    "author": {"@type":"Organization","name":"Planetary Restoration Archive","url":"https://planetaryrestorationarchive.com/"},
+    "audience": {"@type":"Audience","audienceType":"Households, schools, clinics, village committees"},
+    "dateCreated": "2025-10-21",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://example.org/food/"
+  }
+  </script>
+
+  <!-- ========= Styles ========= -->
+  <style>
+    :root{
+      --ink:#e6eefc; --muted:#a6b0c9; --glow:#6ac8ff; --accent:#53ffa1;
+      --bg:#04070e; --panel:#0b1220cc; --panelSolid:#0b1220;
+      --link:#92d2ff; --warning:#ffd24d; --danger:#ff6b6b;
+      --good:#69f0ae; --mid:#ffd166; --bad:#ff686b;
+      --card:#111a2e; --cardEdge:#23304d;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    a{color:var(--link)} a:hover{filter:brightness(1.15)}
+    header,nav,main,footer{position:relative;z-index:2}
+    header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:linear-gradient(180deg,#0b1220ee,#0b1220aa 50%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid #1c2a44}
+    header .brand{display:flex;gap:.75rem;align-items:center}
+    header .brand h1{font-size:1rem;margin:0;letter-spacing:.08em;text-transform:uppercase}
+    nav a{margin:0 .5rem;text-decoration:none;border-bottom:1px dotted #2a3e66}
+    .hero{max-width:1200px;margin:8vh auto 0;padding:0 16px;display:grid;gap:1rem}
+    .hero h2{font-size:clamp(1.6rem,2.5vw,2.4rem);margin:.5rem 0}
+    .hero p.lede{color:var(--muted);max-width:70ch}
+    .panel{background:var(--panel);border:1px solid #1b2946;border-radius:16px;padding:18px}
+    .grid{display:grid;gap:1rem}
+    .grid.cols-2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+    .grid.cols-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .badge{display:inline-block;background:#0e1a31;border:1px solid #2a3e66;border-radius:999px;padding:.25rem .6rem;font-size:.8rem}
+    .xp{font-weight:700;color:var(--accent)}
+    .btn{cursor:pointer;display:inline-flex;align-items:center;gap:.5rem;background:#13223f;border:1px solid #2a3e66;border-radius:10px;padding:.6rem .9rem;color:var(--ink);text-decoration:none}
+    .btn.alt{background:#0f1b34;border-color:#365c99}
+    .btn.good{background:#0f2a1d;border-color:#1e8453}
+    .btn.warn{background:#2b210f;border-color:#8b6b1b}
+    .btn.danger{background:#2b1212;border-color:#8b1b1b}
+    .small{font-size:.92rem;color:var(--muted)}
+    .card{background:var(--card);border:1px solid var(--cardEdge);border-radius:12px;padding:14px}
+    .kicker{letter-spacing:.15em;text-transform:uppercase;color:#9db8f5;font-size:.8rem}
+    .quest h3{margin:.2rem 0}
+    .quest .tier{font-size:.85rem;color:var(--muted)}
+    .meter{height:10px;border-radius:999px;background:#172341;overflow:hidden;border:1px solid #2b3f68}
+    .meter > i{display:block;height:100%;background:linear-gradient(90deg,#3ea0ff,#53ffa1)}
+    .list{margin:0;padding-left:1.1rem}
+    .list li{margin:.35rem 0}
+    .aside{font-size:.88rem;color:var(--muted)}
+    .footnote{font-size:.85rem;color:#a5b8e8}
+    .pill{display:inline-block;padding:.15rem .5rem;border:1px solid #294a7a;border-radius:999px;background:#0c162a;color:#a1c8ff}
+    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; background:#0d1a2f;border:1px solid #2c3f63;border-radius:6px;padding:.05rem .35rem}
+    .quote{border-left:3px solid #2f4f88;padding-left:.8rem;color:#baceff}
+    details{background:#0c1427;border:1px solid #22365c;border-radius:10px;padding:.6rem .8rem}
+    details > summary{cursor:pointer}
+    code.pre{display:block;background:#0a0f1d;border:1px solid #1a2a48;border-radius:10px;padding:10px;white-space:pre-wrap;word-break:break-word}
+    .sticky-tools{position:sticky;top:8px;z-index:2}
+    .divider{height:1px;background:#1d2a46;margin:1rem 0}
+
+    /* Starfield canvas */
+    #starfield{position:fixed;inset:0;z-index:0;background:radial-gradient(1200px 800px at 50% 30%,#0b1630 0,#050a16 60%,#02050c 100%)}
+
+    /* Forms & tables */
+    input[type="text"],input[type="number"],input[type="password"],textarea,select{
+      width:100%;background:#0c162a;border:1px solid #2b3f68;color:var(--ink);
+      border-radius:10px;padding:.55rem .65rem
+    }
+    label{display:block;margin:.35rem 0 .2rem}
+    table{width:100%;border-collapse:collapse}
+    th,td{border-bottom:1px solid #203257;padding:.5rem .4rem;text-align:left}
+    th{color:#a8c5ff;font-weight:600}
+
+    /* Chat UI (WebLLM) */
+    #coach{display:grid;gap:.6rem}
+    .chat{max-height:320px;overflow:auto;background:#0a1324;border:1px solid #1f345b;border-radius:10px;padding:.6rem}
+    .chat .msg{margin:.4rem 0}
+    .chat .me{color:#e4ffe8}
+    .chat .bot{color:#cfe0ff}
+    .row{display:flex;gap:.5rem}
+    .row input{flex:1}
+    .tag{font-size:.75rem;border:1px solid #2d4674;color:#a5c5ff;border-radius:999px;padding:.05rem .45rem;background:#0b1630}
+  </style>
+</head>
+
+<body>
+  <!-- ========= STARFIELD ========= -->
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <!-- ========= HEADER / NAV ========= -->
+  <header>
+    <div class="brand">
+      <span class="badge">Sovereignty / Kiribati</span>
+      <h1>Food Playbook</h1>
+    </div>
+    <nav>
+      <a href="../water/index.html">Water</a>
+      <a href="./index.html" aria-current="page">Food</a>
+      <a href="#sources">Sources</a>
+    </nav>
+  </header>
+
+  <!-- ========= HERO ========= -->
+  <section class="hero">
+    <div class="grid cols-2">
+      <div class="panel">
+        <div class="kicker">Ultra‑Guide • Gamified • Offline‑friendly</div>
+        <h2>Food Sovereignty for Kiribati</h2>
+        <p class="lede">
+          Grow nutrition on low‑lying coral atolls: atoll‑soil gardening, bwabwai (giant swamp taro) pits, breadfruit‑pandanus agroforestry, nearshore fisheries & seaweed, and preservation with solar dryers & cold‑chain. Sync <span class="badge">Habitica</span>, save progress in <span class="badge">IndexedDB</span>, and use the in‑browser <span class="badge">WebLLM Food Coach</span>.
+        </p>
+        <div class="grid cols-3">
+          <div class="card">
+            <div class="kicker">Context</div>
+            <p class="small">
+              Most food in South Tarawa is imported; traditional staples include coconut, breadfruit, pandanus, bananas and bwabwai. Atoll soils are shallow, alkaline, low in nutrients. 0
+            </p>
+          </div>
+          <div class="card">
+            <div class="kicker">Health Signal</div>
+            <p class="small">
+              Kiribati faces very high obesity and diabetes burdens; anaemia persists. Local, nutrient‑dense foods + preservation can help. 1
+            </p>
+          </div>
+          <div class="card">
+            <div class="kicker">Protein Supply</div>
+            <p class="small">
+              Nearshore FADs can shift fishing pressure offshore and boost access to pelagic fish; manage ciguatera risk for reef fish. 2
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid sticky-tools">
+        <div class="panel">
+          <div class="kicker">Your Save File</div>
+          <div class="small">Progress lives locally in <b>IndexedDB</b>.</div>
+          <div class="meter" aria-label="overall progress"><i id="overallMeter" style="width:0%"></i></div>
+          <div class="small" id="overallText">0% complete</div>
+          <div class="divider"></div>
+          <button class="btn good" id="exportSave">Export Save</button>
+          <input type="file" id="importFile" style="display:none" />
+          <button class="btn alt" id="importSave">Import Save</button>
+        </div>
+
+        <div class="panel">
+          <div class="kicker">Habitica Sync</div>
+          <label>User ID</label><input id="hab_user" type="text" inputmode="latin" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+          <label>API Token</label><input id="hab_key" type="password" placeholder="••••••••••••••••••••" />
+          <button class="btn" id="hab_connect">Connect</button>
+          <button class="btn warn" id="hab_disconnect">Disconnect</button>
+          <div class="aside">Uses Habitica’s public API to create To‑Dos. Keys stay in your browser. 3</div>
+          <div id="hab_status" class="small"></div>
+        </div>
+
+        <div class="panel" id="coach">
+          <div class="kicker">WebLLM Food Coach</div>
+          <p class="small">Runs in your browser (WebGPU). Choose a compact model for quick starts.</p>
+          <div class="row">
+            <select id="modelSelect" aria-label="Model">
+              <option value="Phi-3-mini-4k-instruct-q4f16_1-MLC" selected>Phi‑3‑mini‑4k‑instruct (q4f16_1)</option>
+              <option value="Llama-3.1-8B-Instruct-q4f32_1-MLC">Llama‑3.1‑8B‑Instruct (q4f32_1)</option>
+            </select>
+            <button class="btn" id="llm_load">Load Coach</button>
+          </div>
+          <div class="meter"><i id="llm_progress" style="width:0%"></i></div>
+          <div class="small" id="llm_msg">Idle</div>
+          <div class="chat" id="chat"></div>
+          <div class="row">
+            <input id="prompt" type="text" placeholder="Ask: design a drought‑tolerant 12 m² microgarden for Betio…" />
+            <button class="btn good" id="ask">Ask</button>
+          </div>
+          <div class="aside">Powered by <code>@mlc-ai/web-llm</code>. 4</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= QUICK NAV ========= -->
+  <section class="hero">
+    <div class="grid cols-3">
+      <a class="btn" href="#level0">Level 0 — Baseline & Nutrition</a>
+      <a class="btn" href="#level1">Level 1 — Atoll‑Soil Gardening</a>
+      <a class="btn" href="#level2">Level 2 — Tree Crops & Agroforestry</a>
+      <a class="btn" href="#level3">Level 3 — Fisheries & Seaweed</a>
+      <a class="btn" href="#level4">Level 4 — Preservation & Cold‑Chain</a>
+      <a class="btn" href="#level5">Level 5 — Markets, Co‑ops & WFS</a>
+      <a class="btn" href="#boss">Boss Fights</a>
+      <a class="btn" href="#calculators">Calculators</a>
+      <a class="btn" href="#sources">Sources</a>
+    </div>
+  </section>
+
+  <!-- ========= LEVEL 0 ========= -->
+  <section class="hero" id="level0">
+    <div class="panel quest">
+      <span class="badge">Level 0</span>
+      <h3>Baseline & Nutrition</h3>
+      <div class="tier">Goal: Track real diets; spotlight nutrient gaps; set targets with local foods.</div>
+      <ul class="list" id="q-l0">
+        <li><input type="checkbox" data-quest="l0" data-xp="20"> 7‑day diet log (household). Count local vs imported (rice, sugar, tinned meat).</li>
+        <li><input type="checkbox" data-quest="l0" data-xp="20"> Screen for risks: diabetes, hypertension; track anaemia in women & girls (clinic data).</li>
+        <li><input type="checkbox" data-quest="l0" data-xp="15"> Set a <b>local foods</b> target: breadfruit/pandanus 3×/week; leafy greens daily; pelagic fish 2×/week.</li>
+        <li><input type="checkbox" data-quest="l0" data-xp="15"> Map sources: gardens, trees, fishers, kiosks; list seasonal gaps.</li>
+      </ul>
+      <button class="btn" data-habitica="l0">Add Level 0 to Habitica</button>
+      <p class="aside">High obesity & diabetes, plus anaemia, make nutrient‑dense local foods strategically important. 5</p>
+    </div>
+  </section>
+
+  <!-- ========= LEVEL 1 ========= -->
+  <section class="hero" id="level1">
+    <div class="panel quest">
+      <span class="badge">Level 1</span>
+      <h3>Atoll‑Soil Gardening</h3>
+      <div class="tier">Goal: Build soil where there is barely any—compost, containers, wicking beds, salt‑smart layouts.</div>
+      <ul class="list" id="q-l1">
+        <li><input type="checkbox" data-quest="l1" data-xp="20"> Make targeted compost for alkaline, low‑organic atoll soils (leaf litter, seaweed, kitchen waste; avoid plastics). 6</li>
+        <li><input type="checkbox" data-quest="l1" data-xp="15"> Raise planting depth: mounds, boxes, or tyre‑fills with compost to improve rooting & moisture. 7</li>
+        <li><input type="checkbox" data-quest="l1" data-xp="15"> Trial salt‑tolerant leafy greens (amaranth, kangkong, bele, chaya) and track winners. 8</li>
+        <li><input type="checkbox" data-quest="l1" data-xp="15"> Add biochar blend for water‑holding & nutrient retention; charcoal from prunings or seaweed biochar. 9</li>
+        <li><input type="checkbox" data-quest="l1" data-xp="15"> Wicking or lined beds to buffer salinity; collect roof rain for irrigation (see /water/).</li>
+      </ul>
+      <button class="btn" data-habitica="l1">Add Level 1 to Habitica</button>
+      <p class="aside">Atoll soils are shallow, alkaline, and nutrient‑poor; compost + depth + carbon are decisive. 10</p>
+    </div>
+  </section>
+
+  <!-- ========= LEVEL 2 ========= -->
+  <section class="hero" id="level2">
+    <div class="panel quest">
+      <span class="badge">Level 2</span>
+      <h3>Tree Crops & Agroforestry</h3>
+      <div class="tier">Goal: Plant the pantry—breadfruit, pandanus, coconut + understorey greens for year‑round calories & micronutrients.</div>
+      <ul class="list" id="q-l2">
+        <li><input type="checkbox" data-quest="l2" data-xp="15"> Map & plant: <b>breadfruit (Artocarpus)</b>, pandanus, coconut, bananas; protect saplings from salt & wind.</li>
+        <li><input type="checkbox" data-quest="l2" data-xp="15"> Use breadfruit guides for nutrition & care; interplant nitrogen‑fixers. 11</li>
+        <li><input type="checkbox" data-quest="l2" data-xp="20"> Maintain/expand <b>bwabwai</b> pits: deep composted pits to water table; correct iron deficiency (rusty iron sources) if needed. 12</li>
+        <li><input type="checkbox" data-quest="l2" data-xp="15"> Layered canopy: tall coconut windbreak → breadfruit → pandanus/bananas → leafy greens below.</li>
+        <li><input type="checkbox" data-quest="l2" data-xp="15"> Household poultry or pigs: integrate manure into compost safely (avoid brackish wells).</li>
+      </ul>
+      <button class="btn" data-habitica="l2">Add Level 2 to Habitica</button>
+      <p class="aside">Breadfruit is calorie‑dense and micronutrient‑rich; one healthy tree can supply substantial annual food. 13</p>
+    </div>
+  </section>
+
+  <!-- ========= LEVEL 3 ========= -->
+  <section class="hero" id="level3">
+    <div class="panel quest">
+      <span class="badge">Level 3</span>
+      <h3>Fisheries & Seaweed</h3>
+      <div class="tier">Goal: Secure protein with safer, steadier access to pelagic fish and diversify with seaweed.</div>
+      <ul class="list" id="q-l3">
+        <li><input type="checkbox" data-quest="l3" data-xp="15"> Deploy/maintain nearshore <b>FADs</b> to target tuna & pelagics; train on safe offshore methods. 14</li>
+        <li><input type="checkbox" data-quest="l3" data-xp="15"> Manage <b>ciguatera</b> risk: prefer pelagics; treat groupers/snappers as higher‑risk in known hot‑spots (Tarawa/Marakei). 15</li>
+        <li><input type="checkbox" data-quest="l3" data-xp="20"> Revive/expand <b>seaweed</b> (Kappaphycus) lines at suitable sites; monitor for ice‑ice disease & grazing. 16</li>
+        <li><input type="checkbox" data-quest="l3" data-xp="15"> Link fisheries to solar‑ice plants on outer islands for quality & income. 17</li>
+        <li><input type="checkbox" data-quest="l3" data-xp="15"> Adopt SSF governance principles (tenure, equity, safety). 18</li>
+      </ul>
+      <button class="btn" data-habitica="l3">Add Level 3 to Habitica</button>
+      <p class="aside">FADs improve efficiency for small‑scale fishers and reduce reef pressure, but need upkeep and monitoring. 19</p>
+    </div>
+  </section>
+
+  <!-- ========= LEVEL 4 ========= -->
+  <section class="hero" id="level4">
+    <div class="panel quest">
+      <span class="badge">Level 4</span>
+      <h3>Preservation & Cold‑Chain</h3>
+      <div class="tier">Goal: Keep nutrients alive—dry, ferment, and chill so local food rides out droughts and shipping gaps.</div>
+      <ul class="list" id="q-l4">
+        <li><input type="checkbox" data-quest="l4" data-xp="15"> Build/operate a <b>solar dryer</b> (chimney/tunnel). Start with pandanus, breadfruit chips, fish jerky. 20</li>
+        <li><input type="checkbox" data-quest="l4" data-xp="15"> Standardize loads & times; log humidity and product weights (fresh→dry). 21</li>
+        <li><input type="checkbox" data-quest="l4" data-xp="20"> Plan ice needs: tropical “rule‑of‑thumb” up to <b>1:1 ice:fish</b> for day trips; more for longer trips. 22</li>
+        <li><input type="checkbox" data-quest="l4" data-xp="20"> Connect to <b>solar ice</b> plants / PV cold rooms where available. 23</li>
+        <li><input type="checkbox" data-quest="l4" data-xp="15"> Food safety SOPs for drying & storage; label batches/dates.</li>
+      </ul>
+      <button class="btn" data-habitica="l4">Add Level 4 to Habitica</button>
+      <p class="aside">Solar dryers and reliable ice extend shelf‑life, cut waste, and stabilize prices for local producers. 24</p>
+    </div>
+  </section>
+
+  <!-- ========= LEVEL 5 ========= -->
+  <section class="hero" id="level5">
+    <div class="panel quest">
+      <span class="badge">Level 5</span>
+      <h3>Markets, Co‑ops & Whole Food Systems (WFS)</h3>
+      <div class="tier">Goal: Community‑level plans that sync gardens, trees, boats, dryers, and cold‑chain into a living food economy.</div>
+      <ul class="list" id="q-l5">
+        <li><input type="checkbox" data-quest="l5" data-xp="20"> Village food systems plan: calendar of breadfruit/pandanus, greens, fish landings, dryer capacity, and ice.</li>
+        <li><input type="checkbox" data-quest="l5" data-xp="15"> Co‑op pricing: fair, posted weights; quality grading; revolving fund for bags, fuel, and spare parts.</li>
+        <li><input type="checkbox" data-quest="l5" data-xp="20"> Align with national strategies (MELAD action frameworks; agriculture + fisheries). 25</li>
+        <li><input type="checkbox" data-quest="l5" data-xp="15"> Data loop: production + nutrition + prices → annual review; add FAD & dryer maintenance budgets.</li>
+        <li><input type="checkbox" data-quest="l5" data-xp="15"> School & clinic procurement targets for local foods (greens, breadfruit, pelagics).</li>
+      </ul>
+      <button class="btn" data-habitica="l5">Add Level 5 to Habitica</button>
+      <p class="aside">Strategy stacks: soil → trees → fish/seaweed → preservation → co‑op → health outcomes.</p>
+    </div>
+  </section>
+
+  <!-- ========= BOSS FIGHTS ========= -->
+  <section class="hero" id="boss">
+    <div class="panel">
+      <span class="badge">Boss Fights</span>
+      <h3>Drought • Salt Inundation • Supply‑Chain Shock • Ciguatera</h3>
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="kicker">Drought</div>
+          <ul class="list" id="boss-drought">
+            <li><input type="checkbox" data-quest="boss" data-xp="10"> Shift calories to breadfruit/pandanus stores & dried chips; plant drought‑hardy greens.</li>
+            <li><input type="checkbox" data-quest="boss" data-xp="10"> Prioritize garden irrigation from rain tanks (see /water/ sizing).</li>
+            <li><input type="checkbox" data-quest="boss" data-xp="10"> Pause new pit planting; protect existing bwabwai pits from over‑draw.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="kicker">Salt Inundation</div>
+          <ul class="list" id="boss-salt">
+            <li><input type="checkbox" data-quest="boss" data-xp="10"> Flush garden beds with fresh rain when available; elevate beds; mulch heavily.</li>
+            <li><input type="checkbox" data-quest="boss" data-xp="10"> Use containers & lined/wicking beds until soils recover. 26</li>
+            <li><input type="checkbox" data-quest="boss" data-xp="10"> Replant with salt‑tolerant species; rebuild compost depth. 27</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="kicker">Supply‑Chain Shock</div>
+          <ul class="list" id="boss-supply">
+            <li><input type="checkbox" data-quest="boss" data-xp="10"> Keep starch reserves (dried breadfruit/pandanus). Dry in batches ahead of cyclone season. 28</li>
+            <li><input type="checkbox" data-quest="boss" data-xp="10"> Stock seed & cuttings calendar; secure dryer and FAD spares.</li>
+            <li><input type="checkbox" data-quest="boss" data-xp="10"> Plan co‑op buying days to stabilize prices.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="kicker">Ciguatera</div>
+          <ul class="list" id="boss-cigua">
+            <li><input type="checkbox" data-quest="boss" data-xp="10"> Prefer pelagic fish from FADs; de‑emphasize high‑risk reef species/locations. 29</li>
+            <li><input type="checkbox" data-quest="boss" data-xp="10"> Community map of safe/unsafe areas; share incidents to update guidance. 30</li>
+            <li><input type="checkbox" data-quest="boss" data-xp="10"> Preserve alternative proteins (dried fish, beans/greens) during outbreaks.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= CALCULATORS ========= -->
+  <section class="hero" id="calculators">
+    <div class="panel">
+      <span class="badge">Tools</span>
+      <h3>Food Calculators</h3>
+
+      <h4>1) Micro‑Garden Yield & Nutrition</h4>
+      <div class="grid cols-3">
+        <div class="card">
+          <label>Bed Area (m²)</label><input type="number" id="gy_area" value="12" min="1" step="1" />
+          <label>Yield (kg/m²/year)</label><input type="number" id="gy_yield" value="15" step="1" />
+          <label>Kcal per kg (avg)</label><input type="number" id="gy_kcalkg" value="400" step="10" />
+          <label>Protein per kg (g)</label><input type="number" id="gy_protkg" value="20" step="1" />
+          <label>Household size</label><input type="number" id="gy_people" value="6" min="1" step="1" />
+          <button class="btn" id="gy_calc">Estimate</button>
+        </div>
+        <div class="card">
+          <div class="kicker">Result</div>
+          <div id="gy_out" class="small">—</div>
+          <p class="footnote">Tune yield & nutrition for your crop mix (leafy vs root crops).</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Tips</div>
+          <p class="small">Depth + compost + shade nets in the dry season; switch cultivars by season; irrigate from roof tanks.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h4>2) Breadfruit Planner</h4>
+      <div class="grid cols-3">
+        <div class="card">
+          <label>Trees</label><input type="number" id="bf_trees" value="4" min="1" />
+          <label>Fruit per tree (per yr)</label><input type="number" id="bf_count" value="80" min="1" />
+          <label>Avg fruit mass (kg)</label><input type="number" id="bf_mass" value="1.5" step="0.1" />
+          <label>Edible fraction</label><input type="number" id="bf_edible" value="0.8" step="0.05" />
+          <button class="btn" id="bf_calc">Estimate</button>
+        </div>
+        <div class="card">
+          <div class="kicker">Result</div>
+          <div id="bf_out" class="small">—</div>
+          <p class="footnote">
+            Breadfruit is rich in complex carbs, fibre and minerals; see agronomy & nutrition guides. 31
+          </p>
+        </div>
+        <div class="card">
+          <div class="kicker">Practice</div>
+          <p class="small">Stagger varieties; dry chips during peaks; interplant N‑fixers; mulch with prunings.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h4>3) Solar Dryer Sizing</h4>
+      <div class="grid cols-3">
+        <div class="card">
+          <label>Fresh Load (kg)</label><input type="number" id="sd_load" value="20" />
+          <label>Drying Rate (kg/m²·day)</label><input type="number" id="sd_rate" value="4" step="0.5" />
+          <label>Dry Fraction (final mass / fresh)</label><input type="number" id="sd_frac" value="0.25" step="0.05" />
+          <label>Available Dryer Area (m²)</label><input type="number" id="sd_area" value="6" step="0.5" />
+          <button class="btn" id="sd_calc">Plan</button>
+        </div>
+        <div class="card">
+          <div class="kicker">Result</div>
+          <div id="sd_out" class="small">—</div>
+          <p class="footnote">
+            Hohenheim tunnel / chimney dryers: see manuals for airflow & hygiene. 32
+          </p>
+        </div>
+        <div class="card">
+          <div class="kicker">Tips</div>
+          <p class="small">Slice uniformly; pre‑treat (citric/salt where appropriate); record moisture loss and taste‑test.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h4>4) Ice Requirement (Day Trip)</h4>
+      <div class="grid cols-3">
+        <div class="card">
+          <label>Fish Weight (kg)</label><input type="number" id="ice_fish" value="200" />
+          <label>Ice:Fish Ratio (0–3)</label><input type="number" id="ice_ratio" value="1" step="0.1" />
+          <button class="btn" id="ice_calc">Calculate</button>
+        </div>
+        <div class="card">
+          <div class="kicker">Result</div>
+          <div id="ice_out" class="small">—</div>
+          <p class="footnote">
+            Tropics “rule‑of‑thumb” up to 1:1 ice:fish; longer trips may use up to 3:1. 33
+          </p>
+        </div>
+        <div class="card">
+          <div class="kicker">Practice</div>
+          <p class="small">Crushed ice, good drainage; pre‑chill boxes; top‑off with slush for quick pull‑down. 34</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h4>5) Seaweed Line Planner</h4>
+      <div class="grid cols-3">
+        <div class="card">
+          <label>Line Length (m)</label><input type="number" id="sw_len" value="100" />
+          <label>Density (kg seed / 10 m)</label><input type="number" id="sw_seed" value="2" step="0.5" />
+          <label>Growth Factor (harvest / seed)</label><input type="number" id="sw_gf" value="7" step="0.5" />
+          <button class="btn" id="sw_calc">Estimate</button>
+        </div>
+        <div class="card">
+          <div class="kicker">Result</div>
+          <div id="sw_out" class="small">—</div>
+          <p class="footnote">
+            Monitor for ice‑ice disease & grazing; site selection matters. 35
+          </p>
+        </div>
+        <div class="card">
+          <div class="kicker">Tips</div>
+          <p class="small">Diversify lines; schedule harvests; trial seaweed compost/biochar for gardens. 36</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= SOURCES ========= -->
+  <section class="hero" id="sources">
+    <div class="panel">
+      <span class="badge">Citations</span>
+      <h3>Key References</h3>
+      <p class="small">
+        Crop & soil context (MELAD/Action Framework; atoll soils): staple lists; shallow, alkaline, low‑organic constraints. 37
+      </p>
+      <p class="small">
+        Bwabwai pits & compost; iron deficiency note. 38
+      </p>
+      <p class="small">
+        Nutrition status: obesity & diabetes high; anaemia prevalence. 39
+      </p>
+      <p class="small">
+        Breadfruit nutrition & production guidance (NTBG/Breadfruit Institute). 40
+      </p>
+      <p class="small">
+        Seaweed (Kappaphycus) farming in Kiribati; risks (ice‑ice, grazing). 41
+      </p>
+      <p class="small">
+        Ciguatera risk (Tarawa/Marakei hotspots; high‑risk species indicators). 42
+      </p>
+      <p class="small">
+        Nearshore FADs for food security; recent SPC meeting notes. 43
+      </p>
+      <p class="small">
+        Solar dryers (Hohenheim/chimney) and small‑scale processing. 44
+      </p>
+      <p class="small">
+        Ice ratios & chilling practice for small vessels. 45
+      </p>
+      <p class="small">
+        Habitica API; WebLLM docs. 46
+      </p>
+    </div>
+  </section>
+
+  <footer class="hero">
+    <div class="panel">
+      <div class="kicker">Notes</div>
+      <p class="small">Informational only; adapt with local extension officers and health providers.</p>
+      <p class="small">Switch to <a href="../water/index.html">/water/</a> for rain tanks, chlorination, RO & lens stewardship.</p>
+    </div>
+  </footer>
+
+  <!-- ========= APP LOGIC (Starfield, IndexedDB, Habitica, Calculators, WebLLM) ========= -->
+  <script>
+  /*********************
+   * Starfield — photorealistic twinkle + parallax
+   *********************/
+  (function(){
+    const c = document.getElementById('starfield');
+    const ctx = c.getContext('2d');
+    let stars=[], w=0, h=0, last=0;
+    function resize(){
+      const dpr = Math.min(2, (window.devicePixelRatio||1));
+      w = c.width = Math.floor(innerWidth*dpr);
+      h = c.height = Math.floor(innerHeight*dpr);
+      c.style.width = innerWidth+'px'; c.style.height = innerHeight+'px';
+      const count = Math.floor((w*h)/9000);
+      stars = [];
+      for(let i=0;i<count;i++){
+        stars.push({
+          x: Math.random()*w, y: Math.random()*h,
+          r: Math.random()*1.5 + 0.2,
+          l: (Math.random()<0.08),
+          s: Math.random()*3+0.5,
+          t: Math.random()*Math.PI*2,
+          layer: (Math.random()<0.6?1:(Math.random()<0.9?2:3))
+        });
+      }
+    }
+    window.addEventListener('resize', resize, {passive:true}); resize();
+    function glow(x,y,r,alpha){
+      const g = ctx.createRadialGradient(x,y,0,x,y,r*3);
+      g.addColorStop(0, `rgba(255,255,255,${alpha})`);
+      g.addColorStop(1, `rgba(0,0,0,0)`);
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x,y,r*3,0,6.283); ctx.fill();
+    }
+    function draw(t){
+      const dt = (t-last)||16; last=t;
+      ctx.clearRect(0,0,w,h);
+      const grad = ctx.createLinearGradient(0,0,w,h);
+      grad.addColorStop(0,'rgba(90,110,170,0.06)');
+      grad.addColorStop(1,'rgba(10,20,40,0.0)');
+      ctx.fillStyle = grad; ctx.fillRect(0,0,w,h);
+
+      ctx.globalCompositeOperation='lighter';
+      for(const s of stars){
+        const tw = 0.4 + 0.6*Math.sin( (t*0.001 + s.t) * (0.8 + s.layer*0.3) );
+        const alpha = 0.3 + 0.7*Math.abs(tw);
+        const size = s.r * (s.l? 1.8:1.0);
+        glow(s.x, s.y, size, 0.04*alpha + (s.l?0.06:0));
+        ctx.fillStyle = `rgba(255,255,255,${0.7*alpha})`;
+        ctx.beginPath(); ctx.arc(s.x,s.y,size,0,6.283); ctx.fill();
+        s.x -= s.s * 0.02 * s.layer;
+        if(s.x< -5) s.x = w+5, s.y = Math.random()*h;
+      }
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
+
+  /*********************
+   * IndexedDB Save System
+   *********************/
+  const DB_NAME='foodSovDB', DB_VER=1;
+  let db=null;
+  function openDB(){
+    return new Promise((resolve,reject)=>{
+      const req = indexedDB.open(DB_NAME, DB_VER);
+      req.onupgradeneeded = e=>{
+        const d = e.target.result;
+        if(!d.objectStoreNames.contains('quests')) d.createObjectStore('quests',{keyPath:'id'});
+        if(!d.objectStoreNames.contains('meta')) d.createObjectStore('meta',{keyPath:'key'});
+      };
+      req.onsuccess = ()=>{ db=req.result; resolve(); };
+      req.onerror = ()=>reject(req.error);
+    });
+  }
+  function saveQuest(id, data){
+    return new Promise((resolve,reject)=>{
+      const tx=db.transaction('quests','readwrite'); tx.objectStore('quests').put({id,...data});
+      tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error);
+    });
+  }
+  function loadQuest(id){
+    return new Promise((resolve,reject)=>{
+      const tx=db.transaction('quests'); const req=tx.objectStore('quests').get(id);
+      req.onsuccess=()=>resolve(req.result||{id,checks:{},xp:0,done:false});
+      req.onerror=()=>reject(req.error);
+    });
+  }
+  function saveMeta(key,val){
+    return new Promise((resolve,reject)=>{
+      const tx=db.transaction('meta','readwrite'); tx.objectStore('meta').put({key,val});
+      tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error);
+    });
+  }
+  function loadMeta(key){
+    return new Promise((resolve,reject)=>{
+      const tx=db.transaction('meta'); const req=tx.objectStore('meta').get(key);
+      req.onsuccess=()=>resolve(req.result?.val); req.onerror=()=>reject(req.error);
+    });
+  }
+
+  /*********************
+   * Progress & Checkboxes
+   *********************/
+  const questLists=['l0','l1','l2','l3','l4','l5','boss'];
+  async function syncCheckboxes(){
+    for(const q of questLists){
+      const ul=document.getElementById('q-'+q)||document.getElementById('boss-'+(q.split('-')[1]||q));
+      if(!ul) continue;
+      const state=await loadQuest(q);
+      (ul.querySelectorAll('input[type="checkbox"]')||[]).forEach((cb,i)=>{
+        const key = 'i'+i;
+        cb.checked = !!state.checks[key];
+        cb.addEventListener('change', async ()=>{
+          state.checks[key]=cb.checked;
+          state.xp = calcXP();
+          state.done = Object.values(state.checks).every(Boolean);
+          await saveQuest(q,state);
+          updateOverall();
+        });
+      });
+    }
+    updateOverall();
+  }
+  function calcXP(){
+    let xp=0;
+    document.querySelectorAll('input[type="checkbox"][data-xp]').forEach(cb=>{
+      if(cb.checked) xp += parseInt(cb.getAttribute('data-xp'),10)||0;
+    });
+    return xp;
+  }
+  async function updateOverall(){
+    const xp = calcXP();
+    const maxXP = Array.from(document.querySelectorAll('[data-xp]')).reduce((a,b)=>a+parseInt(b.getAttribute('data-xp'),10),0);
+    const pct = Math.min(100, Math.round(100* (xp/(maxXP||1))));
+    document.getElementById('overallMeter').style.width=pct+'%';
+    document.getElementById('overallText').textContent=pct+'% complete • '+xp+' XP';
+    await saveMeta('overall',{xp,pct,ts:Date.now()});
+  }
+
+  /*********************
+   * Export / Import Save
+   *********************/
+  document.getElementById('exportSave').addEventListener('click', async ()=>{
+    const dump={quests:{},meta:{}};
+    const tx1 = db.transaction('quests'); const store1 = tx1.objectStore('quests');
+    const req1 = store1.getAll(); await new Promise(r=>{req1.onsuccess=r});
+    (req1.result||[]).forEach(x=>dump.quests[x.id]=x);
+    const tx2 = db.transaction('meta'); const store2 = tx2.objectStore('meta');
+    const req2 = store2.getAll(); await new Promise(r=>{req2.onsuccess=r});
+    (req2.result||[]).forEach(x=>dump.meta[x.key]=x.val);
+    const blob = new Blob([JSON.stringify(dump,null,2)],{type:'application/json'});
+    const a = document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download='food-sovereignty-save.json'; a.click();
+  });
+  document.getElementById('importSave').addEventListener('click', ()=>document.getElementById('importFile').click());
+  document.getElementById('importFile').addEventListener('change', async (e)=>{
+    const file = e.target.files[0]; if(!file) return;
+    const text = await file.text(); const data = JSON.parse(text);
+    const tx1=db.transaction('quests','readwrite'); const s1=tx1.objectStore('quests');
+    for(const k in (data.quests||{})) s1.put(data.quests[k]);
+    const tx2=db.transaction('meta','readwrite'); const s2=tx2.objectStore('meta');
+    for(const k in (data.meta||{})) s2.put({key:k,val:data.meta[k]});
+    await Promise.all([new Promise(r=>{tx1.oncomplete=r}), new Promise(r=>{tx2.oncomplete=r})]);
+    await syncCheckboxes();
+    alert('Save imported.');
+  });
+
+  /*********************
+   * Habitica Integration (To‑Do sync)
+   *********************/
+  const HAB_BASE='https://habitica.com/api/v3';
+  async function habHeaders(){
+    const user = await loadMeta('hab_user'); const key = await loadMeta('hab_key');
+    if(!user || !key) throw new Error('No Habitica credentials stored.');
+    return {'x-api-user':user,'x-api-key':key,'x-client':'kiribati-food-guide','content-type':'application/json'};
+  }
+  async function habCreateTodos(batch){
+    const headers = await habHeaders();
+    for(const task of batch){
+      await fetch(HAB_BASE+'/tasks/user',{method:'POST',headers,body:JSON.stringify(task)});
+    }
+  }
+  function buildTasksFor(levelId){
+    const ul = document.querySelector(`#q-${levelId}`) || document.querySelector(`#boss-${levelId}`);
+    const items = Array.from(ul.querySelectorAll('li')).map(li=>({text:li.innerText.replace(/\s+/g,' ').trim()}));
+    return [{
+      text:`Food Sovereignty — ${levelId.toUpperCase()}`,
+      type:'todo',
+      notes:`Auto‑generated from /food/ guide (${new Date().toISOString()}).`,
+      checklist: items.map(x=>({text:x.text}))
+    }];
+  }
+  document.querySelectorAll('[data-habitica]').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      try{
+        const id=btn.getAttribute('data-habitica');
+        const tasks=buildTasksFor(id);
+        await habCreateTodos(tasks);
+        document.getElementById('hab_status').textContent='Synced to Habitica ✔︎';
+      }catch(err){
+        document.getElementById('hab_status').textContent='Habitica sync failed: '+err.message;
+      }
+    });
+  });
+  document.getElementById('hab_connect').addEventListener('click', async ()=>{
+    await saveMeta('hab_user', document.getElementById('hab_user').value.trim());
+    await saveMeta('hab_key', document.getElementById('hab_key').value.trim());
+    document.getElementById('hab_status').textContent='Credentials saved locally.';
+  });
+  document.getElementById('hab_disconnect').addEventListener('click', async ()=>{
+    await saveMeta('hab_user', null); await saveMeta('hab_key', null);
+    document.getElementById('hab_status').textContent='Credentials cleared.';
+  });
+
+  /*********************
+   * Calculators
+   *********************/
+  function fmt(n){return new Intl.NumberFormat().format(Math.round(n));}
+  // Micro‑Garden
+  document.getElementById('gy_calc').addEventListener('click', ()=>{
+    const A=+gy_area.value, Y=+gy_yield.value, K=+gy_kcalkg.value, P=+gy_protkg.value, N=+gy_people.value;
+    const kgyr = A*Y;
+    const kcalyr = kgyr*K;
+    const protgyr = kgyr*P;
+    const kcalpd = kcalyr/365;
+    const protgpd = protgyr/365;
+    const kcalpp = kcalpd/N, protgpp = protgpd/N;
+    gy_out.innerHTML = `
+      <b>Total harvest:</b> ${fmt(kgyr)} kg/yr<br/>
+      <b>Energy:</b> ${fmt(kcalyr)} kcal/yr (${fmt(kcalpd)} kcal/day) ⇒ ${fmt(kcalpp)} kcal/person/day<br/>
+      <b>Protein:</b> ${fmt(protgyr)} g/yr (${fmt(protgpd)} g/day) ⇒ ${fmt(protgpp)} g/person/day
+      <div class="aside">Adjust for your crop mix; roots and legumes lift kcal & protein.</div>`;
+  });
+  // Breadfruit
+  document.getElementById('bf_calc').addEventListener('click', ()=>{
+    const T=+bf_trees.value, F=+bf_count.value, M=+bf_mass.value, E=+bf_edible.value;
+    const kg = T*F*M*E;
+    const kcal = kg*1030; // ≈1030 kcal/kg cooked pulp (approx; adjust per local data)
+    bf_out.innerHTML = `
+      <b>Edible mass:</b> ${fmt(kg)} kg/yr<br/>
+      <b>Approx energy:</b> ${fmt(kcal)} kcal/yr
+      <div class="aside">Use local variety data where available; see NTBG guides for care & nutrition.</div>`;
+  });
+  // Solar dryer
+  document.getElementById('sd_calc').addEventListener('click', ()=>{
+    const L=+sd_load.value, R=+sd_rate.value, f=+sd_frac.value, A=+sd_area.value;
+    const dryKg = L*f;
+    const areaNeeded = (L/R);
+    const days = Math.max(1, (L/R)/ (A>0? (A/1):1) );
+    sd_out.innerHTML = `
+      <b>Dry product:</b> ${dryKg.toFixed(1)} kg<br/>
+      <b>Area for 1‑day cycle:</b> ${areaNeeded.toFixed(1)} m²<br/>
+      <b>With ${A} m²:</b> ~${days.toFixed(1)} day(s) per batch`;
+  });
+  // Ice
+  document.getElementById('ice_calc').addEventListener('click', ()=>{
+    const fish=+ice_fish.value, r=+ice_ratio.value;
+    const ice = fish*r;
+    ice_out.innerHTML = `<b>Ice needed:</b> ${fmt(ice)} kg (day trip baseline; increase for multi‑day).`;
+  });
+  // Seaweed
+  document.getElementById('sw_calc').addEventListener('click', ()=>{
+    const L=+sw_len.value, seed=+sw_seed.value, gf=+sw_gf.value;
+    const seedKg = (L/10)*seed;
+    const harvest = seedKg*gf;
+    sw_out.innerHTML = `<b>Seed mass:</b> ${seedKg.toFixed(1)} kg • <b>Harvest (est.):</b> ${harvest.toFixed(1)} kg per cycle`;
+  });
+
+  /*********************
+   * WebLLM Food Coach
+   *********************/
+  let engine=null;
+  async function loadCoach(){
+    const model = document.getElementById('modelSelect').value;
+    document.getElementById('llm_msg').textContent='Loading model…';
+    const webllm = await import('https://esm.run/@mlc-ai/web-llm');
+    const initProgressCallback = (p)=>{
+      const pct = Math.floor((p.progress||0)*100);
+      document.getElementById('llm_progress').style.width=pct+'%';
+      document.getElementById('llm_msg').textContent=p.text||('Loading… '+pct+'%');
+    };
+    engine = await webllm.CreateMLCEngine(model,{initProgressCallback});
+    document.getElementById('llm_msg').textContent='Coach ready';
+    postBot("Coach ready. Try: “Design Level 1 beds for salty soils in Abemama—materials list + weekly tasks.”");
+  }
+  function postUser(text){
+    const div=document.createElement('div'); div.className='msg me'; div.textContent='You: '+text;
+    document.getElementById('chat').appendChild(div); document.getElementById('chat').scrollTop=chat.scrollHeight;
+  }
+  function postBot(text){
+    const div=document.createElement('div'); div.className='msg bot'; div.textContent='Coach: '+text;
+    document.getElementById('chat').appendChild(div); document.getElementById('chat').scrollTop=chat.scrollHeight;
+  }
+  async function askCoach(){
+    const q=document.getElementById('prompt').value.trim(); if(!q) return;
+    postUser(q); document.getElementById('prompt').value='';
+    if(!engine){ postBot('Load the coach first.'); return; }
+    const messages=[
+      {role:'system',content:'You are Food Coach for Kiribati (Tarawa + outer islands). Be precise, stepwise, local. Cite targets when relevant (ice:fish ratios, dryer hygiene). Keep answers short and actionable.'},
+      {role:'user',content:q}
+    ];
+    const chunks = await engine.chat.completions.create({messages,stream:true,temperature:0.2});
+    let buf='';
+    for await (const ch of chunks){ buf += (ch.choices?.[0]?.delta?.content||''); document.getElementById('llm_msg').textContent='Thinking…'; }
+    postBot(buf||'(no reply)'); document.getElementById('llm_msg').textContent='Ready';
+  }
+  document.getElementById('llm_load').addEventListener('click', loadCoach);
+  document.getElementById('ask').addEventListener('click', askCoach);
+  document.getElementById('prompt').addEventListener('keydown', (e)=>{ if(e.key==='Enter') askCoach(); });
+
+  /*********************
+   * Init
+   *********************/
+  (async function init(){
+    await openDB();
+    await syncCheckboxes();
+  })();
+  </script>
+</body>
+</html>
